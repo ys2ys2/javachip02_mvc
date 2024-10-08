@@ -1,0 +1,52 @@
+>>> JSP 프로젝트 => Spring MVC 프로젝트 <<<
+
+1. 각 프로젝트에 적용된 기술 및 환경
+
+(1) JSP 프로젝트
+- Servlet 4
+- JSP 2.3
+- Java 17(Java 1.8을 기준으로 개발)
+- DB: MySQL 8.0.39
+- DB연결: DBCP 사용(tomcat의 server.xml에 관련 설정함)
+- 추가된 API: lombok-1.18.30.jar, jstl-1.2.jar
+
+(2) Spring 프로젝트
+- Servlet 4
+- JSP 2.3
+- Java 1.8
+- DB: MySQL 8.0.39
+- DB연결: DBCP 사용(WEB-INF/spring/root-context.xml에 관련 설정함)
+- 추가된 API: lombok-1.18.30.jar, jstl-1.2.jar
+  (pom.xml에 추가할 API를 의존모듈로 추가함)
+
+
+2. pom.xml에 의존모듈을 추가하고 sts3에 lombok 적용하기
+
+(1) "01.[첨부] pom.xml에 dependency 추가 구문" 파일을 참고하여 의존모듈을 추가하고 
+    Maven > Update Project... 실행
+
+(2) lombok-1.18.30.jar 파일이 있는 폴더에서 java -jar lombok-1.18.30.jar 명령 실행
+
+
+3. WEB-INF/spring/root-context.xml 에 DB연결 관련 설정
+- "01.[첨부] root-context.xml에 DB 관련 추가 구문" 파일 참고하여 DB관련 빈 등록
+
+4. MyBatis 관련 폴더와 파일 생성하기
+- src/main/resources 폴더에 config, mapper 폴더 생성
+- config 폴더에 mybatis-config.xml 파일 생성 및 타입 별칭 정의
+- mapper 폴더에는 이전에 구현한  UserMapper.xml 을 복붙해서 MemberMapper.xml로 변경
+- MemberDAO.java 를 MyBatis를 이용하는 구문으로 변경
+
+
+
+
+
+
+
+
+
+
+
+
+
+

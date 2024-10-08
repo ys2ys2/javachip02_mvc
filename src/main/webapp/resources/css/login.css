@@ -1,0 +1,219 @@
+/*  영신 추가 */
+@font-face {
+  font-family: 'NanumSquareRoundB';
+  src: url('../fonts/NanumSquareRoundB.ttf') format('truetype'),
+       url('../fonts/NanumSquareRoundOTFB.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundEB';
+  src: url('../fonts/NanumSquareRoundEB.ttf') format('truetype'),
+       url('../fonts/NanumSquareRoundOTFEB.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundR';
+  src: url('../fonts/NanumSquareRoundR.ttf') format('truetype'),
+       url('../fonts/NanumSquareRoundOTFR.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundL';
+  src: url('../fonts/NanumSquareRoundL.ttf') format('truetype'),
+       url('../fonts/NanumSquareRoundOTFL.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundOTFR';
+  src: url('../fonts/NanumSquareRoundOTFR.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundOTFB';
+  src: url('../fonts/NanumSquareRoundOTFB.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundOTFEB';
+  src: url('../fonts/NanumSquareRoundOTFEB.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundOTFL';
+  src: url('../fonts/NanumSquareRoundOTFL.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+body{
+  font-family: 'NanumSquareRoundR', sans-serif;
+}
+/*  영신 추가 끝 */
+
+
+/* 로그인 페이지 제목 스타일 */
+.bbol-login-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: normal;
+}
+
+
+.bbol-logo {
+  text-align: center;
+  font-size: 36px;
+  margin-top: 140px;
+  font-weight: bold;
+  margin-bottom: 10px; /* 아래 제목과의 간격 */
+}
+
+
+
+/* 로그인 폼 전체 스타일 */
+.bbol-login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+   margin: 10px auto;  /* 기존 폼을 전체적으로 아래로 내림 */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 입력 필드 스타일 */
+.bbol-login-form label {
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+}
+
+.bbol-login-form input[type="text"],
+.bbol-login-form input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;  /* 간격을 줄여서 좀 더 타이트하게 */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* 로그인 버튼 스타일 */
+.bbol-login-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.bbol-login-button:hover {
+  background-color: #333;
+}
+
+/* 로그인 옵션 및 링크 스타일 */
+.bbol-login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 11px;
+  margin-top: 10px;
+}
+
+/* 로그인 옵션 링크 스타일 */
+.bbol-login-options a {
+  color: #333; /* 검은색으로 설정 */
+  text-decoration: none; /* 밑줄 제거 */
+  white-space: nowrap; /* 텍스트 줄바꿈 방지하여 한 줄로 만듭니다 */
+}
+
+.bbol-login-options a:hover {
+  color: #555; /* 마우스 오버 시 조금 더 밝은 색으로 설정 (선택사항) */
+}
+
+
+/* SNS 버튼 스타일 */
+.bbol-sns-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.bbol-sns-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 15px;
+  cursor: pointer;
+  border-radius: 0%;  /* 동그란 모서리 제거, 네모 형태 */
+  object-fit: cover; /* 아이콘 크기 비율 유지 */
+}
+
+/* "또는" 옆에 실선 스타일 */
+.bbol-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 30px 0;
+  width: 100%;
+}
+
+.bbol-divider::before,
+.bbol-divider::after {
+  content: '';
+  flex-grow: 1;
+  border-bottom: 1px solid #ccc; /* 실선 색상 */
+}
+
+.bbol-divider:not(:empty)::before {
+  margin-right: 10px; /* 텍스트와 실선 사이 여백 */
+}
+
+.bbol-divider:not(:empty)::after {
+  margin-left: 10px; /* 텍스트와 실선 사이 여백 */
+}
+
+.bbol-divider span {
+  font-size: 14px;
+  color: #999;
+}
+
+/* 회원가입 유도 문구 스타일 */
+.bbol-signup-prompt {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: #666;
+}
+
+.bbol-signup-prompt span {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.bbol-signup-prompt span:hover {
+  text-decoration: underline;
+}

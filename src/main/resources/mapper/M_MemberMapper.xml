@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.M_MemberMapper">
+
+    <!-- 아이디 중복 검사 -->
+    <select id="checkId" parameterType="string" resultType="int">
+        SELECT COUNT(*) FROM m_member WHERE m_email = #{memberId}
+    </select>
+
+    <!-- 회원 가입 -->
+   <insert id="insertM_Member" parameterType="com.human.web.vo.M_MemberVO" useGeneratedKeys="true" keyProperty="mIdx">
+    INSERT INTO m_member (m_email, m_password, m_nickname, m_status, m_registration_type)
+    VALUES (#{mEmail}, #{mPassword}, #{mNickname}, #{mStatus}, #{mRegistrationType})
+</insert>
+
+</mapper>
