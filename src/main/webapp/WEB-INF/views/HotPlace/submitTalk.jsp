@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
-<%@ page import="dto.TalkDTO" %>
-<%@ page import="dao.TalkDAO" %>
+<%@ page import="com.human.web.vo.TalkVO" %>
+<%@ page import="com.human.web.repository.TalkDAO" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.servlet.http.*" %>
 <%@ page import="java.io.*" %>
@@ -15,7 +15,7 @@
 
 
     // TalkDTO 객체 생성
-    TalkDTO talk = new TalkDTO();
+    TalkVO talk = new TalkVO();
     talk.setTalkNickname(talkNickname);  // 세션에서 가져온 닉네임
     talk.setTalkEmail(talkEmail);        // 세션에서 가져온 이메일
     talk.setTalkText(talkText);          // 입력된 댓글 내용

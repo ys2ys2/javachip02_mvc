@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="dao.CommentDAO, dto.CommentDTO" %>
+<%@ page import="com.human.web.repository.CommentDAO, com.human.web.vo.CommentVO" %>
 <%@ page import="java.util.List" %>
 <%
 int postId = Integer.parseInt(request.getParameter("postId"));

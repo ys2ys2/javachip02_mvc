@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.Connection, java.sql.PreparedStatement, java.sql.SQLException" %>
 <%@ page import="java.util.ArrayList, java.util.List, java.util.Map" %>
-<%@ page import="jdbc.DBCP" %>
+<%@ page import="com.human.web.jdbc.DBCP" %>
 <%@ page import="java.sql.ResultSet" %>
 
 <%

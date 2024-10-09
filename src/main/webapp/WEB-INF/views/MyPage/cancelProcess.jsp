@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
-<%@ page import="java.io.PrintWriter, dto.M_MemberDTO, dao.M_MemberDAO" %>
+<%@ page import="java.io.PrintWriter, com.human.web.vo.M_MemberVO, com.human.web.repository.M_MemberDAO" %>
 
 <!-- useBean 액션태그를 이용해서 MemberDAO 객체 생성하기 -->
-<jsp:useBean id="dao" class="dao.M_MemberDAO" />
+<jsp:useBean id="dao" class="com.human.web.repository.M_MemberDAO" />
 
 <!-- DAO의 cancel()메소드를 실행시키고 결과값을 result 변수에 저장하기 -->
 <c:set var="result" value="${dao.cancel(member)}" />

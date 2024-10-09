@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="dao.PostDAO, dto.PostDTO" %>
+<%@ page import="com.human.web.repository.PostDAO, com.human.web.vo.PostVO" %>
 <%
 String postId = request.getParameter("postId");
     PostDAO postDAO = new PostDAO();
