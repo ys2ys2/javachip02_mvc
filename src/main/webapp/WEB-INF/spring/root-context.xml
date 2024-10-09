@@ -36,6 +36,7 @@
 	    <property name="dataSource" ref="dataSource"/>
 	    <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
 	    <property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml" />
+	    
 	</bean>
 		
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">

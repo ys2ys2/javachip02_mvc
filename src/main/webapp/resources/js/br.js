@@ -365,38 +365,48 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-$(document).ready(function () {
-    // 페이지네이션 버튼 클릭 시
-    $('.pagination').on('click', '.pagination-link', function (e) {
-        e.preventDefault(); // 기본 이벤트 막기 (페이지 새로고침 방지)
-
-        var pageNumber = $(this).data('page'); // 클릭한 페이지 번호 가져오기
-
-        // Ajax 요청을 통해 댓글 가져오기
+$(document).ready(function() {
+    // 페이지네이션 버튼 클릭 시 AJAX 요청
+    $('.pagination').on('click', '.pagination-link', function(e) {
+        e.preventDefault(); // 기본 이벤트 방지 (페이지 새로고침 방지)
+        
+        var page = $(this).data('page'); // 버튼의 data-page 속성에서 페이지 번호 가져오기
+        
         $.ajax({
-            url: 'hotplace2.jsp', // 요청할 서버 측 URL
+            url: contextPath + '/HotPlace/hotplace2/ajax', // URL 설정
             type: 'GET',
-            data: { page: pageNumber },
-            success: function (response) {
-                // 서버에서 가져온 HTML로 댓글 섹션 업데이트
-                var newCommentsSection = $(response).find('.comments-section').html();
-                $('.comments-section').html(newCommentsSection);
+            data: { page: page }, // 페이지 번호 전달
+            success: function(data) {
+                // 서버에서 반환된 데이터로 페이지 내용 업데이트
+                $('.comments-section').html(data.talkList.map(talk => 
+                    `<div class="comment">
+                        <p>${talk.talkText}</p>
+                    </div>`).join('')); // 댓글 리스트 업데이트
 
-                // 페이지 번호도 업데이트
-                var newPagination = $(response).find('.pagination').html();
-                $('.pagination').html(newPagination);
-
-                // 페이지 위치를 이동하지 않음 (단순히 화면을 원하는 위치로 스크롤)
-                $('html, body').animate({
-                    scrollTop: $("#section-talk").offset().top
-                }, 500);
+                // 페이지네이션 업데이트
+                $('.pagination').html(createPagination(data.totalPages, data.currentPage)); // 페이지네이션 업데이트
             },
-            error: function (xhr, status, error) {
-                console.error('댓글 가져오기 오류:', error);
+            error: function(xhr, status, error) {
+                console.log("댓글 가져오기 오류: " + error);
             }
         });
     });
+
+    function createPagination(totalPages, currentPage) {
+        let paginationHtml = '';
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === currentPage) {
+                paginationHtml += `<span class="current-page">${i}</span>`;
+            } else {
+                paginationHtml += `<button class="pagination-link" data-page="${i}">${i}</button>`;
+            }
+        }
+        return paginationHtml;
+    }
 });
+
+
+
 
 
 
