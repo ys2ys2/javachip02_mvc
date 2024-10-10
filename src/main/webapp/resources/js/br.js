@@ -145,105 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-// 댓글 작성하기
-document.addEventListener("DOMContentLoaded", function() {
-    const submitButton = document.getElementById('submitButton');
 
-    if (submitButton) {
-        submitButton.addEventListener('click', function() {
-            const commentText = document.getElementById('commentText');
-            if (commentText) {
-                const commentValue = commentText.value.trim();
-                if (commentValue) {
-                    // 서버로 데이터 전송 (POST 방식)
-                    fetch('submitTalk.jsp', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: 'talkText=' + encodeURIComponent(commentValue) // talkText로 수정
-                    })
-                    .then(response => response.text())
-                    .then(result => {
-                        if (result.trim() === 'success') {
-                            alert('댓글이 성공적으로 등록되었습니다.');
-                            window.location.reload(); // 페이지 새로고침으로 댓글 갱신
-                        } else {
-                            alert('댓글 등록에 실패했습니다.');
-							window.location.reload(); // 페이지 새로고침으로 댓글 갱신
-                        }
-                    })
-                    .catch(error => {
-                        console.error('댓글 등록 중 오류:', error);
-                    });
-                } else {
-                    alert('댓글을 입력해주세요.');
-                }
-            }
-        });
-    }
-});
-
-
-
-
-
-
-// 댓글 삭제하기
-
-document.addEventListener("DOMContentLoaded", function() {
-    // 모든 삭제 버튼에 이벤트 추가
-    const deleteButtons = document.querySelectorAll('.delbtn');
-    
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', function() {
-
-            // 삭제 확인 경고창 표시
-            const confirmDelete = confirm("정말 삭제하시겠습니까?");
-            
-            if (confirmDelete) {
-                // 삭제할 댓글의 ID 가져오기
-                const talkIdx = this.getAttribute("data-talk-id");
-                
-                if (!talkIdx) {
-                    return;
-                }
-                
-                // 서버로 데이터 전송 (POST 방식)
-                fetch('deleteTalk.jsp', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: 'talkIdx=' + encodeURIComponent(talkIdx)
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("네트워크 응답이 올바르지 않습니다.");
-                    }
-                    return response.text();
-                })
-                .then(result => {
-                    if (result.trim() === 'success') {
-                        alert('댓글이 삭제되었습니다.');
-                        window.location.reload(); // 페이지 새로고침으로 댓글 갱신
-                    } else {
-                        alert('댓글이 삭제되었습니다.');
-						window.location.reload(); // 페이지 새로고침으로 댓글 갱신
-                    }
-                })
-                .catch(error => {
-                    console.error('삭제 중 오류:', error); // 삭제 중 발생한 오류 출력
-					window.location.reload(); // 페이지 새로고침으로 댓글 갱신
-
-                });
-            } else {
-                console.log("삭제 취소됨"); // 사용자가 삭제를 취소했는지 확인
-                return;
-            }
-        });
-    });
-});
 
 //댓글 수정하기
 
@@ -365,53 +267,89 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-$(document).ready(function() {
-    // 페이지네이션 버튼 클릭 시 AJAX 요청
-    $('.pagination').on('click', '.pagination-link', function(e) {
-        e.preventDefault(); // 기본 이벤트 방지 (페이지 새로고침 방지)
-        
-        var page = $(this).data('page'); // 버튼의 data-page 속성에서 페이지 번호 가져오기
-        
-        $.ajax({
-            url: contextPath + '/HotPlace/hotplace2/ajax', // URL 설정
-            type: 'GET',
-            data: { page: page }, // 페이지 번호 전달
-            success: function(data) {
-                // 서버에서 반환된 데이터로 페이지 내용 업데이트
-                $('.comments-section').html(data.talkList.map(talk => 
-                    `<div class="comment">
-                        <p>${talk.talkText}</p>
-                    </div>`).join('')); // 댓글 리스트 업데이트
-
-                // 페이지네이션 업데이트
-                $('.pagination').html(createPagination(data.totalPages, data.currentPage)); // 페이지네이션 업데이트
-            },
-            error: function(xhr, status, error) {
-                console.log("댓글 가져오기 오류: " + error);
-            }
-        });
-    });
-
-    function createPagination(totalPages, currentPage) {
-        let paginationHtml = '';
-        for (let i = 1; i <= totalPages; i++) {
-            if (i === currentPage) {
-                paginationHtml += `<span class="current-page">${i}</span>`;
-            } else {
-                paginationHtml += `<button class="pagination-link" data-page="${i}">${i}</button>`;
-            }
-        }
-        return paginationHtml;
-    }
-});
 
 
+	//페이지네이션
+	$(document).ready(function() {
+	    // 페이지네이션 버튼 클릭 시 AJAX 요청
+	    $('.pagination').on('click', '.pagination-link', function(e) {
+	        e.preventDefault(); // 기본 이벤트 방지 (페이지 새로고침 방지)
+	
+	        var page = $(this).data('page'); // 버튼의 data-page 속성에서 페이지 번호 가져오기
+	        
+	        $.ajax({
+	            url: '/BBOL/HotPlace/hotplace2/comments', // URL 설정
+	            type: 'GET',
+	            data: { page: page }, // 페이지 번호 전달
+	            dataType: 'json', // JSON으로 받음
+	            success: function(data) {
+	                console.log("서버에서 받은 data: ", data); // 서버에서 반환된 데이터 출력
+	
+	                var talkList = data.talkList || []; // talkList 배열 가져오기
+	                console.log("talkList 데이터: ", talkList);
+	
+	                if (talkList.length > 0) {
+	                    // 서버에서 반환된 데이터로 페이지 내용 업데이트
+	                    $('.comments-section').html(talkList.map(talk => 
+	                        `<div class="comment" data-talk-id="${talk.talkIdx}">
+	                            <div class="user-info">
+	                                <img src="/BBOL/resources/images/user-placeholder.png" alt="user">
+	                                <span class="username">${talk.talkNickname}</span>
+	                                <span class="date">${talk.talkUpdatedAt ? talk.talkUpdatedAt : talk.talkCreatedAt}</span>
+	                            </div>
+	                            <p class="comment-text">${talk.talkText}</p>
+	                            <textarea class="edit-comment-text" style="display:none;">${talk.talkText}</textarea>
+	                            <div class="comment-actions">
+	                                ${memberEmail == talk.talkEmail ? `
+	                                    <button class="delbtn" data-talk-id="${talk.talkIdx}">삭제하기</button>
+	                                    <button class="editbtn" data-talk-id="${talk.talkIdx}">수정하기</button>
+	                                ` : ''}
+	                                <button class="cancelbtn" data-talk-id="${talk.talkIdx}" style="display:none;">취소하기</button>
+	                                <button class="savebtn" data-talk-id="${talk.talkIdx}" style="display:none;">저장하기</button>
+	                            </div>
+	                        </div>`).join('')); // 댓글 리스트 업데이트
+	                } else {
+	                    console.log("talkList가 비어 있습니다."); // 비어있는 경우 로그 출력
+	                    $('.comments-section').html('<p>댓글이 없습니다.</p>');  // 댓글이 없을 때 처리
+	                }
+	
+	                // 페이지네이션 업데이트
+	                var currentPageNumber = data.currentPageNumber;
+	                var totalPages = data.totalPages;
+	                $('.pagination').html(createPagination(parseInt(totalPages), parseInt(currentPageNumber))); // 페이지네이션 업데이트
+	            },
+	            error: function(xhr, status, error) {
+	                console.log("댓글 가져오기 오류: " + error);
+	            }
+	        });
+	    });
+	});
+	
+	function createPagination(totalPages, currentPage) {
+	    let paginationHtml = '';
+	    for (let i = 1; i <= totalPages; i++) {
+	        if (i === currentPage) {
+	            paginationHtml += `<span class="current-page">${i}</span>`;
+	        } else {
+	            paginationHtml += `<button class="pagination-link" data-page="${i}">${i}</button>`;
+	        }
+	    }
+	    return paginationHtml;
+	}
 
 
-
-
-
-
+	//댓글 삭제 함수
+	function confirmDelete(talkId) {
+	    var confirmAction = confirm("댓글을 삭제하시겠습니까?");
+	    
+	    if (confirmAction) {
+	        // 사용자가 '예'를 선택했을 경우, form을 제출
+	        document.getElementById("deleteForm-" + talkId).submit();
+	    } else {
+	        // '아니오'를 선택했을 경우, 아무 작업도 하지 않음 (form 제출 중단)
+	        return false;
+	    }
+	}
 
 
 

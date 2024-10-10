@@ -32,29 +32,36 @@
 
   <!-- 어두운 배경 -->
   <div class="overlay"></div>
-  <div class="overlay" onclick="toggleSharePopup()"></div>
-
   <header>
     <div class="header-container">
-      <div class="logo" data-ko="BBOL BBOL BBOL" data-en="BBOL BBOL BBOL">BBOL BBOL BBOL</div>
+      <div class="logo">
+        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
+      </div>
       <nav>
         <ul>
-          <li><a href="../HomePage/mainpage.jsp" data-ko="홈" data-en="Home">홈</a></li>
-          <li><a href="#" data-ko="커뮤니티" data-en="Community">커뮤니티</a></li>
-          <li><a href="#" data-ko="여행지" data-en="RecoHotPlace">여행지</a></li>
-          <li><a href="#" data-ko="여행뽈뽈" data-en="BBOL BBOL BBOL">여행뽈뽈</a></li>
-          <button class="search-btn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-          <button class="user-btn" onclick="location.href='${pageContext.request.contextPath}/Login/login'">
-            <i class="fa-solid fa-user"></i>
-          </button>
-          <button class="earth-btn">
-            <i class="fa-solid fa-earth-americas"></i>
-          </button>
-          <button class="korean" id="lang-btn" data-lang="ko">English</button>
+          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
+          <li><a href="#">커뮤니티</a></li>
+          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
+          <li><a href="#">여행뽈뽈</a></li>
         </ul>
       </nav>
+      <div class="member">
+        <c:choose>
+          <c:when test="${not empty sessionScope.member}">
+            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
+            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
+            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
+            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
+              <button type="submit">로그아웃</button>
+            </form>
+          </c:when>
+          <c:otherwise>
+            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
+            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/signup">회원가입</a></span>
+          </c:otherwise>
+        </c:choose>
+      </div>
     </div>
   </header>
 
@@ -146,16 +153,18 @@
 
     <div class="comment-form">
       <c:choose>
-        <c:when test="${not empty sessionScope.memberNickname}">
+        <c:when test="${not empty sessionScope.member.m_nickname}">
           <!-- 로그인된 사용자가 댓글 작성 가능 -->
-          <textarea id="commentText" placeholder="소중한 댓글을 남겨주세요."></textarea>
-          <div class="form-actions">
-            <button class="login-button" id="submitButton">작성하기</button>
-          </div>
+			<form action="${pageContext.request.contextPath}/HotPlace/insert" method="post">
+         	<textarea id="commentText" name="talkText" placeholder="소중한 댓글을 남겨주세요."></textarea>
+         		<div class="form-actions">
+            		<button class="login-button" id="submitButton">작성하기</button>
+          		</div>
+         </form>
         </c:when>
         <c:otherwise>
           <!-- 로그인되지 않은 경우 -->
-          <a href="${pageContext.request.contextPath}/Login/login" onclick="alert('로그인 해 주시길 바랍니다!');">
+          <a href="${pageContext.request.contextPath}/Member/login" onclick="alert('로그인 해 주시길 바랍니다!');">
             <textarea id="commentText" placeholder="로그인 후 소중한 댓글을 남겨주세요." readonly onclick="redirectToLogin()"></textarea>
           </a>
         </c:otherwise>
@@ -176,12 +185,18 @@
           <textarea class="edit-comment-text" style="display:none;">${talk.talkText}</textarea>
 
           <div class="comment-actions">
-            <c:if test="${sessionScope.memberEmail == talk.talkEmail}">
-              <button class="delbtn" data-talk-id="${talk.talkIdx}">삭제하기</button>
-              <button class="editbtn" data-talk-id="${talk.talkIdx}">수정하기</button>
+            <c:if test="${sessionScope.member.m_email == talk.talkEmail}">
+				<form id="deleteForm-${talk.talkIdx}" action="${pageContext.request.contextPath}/HotPlace/delete" method="post">
+					<input type="hidden" name="talkId" value="${talk.talkIdx}" />
+    				<button class="delbtn" data-talk-id="${talk.talkIdx}" onclick="return confirmDelete(${talk.talkIdx})">삭제하기</button>
+			</form>
+				<form id="editForm-${talk.talkIdx}" action="${pageContext.request.contextPath}/HotPlace/update" method="post">
+		            <input type="hidden" name="talkId" value="${talk.talkIdx}" />
+					<button class="editbtn" data-talk-id="${talk.talkIdx}" onclick="editComment(${talk.talkIdx});">수정하기</button>
+            	</form>
             </c:if>
-            <button class="cancelbtn" data-talk-id="${talk.talkIdx}" style="display:none;">취소하기</button>
-            <button class="savebtn" data-talk-id="${talk.talkIdx}" style="display:none;">저장하기</button>
+			<button class="cancelbtn" data-talk-id="${talk.talkIdx}" style="display:none;" onclick="cancelEdit(${talk.talkIdx});">취소하기</button>
+			<button class="savebtn" data-talk-id="${talk.talkIdx}" style="display:none;" onclick="saveComment(${talk.talkIdx});">저장하기</button>
           </div>
         </div>
       </c:forEach>
@@ -243,29 +258,41 @@
     </div>
   </footer>
 
-  <!-- 이미지 슬라이드 JS -->
-  <script>
-    var swiper = new Swiper(".mySwiper", {
-      loop: true,
-      spaceBetween: 10,
-      slidesPerView: 4,
-      freeMode: true,
-      watchSlidesProgress: true,
-    });
-    var swiper2 = new Swiper(".mySwiper2", {
-      loop: true,
-      spaceBetween: 10,
-      navigation: {
-        nextEl: ".custom-next-button", 
-        prevEl: ".custom-prev-button", 
-      },
-      thumbs: {
-        swiper: swiper,
-      },
-    });
-  </script>
+	<!-- 이미지 슬라이드 JS -->
+	<script>
+	  var swiper = new Swiper(".mySwiper", {
+	    loop: true,
+	    spaceBetween: 10,
+	    slidesPerView: 4,
+	    freeMode: true,
+	    watchSlidesProgress: true,
+	  });
+	  var swiper2 = new Swiper(".mySwiper2", {
+	    loop: true,
+	    spaceBetween: 10,
+	    navigation: {
+	      nextEl: ".custom-next-button", 
+	      prevEl: ".custom-prev-button", 
+	    },
+	    thumbs: {
+	      swiper: swiper,
+	    },
+	  });
+	</script>
   
-
+	<script type="text/javascript">
+	    var memberEmail = "${sessionScope.memberEmail}";
+	    var memberNickname = "${sessionScope.memberNickname}";
+	    var memberId = "${sessionScope.memberId}";
+	</script>
+	
+	<c:if test="${not empty message}">
+	  <script>
+	      alert("${message}");
+	  </script>
+	</c:if>
+  
+  
   
 
 </body>

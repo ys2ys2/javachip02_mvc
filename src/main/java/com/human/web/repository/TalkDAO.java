@@ -16,6 +16,7 @@ public class TalkDAO {
     @Autowired
     private SqlSession sqlSession;
     private static final String MAPPER = "com.human.web.mapper.TalkMapper";
+    
 
     // 댓글 리스트 가져오기
     public List<TalkVO> getTalkList(Map<String, Object> params) {

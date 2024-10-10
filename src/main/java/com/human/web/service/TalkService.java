@@ -17,4 +17,6 @@ public interface TalkService {
     int deleteTalk(int talkIdx);	// 댓글 삭제
     
     int updateTalk(int talkIdx, String updatedText);	// 댓글 수정
+    
+    
 }

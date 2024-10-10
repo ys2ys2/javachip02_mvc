@@ -19,7 +19,7 @@ public class HomeController {
 		return "HomePage/mainpage";
 	}
 	
-	@GetMapping("/index.do")
+	@GetMapping("/HomePage/mainpage")
 	public String index() {
 		return "HomePage/mainpage";
 	}
@@ -42,6 +42,12 @@ public class HomeController {
 	@GetMapping("/error/error500.do")
 	public String error500() {
 		return "error/error500";
+	}
+	
+	//영신 inputAapi
+	@GetMapping("/HotPlace/inputApi")
+	public String inputApi() {
+		return "HotPlace/inputApi";
 	}
 	
 	/*
@@ -189,6 +195,8 @@ public class HomeController {
 	public String travel_Seoul() {
 		return "RecoSpot/travel_Seoul";
 	}
+	
+	
 	
 
 }
