@@ -30,6 +30,7 @@
     <c:set var="memberEmail" value="${member.m_email}" scope="session" />
     <c:set var="memberNickname" value="${member.m_nickname}" scope="session" />
     
+    
     <!-- 메인 페이지로 리다이렉트 -->
 <c:redirect url="${pageContext.request.contextPath}/HomePage/mainpage" />
 

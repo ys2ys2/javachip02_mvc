@@ -10,6 +10,7 @@ import java.util.TimeZone;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.human.web.service.TalkService;
+import com.human.web.vo.M_MemberVO;
 import com.human.web.vo.TalkVO;
 
 @Controller
@@ -101,9 +103,15 @@ public class TalkController {
     public String insertTalk(@RequestParam("talkText") String talkText, HttpSession session, RedirectAttributes redirectAttributes) {
         TalkVO talkVO = new TalkVO();
         talkVO.setTalkText(talkText);
-        talkVO.setTalkNickname((String) session.getAttribute("memberNickname")); // 로그인한 사용자 닉네임 가져오기
-        talkVO.setTalkEmail((String) session.getAttribute("memberEmail")); // 로그인한 사용자 이메일 가져오기
+        
+        // 세션에서 로그인할때 저장한 member 객체를 가져오기
+        M_MemberVO member = (M_MemberVO) session.getAttribute("member");
 
+        // TalkVO에 세션 정보 저장
+        talkVO.setTalkNickname(member.getM_nickname());
+        talkVO.setTalkEmail(member.getM_email());
+        talkVO.setTalkProfile(member.getM_profile());
+        
         int result = talkService.insertTalk(talkVO);
 
         if (result > 0) {
@@ -115,35 +123,34 @@ public class TalkController {
         // 댓글 리스트 페이지로 리다이렉트
         return "redirect:/HotPlace/hotplace2";  // hotplace2.jsp로 리다이렉트
     }
-
-    // 댓글 삭제 처리
-    @PostMapping("/delete")
-    public String deleteTalk(@RequestParam("talkId") int talkId, RedirectAttributes redirectAttributes) {
-        // 댓글 삭제 서비스 호출
-        int result = talkService.deleteTalk(talkId);
-        
-        if (result > 0) {
-            redirectAttributes.addFlashAttribute("message", "댓글이 성공적으로 삭제되었습니다.");
-        } else {
-            redirectAttributes.addFlashAttribute("message", "댓글 삭제에 실패했습니다. 다시 시도해주세요.");
-        }
-
-        // 댓글 리스트 페이지로 리다이렉트
-        return "redirect:/HotPlace/hotplace2";
-    }
-
-
-    // 댓글 수정 처리
+    
+    
+    //댓글 수정하기
     @PostMapping("/update")
-    public String updateTalk(@RequestParam("talkIdx") int talkIdx, @RequestParam("updatedText") String updatedText, Model model) {
+    @ResponseBody
+    public ResponseEntity<String> updateTalk(@RequestParam("talkIdx") int talkIdx, 
+                                              @RequestParam("updatedText") String updatedText) {
         int result = talkService.updateTalk(talkIdx, updatedText);
+        
+        System.out.println("Update result for talkIdx " + talkIdx + ": " + result);
+        if (result > 0) {
+            return ResponseEntity.ok("success");
+        } else {
+            return ResponseEntity.ok("failure");
+        }
+    }
+    
+    // 댓글 삭제
+    @PostMapping("/delete")
+    @ResponseBody
+    public ResponseEntity<String> deleteTalk(@RequestParam("talkIdx") int talkIdx) {
+        int result = talkService.deleteTalk(talkIdx);
 
         if (result > 0) {
-            model.addAttribute("message", "댓글이 성공적으로 수정되었습니다.");
+            return ResponseEntity.ok("success");
         } else {
-            model.addAttribute("message", "댓글 수정에 실패했습니다.");
+            return ResponseEntity.ok("failure");
         }
-
-        return "redirect:/HotPlace/hotplace2";  // hotplace2.jsp로 리다이렉트
     }
+    
 }

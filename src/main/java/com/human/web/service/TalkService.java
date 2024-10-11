@@ -19,4 +19,6 @@ public interface TalkService {
     int updateTalk(int talkIdx, String updatedText);	// 댓글 수정
     
     
+    
+    
 }

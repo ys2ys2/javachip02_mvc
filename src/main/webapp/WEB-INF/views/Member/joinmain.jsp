@@ -8,9 +8,9 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <link rel="stylesheet" href="../css/header.css"> <!-- mainpage.css -->
+   <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" type="text/css" href="joinmain.css">
+  <link href="${pageContext.request.contextPath}/resources/css/joinmain.css" rel="stylesheet" type="text/css">
     <title>회원가입 메인페이지</title>
 </head>
 <body>
@@ -33,7 +33,7 @@
         <c:choose>
           <c:when test="${not empty sessionScope.member}">
             <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <span>${sessionScope.member.m_nickname}님 환영합니다!</span>
+            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
             <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
             <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
               <button type="submit">로그아웃</button>
@@ -42,13 +42,12 @@
           <c:otherwise>
             <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
             <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/signup">회원가입</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
           </c:otherwise>
         </c:choose>
       </div>
     </div>
   </header>
-  <!-- 메인 시작 부분 -->
 
 
    <!-- 회원가입 폼 -->
@@ -62,7 +61,7 @@
         </button>
 
         <!-- 이메일 가입 버튼 -->
-        <button type="button" class="email-button" onclick="location.href='join.jsp'">이메일로 가입</button>
+        <a href="${pageContext.request.contextPath}/Member/join"><button type="button" class="email-button" onclick="location.href='join.jsp'">이메일로 가입</button></a>
 
         <!-- 또는 구분선 -->
         <div class="join-divider">
@@ -77,7 +76,7 @@
         </div>
 
         <!-- 로그인 유도 문구 -->
-        <p class="login-prompt">이미 계정이 있으신가요? <span onclick="location.href='../Login/login.jsp'">로그인</span></p>
+        <p class="login-prompt">이미 계정이 있으신가요? <a href="${pageContext.request.contextPath}/Member/login"><span onclick="location.href='../Login/login.jsp'">로그인</span></a></p>
     </form>
 </div>
  <!-- 카카오 SDK 추가 -->
@@ -134,7 +133,6 @@
     </script>
 </body>
 <!-- 외부 JavaScript 파일 불러오기 -->
-<script src="../components/header.js"></script>
-<script src="../components/lang-toggle.js"></script>
-<script src="../user.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
+   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
 </html>

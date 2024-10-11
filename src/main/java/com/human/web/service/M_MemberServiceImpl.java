@@ -18,8 +18,8 @@ public class M_MemberServiceImpl implements M_MemberService {
 
 
     @Override
-    public int insertM_Member(M_MemberVO vo) {
-    	return dao.insertM_Member(vo);
+    public int insertM_Member(M_MemberVO memberVO) {
+    	return dao.insertM_Member(memberVO);
     }
 
 
@@ -30,5 +30,17 @@ public class M_MemberServiceImpl implements M_MemberService {
 		map.put("m_password", m_password);
 		
 		return dao.login(map);
+	}
+
+	//이메일 중복체크 
+	@Override
+	public int checkId(String m_email) {
+		return dao.checkId(m_email);
+	}
+
+	//닉네임 중복체크 
+	@Override
+	public int checkNickname(String m_nickname) {
+		return dao.checkNickname(m_nickname);
 	}
 }

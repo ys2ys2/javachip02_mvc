@@ -32,6 +32,7 @@
       </nav>
       <div class="member">
         <c:choose>
+        
           <c:when test="${not empty sessionScope.member}">
             <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
             <span>${sessionScope.member.m_nickname}님 환영합니다!</span>

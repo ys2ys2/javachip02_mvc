@@ -2,16 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css"> <!-- header.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/join.css">
-    
     <title>이메일 회원가입</title>
 </head>
 <body>
@@ -34,7 +32,7 @@
         <c:choose>
           <c:when test="${not empty sessionScope.member}">
             <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <span>${sessionScope.member.m_nickname}님 환영합니다!</span>
+            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
             <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
             <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
               <button type="submit">로그아웃</button>
@@ -43,59 +41,116 @@
           <c:otherwise>
             <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
             <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/signup">회원가입</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
           </c:otherwise>
         </c:choose>
       </div>
     </div>
   </header>
-  <!-- 메인 시작 부분 -->
 
 <script type="text/javascript">
-function email_ok(email) {
-    console.log("입력된 이메일: ", email);
+$(document).ready(function() {
+    var contextPath = "${pageContext.request.contextPath}";
 
+    // 이메일 중복 체크
+    $('#email').on('blur', function() {
+        var email = $(this).val();
+        if (email !== '') {
+            $.ajax({
+                type: 'POST',
+                url: contextPath + "/Member/checkId", // 이메일 중복 체크할 URL
+                data: { m_email: email },
+                dataType: "text",
+                success: function(response) {
+                    console.log("이메일 중복 체크 응답: " + response);
+                    if (response === 'FAIL') {
+                        $('#emailMsg').text('이미 사용 중인 이메일입니다.').css('display', 'block');
+                        $('#submitBtn').prop('disabled', true);  // 가입 버튼 비활성화
+                    } else {
+                        $('#emailMsg').css('display', 'none');
+                        $('#submitBtn').prop('disabled', false);  // 가입 버튼 활성화
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('AJAX 요청 오류:', error);
+                }
+            });
+        } else {
+            $('#emailMsg').css('display', 'none');
+            $('#submitBtn').prop('disabled', true);
+        }
+    });
+
+    // 닉네임 중복 체크
+    $('#nickname').on('blur', function() {
+        var nickname = $(this).val();
+        if (nickname !== '') {
+            $.ajax({
+                type: 'POST',
+                url: contextPath + "/Member/checkNickname", // 닉네임 중복 체크할 URL
+                data: { m_nickname: nickname },
+                dataType: "text",
+                success: function(response) {
+                    console.log("닉네임 중복 체크 응답: " + response);
+                    if (response === 'FAIL') {
+                        $('#nicknameMsg').text('이미 사용 중인 닉네임입니다.').css('display', 'block');
+                        $('#submitBtn').prop('disabled', true);  // 가입 버튼 비활성화
+                    } else {
+                        $('#nicknameMsg').css('display', 'none');
+                        $('#submitBtn').prop('disabled', false);  // 가입 버튼 활성화
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('AJAX 요청 오류:', error);
+                }
+            });
+        } else {
+            $('#nicknameMsg').css('display', 'none');
+            $('#submitBtn').prop('disabled', true);
+        }
+    });
+
+});
+
+// 이메일 인증
+function email_ok(email) {
+    var contextPath = '<%= request.getContextPath() %>';
     if (!email || email === "") {
         alert("이메일을 입력하세요.");
         return;
     }
 
-    var contextPath = '<%= request.getContextPath() %>';
-
     $.ajax({
         type: "POST",
-        url: contextPath + "/mailSend",  // 서버의 컨텍스트 경로 + 서블릿 경로
-        data: { receiver: email },  // 서버로 전송할 데이터 (이메일)
-        dataType: "text",  // 서버에서 텍스트 형식의 응답을 받을 때
+        url: contextPath + "/mailSend",
+        data: { receiver: email },
+        dataType: "text",
         success: function(response) {
-            console.log("서버 응답: ", response);
             if (response === "이메일 전송 성공") {
-                // 이메일 전송 성공 메시지 화면에 표시
-                alert("이메일이 성공적으로 전송되었습니다. 계속해서 가입을 진행하세요.");
+                alert("이메일이 성공적으로 전송되었습니다.");
             } else {
-                alert("이메일 전송에 실패했습니다. 다시 시도해주세요.");
+                alert("이메일 전송에 실패했습니다.");
             }
         },
         error: function(xhr, status, error) {
-            console.log("AJAX 오류: ", error);  // 오류 로그 출력
-            alert("서버 오류: " + error);
+            console.log("AJAX 오류:", error);
         }
     });
 }
-// 인증번호 확인 함수
-function verifyCode() {
-    var inputCode = document.getElementById("authCode").value; // 사용자가 입력한 인증번호
 
+// 인증번호 확인
+function verifyCode() {
+    var inputCode = document.getElementById("authCode").value;
     var contextPath = '<%= request.getContextPath() %>';
     
     $.ajax({
         type: "POST",
-        url: contextPath +"/verifyCode",  // VerifyCode 서블릿에 요청
-        data: { authCode: inputCode },  // 사용자가 입력한 인증번호 전달
+        url: contextPath + "/verifyCode",
+        data: { authCode: inputCode },
         success: function(response) {
             if (response === "success") {
-                alert("인증이 완료되었습니다. 회원가입을 진행하세요.");
-                document.getElementById("submitBtn").disabled = false; // 회원가입 버튼 활성화
+                alert("인증이 완료되었습니다.");
+                document.getElementById("submitBtn").disabled = false; 
             } else {
                 alert("인증번호가 일치하지 않습니다.");
             }
@@ -105,80 +160,21 @@ function verifyCode() {
         }
     });
 }
-
-function checkCode(){
-    var v1 = document.getElementById("code_check").value;
-    var v2 = document.getElementById("code").value;
-
-    if(v1 != v2){
-        document.getElementById('checkCode').style.color = "red";
-        document.getElementById('checkCode').innerHTML = "잘못된 인증번호";
-        makeNull();
-    }else{
-        document.getElementById('checkCode').style.color = "green";
-        document.getElementById('checkCode').innerHTML = "인증번호가 확인되었습니다";
-        makeReal();
-    }
-}
-
-function makeReal(){
-    var hi = document.getElementById("hi");
-    hi.type = "submit";
-}
-
-function makeNull(){
-    var hi = document.getElementById("hi");
-    hi.type = "hidden";
-}
-
-$(document).ready(function() {
-    // 이메일 입력 후 포커스가 벗어날 때 이메일 중복 체크 AJAX 요청
-    $('#email').on('blur', function() {
-        var email = $(this).val();
-        if (email !== '') {
-            $.ajax({
-                type: 'POST',
-                url: '<%= request.getContextPath() %>/checkEmail.jsp',  // 이메일 중복 체크할 JSP 또는 서블릿 경로
-                data: { email: email },
-                dataType: "text", 
-                success: function(response) {
-                    if (response === 'exists') {
-                        $('#emailMsg').text('이미 사용 중인 이메일입니다.').show();
-                        $('#submitBtn').prop('disabled', true);  // 가입 버튼 비활성화
-                    } else {
-                        $('#emailMsg').hide();
-                        $('#submitBtn').prop('disabled', false);  // 가입 버튼 활성화
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log('AJAX 요청 오류:', error);
-                }
-            });
-        } else {
-            $('#emailMsg').hide();
-            $('#submitBtn').prop('disabled', true);
-        }
-    });
-});
-    
-
 </script>
 
-
-
 <h1>회원가입</h1>
-
 
 <div class="join-form-container">
   <h1>이메일 가입</h1>
   
-  <form class="joinForm" name="joinForm" method="post" action="${pageContext.request.contextPath}/SignUp/joinProcess">
+  <form class="joinForm" name="joinForm" method="post" action="${pageContext.request.contextPath}/Member/joinProcess" **onsubmit="return sendit();"**>
     <!-- 이메일 -->
     <label for="email">이메일</label>
     <div class="auth-button-group">
-      <input type="text" id="email" name="email" placeholder="아이디로 사용할 이메일을 입력해 주세요." required>
+      <input type="text" id="email" name="m_email" placeholder="아이디로 사용할 이메일을 입력해 주세요." required>
       <button type="button" onclick="email_ok(document.getElementById('email').value)">인증번호 전송</button>
     </div>
+    <span id="emailMsg" class="error-msg" style="color: red; display: none;"></span> <!-- 이메일 유효성 메시지 -->
 
     <!-- 인증번호 -->
     <label for="authCode">인증번호</label>
@@ -186,30 +182,37 @@ $(document).ready(function() {
       <input type="text" id="authCode" name="authCode" placeholder="이메일로 받은 인증번호를 입력해 주세요." required>
       <button type="button" onclick="verifyCode()">인증하기</button>
     </div>
-
+    
     <!-- 닉네임 -->
     <label for="nickname">닉네임</label>
-    <input type="text" id="nickname" name="nickname" placeholder="영문, 숫자, 한글 2-7자" required>
-
+    <input type="text" id="nickname" name="m_nickname" placeholder="영문, 숫자, 한글 2-7자" required>
+    <span id="nicknameMsg" class="error-msg" style="color: red; display: none;"></span> <!-- 닉네임 유효성 메시지 -->
+    
     <!-- 비밀번호 -->
     <label for="password">비밀번호</label>
-    <input type="password" id="password" name="password" placeholder="영문, 숫자, 특수문자가 모두 들어간 8-20자" required>
-    <input type="password" id="password_re" name="password_re" placeholder="비밀번호를 한 번 더 입력해 주세요." required>
+    <input type="password" id="password" name="m_password" placeholder="영문, 숫자, 특수문자가 모두 들어간 8-20자" required>
+    <span id="passwordMsg" class="error-msg" style="color: red; display: none;"></span> <!-- 비밀번호 유효성 메시지 -->
+
+    <!-- 비밀번호 확인 -->
+    <label for="password_re">비밀번호 확인</label>
+    <input type="password" id="password_re" name="m_password_re" placeholder="비밀번호를 한 번 더 입력해 주세요." required>
+    <span id="passwordReMsg" class="error-msg" style="color: red; display: none;"></span> <!-- 비밀번호 확인 메시지 -->
+
 
 
     <div class="terms-container">
-      <input type="checkbox" id="agree_all"> 전체 동의
+      <input type="checkbox" id="agree_all" onclick="checkAll(this)"> 전체 동의
       <div class="terms-list">
         <label>
-          <input type="checkbox"> 이용약관 동의
+          <input type="checkbox" id="agree_terms"> 이용약관 동의
           <a href="javascript:void(0);" class="terms-link" onclick="openTermsModal('terms')">전문보기</a>
         </label>
         <label>
-          <input type="checkbox"> 개인정보 수집·이용 동의
+          <input type="checkbox" id="agree_privacy"> 개인정보 수집·이용 동의
           <a href="javascript:void(0);" class="terms-link" onclick="openTermsModal('privacy')">전문보기</a>
         </label>
         <label>
-          <input type="checkbox"> 마케팅 메일 수신 동의 (선택)
+          <input type="checkbox" id="agree_marketing"> 마케팅 메일 수신 동의 (선택)
           <a href="javascript:void(0);" class="terms-link" onclick="openTermsModal('marketing')">전문보기</a>
         </label>
       </div>
@@ -225,16 +228,61 @@ $(document).ready(function() {
     </div>
     
 
+	
     <!-- 가입 완료 버튼 -->
     <button type="submit" id="submitBtn">가입</button>
   </form>
+  
+  <!-- 성공 메시지 출력 -->
+<c:if test="${not empty msg}">
+    <script>
+        alert('${msg}');  // 성공 메시지를 alert로 표시
+    </script>
+</c:if>
+
+<script>  
+    // 전체 동의 체크박스 선택 시 나머지 체크박스들도 모두 선택
+  function checkAll(checkbox) {
+    const terms = document.getElementById("agree_terms");
+    const privacy = document.getElementById("agree_privacy");
+    const marketing = document.getElementById("agree_marketing");
+
+    terms.checked = checkbox.checked;
+    privacy.checked = checkbox.checked;
+    marketing.checked = checkbox.checked;
+
+    toggleSubmitButton();
+  }
+
+  // 필수 항목 체크 시 가입 버튼 활성화/비활성화
+  function toggleSubmitButton() {
+    const terms = document.getElementById("agree_terms").checked;
+    const privacy = document.getElementById("agree_privacy").checked;
+    const submitBtn = document.getElementById("submitBtn");
+
+    // 필수 항목이 모두 체크되었을 때만 가입 버튼 활성화
+    if (terms && privacy) {
+      submitBtn.disabled = false;
+    } else {
+      submitBtn.disabled = true;
+    }
+  }
+
+  // 각 개별 체크박스가 변경될 때에도 가입 버튼을 활성화/비활성화 처리
+  document.getElementById("agree_terms").addEventListener("change", toggleSubmitButton);
+  document.getElementById("agree_privacy").addEventListener("change", toggleSubmitButton);
+
+  // 모달 열기/닫기 함수는 생략
+</script>
+  
+  
 </div>
 
 
 
 </body>
-<script src="${pageContext.request.contextPath}/resources/js/header.js"></script> <!-- header.js -->
-<script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script> <!-- lang-toggle.js -->
-<script src="${pageContext.request.contextPath}/resources/js/user.js"></script> <!-- user.js -->
-<script src="${pageContext.request.contextPath}/resources/js/join.js"></script> <!-- join.js도 추가 -->
+<script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/user.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/join.js"></script>
 </html>

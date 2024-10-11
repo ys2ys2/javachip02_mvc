@@ -11,7 +11,8 @@
 	        talk_idx AS talkIdx, 
 	        talk_nickname AS talkNickname, 
 	        talk_email AS talkEmail, 
-	        talk_text AS talkText, 
+	        talk_text AS talkText,
+	        talk_profile as talkProfile,
 	        talk_created_at AS talkCreatedAt, 
 	        talk_updated_at AS talkUpdatedAt
 	    FROM talk
@@ -26,8 +27,8 @@
 
     <!-- 댓글 삽입 -->
     <insert id="insertTalk" parameterType="com.human.web.vo.TalkVO">
-        INSERT INTO talk (talk_nickname, talk_email, talk_text)
-        VALUES (#{talkNickname}, #{talkEmail}, #{talkText})
+        INSERT INTO talk (talk_nickname, talk_email, talk_text, talk_profile)
+        VALUES (#{talkNickname}, #{talkEmail}, #{talkText}, #{talkProfile})
     </insert>
 
     <!-- 댓글 삭제 -->
@@ -38,7 +39,8 @@
     <!-- 댓글 수정 -->
     <update id="updateTalk" parameterType="map">
         UPDATE talk 
-        SET talk_text = #{updatedText} 
+        SET talk_text = #{updatedText},
+        talk_updated_at = NOW()
         WHERE talk_idx = #{talkIdx}
     </update>
     

@@ -8,10 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.human.web.vo.M_MemberVO;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Repository // 데이터베이스 작업을 담당하는 클래스에 붙여줌
-@RequiredArgsConstructor // Lombok으로 의존성 자동 주입을 위한 생성자 생성
+@RequiredArgsConstructor
+@AllArgsConstructor// Lombok으로 의존성 자동 주입을 위한 생성자 생성
 public class M_MemberDAO {
 
     // MyBatis의 SqlSession 객체를 이용해서 DBCP 사용
@@ -21,20 +23,17 @@ public class M_MemberDAO {
     // MyBatis의 Mapper와 연결하기 위해 사용되는 상수 정의
     public static final String MAPPER = "com.human.web.mapper.M_MemberMapper";
 
-	/*
-	 * // 아이디 중복 검사 public int checkId(String memberId) { try { return
-	 * sqlSession.selectOne(MAPPER + ".checkId", memberId); } catch (Exception e) {
-	 * System.out.println("아이디 중복검사 중 예외 발생: " + e.getMessage()); return 0; } }
-	 */
+	
 
     // 회원 가입
-    public int insertM_Member(M_MemberVO vo) {
+    public int insertM_Member(M_MemberVO memberVO) {
+    	 System.out.println("M_MemberDAO - insertM_Member 호출됨");
         
         int result = 0;
         try {
-            result = sqlSession.insert(MAPPER + ".insertM_Member", vo);
+            result = sqlSession.insert(MAPPER + ".insertM_Member", memberVO);
             if (result > 0) {
-                return vo.getM_idx();  // 삽입 후 자동 생성된 m_idx 반환
+                return memberVO.getM_idx();  // 삽입 후 자동 생성된 m_idx 반환
             }
         } catch (Exception e) {
             System.out.println("회원정보 입력 중 예외 발생: " + e.getMessage());
@@ -57,4 +56,35 @@ public class M_MemberDAO {
 		return vo;
 	
 		}
+
+
+
+	public int checkId(String m_email) {
+		int result= 0;
+		 try {
+			result = sqlSession.selectOne(MAPPER+".checkId", m_email);
+			
+		} catch (Exception e) {
+			System.out.println("아이디 중복검사 중 예외 발생"+ e.getMessage());
+			  e.printStackTrace();  // 스택 트레이스 출력
+		}
+		
+		return result;
+		
+		 
+	}
+
+
+	public int checkNickname(String m_nickname) {
+		int result =0;
+	
+		try {
+			result = sqlSession.selectOne(MAPPER+".checkNickname", m_nickname);
+		} catch (Exception e) {
+			System.out.println("닉네임 중복 검사 중 예외 발생"+e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
   }

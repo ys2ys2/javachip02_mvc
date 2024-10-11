@@ -171,38 +171,34 @@
       </c:choose>
     </div>
 
-    <div class="comments-section">
-      <c:forEach var="talk" items="${talkList}">
-        <div class="comment" data-talk-id="${talk.talkIdx}">
-          <div class="user-info">
-            <img src="${pageContext.request.contextPath}/resources/images/user-placeholder.png" alt="user">
-            <span class="username">${talk.talkNickname}</span>
-            <span class="date">
-              <fmt:formatDate value="${talk.talkUpdatedAt != null ? talk.talkUpdatedAt : talk.talkCreatedAt}" pattern="yyyy-MM-dd HH:mm" />
-            </span>
-          </div>
-          <p class="comment-text">${talk.talkText}</p>
-          <textarea class="edit-comment-text" style="display:none;">${talk.talkText}</textarea>
+<div class="comments-section">
+  <c:forEach var="talk" items="${talkList}">
+    <div class="comment" data-talk-id="${talk.talkIdx}">
+      <div class="user-info">
+        <!-- DB에 저장된 프로필 사진 가져오기 -->
+        <img src="${talk.talkProfile}" alt="user-profile">
+        <span class="username">${talk.talkNickname}</span>
+        <span class="date">
+          <!-- 수정일이 없으면 생성일을 표시 -->
+          <fmt:formatDate value="${talk.talkUpdatedAt != null ? talk.talkUpdatedAt : talk.talkCreatedAt}" pattern="yyyy-MM-dd HH:mm" />
+        </span>
+      </div>
+      <p class="comment-text">${talk.talkText}</p>
+      <textarea class="edit-comment-text" style="display:none;">${talk.talkText}</textarea>
 
-          <div class="comment-actions">
-            <c:if test="${sessionScope.member.m_email == talk.talkEmail}">
-				<form id="deleteForm-${talk.talkIdx}" action="${pageContext.request.contextPath}/HotPlace/delete" method="post">
-					<input type="hidden" name="talkId" value="${talk.talkIdx}" />
-    				<button class="delbtn" data-talk-id="${talk.talkIdx}" onclick="return confirmDelete(${talk.talkIdx})">삭제하기</button>
-			</form>
-				<form id="editForm-${talk.talkIdx}" action="${pageContext.request.contextPath}/HotPlace/update" method="post">
-		            <input type="hidden" name="talkId" value="${talk.talkIdx}" />
-					<button class="editbtn" data-talk-id="${talk.talkIdx}" onclick="editComment(${talk.talkIdx});">수정하기</button>
-            	</form>
-            </c:if>
-			<button class="cancelbtn" data-talk-id="${talk.talkIdx}" style="display:none;" onclick="cancelEdit(${talk.talkIdx});">취소하기</button>
-			<button class="savebtn" data-talk-id="${talk.talkIdx}" style="display:none;" onclick="saveComment(${talk.talkIdx});">저장하기</button>
-          </div>
+      <div class="comment-actions">
+        <!-- 세션에 저장된 member의 m_email 값과 talk의 talkEmail 값을 비교 -->
+        <c:if test="${sessionScope.member.m_email eq talk.talkEmail}">
+                    <button class="delbtn" data-talk-id="${talk.talkIdx}">삭제하기</button>
+                    <button class="editbtn" data-talk-id="${talk.talkIdx}">수정하기</button>
+                </c:if>
+                <button class="cancelbtn" data-talk-id="${talk.talkIdx}" style="display:none;">취소하기</button>
+                <button class="savebtn" data-talk-id="${talk.talkIdx}" style="display:none;">저장하기</button> 
+            </div>
         </div>
-      </c:forEach>
-    </div>
+    </c:forEach>
+</div>
 
-  </div>
 
   <!-- 페이지네이션 -->
   <div class="pagination">

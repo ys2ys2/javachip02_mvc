@@ -138,9 +138,13 @@
   color: #007bff;
   cursor: pointer;
   font-weight: bold;
+  text-decoration: none; 
 }
 
 .login-prompt span:hover {
   text-decoration: underline;
+}
+.login-prompt a{
+	text-decoration: none; 
 }
 

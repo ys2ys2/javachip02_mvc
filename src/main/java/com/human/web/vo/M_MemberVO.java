@@ -17,4 +17,5 @@ public class M_MemberVO {
 	    private String m_nickname;         // 닉네임
 	    private String m_status = "active"; // 사용자 상태
 	    private String m_registration_type; // 가입 방식
+	    private String m_profile;			// 프사
 }
