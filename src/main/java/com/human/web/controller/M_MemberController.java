@@ -48,7 +48,7 @@ public class M_MemberController {
 
         // 회원가입 성공 여부 확인 (m_idx가 0보다 크면 성공)
         if (result > 0) {
-            viewName = "redirect:/index.do"; // 성공 시 메인 페이지로 리다이렉트
+            viewName = "redirect:/"; // 성공 시 메인 페이지로 리다이렉트
         } else {
             // 회원가입 실패 시 오류 메시지를 모델에 저장
             model.addAttribute("msg", "회원가입이 정상적으로 이루어지지 않았습니다.");

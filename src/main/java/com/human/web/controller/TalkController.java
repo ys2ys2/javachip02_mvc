@@ -51,7 +51,7 @@ public class TalkController {
 
         // 모델에 데이터 추가하여 JSP에 전달
         model.addAttribute("talkList", talkList);
-        model.addAttribute("itemList", itemList);
+        model.addAttribute("itemList", itemList);	// mapx, mapy가 포함된 itemList
         model.addAttribute("currentPageNumber", page);
         model.addAttribute("totalTalkCount", totalTalkCount);
         model.addAttribute("totalPages", totalPages);
@@ -98,29 +98,37 @@ public class TalkController {
     }
 
 
-    // 댓글 작성 처리
+    // 댓글 작성
     @PostMapping("/insert")
     public String insertTalk(@RequestParam("talkText") String talkText, HttpSession session, RedirectAttributes redirectAttributes) {
-        TalkVO talkVO = new TalkVO();
-        talkVO.setTalkText(talkText);
         
-        // 세션에서 로그인할때 저장한 member 객체를 가져오기
+        // TalkVO 객체 생성
+        TalkVO talkVO = new TalkVO();  // 사용자가 입력한 댓글 데이터를 담을 객체 생성
+        talkVO.setTalkText(talkText);  // 사용자가 입력한 댓글 내용(talkText)을 TalkVO 객체에 저장
+        
+        // 세션에서 로그인할 때 저장된 member 객체 가져오기
+        // 세션에 로그인한 사용자의 정보(M_MemberVO)를 저장해 두었으므로 그 정보를 꺼내옴
         M_MemberVO member = (M_MemberVO) session.getAttribute("member");
 
-        // TalkVO에 세션 정보 저장
-        talkVO.setTalkNickname(member.getM_nickname());
-        talkVO.setTalkEmail(member.getM_email());
-        talkVO.setTalkProfile(member.getM_profile());
+        // TalkVO 객체에 세션에서 가져온 로그인한 사용자의 정보를 저장
+        // 로그인한 사용자의 닉네임, 이메일, 프로필 이미지를 TalkVO에 저장
+        talkVO.setTalkNickname(member.getM_nickname());  // 로그인한 사용자의 닉네임 설정
+        talkVO.setTalkEmail(member.getM_email());        // 로그인한 사용자의 이메일 설정
+        talkVO.setTalkProfile(member.getM_profile());    // 로그인한 사용자의 프로필 이미지 설정
         
+        // 댓글 데이터를 DB에 삽입하는 서비스 호출
+        // TalkService의 insertTalk() 메서드를 호출하여 TalkVO 객체를 전달, 댓글 데이터를 DB에 삽입
         int result = talkService.insertTalk(talkVO);
 
-        if (result > 0) {
-            redirectAttributes.addFlashAttribute("message", "댓글이 성공적으로 등록되었습니다.");
-        } else {
-            redirectAttributes.addFlashAttribute("message", "댓글 등록에 실패했습니다. 다시 시도해주세요.");
+        // 댓글 등록 성공 여부에 따라 메시지를 설정하고 리다이렉트할 때 전달
+        if (result > 0) {  // 댓글 등록 성공 시
+            redirectAttributes.addFlashAttribute("message", "댓글이 성공적으로 등록되었습니다.");  // 성공 메시지 추가
+        } else {  // 댓글 등록 실패 시
+            redirectAttributes.addFlashAttribute("message", "댓글 등록에 실패했습니다. 다시 시도해주세요.");  // 실패 메시지 추가
         }
 
         // 댓글 리스트 페이지로 리다이렉트
+        // 성공/실패 후 댓글 리스트가 표시되는 페이지(hotplace2.jsp)로 리다이렉트
         return "redirect:/HotPlace/hotplace2";  // hotplace2.jsp로 리다이렉트
     }
     

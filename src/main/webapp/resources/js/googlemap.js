@@ -1,6 +1,8 @@
 // DB에 저장된 값으로 위경도 가져오기
 // Google Maps API를 이용해 지도를 초기화하는 함수
 window.initMap = function() {
+        
+        
     // mapx와 mapy 변수가 정의되어 있는지 확인
 	    if (typeof mapx !== 'undefined' && typeof mapy !== 'undefined' && mapx && mapy) {
 	        // 위도와 경도 설정
@@ -8,7 +10,8 @@ window.initMap = function() {
 	        var longitude = parseFloat(mapx);
 
 	        // 쉼표로 구분된 첫 번째 이미지 URL 가져오기
-	        var firstImageUrl = firstimage.trim();
+        	var firstImageUrl = firstimage.split(",")[0].trim();  // 첫 번째 이미지만 사용
+	        
 
 	        // 지도 초기화
 	        var mapOptions = {
@@ -74,3 +77,5 @@ function addCustomMarker(map, latitude, longitude, imageUrl) {
     };
     customMarker.setMap(map);
 }
+
+

@@ -30,6 +30,8 @@
 
 <body>
 
+
+
   <!-- 어두운 배경 -->
   <div class="overlay"></div>
   <header>
@@ -58,7 +60,7 @@
           <c:otherwise>
             <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
             <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/signup">회원가입</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/join">회원가입</a></span>
           </c:otherwise>
         </c:choose>
       </div>
@@ -71,6 +73,13 @@
       <c:forEach var="item" items="${itemList}">
         <h2>${item.title}</h2> <!-- 제목 -->
         <h3>${item.addr1}</h3> <!-- 장소 -->
+        
+        <!-- mapx와 mapy 값을 자바스크립트로 전달 -->
+        <script type="text/javascript">
+            var mapx = "${item.mapx}";
+            var mapy = "${item.mapy}";
+            var firstimage = "${item.firstimage}";
+        </script>
       </c:forEach>
     </div>
     <div class="h_icons">
@@ -84,6 +93,39 @@
         <img src="${pageContext.request.contextPath}/resources/images/share.png" alt="share">
       </button>
     </div>
+    
+    
+        <!-- 공유하기 팝업 -->
+	<div id="sharePopup" class="share-popup">
+	    <div class="share-popup-content">
+	        <div class="share-header">
+	            <span>공유하기</span>
+	            <button class="close-btn" onclick="toggleSharePopup()">×</button>
+	        </div>
+	        <div class="share-options">
+    			<div class="share-option" onclick="shareToFacebook()">
+	                <img src="${pageContext.request.contextPath}/resources/images/share_facebook.png" alt="페이스북">
+	                <span>페이스북</span>
+	            </div>
+	            <div class="share-option" onclick="shareToX()">
+	                <img src="${pageContext.request.contextPath}/resources/images/share_x.png" alt="엑스">
+	                <span>엑스</span>
+	            </div>
+	            <div class="share-option" onclick="shareToKakao()">
+	                <img src="${pageContext.request.contextPath}/resources/images/share_kakaotalk.png" alt="카카오톡">
+	                <span>카카오톡</span>
+	            </div>
+	            <div class="share-option" onclick="shareToBand()">
+	                <img src="${pageContext.request.contextPath}/resources/images/share_band.png" alt="밴드">
+	                <span>밴드</span>
+	            </div>
+	        </div>
+	        <div class="share-url">
+	            <input type="text" value=" " id="shareUrl" readonly>
+	            <button onclick="copyUrl()">URL 복사</button>
+	        </div>
+	    </div>
+	</div>
 
     <!-- 네비바 부분 -->
     <div class="h_section-container">
@@ -155,12 +197,12 @@
       <c:choose>
         <c:when test="${not empty sessionScope.member.m_nickname}">
           <!-- 로그인된 사용자가 댓글 작성 가능 -->
-			<form action="${pageContext.request.contextPath}/HotPlace/insert" method="post">
-         	<textarea id="commentText" name="talkText" placeholder="소중한 댓글을 남겨주세요."></textarea>
-         		<div class="form-actions">
-            		<button class="login-button" id="submitButton">작성하기</button>
-          		</div>
-         </form>
+          <form action="${pageContext.request.contextPath}/HotPlace/insert" method="post">
+            <textarea id="commentText" name="talkText" placeholder="소중한 댓글을 남겨주세요."></textarea>
+            <div class="form-actions">
+              <button class="login-button" id="submitButton">작성하기</button>
+            </div>
+          </form>
         </c:when>
         <c:otherwise>
           <!-- 로그인되지 않은 경우 -->
@@ -171,125 +213,123 @@
       </c:choose>
     </div>
 
-<div class="comments-section">
-  <c:forEach var="talk" items="${talkList}">
-    <div class="comment" data-talk-id="${talk.talkIdx}">
-      <div class="user-info">
-        <!-- DB에 저장된 프로필 사진 가져오기 -->
-        <img src="${talk.talkProfile}" alt="user-profile">
-        <span class="username">${talk.talkNickname}</span>
-        <span class="date">
-          <!-- 수정일이 없으면 생성일을 표시 -->
-          <fmt:formatDate value="${talk.talkUpdatedAt != null ? talk.talkUpdatedAt : talk.talkCreatedAt}" pattern="yyyy-MM-dd HH:mm" />
-        </span>
-      </div>
-      <p class="comment-text">${talk.talkText}</p>
-      <textarea class="edit-comment-text" style="display:none;">${talk.talkText}</textarea>
+    <div class="comments-section">
+      <c:forEach var="talk" items="${talkList}">
+        <div class="comment" data-talk-id="${talk.talkIdx}">
+          <div class="user-info">
+            <!-- DB에 저장된 프로필 사진 가져오기 -->
+            <img src="${talk.talkProfile}" alt="user-profile">
+            <span class="username">${talk.talkNickname}</span>
+            <span class="date">
+              <!-- 수정일이 없으면 생성일을 표시 -->
+              <fmt:formatDate value="${talk.talkUpdatedAt != null ? talk.talkUpdatedAt : talk.talkCreatedAt}" pattern="yyyy-MM-dd HH:mm" />
+            </span>
+          </div>
+          <p class="comment-text">${talk.talkText}</p>
+          <textarea class="edit-comment-text" style="display:none;">${talk.talkText}</textarea>
 
-      <div class="comment-actions">
-        <!-- 세션에 저장된 member의 m_email 값과 talk의 talkEmail 값을 비교 -->
-        <c:if test="${sessionScope.member.m_email eq talk.talkEmail}">
-                    <button class="delbtn" data-talk-id="${talk.talkIdx}">삭제하기</button>
-                    <button class="editbtn" data-talk-id="${talk.talkIdx}">수정하기</button>
-                </c:if>
-                <button class="cancelbtn" data-talk-id="${talk.talkIdx}" style="display:none;">취소하기</button>
-                <button class="savebtn" data-talk-id="${talk.talkIdx}" style="display:none;">저장하기</button> 
-            </div>
+          <div class="comment-actions">
+            <!-- 세션에 저장된 member의 m_email 값과 talk의 talkEmail 값을 비교 -->
+            <c:if test="${sessionScope.member.m_email eq talk.talkEmail}">
+              <button class="delbtn" data-talk-id="${talk.talkIdx}">삭제하기</button>
+              <button class="editbtn" data-talk-id="${talk.talkIdx}">수정하기</button>
+            </c:if>
+            <button class="cancelbtn" data-talk-id="${talk.talkIdx}" style="display:none;">취소하기</button>
+            <button class="savebtn" data-talk-id="${talk.talkIdx}" style="display:none;">저장하기</button>
+          </div>
         </div>
-    </c:forEach>
-</div>
-
-
-  <!-- 페이지네이션 -->
-  <div class="pagination">
-    <c:forEach var="i" begin="1" end="${totalPages}">
-      <c:choose>
-        <c:when test="${i == currentPageNumber}">
-          <span class="current-page">${i}</span>
-        </c:when>
-        <c:otherwise>
-          <button class="pagination-link" data-page="${i}">${i}</button>
-        </c:otherwise>
-      </c:choose>
-    </c:forEach>
-  </div>
-
-  <!-- 푸터 부분 -->
-  <footer>
-    <div class="footer-container">
-      <div class="footer-section">
-        <h4>회사소개</h4>
-        <ul>
-          <li><a href="#">회사소개</a></li>
-          <li><a href="#">브랜드 이야기</a></li>
-          <li><a href="#">채용공고</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>고객지원</h4>
-        <ul>
-          <li><a href="#">공지사항</a></li>
-          <li><a href="#">자주묻는 질문</a></li>
-          <li><a href="#">문의하기</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>이용약관</h4>
-        <ul>
-          <li><a href="#">이용약관</a></li>
-          <li><a href="#">개인정보처리방침</a></li>
-          <li><a href="#">저작권 보호정책</a></li>
-        </ul>
-      </div>
-      <div class="footer-company-info">
-        <p>상호: (주)BBOL | 대표: 박예슬 | 사업자등록번호: 123-45-67890 | 개인정보관리 책임자: 수수옥</p>
-        <p>주소: 충청남도 천안시 동남구 123 | 이메일: support@BBOL3.com | 대표전화: 02-1234-5678</p>
-        <p>© 2024 BBOLBBOLBBOL. All Rights Reserved.</p>
-      </div>
-      <div class="footer-social">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-      </div>
+      </c:forEach>
     </div>
-  </footer>
 
-	<!-- 이미지 슬라이드 JS -->
-	<script>
-	  var swiper = new Swiper(".mySwiper", {
-	    loop: true,
-	    spaceBetween: 10,
-	    slidesPerView: 4,
-	    freeMode: true,
-	    watchSlidesProgress: true,
-	  });
-	  var swiper2 = new Swiper(".mySwiper2", {
-	    loop: true,
-	    spaceBetween: 10,
-	    navigation: {
-	      nextEl: ".custom-next-button", 
-	      prevEl: ".custom-prev-button", 
-	    },
-	    thumbs: {
-	      swiper: swiper,
-	    },
-	  });
-	</script>
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+      <c:forEach var="i" begin="1" end="${totalPages}">
+        <c:choose>
+          <c:when test="${i == currentPageNumber}">
+            <span class="current-page">${i}</span>
+          </c:when>
+          <c:otherwise>
+            <button class="pagination-link" data-page="${i}">${i}</button>
+          </c:otherwise>
+        </c:choose>
+      </c:forEach>
+    </div>
+
+    <!-- 푸터 부분 -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section">
+          <h4>회사소개</h4>
+          <ul>
+            <li><a href="#">회사소개</a></li>
+            <li><a href="#">브랜드 이야기</a></li>
+            <li><a href="#">채용공고</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>고객지원</h4>
+          <ul>
+            <li><a href="#">공지사항</a></li>
+            <li><a href="#">자주묻는 질문</a></li>
+            <li><a href="#">문의하기</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>이용약관</h4>
+          <ul>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보처리방침</a></li>
+            <li><a href="#">저작권 보호정책</a></li>
+          </ul>
+        </div>
+        <div class="footer-company-info">
+          <p>상호: (주)BBOL | 대표: 박예슬 | 사업자등록번호: 123-45-67890 | 개인정보관리 책임자: 수수옥</p>
+          <p>주소: 충청남도 천안시 동남구 123 | 이메일: support@BBOL3.com | 대표전화: 02-1234-5678</p>
+          <p>© 2024 BBOLBBOLBBOL. All Rights Reserved.</p>
+        </div>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- 이미지 슬라이드 JS -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+      });
+      var swiper2 = new Swiper(".mySwiper2", {
+        loop: true,
+        spaceBetween: 10,
+        navigation: {
+          nextEl: ".custom-next-button", 
+          prevEl: ".custom-prev-button", 
+        },
+        thumbs: {
+          swiper: swiper,
+        },
+      });
+    </script>
   
-	<script type="text/javascript">
-	    var memberEmail = "${sessionScope.memberEmail}";
-	    var memberNickname = "${sessionScope.memberNickname}";
-	    var memberId = "${sessionScope.memberId}";
-	</script>
-	
-	<c:if test="${not empty message}">
-	  <script>
-	      alert("${message}");
-	  </script>
-	</c:if>
-  
-  
-  
+    <script type="text/javascript">
+        var memberEmail = "${sessionScope.memberEmail}";
+        var memberNickname = "${sessionScope.memberNickname}";
+        var memberId = "${sessionScope.memberId}";
+    </script>
+    
+    <c:if test="${not empty message}">
+      <script>
+          alert("${message}");
+      </script>
+    </c:if>
+
+  </div>
 
 </body>
 </html>

@@ -44,24 +44,7 @@ public class HomeController {
 		return "error/error500";
 	}
 	
-	//영신 inputAapi
-	@GetMapping("/HotPlace/inputApi")
-	public String inputApi() {
-		return "HotPlace/inputApi";
-	}
-	
-	/*
-	 * //영신 핫플1(api호출만 있는 페이지)
-	 * 
-	 * @GetMapping("/HotPlace/hotplace") public String hotplace() { return
-	 * "HotPlace/hotplace"; }
-	 * 
-	 * //영신 핫플2(DB 저장되어있는 페이지)
-	 * 
-	 * @GetMapping("/HotPlace/hotplace2") public String hotplace2() { return
-	 * "HotPlace/hotplace2"; }
-	 */
-	
+
 	//예슬 로그인 페이지
 	@GetMapping("/Login/login")
 	public String login() {
