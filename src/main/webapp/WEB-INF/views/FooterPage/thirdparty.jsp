@@ -1,19 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
-<!DOCTYPE html>
 
+
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 
 	<link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
   	<link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet" type="text/css">
-	<link href="${pageContext.request.contextPath}/resources/css/introduce.css" rel="stylesheet" type="text/css">
+  	<link href="${pageContext.request.contextPath}/resources/css/clause.css" rel="stylesheet" type="text/css">
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BBOL BBOL BBOL 회사소개</title>
-
+<title>개인정보 제3자 제공 동의</title>
 </head>
 <body>
 
@@ -50,101 +48,37 @@
     </div>
   </header>
   
-<div class="introduce">
-
-	<div class="introimg"
-		style="background-image: url('${pageContext.request.contextPath}/resources/images/introimg.png');">
-		<h2>회사 소개</h2>
-		<h1>뽈뽈뽈 소개</h1>
+  
+  <div class="clause">
+  
+  	<div class="introimg"
+		style="background-image:url('${pageContext.request.contextPath}/resources/images/clausemain.jpg');">
+		<h2>뽈뽈뽈 약관</h2>
+		<h1>개인정보 제3자 제공 동의</h1>
 	</div>
 	
 	<!-- 네비바 부분 -->
-    <div class="i_section-container">
-      <ul class="i_navbar">
-        <li class="i_nav-item"><a href="${pageContext.request.contextPath}/FooterPage/introduce">회사소개</a></li>
-        <li class="i_nav-item"><a href="${pageContext.request.contextPath}/HotPlace/inputApi" target="_blank" >공공데이터 API</a></li>
-        <li class="i_nav-item"><a href="#">공지사항</a></li>
-        <li class="i_nav-item"><a href="mailto:support@BBOL3.com">제휴문의</a></li>
+    <div class="c_section-container">
+      <ul class="c_navbar">
+        <li class="c_nav-item"><a href="${pageContext.request.contextPath}/FooterPage/clause" target="_blank">이용약관</a></li>
+        <li class="c_nav-item"><a href="${pageContext.request.contextPath}/FooterPage/privacy" target="_blank" >개인정보 수집 및 이용 동의</a></li>
+        <li class="c_nav-item"><a href="${pageContext.request.contextPath}/FooterPage/thirdparty">개인정보 제3자 제공 동의</a></li>
+        <li class="c_nav-item"><a href="${pageContext.request.contextPath}/FooterPage/marketing" target="_blank">광고성 정보 수신동의</a></li>
       </ul>
+  	</div>
+  
+  <div class="third-party_text">
+  1. 회사는 이용자의 개인정보를 본 처리방침 제2조에서 고지한 범위 내에서 사용하며, 이용자의 사전 동의 없이는 동 범위를 초과하여 이용하거나, 원칙적으로 이용자의 개인정보를 외부에 제공하지 않습니다. 단, 개인정보 보호법 제17조 및 제18조 등 법률의 특별한 규정에 해당하는 경우에만 개인정보를 제3자에게 제공합니다. 
+  <br><br>
+  2. 이용자는 개인정보의 제3자 제공에 대하여 동의하지 않을 수 있고, 언제든지 제3자 제공 동의를 철회할 수 있습니다. 동의를 거부하는 경우에도 일부 서비스는 이용할 수 있으나, 제3자 제공에 기반한 관련 서비스의 이용/제공이 제한될 수 있습니다.
+  <br><br>
+  
+  </div>
+ 
+  
+  
   </div>
   
-
-  <div class="introduce-main">
-    <div class="introduce-mainintro">
-      <img src="${pageContext.request.contextPath}/resources/images/intromain.jpg" alt="소개 이미지"> <!-- 추가한 이미지 -->
-    </div>
-    <div class="introduce-text">
-      <h2>세상의 모든 여행</h2>
-      <p>뽈뽈뽈은 전세계 여행자들이 우리의 플랫폼을 통해<br>
-      	 콘텐츠와 여행 기록을 공유하고, 서로의 정보를 나누는 생태계를 만들어 갑니다.</p>
-      <p>사용자가 만들어가는 사용자를 위한 콘텐츠 플랫폼,<br>
-      	 뽈뽈뽈이 만드는 또다른 세상입니다.</p>
-    </div>
-  </div>
-  
-  <div class="centertext">
-  	<h1>뽈뽈뽈</h1>
-  	<h3>세상 모든 여행자를 위한 여행 플랫폼</h3>
-  </div>
-  
-  <div class="introduce-content">
-    <div class="introduce-text">
-      <h2>공공데이터를 활용한<br>
-      	  여행지 추천</h2>
-      <p>당신이 찾는 모든 여행 정보!<br>
-      	 공공데이터로 여행지를 추천받고<br>
-      	 직접 여행 일정까지 만들 수 있는 플랫폼!</p>
-    </div>
-    <div class="introduce-company">
-      <img src="${pageContext.request.contextPath}/resources/images/intro01.jpg" alt="소개 이미지"> <!-- 추가한 이미지 -->
-    </div>
-  </div>
-  
-  <div class="introduce-content">
-    <div class="introduce-company">
-      <img src="${pageContext.request.contextPath}/resources/images/intro02.jpg" alt="소개 이미지"> <!-- 추가한 이미지 -->
-    </div>
-    <div class="introduce-text">
-      <h2>내가 만드는 여행일정</h2>
-      <p>언제, 어디를, 누구와, 어떻게<br>
-      	 쉽고 빠르게 만드는 여행 일정</p>
-    </div>
-  </div>
-  
-  <div class="introduce-content">
-    <div class="introduce-text">
-      <h2>우리들이 쓰는 여행기</h2>
-      <p>소소한 일상부터 여행지에서의 추억을<br>
-      	 기록하고 공유하는 여행기</p>
-    </div>
-    <div class="introduce-company">
-      <img src="${pageContext.request.contextPath}/resources/images/intro03.jpg" alt="소개 이미지"> <!-- 추가한 이미지 -->
-    </div>
-  </div>
-  
-   <div class="introduce-content">
-   	<div class="introduce-company">
-      <img src="${pageContext.request.contextPath}/resources/images/intro04.jpg" alt="소개 이미지"> <!-- 추가한 이미지 -->
-   	</div>
-    <div class="introduce-text">
-      <h2>모두의 커뮤니티</h2>
-      <p>여행을 사랑하는 사람들과 나누는<br>
-      	 생생한 여행 공유 공간</p>
-    </div>
-  </div>
-  
-  
-  
-
-
-	
-  
-</div>
-
-
-
-
-
 
 <!-- 푸터 부분 -->
 <footer>
@@ -194,6 +128,9 @@
     
   </div>
 </footer>
+
+
+
 
 
 

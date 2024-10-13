@@ -275,14 +275,16 @@
             <li><a href="#">문의하기</a></li>
           </ul>
         </div>
-        <div class="footer-section">
-          <h4>이용약관</h4>
-          <ul>
-            <li><a href="#">이용약관</a></li>
-            <li><a href="#">개인정보처리방침</a></li>
-            <li><a href="#">저작권 보호정책</a></li>
-          </ul>
-        </div>
+	    <!-- 이용약관 -->
+	    <div class="footer-section">
+	      <h4>이용약관</h4>
+	      <ul>
+	        <li><a href="${pageContext.request.contextPath}/FooterPage/clause" target="_blank">이용약관</a></li>
+	        <li><a href="${pageContext.request.contextPath}/FooterPage/privacy" target="_blank">개인정보처리방침</a></li>
+	        <li><a href="${pageContext.request.contextPath}/FooterPage/marketing" target="_blank">광고성 정보 수신동의</a></li>
+	      </ul>
+	    </div>
+        
         <div class="footer-company-info">
           <p>상호: (주)BBOL | 대표: 박예슬 | 사업자등록번호: 123-45-67890 | 개인정보관리 책임자: 수수옥</p>
           <p>주소: 충청남도 천안시 동남구 123 | 이메일: support@BBOL3.com | 대표전화: 02-1234-5678</p>
@@ -330,7 +332,6 @@
       </script>
     </c:if>
 
-  </div>
 
 </body>
 </html>

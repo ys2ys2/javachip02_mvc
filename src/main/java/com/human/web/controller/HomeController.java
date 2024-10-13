@@ -54,6 +54,30 @@ public class HomeController {
 	public String introduce() {
 		return "FooterPage/introduce";
 	}
+	
+	//영신 이용약관 페이지
+	@GetMapping("/FooterPage/clause")
+	public String clause() {
+		return "FooterPage/clause";
+	}
+	
+	//영신 개인정보 수집,동의 페이지
+	@GetMapping("/FooterPage/privacy")
+	public String privacy() {
+		return "FooterPage/privacy";
+	}
+	
+	//영신 개인정보 3자동의 페이지
+	@GetMapping("/FooterPage/thirdparty")
+	public String thirdparty() {
+		return "FooterPage/thirdparty";
+	}
+	
+	//영신 광고성 정보 수신동의 페이지
+	@GetMapping("/FooterPage/marketing")
+	public String marketing() {
+		return "FooterPage/marketing";
+	}
 
 	//예슬 로그인 페이지
 	@GetMapping("/Login/login")

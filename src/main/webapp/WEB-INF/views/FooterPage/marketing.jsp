@@ -1,19 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
-<!DOCTYPE html>
 
+
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 
 	<link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
   	<link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet" type="text/css">
-	<link href="${pageContext.request.contextPath}/resources/css/introduce.css" rel="stylesheet" type="text/css">
+  	<link href="${pageContext.request.contextPath}/resources/css/clause.css" rel="stylesheet" type="text/css">
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BBOL BBOL BBOL 회사소개</title>
-
+<title>광고성 정보 수신동의</title>
 </head>
 <body>
 
@@ -50,101 +48,54 @@
     </div>
   </header>
   
-<div class="introduce">
-
-	<div class="introimg"
-		style="background-image: url('${pageContext.request.contextPath}/resources/images/introimg.png');">
-		<h2>회사 소개</h2>
-		<h1>뽈뽈뽈 소개</h1>
+  
+  <div class="clause">
+  
+  	<div class="introimg"
+		style="background-image:url('${pageContext.request.contextPath}/resources/images/clausemain.jpg');">
+		<h2>뽈뽈뽈 약관</h2>
+		<h1>광고성 정보 수신동의</h1>
 	</div>
 	
 	<!-- 네비바 부분 -->
-    <div class="i_section-container">
-      <ul class="i_navbar">
-        <li class="i_nav-item"><a href="${pageContext.request.contextPath}/FooterPage/introduce">회사소개</a></li>
-        <li class="i_nav-item"><a href="${pageContext.request.contextPath}/HotPlace/inputApi" target="_blank" >공공데이터 API</a></li>
-        <li class="i_nav-item"><a href="#">공지사항</a></li>
-        <li class="i_nav-item"><a href="mailto:support@BBOL3.com">제휴문의</a></li>
+    <div class="c_section-container">
+      <ul class="c_navbar">
+        <li class="c_nav-item"><a href="${pageContext.request.contextPath}/FooterPage/clause" >이용약관</a></li>
+        <li class="c_nav-item"><a href="${pageContext.request.contextPath}/FooterPage/privacy" target="_blank" >개인정보 수집 및 이용 동의</a></li>
+        <li class="c_nav-item"><a href="${pageContext.request.contextPath}/FooterPage/thirdparty" target="_blank">개인정보 제3자 제공 동의</a></li>
+        <li class="c_nav-item"><a href="${pageContext.request.contextPath}/FooterPage/marketing">광고성 정보 수신동의</a></li>
       </ul>
+  	</div>
+  
+  <div class="marketing_text">
+  광고성 정보 수신동의
+  <br><br>
+  ㈜뽈뽈뽈은 개인정보보호법 및 정보통신망 이용촉진 및 정보보호 등에 관한법률 등 관계법령에 따라 광고성 정보를 전송하기 위해 수신자의 사전 수신동의를 받고 있으며, 광고성 정보 수신자의 수신동의여부를 정기적으로 확인합니다.
+  <br><br>
+  1. 전송방법<br>
+  회원의 모바일 APP Push, 휴대폰 문자메세지(SMS), 카카오톡, E-mail 등을 통해 전달될 수 있습니다.<br><br>
+  2. 전송내용<br>
+  발송되는 마케팅 정보는 수신자에게 ㈜뽈뽈뽈과 관련하여 제공하는 혜택(포인트, 쿠폰 등) 정보, 각종 이벤트 정보 등 광고성 정보로 관련 법의 규정을 준수하여 발송됩니다. 단, 광고성 정보 이외 의무적으로 안내되어야 하는 정보성 내용은 수신동의 여부와 무관하게 제공됩니다.
+  <br><br>
+  3. 동의거부권<br>
+  본 수신동의는 거부할 수 있으며 수신을 동의하지 않아도 회사가 제공하는 기본적인 서비스를 이용할 수 있습니다.<br><br>
+  4. 철회안내<br>
+  회원은 수신 동의 이후라도 의사에 따라 동의를 철회할 수 있으며, 수신을 동의하지 않아도 회사가 제공하는 기본적인 서비스를 이용할 수 있으나, 당사의 마케팅 정보를 수신하지 못할 수 있습니다.<br><br>
+  5. 수신동의 변경<br>
+  뽈뽈뽈 고객센터 또는 마이페이지를 통해 수신동의를 변경(동의/철회) 할 수 있습니다.<br><br>
+  6. 개인정보 이용 상세내용<br>
+  이용하는 개인정보 항목	보유 이용 목적<br>
+  휴대전화번호, 이메일 주소	혜택 정보, 각종 이벤트 정보 등 광고성 정보 제공<br><br>
+  7. 개인정보 보유 및 이용 기간<br>
+  광고성 정보 수신 동의일로부터 회원 탈퇴 또는 광고성 정보 수신 동의 철회 시까지 보유 및 이용<br><br>
+  
+  
+  </div>
+ 
+  
+  
   </div>
   
-
-  <div class="introduce-main">
-    <div class="introduce-mainintro">
-      <img src="${pageContext.request.contextPath}/resources/images/intromain.jpg" alt="소개 이미지"> <!-- 추가한 이미지 -->
-    </div>
-    <div class="introduce-text">
-      <h2>세상의 모든 여행</h2>
-      <p>뽈뽈뽈은 전세계 여행자들이 우리의 플랫폼을 통해<br>
-      	 콘텐츠와 여행 기록을 공유하고, 서로의 정보를 나누는 생태계를 만들어 갑니다.</p>
-      <p>사용자가 만들어가는 사용자를 위한 콘텐츠 플랫폼,<br>
-      	 뽈뽈뽈이 만드는 또다른 세상입니다.</p>
-    </div>
-  </div>
-  
-  <div class="centertext">
-  	<h1>뽈뽈뽈</h1>
-  	<h3>세상 모든 여행자를 위한 여행 플랫폼</h3>
-  </div>
-  
-  <div class="introduce-content">
-    <div class="introduce-text">
-      <h2>공공데이터를 활용한<br>
-      	  여행지 추천</h2>
-      <p>당신이 찾는 모든 여행 정보!<br>
-      	 공공데이터로 여행지를 추천받고<br>
-      	 직접 여행 일정까지 만들 수 있는 플랫폼!</p>
-    </div>
-    <div class="introduce-company">
-      <img src="${pageContext.request.contextPath}/resources/images/intro01.jpg" alt="소개 이미지"> <!-- 추가한 이미지 -->
-    </div>
-  </div>
-  
-  <div class="introduce-content">
-    <div class="introduce-company">
-      <img src="${pageContext.request.contextPath}/resources/images/intro02.jpg" alt="소개 이미지"> <!-- 추가한 이미지 -->
-    </div>
-    <div class="introduce-text">
-      <h2>내가 만드는 여행일정</h2>
-      <p>언제, 어디를, 누구와, 어떻게<br>
-      	 쉽고 빠르게 만드는 여행 일정</p>
-    </div>
-  </div>
-  
-  <div class="introduce-content">
-    <div class="introduce-text">
-      <h2>우리들이 쓰는 여행기</h2>
-      <p>소소한 일상부터 여행지에서의 추억을<br>
-      	 기록하고 공유하는 여행기</p>
-    </div>
-    <div class="introduce-company">
-      <img src="${pageContext.request.contextPath}/resources/images/intro03.jpg" alt="소개 이미지"> <!-- 추가한 이미지 -->
-    </div>
-  </div>
-  
-   <div class="introduce-content">
-   	<div class="introduce-company">
-      <img src="${pageContext.request.contextPath}/resources/images/intro04.jpg" alt="소개 이미지"> <!-- 추가한 이미지 -->
-   	</div>
-    <div class="introduce-text">
-      <h2>모두의 커뮤니티</h2>
-      <p>여행을 사랑하는 사람들과 나누는<br>
-      	 생생한 여행 공유 공간</p>
-    </div>
-  </div>
-  
-  
-  
-
-
-	
-  
-</div>
-
-
-
-
-
 
 <!-- 푸터 부분 -->
 <footer>
@@ -174,7 +125,7 @@
       <ul>
         <li><a href="${pageContext.request.contextPath}/FooterPage/clause" target="_blank">이용약관</a></li>
         <li><a href="${pageContext.request.contextPath}/FooterPage/privacy" target="_blank">개인정보처리방침</a></li>
-        <li><a href="${pageContext.request.contextPath}/FooterPage/marketing" target="_blank">광고성 정보 수신동의</a></li>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/marketing">광고성 정보 수신동의</a></li>
       </ul>
     </div>
 
@@ -194,6 +145,9 @@
     
   </div>
 </footer>
+
+
+
 
 
 
