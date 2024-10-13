@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class HomeController {
 	
-	//기타 요청URL에 대한 처리 메소드
+	//메인페이지
 	@GetMapping("/")
 	public String home() {
 		return "HomePage/mainpage";
@@ -24,32 +24,43 @@ public class HomeController {
 		return "HomePage/mainpage";
 	}
 	
+	//403에러
 	@GetMapping("/error/error403.do")
 	public String error403() {
 		return "error/error403";
 	}
 	
+	//404에러
 	@GetMapping("/error/error404.do")
 	public String error404() {
 		return "error/error404";
 	}
 	
+	//405에러
 	@GetMapping("/error/error405.do")
 	public String error405() {
 		return "error/error405";
 	}
 	
+	//500에러
 	@GetMapping("/error/error500.do")
 	public String error500() {
 		return "error/error500";
 	}
 	
+	
+	//영신 회사소개 페이지
+	@GetMapping("/FooterPage/introduce")
+	public String introduce() {
+		return "FooterPage/introduce";
+	}
 
 	//예슬 로그인 페이지
 	@GetMapping("/Login/login")
 	public String login() {
 	    return "Login/login";
 	}
+	
 	
 	//예슬 로그인Process = PostMapping → login.jsp에서 <form method="post">로 쓰고 있음
 	@PostMapping("/Login/loginProcess")

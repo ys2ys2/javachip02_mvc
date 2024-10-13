@@ -12,6 +12,7 @@
 
 <body>
     <div class="container">
+        <h1>뽈뽈뽈</h1>
         <h1>공공데이터 API DB 조회, 저장</h1>
         <form action="${pageContext.request.contextPath}/HotPlace/processCodeApi" method="post">
             <label for="regionCode">지역 코드:</label>

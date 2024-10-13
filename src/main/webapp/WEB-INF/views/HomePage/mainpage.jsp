@@ -333,8 +333,8 @@
     <div class="footer-section">
       <h4>회사소개</h4>
       <ul>
-        <li><a href="#">회사소개</a></li>
-        <li><a href="#">브랜드 이야기</a></li>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/introduce" target="_blank">회사소개</a></li>
+        <li><a href="${pageContext.request.contextPath}/HotPlace/inputApi"target="_blank">공공데이터 API</a></li>
         <li><a href="#">채용공고</a></li>
       </ul>
     </div>
@@ -372,6 +372,8 @@
       <a href="#"><i class="fab fa-facebook-f"></i></a>
       <a href="#"><i class="fab fa-twitter"></i></a>
     </div>
+    
+  </div>
 </footer>
 
    <!-- 메인 스크립트 -->
