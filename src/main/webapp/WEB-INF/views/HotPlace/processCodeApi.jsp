@@ -3,6 +3,7 @@
 <%@ page import="java.net.URL, java.net.HttpURLConnection, java.io.BufferedReader, java.io.InputStreamReader" %>
 <%@ page import="org.json.JSONObject, org.json.JSONArray" %>
 <%@ page import="java.io.IOException, java.util.ArrayList, java.util.HashMap, java.util.List, java.util.Map" %>
+<%@ page import="java.util.Random" %>
 
 <%
             // 사용자 입력값 가져오기
@@ -11,6 +12,11 @@
             // 공공데이터 API 호출 설정
             String apiKey = "rBOARBGR6WewzR%2BzYF%2BkQmTdL%2FuXaOHo8Xi8oSkMFzA%2F7fiYa80eViuXxb9mLDalaBCEyQPIIt3abBnIMVwU0Q%3D%3D";
             String apiUrl = "http://apis.data.go.kr/B551011/KorService1/areaBasedList1";
+            
+            // 랜덤 페이지 번호 생성 (1부터 15까지의 숫자)
+            Random random = new Random();
+            int randomPage = random.nextInt(15) + 1;
+            
             String params = "?serviceKey=" + apiKey
                           + "&MobileOS=ETC"
                           + "&MobileApp=APP"
@@ -19,7 +25,7 @@
                           + "&contentTypeId=12" // 조회 타입 (관광지)
                           + "&numOfRows=30" // 한 번에 조회할 개수
                           + "&areaCode=" + regionCode
-                          + "&pageNo=1"; // 페이지 번호 고정
+                          + "&pageNo=" + randomPage; // 페이지 번호 랜덤
 
             try {
                 StringBuilder urlBuilder = new StringBuilder(apiUrl);

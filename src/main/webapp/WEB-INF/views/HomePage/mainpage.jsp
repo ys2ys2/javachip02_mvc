@@ -303,25 +303,25 @@
 </div>
       
       
-  <!-- 이벤트 섹션 -->
+  <!-- 축제 섹션 -->
   <div class="event-section">
-    <h2>이벤트</h2>
+    <h2>축제</h2>
     <div class="event-list">
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>이벤트 1</p>
+        <p>축제 1</p>
       </div>
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>이벤트 2</p>
+        <p>축제 2</p>
       </div>
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>이벤트 3</p>
+        <p>축제 3</p>
       </div>
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>이벤트 4</p>
+        <p>축제 4</p>
       </div>
     </div>
   </div>
@@ -335,7 +335,6 @@
       <ul>
         <li><a href="${pageContext.request.contextPath}/FooterPage/introduce" target="_blank">회사소개</a></li>
         <li><a href="${pageContext.request.contextPath}/HotPlace/inputApi"target="_blank">공공데이터 API</a></li>
-        <li><a href="#">채용공고</a></li>
       </ul>
     </div>
 

@@ -86,7 +86,7 @@
 
         <!-- 회원가입 유도 -->
         <div class="bbol-signup-prompt">
-            아직 회원이 아니신가요? <span onclick="location.href='${pageContext.request.contextPath}/SignUp/join'">회원가입</span>
+            아직 회원이 아니신가요? <span onclick="location.href='${pageContext.request.contextPath}/Member/join'">회원가입</span>
         </div>
     </form>
 </div>
