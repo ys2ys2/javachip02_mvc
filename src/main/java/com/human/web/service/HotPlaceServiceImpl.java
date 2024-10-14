@@ -2,6 +2,7 @@ package com.human.web.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,4 +70,33 @@ public class HotPlaceServiceImpl implements HotPlaceService {
             return "데이터 저장 중 예외 발생: " + e.getMessage();
         }
     }
+
+    
+    // 랜덤으로 hotplace 상세 정보를 가져오는 메서드 (firstimage 첫 번째 이미지 처리)
+    @Override
+    public List<Map<String, Object>> getRandomHotplaceDetail(int limit) {
+        // DB에서 랜덤으로 여러 필드를 가져옴
+        List<Map<String, Object>> hotplaces = hotplaceDAO.getRandomHotplaceDetail(limit);
+
+        // firstimage 필드에서 첫 번째 이미지 URL만 남기기
+        return hotplaces.stream().map(hotplace -> {
+            String firstimage = (String) hotplace.get("firstimage");
+            if (firstimage != null && firstimage.contains(",")) {
+                // 쉼표로 구분된 이미지 중 첫 번째만 추출
+                firstimage = firstimage.split(",")[0].trim();
+            }
+            hotplace.put("firstimage", firstimage);
+            return hotplace;
+        }).collect(Collectors.toList());
+    }
+
+
+    //contentId로 페이지 이동
+	@Override
+	public Map<String, Object> getHotplaceById(int contentid) {
+		return hotplaceDAO.getHotPlaceById(contentid);
+	}
+
+
+
 }

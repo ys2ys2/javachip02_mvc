@@ -47,7 +47,6 @@ public class TalkServiceImpl implements TalkService {
     // 댓글 수정
     @Override
     public int updateTalk(int talkIdx, String updatedText) {
-        System.out.println("Updating comment with ID: " + talkIdx + " to text: " + updatedText);
     	return talkDAO.updateTalk(talkIdx, updatedText);
     }
 

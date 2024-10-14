@@ -1,6 +1,7 @@
 package com.human.web.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -13,6 +14,7 @@ public class HotPlaceDAO {
     @Autowired
     private SqlSession sqlSession;
     private static final String MAPPER = "com.human.web.mapper.HotPlaceMapper";
+    
     
     // 테이블에 데이터 삽입
     public int insertHotPlace(String contentId, String title, String addr1, String overview,
@@ -37,4 +39,15 @@ public class HotPlaceDAO {
             return 0;
         }
     }
+
+    //title값 가져오기
+    public List<Map<String, Object>> getRandomHotplaceDetail(int limit) {
+        return sqlSession.selectList(MAPPER + ".getRandomHotplaceDetail", limit);
+	}
+
+    //contentID로 핫플레이스 정보 가져오기
+	public Map<String, Object> getHotPlaceById(int contentid) {
+		return sqlSession.selectOne(MAPPER + ".getHotplaceById", contentid);
+	}
+
 }

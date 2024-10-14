@@ -1,3 +1,7 @@
+body{
+	margin: 0 auto;
+}
+
 /* 회원가입 폼 전체 컨테이너 */
 .join-form-container {
   display: flex;

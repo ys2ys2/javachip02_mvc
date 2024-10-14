@@ -261,6 +261,12 @@ body {
 .famous-item p {
   font-size: 18px;
   margin-top: 10px;
+  text-decoration: none;
+}
+
+.famous-item a {
+	text-decoration: none;
+	color: inherit;
 }
 
 /* 인기 커뮤니티 스타일 */
