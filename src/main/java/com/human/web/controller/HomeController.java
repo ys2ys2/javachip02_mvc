@@ -19,10 +19,6 @@ public class HomeController {
 		return "HomePage/mainpage";
 	}
 	
-	@GetMapping("/HomePage/mainpage")
-	public String index() {
-		return "HomePage/mainpage";
-	}
 	
 	//403에러
 	@GetMapping("/error/error403.do")
