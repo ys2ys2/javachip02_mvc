@@ -155,13 +155,13 @@
       <!-- 이미지 슬라이드 컨테이너, 필수는 swiper-container, wrapper, slide -->
       <div class="swiper-container">
       
-        <!-- 설명 박스 -->
+    <!-- 설명 박스 -->
     <div class="description-box">
     	<c:forEach var="banner" items="${bannerPlaces}" varStatus="status">
     		<c:if test="${status.first}"> <!-- 첫 번째 요소만 출력 -->
             <h2 id="description-title">${banner.title}</h2>
 	        <p id="description-text">${banner.overview}</p>
-	        <a href="${pageContext.request.contextPath}/BannerPlace/${banner.contentid}" class="detail-link">
+            <a href="${pageContext.request.contextPath}/BannerPlace/${banner.contentid}" class="detail-link">
 	          자세히 보기
 	        </a>
 	        </c:if>
@@ -386,6 +386,7 @@
   // JSP에서 전달받은 데이터를 JSON 형식으로 변환하여 자바스크립트로 전달
   var descriptions = 
     <%= new org.json.JSONArray((List<?>) request.getAttribute("bannerPlaces")).toString() %>;
+  var contextPath = "${pageContext.request.contextPath}";
 </script>
 
 

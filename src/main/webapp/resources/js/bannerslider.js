@@ -23,22 +23,26 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelector('.total-slides').textContent = String(totalSlides).padStart(2, '0');
   document.querySelector('.current-slide').textContent = String(swiper.realIndex + 1).padStart(2, '0');
 
-  // 설명 업데이트 함수
+  // 설명과 "자세히 보기" 링크 업데이트 함수
   function updateDescription(index) {
     const description = descriptions[index % descriptions.length]; // 슬라이드 인덱스 순환 처리
     document.getElementById('description-title').innerHTML = description.title;
     document.getElementById('description-text').innerHTML = description.overview;
+
+    // "자세히 보기" 링크 업데이트 (contextPath 변수를 사용하여 경로 설정)
+    document.querySelector('.detail-link').setAttribute('href', contextPath + '/BannerPlace/' + description.contentid);
   }
 
-  // 슬라이드 변경 시 설명 업데이트
+  // 슬라이드 변경 시 설명 및 링크 업데이트
   swiper.on('slideChange', function () {
     document.querySelector('.current-slide').textContent = String(swiper.realIndex + 1).padStart(2, '0');
-    updateDescription(swiper.realIndex); // 설명 박스 업데이트
+    updateDescription(swiper.realIndex); // 설명 및 링크 업데이트
   });
 
-  // 초기 로드 시 첫 번째 슬라이드에 맞는 설명 표시
+  // 초기 로드 시 첫 번째 슬라이드에 맞는 설명 및 링크 표시
   updateDescription(swiper.realIndex);
 
+  // 자동 슬라이드 일시 정지/재개 버튼
   const pauseBtn = document.querySelector('.pause-btn');
   let isPaused = false;
   pauseBtn.addEventListener('click', function () {
