@@ -80,9 +80,10 @@
         </script>
     </div>
     <div class="h_icons">
-      <button class="h_button">
-        <img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="likes">
-      </button>
+		<!-- 좋아요 버튼 -->
+		<button class="h_button" id="likeButton">
+		  <img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="likes" id="likeImage">
+		</button>
       <button class="f_button">
         <img src="${pageContext.request.contextPath}/resources/images/favorite.png" alt="favorite">
       </button>
@@ -322,6 +323,29 @@
           alert("${message}");
       </script>
     </c:if>
+    
+    
+    <!-- 좋아요 버튼 함수 -->
+	<script>
+	  // likeButton이라는 id를 가진 버튼을 선택
+	  const likeButton = document.getElementById('likeButton');
+	
+	  // 버튼이 클릭되었을 때 실행할 함수
+	  likeButton.addEventListener('click', function () {
+	    // 현재 이미지 요소를 선택
+	    const likeImage = document.getElementById('likeImage');
+	    
+	    // 이미지 경로를 확인하고, 이미지를 교체하는 로직
+	    if (likeImage.src.includes('heart.png')) {
+	      likeImage.src = '${pageContext.request.contextPath}/resources/images/heart_color.png'; // 하트가 눌렸을 때 이미지 변경
+	      alert("'좋아요'를 누르셨습니다.");
+	    } else {
+	      likeImage.src = '${pageContext.request.contextPath}/resources/images/heart.png'; // 다시 원래 하트로
+	      alert("'좋아요'가 취소되었습니다.");
+	    }
+	  });
+	</script>    
+    
 
 
 </body>
