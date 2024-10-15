@@ -9,10 +9,16 @@
 <%
             // 사용자 입력값 가져오기
             String regionCode = request.getParameter("regionCode");
+			
 
             // 공공데이터 API 호출 설정
             String apiKey = "rBOARBGR6WewzR%2BzYF%2BkQmTdL%2FuXaOHo8Xi8oSkMFzA%2F7fiYa80eViuXxb9mLDalaBCEyQPIIt3abBnIMVwU0Q%3D%3D";
             String apiUrl = "http://apis.data.go.kr/B551011/KorService1/areaBasedList1";
+            
+            // 랜덤 페이지 번호 생성 (1부터 15까지의 숫자)
+            Random random = new Random();
+            int randomPage = random.nextInt(15) + 1;
+            
             String params = "?serviceKey=" + apiKey
                           + "&MobileOS=ETC"
                           + "&MobileApp=APP"
