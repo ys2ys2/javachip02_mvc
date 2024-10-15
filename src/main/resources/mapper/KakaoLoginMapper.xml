@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.KakaoLoginMapper">
+
+        <!-- 카카오 로그인 정보 삽입 -->
+    <insert id="insertKAKAOLOGIN" parameterType="com.human.web.vo.KakaoLoginVO">
+        INSERT INTO kakao_login (kakao_id, m_idx, kakao_nickname, create_at)
+        VALUES (#{kakao_id}, #{m_idx}, #{kakao_nickname}, #{create_at});
+    </insert>
+
+    <!-- 카카오 ID로 기존 회원 확인 -->
+    <select id="findByKakaoId" parameterType="long" resultType="com.human.web.vo.KakaoLoginVO">
+        SELECT * FROM kakao_login WHERE kakao_id = #{kakao_id}
+    </select>
+
+    
+</mapper>

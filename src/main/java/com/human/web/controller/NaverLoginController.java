@@ -20,11 +20,11 @@ public class NaverLoginController {
     @Autowired
     private NaverLoginService naverLoginService;
 
-    // 네이버 로그인 페이지로 리다이렉트
+    // 네이버 회원가입/로그인 페이지로 리다이렉트
     @GetMapping("/login")
     public void naverLogin(HttpServletResponse response, HttpSession session) throws IOException {
         String clientId = "hNC1YTLpfwJa8Hc6uBaJ";
-        String redirectURI = "http://localhost:9090/web/naver/callback";
+        String redirectURI = "http://localhost:9090/BBOL/naver/callback";
         String state = "RANDOM_STATE"; // CSRF 방지를 위한 상태값
 
         // 상태값을 세션에 저장 (CSRF 방지)
@@ -36,7 +36,7 @@ public class NaverLoginController {
         response.sendRedirect(apiURL);
     }
 
-    // 네이버 로그인 콜백 처리
+    // 네이버 회원가입/로그인 콜백 처리
     @GetMapping("/callback")
     public String naverCallback(@RequestParam("code") String code,
                                 @RequestParam("state") String state, HttpSession session) {
@@ -46,16 +46,16 @@ public class NaverLoginController {
         // 상태값 검증
         if (sessionState == null || !sessionState.equals(state)) {
             System.out.println("CSRF 검증 실패: state 값 불일치");
-            return "redirect:/error/errorPage";
+            return "redirect:/Member/joinmain";
         }
 
-        // 네이버 로그인 처리
+        // 네이버 회원가입/로그인 처리
         try {
-            boolean isLoginSuccessful = naverLoginService.processNaverLogin(code, state);
-            return isLoginSuccessful ? "redirect:/SignUp/joinmain" : "redirect:/error/errorPage";
+            boolean isLoginSuccessful = naverLoginService.processNaverLogin(code, state, session);
+            return isLoginSuccessful ? "redirect:/index.do" : "redirect:/Member/joinmain";
         } catch (Exception e) {
             e.printStackTrace();
-            return "redirect:/error/errorPage";
+            return "redirect:/Member/join";
         }
     }
 }

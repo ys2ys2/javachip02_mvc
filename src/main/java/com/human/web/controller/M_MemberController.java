@@ -48,7 +48,7 @@ public class M_MemberController {
 
         // 회원가입 성공 여부 확인 (m_idx가 0보다 크면 성공)
         if (result > 0) {
-            viewName = "redirect:/"; // 성공 시 메인 페이지로 리다이렉트
+            viewName = "redirect:/index.do"; // 성공 시 메인 페이지로 리다이렉트
         } else {
             // 회원가입 실패 시 오류 메시지를 모델에 저장
             model.addAttribute("msg", "회원가입이 정상적으로 이루어지지 않았습니다.");
@@ -70,6 +70,7 @@ public class M_MemberController {
   	@PostMapping("/loginProcess")
   	public String loginProcess(String m_email, String m_password,
   			HttpServletRequest request, Model model) {
+  		System.out.println("로그인 요청이 들어왔습니다: " + m_email);  // 로그 추가
   		
   		String viewName = "Member/login"; //로그인 실패시 뷰이름
   		
@@ -81,7 +82,10 @@ public class M_MemberController {
   			HttpSession session = request.getSession();
   			session.setAttribute("member", vo);
   			
-  			viewName = "redirect:/";//메인 페이지 재요청
+  			System.out.println("세션에 저장된 회원 정보: " + session.getAttribute("member"));  
+  		    System.out.println("닉네임: " + vo.getM_nickname());  
+  		    
+  			viewName = "redirect:/index.do";//메인 페이지 재요청
   			
   		}else {//로그인 실패
   			model.addAttribute("msg", "아이디나 비밀번호가 일치하지 않습니다");
@@ -100,8 +104,10 @@ public class M_MemberController {
 			if(session != null) {
 				session.invalidate();
 			}
-			return "redirect:/";				
+			return "redirect:/index.do";				
 		}
+		
+}
+		
   	
   
-}

@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,37 +10,36 @@
     <title>메일 발신</title>
 </head>
 <body>
-  <!-- 어두운 배경 -->
-  <div class="overlay"></div>
+ <div class="overlay"></div>
+
   <header>
     <div class="header-container">
-      <div class="logo">
-        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
-      </div>
+      <div class="logo" data-ko="BBOL BBOL BBOL" data-en="BBOL BBOL BBOL">BBOL BBOL BBOL</div>
       <nav>
         <ul>
-          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-          <li><a href="#">커뮤니티</a></li>
-          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
-          <li><a href="#">여행뽈뽈</a></li>
+          <li><a href="#" data-ko="홈" data-en="Home">홈홈</a></li>
+          <li><a href="#" data-ko="커뮤니티" data-en="Community">커뮤니티</a></li>
+          <li><a href="#" data-ko="여행지" data-en="RecoHotPlace">여행지</a></li>
+          <li><a href="#" data-ko="여행뽈뽈" data-en="BBOL BBOL BBOL">여행뽈뽈</a></li>
+          <button class="search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <button class="user-btn">
+            <i class="fa-solid fa-user"></i>
+          </button>
+          <button class="earth-btn">
+            <i class="fa-solid fa-earth-americas"></i>
+          </button>
+          <button class="korean" id="lang-btn" data-lang="ko">English</button>
         </ul>
       </nav>
-      <div class="member">
-        <c:choose>
-          <c:when test="${not empty sessionScope.member}">
-            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
-            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
-            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
-              <button type="submit">로그아웃</button>
-            </form>
-          </c:when>
-          <c:otherwise>
-            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
-            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/signup">회원가입</a></span>
-          </c:otherwise>
-        </c:choose>
+    </div>
+    <!-- 검색 바 -->
+    <div class="search-bar-container">
+      <div class="search-bar-content">
+        <input type="text" placeholder="도시나 키워드를 검색해보세요..." data-ko="도시나 키워드를 검색해보세요..."
+          data-en="Search cities or keywords...">
+        <button class="close-btn"><i class="fa-solid fa-times"></i></button>
       </div>
     </div>
   </header>

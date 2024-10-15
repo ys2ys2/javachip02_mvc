@@ -17,8 +17,8 @@
  
     <!-- 회원 가입 -->
    <insert id="insertM_Member" parameterType="com.human.web.vo.M_MemberVO" useGeneratedKeys="true" keyProperty="m_idx" >
-    INSERT INTO m_member (m_email, m_password, m_nickname)
-    VALUES (#{m_email}, #{m_password}, #{m_nickname})
+    INSERT INTO m_member (m_email, m_password, m_nickname, m_registration_type)
+    VALUES (#{m_email}, #{m_password}, #{m_nickname}, #{m_registration_type})
 </insert>
 
 
@@ -31,7 +31,37 @@
 			and m_status='active'
 	
 	</select> 
+	
+   <!-- 이메일로 회원 정보 조회 쿼리 -->
+    <select id="findByEmail" parameterType="String" resultType="com.human.web.vo.M_MemberVO">
+        SELECT * FROM m_member WHERE m_email = #{email};
+    </select>
+    
+ <!-- 카카오 ID로 기존 회원 확인 -->
+    <select id="findByKakaoId" parameterType="long" resultType="com.human.web.vo.M_MemberVO">
+        SELECT * FROM m_member WHERE m_email = CONCAT(#{kakaoId}, '@kakao.com')
+    </select>
+    
+       <!-- Google ID로 회원 정보를 조회하는 쿼리 -->
+    <select id="getMemberByGoogleId" parameterType="string" resultType="com.human.web.vo.M_MemberVO">
+        SELECT m_idx, m_email, m_password, m_nickname, m_status, m_registration_type
+        FROM m_member
+        WHERE m_email = #{googleId}
+    </select>
+    
+    
+       <!-- 닉네임 중복 확인 -->
+    <select id="countByNickname" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM m_member WHERE m_nickname = #{m_nickname}
+    </select>
 
 
-
+    <!-- 프로필 업데이트 -->
+    <update id="updateMemberProfile" parameterType="com.human.web.vo.M_MemberVO">
+        UPDATE m_member
+        SET m_nickname = #{m_nickname}, m_profile = #{m_profile}
+        WHERE m_idx = #{m_idx}
+    </update>
+    
+    
 </mapper>

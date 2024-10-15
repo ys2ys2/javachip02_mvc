@@ -7,7 +7,7 @@
 <%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
+<%-- <%
     // 공공데이터 API URL 및 매개변수 설정
     String apiKey = "a471e760-6101-4c50-bb4c-560d6fb00f86";
     String numOfRows = "7"; // 요청할 레코드 수
@@ -83,7 +83,7 @@
     String jsonItemList = new org.json.JSONArray(itemList).toString();
     request.setAttribute("jsonItemList", jsonItemList);
 
-%>
+%> --%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -99,12 +99,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet" type="text/css">
   
-  <script>
-    // JSP에서 전달한 공공데이터를 JavaScript로 전달
-    const descriptions = ${jsonItemList};
-  </script>
+  <!-- 메인 스크립트 -->
+  <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/bannerslider.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+	
 
- 
+	
+
 </head>
 
 <body>
@@ -144,19 +147,25 @@
       </div>
     </div>
   </header>
-  <!-- 메인 시작 부분 -->
   
+  <!-- 메인 시작 부분 -->
   <div class="main-container">
     <!-- 첫번째 큰 이미지 슬라이드 영역 -->
     <div class="main-banner">
       <!-- 이미지 슬라이드 컨테이너, 필수는 swiper-container, wrapper, slide -->
       <div class="swiper-container">
       
-        <!-- 설명 박스 -->
-        <div class="description-box">
-          <h2 id="description-title"></h2>
-          <p id="description-text"></p>
-          <a href="#" class="detail-link" id="detail-link">자세히 보기</a>
+    <!-- 설명 박스 -->
+    <div class="description-box">
+    	<c:forEach var="banner" items="${bannerPlaces}" varStatus="status">
+    		<c:if test="${status.first}"> <!-- 첫 번째 요소만 출력 -->
+            <h2 id="description-title">${banner.title}</h2>
+	        <p id="description-text">${banner.overview}</p>
+            <a href="${pageContext.request.contextPath}/BannerPlace/${banner.contentid}" class="detail-link">
+	          자세히 보기
+	        </a>
+	        </c:if>
+      	</c:forEach>
 
             <!-- 슬라이드 컨트롤 -->
             <div class="custom-pagination">
@@ -175,34 +184,18 @@
             </div>
         </div>
 
-        <!-- 슬라이드 이미지 -->
-        <div class="swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_01.jpg" alt="배너1">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_02.jpg" alt="배너2">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_03.jfif" alt="배너3">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_04.jpg" alt="배너4">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_05.jpg" alt="배너5">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_06.jpg" alt="배너6">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_07.jpg" alt="배너7">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+		 <!-- 슬라이드 이미지 -->
+		    <div class="swiper">
+		      <div class="swiper-wrapper">
+		        <c:forEach var="banner" items="${bannerPlaces}">
+		          <div class="swiper-slide">
+		            <img src="${banner.firstimage}" alt="${banner.title}">
+		          </div>
+		        </c:forEach>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
 
 	<!-- 인기 여행지 섹션 -->
@@ -336,6 +329,7 @@
       </div>
     </div>
   </div>
+ </div> <!-- end of main-container  -->
 
 
 <!-- 푸터 부분 -->
@@ -386,11 +380,18 @@
   </div>
 </footer>
 
-   <!-- 메인 스크립트 -->
-   <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/js/bannerslider.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+<script type="text/javascript">
+  // JSP에서 전달받은 데이터를 JSON 형식으로 변환하여 자바스크립트로 전달
+  var descriptions = 
+    <%= new org.json.JSONArray((List<?>) request.getAttribute("bannerPlaces")).toString() %>;
+  var contextPath = "${pageContext.request.contextPath}";
+</script>
+
+
+
+   
    
 </body>
 

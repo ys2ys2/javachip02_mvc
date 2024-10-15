@@ -1,0 +1,119 @@
+.navigation {
+    position: fixed;
+    top: 120px; /* 상단에서 100px 아래로 고정 */
+    left: 250px; /* 왼쪽에서 100px 오른쪽으로 고정 */
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-start; /* 항목을 왼쪽 정렬 */
+    gap: 40px;
+    z-index: 1000; /* 다른 요소들 위에 위치하도록 설정 */
+    
+}
+
+.navigation a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.navigation a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    display: flex;
+    width: 90%;
+    margin-top: 130px; /* 네비게이션 아래로 여유 공간 추가 */
+}
+
+.profile-section {
+    width: 20%;
+    padding: 20px;
+    position: relative; 
+}
+
+.profile-section h4 {
+	position: relative;
+    top: -50px; /* h3 요소를 위로 15px 이동 */
+    margin-bottom: 20px; /* 프로필 카드와의 간격 추가 */
+    text-align:left; /* 중앙 정렬 */
+}
+
+.profile-card {
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: -60px;
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.content-section {
+    width: 75%;
+    margin-left: 5%;
+}
+
+/* 나의 여행기 섹션 */
+.j_section-header {
+    background-color: black;
+    color: white;
+    width: 130px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* 여행기 리스트 영역 */
+.journey-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 개별 여행기 항목 스타일 */
+.journey-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+}
+
+.journey-item img {
+    width: 150px;
+    height: 100px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.journey-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.journey-info h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.journey-info p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.journey-info span {
+    font-size: 12px;
+    color: gray;
+}
