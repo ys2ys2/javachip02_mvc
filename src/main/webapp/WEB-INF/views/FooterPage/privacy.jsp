@@ -367,15 +367,15 @@
 			</thead>
 			<tbody>
 		<tr>
-			<td>Amazon Web Services Inc.</td>
-			<td>서비스 이용 기록 또는 수집된 개인 정보 [국가] 코리아 리전</td>
+			<td>BBOLBBOLBBOL Web Services Inc.</td>
+			<td>서비스 이용 기록 또는 수집된 개인 정보 [국가] </td>
 			<td>
 			서비스 변경 시 까지<br>(현재 회사가 이용 중인 클라우드 서비스 이용
 			변경시까지)
 			</td>
 		</tr>
 		<tr>
-			<td>엔에이치엔(주)</td>
+			<td>뽈뽈뽈(주)</td>
 			<td>
 			인증 메일 발송, 인증 문자 발송, SMS, LMS, 알림톡 발송 [위탁정보] 이메일,
 			휴대폰 번호
