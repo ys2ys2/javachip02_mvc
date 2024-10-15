@@ -157,12 +157,14 @@
       
         <!-- 설명 박스 -->
     <div class="description-box">
-    	<c:forEach var="banner" items="${bannerPlaces}">
-	        <h2 id="description-title">${banner.title}</h2>
+    	<c:forEach var="banner" items="${bannerPlaces}" varStatus="status">
+    		<c:if test="${status.first}"> <!-- 첫 번째 요소만 출력 -->
+            <h2 id="description-title">${banner.title}</h2>
 	        <p id="description-text">${banner.overview}</p>
 	        <a href="${pageContext.request.contextPath}/BannerPlace/${banner.contentid}" class="detail-link">
 	          자세히 보기
 	        </a>
+	        </c:if>
       	</c:forEach>
 
             <!-- 슬라이드 컨트롤 -->
