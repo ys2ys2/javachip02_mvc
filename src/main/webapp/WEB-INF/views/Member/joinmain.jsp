@@ -70,7 +70,7 @@
 
         <!-- SNS 로그인 버튼 -->
         <div class="sns-buttons">
-            <button><img src="${pageContext.request.contextPath}/resources/images/navericon.png" alt="Naver" class="sns-icon"></button>
+            <button type="button" id="naver-login-btn"><img src="${pageContext.request.contextPath}/resources/images/navericon.png" alt="Naver" class="sns-icon"></button>
             <button type="button" id="google-login-btn">
             <img src="${pageContext.request.contextPath}/resources/images/googleicon.png" alt="Google" class="sns-icon"></button>
         </div>
@@ -87,19 +87,19 @@
         console.log("Kakao SDK Initialized.");
 
         $("#kakao-login-btn").on("click", function() {
-            console.log("카카오 로그인 버튼이 클릭되었습니다.");
+            console.log("카카오 회원가입 버튼이 클릭되었습니다.");
 
             Kakao.Auth.login({
                 success: function(authObj) {
-                    console.log("로그인 성공:", authObj);
+                    console.log("회원가입 성공:", authObj);
 
                     Kakao.API.request({
                         url: '/v2/user/me',
                         success: function(res) {
                             console.log(res);
-                            alert('로그인 성공');
+                            alert('회원가입 성공');
                             // 토큰을 받아 서버에 전달 (여기서는 간단히 Redirect 처리)
-                            location.href = 'http://localhost:9090/BBOL_prjt/login/kakao?accessToken=' + authObj.access_token;
+                            location.href = 'http://localhost:9090/BBOL/signup/kakao?accessToken=' + authObj.access_token;
                         },
                         fail: function(err) {
                             console.error("사용자 정보 요청 실패:", err);
@@ -115,20 +115,33 @@
         });
 
         const GOOGLE_CLIENT_ID = "981203649264-3mco0tr5ao6bgb6eulod79rn2bhvtmjd.apps.googleusercontent.com";
-        const GOOGLE_REDIRECT_URI = "http://localhost:9090/BBOL_prjt/auth/google/callback";
+        const GOOGLE_REDIRECT_URI = "http://localhost:9090/BBOL/auth/google/callback";
 
-     // 구글 로그인 버튼 클릭 시 처리
+     // 구글 회원가입 버튼 클릭 시 처리
         document.getElementById("google-login-btn").addEventListener("click", function () {
-            console.log("구글 로그인 버튼이 클릭되었습니다.");
+            console.log("구글 회원가입 버튼이 클릭되었습니다.");
 
             let googleAuthUrl = "https://accounts.google.com/o/oauth2/v2/auth" +
                 "?client_id=" + GOOGLE_CLIENT_ID +
                 "&redirect_uri=" + GOOGLE_REDIRECT_URI +
                 "&response_type=code" +
-                "&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";
+                "&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";                
 
             console.log("Redirecting to: " + googleAuthUrl); // 리디렉션 URL 로그
-            window.location.href = googleAuthUrl;  // 구글 로그인 페이지로 이동
+            window.location.href = googleAuthUrl;  // 구글 회원가입 페이지로 이동
+        });
+     
+     
+     
+        // 네이버 로그인 버튼 클릭 시 처리
+        document.getElementById("naver-login-btn").addEventListener("click", function () {
+            console.log("네이버 로그인 버튼이 클릭되었습니다.");
+
+            // 네이버 로그인 요청을 위한 URL 생성
+            let naverLoginUrl = "${pageContext.request.contextPath}/naver/login";
+
+            console.log("Redirecting to: " + naverLoginUrl); // 리디렉션 URL 로그
+            window.location.href = naverLoginUrl;  // 네이버 로그인 페이지로 이동
         });
     </script>
 </body>

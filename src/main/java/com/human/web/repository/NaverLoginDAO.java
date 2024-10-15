@@ -36,4 +36,11 @@ public class NaverLoginDAO {
         }
         return naverLoginVO;
     }
+    
+    public NaverLoginVO findByNaverId(String naverId) {
+        return sqlSession.selectOne("com.human.web.mapper.NaverLoginMapper.findByNaverId", naverId);
+    }
+
+
+	
 }

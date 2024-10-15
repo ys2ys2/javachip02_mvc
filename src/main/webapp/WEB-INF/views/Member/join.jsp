@@ -13,38 +13,29 @@
     <title>이메일 회원가입</title>
 </head>
 <body>
-  <!-- 어두운 배경 -->
-  <div class="overlay"></div>
+ <div class="overlay"></div>
+
   <header>
     <div class="header-container">
-      <div class="logo">
-        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
-      </div>
+      <div class="logo" data-ko="BBOL BBOL BBOL" data-en="BBOL BBOL BBOL">BBOL BBOL BBOL</div>
       <nav>
         <ul>
-          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-          <li><a href="#">커뮤니티</a></li>
-          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
-          <li><a href="#">여행뽈뽈</a></li>
+          <li><a href="#" data-ko="홈" data-en="Home">홈</a></li>
+          <li><a href="#" data-ko="커뮤니티" data-en="Community">커뮤니티</a></li>
+          <li><a href="#" data-ko="여행지" data-en="RecoHotPlace">여행지</a></li>
+          <li><a href="#" data-ko="여행뽈뽈" data-en="BBOL BBOL BBOL">여행뽈뽈</a></li>
+          <button class="search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <button class="user-btn">
+            <i class="fa-solid fa-user"></i>
+          </button>
+          <button class="earth-btn">
+            <i class="fa-solid fa-earth-americas"></i>
+          </button>
+          <button class="korean" id="lang-btn" data-lang="ko">English</button>
         </ul>
       </nav>
-      <div class="member">
-        <c:choose>
-          <c:when test="${not empty sessionScope.member}">
-            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
-            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
-            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
-              <button type="submit">로그아웃</button>
-            </form>
-          </c:when>
-          <c:otherwise>
-            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
-            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
-          </c:otherwise>
-        </c:choose>
-      </div>
     </div>
   </header>
 
@@ -162,7 +153,6 @@ function verifyCode() {
 }
 </script>
 
-<h1>회원가입</h1>
 
 <div class="join-form-container">
   <h1>이메일 가입</h1>
@@ -204,11 +194,11 @@ function verifyCode() {
       <input type="checkbox" id="agree_all" onclick="checkAll(this)"> 전체 동의
       <div class="terms-list">
         <label>
-          <input type="checkbox" id="agree_terms"> 이용약관 동의
+          <input type="checkbox" id="agree_terms"> 이용약관 동의(필수)
           <a href="javascript:void(0);" class="terms-link" onclick="openTermsModal('terms')">전문보기</a>
         </label>
         <label>
-          <input type="checkbox" id="agree_privacy"> 개인정보 수집·이용 동의
+          <input type="checkbox" id="agree_privacy"> 개인정보 수집·이용 동의(필수)
           <a href="javascript:void(0);" class="terms-link" onclick="openTermsModal('privacy')">전문보기</a>
         </label>
         <label>

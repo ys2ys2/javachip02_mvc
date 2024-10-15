@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +26,11 @@ public class NaverLoginServiceImpl implements NaverLoginService {
     private NaverLoginDAO naverLoginDAO;
 
     @Override
-    public boolean processNaverLogin(String code, String state) {
+    public boolean processNaverLogin(String code, String state, HttpSession session) {
         try {
-            String clientId = "hNC1YTLpfwJa8Hc6uBaJ";
-            String clientSecret = "zoh620bPc0";
-            String redirectURI = "http://localhost:9090/web/naver/callback";
+            String clientId = "hNC1YTLpfwJa8Hc6uBaJ"; // 네이버 클라이언트 ID
+            String clientSecret = "zoh620bPc0"; // 네이버 클라이언트 시크릿
+            String redirectURI = "http://localhost:9090/BBOL/naver/callback";
 
             String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=" 
                           + clientId + "&client_secret=" + clientSecret + "&code=" + code + "&state=" + state;
@@ -52,7 +54,7 @@ public class NaverLoginServiceImpl implements NaverLoginService {
                 String accessToken = jsonResponse.getString("access_token");
 
                 // 사용자 정보 요청
-                return requestUserInfo(accessToken);
+                return requestUserInfo(accessToken, session);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,7 +62,8 @@ public class NaverLoginServiceImpl implements NaverLoginService {
         return false;
     }
 
-    private boolean requestUserInfo(String accessToken) {
+    // 사용자 정보 요청 및 회원가입/로그인 처리
+    private boolean requestUserInfo(String accessToken, HttpSession session) {
         try {
             String userApiURL = "https://openapi.naver.com/v1/nid/me";
             URL userUrl = new URL(userApiURL);
@@ -85,13 +88,24 @@ public class NaverLoginServiceImpl implements NaverLoginService {
                 String naverName = responseObject.getString("name");
                 String naverNickname = responseObject.getString("nickname");
 
-                // m_member 테이블에 회원 정보 삽입
-                M_MemberVO member = new M_MemberVO();
-                member.setMEmail(naverId + "@naver.com");  // 카멜 케이스로 변경된 필드명에 맞춘 세터 호출
-                member.setMNickname(naverNickname);         // 카멜 케이스로 변경된 필드명에 맞춘 세터 호출
-                member.setMRegistrationType("naver");       // 카멜 케이스로 변경된 필드명에 맞춘 세터 호출
+                // 기존 회원인지 확인
+                M_MemberVO existingMember = mMemberDAO.findByEmail(naverId + "@naver.com");
+                
+                if (existingMember != null) {
+                    // 이미 회원가입된 사용자일 경우, 세션에 로그인 정보 저장
+                    session.setAttribute("member", existingMember);
+                    System.out.println("기존 회원 로그인 처리");
+                    
+                    return true;
+                }
 
-                int mIdx = mMemberDAO.insertM_Member(member);  // M_MemberDAO 사용하여 회원 정보 삽입
+                // 기존 회원이 아닌 경우 새로 회원가입 처리
+                M_MemberVO newMember = new M_MemberVO();
+                newMember.setM_email(naverId + "@naver.com");
+                newMember.setM_nickname(naverNickname);
+                newMember.setM_registration_type("naver");
+
+                int mIdx = mMemberDAO.insertM_Member(newMember);
 
                 if (mIdx > 0) {
                     // naver_login 테이블에 네이버 로그인 정보 삽입
@@ -102,6 +116,9 @@ public class NaverLoginServiceImpl implements NaverLoginService {
                     vo.setNaverNickname(naverNickname);
 
                     int result = naverLoginDAO.insertNaverLogin(vo);
+
+                    // 회원가입 후 세션에 로그인 정보 저장
+                    session.setAttribute("loggedInMember", newMember);
                     return result > 0;
                 }
             }
@@ -111,9 +128,11 @@ public class NaverLoginServiceImpl implements NaverLoginService {
         return false;
     }
 
-	@Override
-	public NaverLoginVO getNaverLoginInfo(String naverId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public NaverLoginVO getNaverLoginInfo(String naverId) {
+        // 네이버 로그인 정보 조회 메서드
+        return naverLoginDAO.findByNaverId(naverId);
+    }
+
+	
 }

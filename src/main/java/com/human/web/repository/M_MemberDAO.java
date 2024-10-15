@@ -87,4 +87,46 @@ public class M_MemberDAO {
 		
 		return result;
 	}
+
+
+	 
+	    public M_MemberVO findByEmail(String email) {
+	        return sqlSession.selectOne(MAPPER + ".findByEmail", email);
+	    }
+
+
+	    // 카카오 ID로 기존 회원 찾기
+	    public M_MemberVO findByKakaoId(Long kakaoId) {
+	        return sqlSession.selectOne(MAPPER + ".findByKakaoId", kakaoId);
+	    }
+
+	 // 구글 회원정보 가져오기
+	    public M_MemberVO getMemberByGoogleId(String googleId) {
+	        // 디버깅용 출력: 전달된 Google ID 확인
+	        System.out.println("디버깅: getMemberByGoogleId 호출됨. Google ID: " + googleId);
+
+	        // SQL 조회 실행
+	        M_MemberVO memberVO = sqlSession.selectOne(MAPPER + ".getMemberByGoogleId", googleId);
+
+	        // 디버깅용 출력: 데이터베이스에서 조회된 결과 확인
+	        if (memberVO != null) {
+	            System.out.println("디버깅: 조회된 회원 정보: " + memberVO);
+	        } else {
+	            System.out.println("디버깅: 해당 Google ID에 해당하는 회원이 존재하지 않습니다.");
+	        }
+
+	        return memberVO;
+	    }
+
+
+		public int countByNickname(String m_nickname) {
+			 return sqlSession.selectOne(MAPPER + ".countByNickname", m_nickname);
+		}
+
+
+		public int updateMemberProfile(M_MemberVO member) {
+			   return sqlSession.update(MAPPER + ".updateMemberProfile", member);
+		}
+
+
   }

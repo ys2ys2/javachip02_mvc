@@ -20,6 +20,18 @@ public class HomeController {
 	}
 
 	// 403에러
+	
+	@GetMapping("/index.do")
+	public String index() {
+		return "HomePage/mainpage";
+	}
+	
+	
+	@GetMapping("/error/errorPage")
+	public String errorPage() {
+		return "error/errorPage";
+	}
+	
 	@GetMapping("/error/error403.do")
 	public String error403() {
 		return "error/error403";
@@ -85,23 +97,13 @@ public class HomeController {
 		return "Login/loginProcess";
 	}
 
-	// 예슬 회원가입 페이지
-	@GetMapping("/SignUp/join")
-	public String join() {
-		return "SignUp/join";
-	}
 
-	// 예슬 회원가입 process = PostMapping
-	@PostMapping("/SignUp/joinProcess")
-	public String joinProcess() {
-		return "SignUp/joinProcess";
-	}
-
-	// 영준 여행기 작성 페이지
-	@GetMapping("/Community/c_board/travelWrite")
-	public String showTravelWritePage() {
-		return "Community/c_board/travelWrite";
-	}
+	
+	//영준 여행기 작성 페이지
+    @GetMapping("/Community/c_board/travelWrite")
+    public String showTravelWritePage() {
+        return "Community/c_board/travelWrite";
+    }
 
 	// 영준 여행기 작성 저장 페이지
 	@PostMapping("/Community/c_board/savetravelWrite")

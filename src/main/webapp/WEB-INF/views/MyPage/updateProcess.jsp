@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 
 <!-- 액션태그를 이용해서 기존의 소스코드 변경하기 -->
-<jsp:useBean id="vo" class="com.human.web.vo.M_MemberVO" scope="page"/>
+<jsp:useBean id="dto" class="com.human.web.vo.M_MemberVO" scope="page"/>
 <jsp:setProperty name="dto" property="*" />
 <jsp:useBean id="dao" class="com.human.web.repository.M_MemberDAO" scope="page"/>
 

@@ -1,36 +1,52 @@
 package com.human.web.controller;
 
-import java.io.IOException;
+import javax.servlet.http.HttpSession;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.human.web.service.KakaoService;
+import com.human.web.vo.M_MemberVO;
 
-@WebServlet("/login/kakao")
-public class KakaoLoginController extends HttpServlet {
+@Controller
+public class KakaoLoginController {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String accessToken = req.getParameter("accessToken");
-        if (accessToken == null || accessToken.isEmpty()) {
-            System.out.println("액세스 토큰이 전달되지 않았습니다.");
-            resp.getWriter().write("액세스 토큰이 전달되지 않았습니다.");
-            return;
-        }
-        System.out.println("액세스 토큰: " + accessToken);
+    @Autowired
+    private KakaoService kakaoService;
 
+    // 카카오 회원가입 처리
+    @GetMapping("/signup/kakao")
+    public ModelAndView kakaoSignup(@RequestParam("accessToken") String accessToken) {
+        ModelAndView mav = new ModelAndView();
         try {
-            // 사용자 정보를 데이터베이스에 저장
-            KakaoService kakaoService = new KakaoService();
             kakaoService.saveUserInfo(accessToken);
-            resp.sendRedirect(req.getContextPath() + "/index.jsp"); // 로그인 후 메인 페이지로 리다이렉트
+            mav.setViewName("redirect:/index.do");  // 회원가입 후 메인 페이지로 이동
+        } catch (Exception e) {
+            mav.addObject("error", "카카오 회원가입 중 오류가 발생했습니다.");
+            mav.setViewName("error");
+        }
+        return mav;
+    }
+
+    // 카카오 로그인 처리
+    @GetMapping("/login/kakao")
+    public String kakaoLogin(@RequestParam("accessToken") String accessToken, HttpSession session) {
+        try {
+            // 카카오 서비스에서 사용자 정보 가져오기
+            M_MemberVO memberInfo = kakaoService.saveUserInfo(accessToken);  // 사용자 정보 처리 후 저장
+            
+            // 세션에 사용자 정보를 저장
+            session.setAttribute("member", memberInfo);  // 세션에 사용자 정보 저장
+            System.out.println("카카오 사용자 정보가 세션에 저장되었습니다: " + memberInfo);
+
+            // 로그인 성공 후 메인 페이지로 리다이렉트
+            return "redirect:/index.do";
         } catch (Exception e) {
             e.printStackTrace();
-            resp.getWriter().write("카카오 로그인 중 오류가 발생했습니다.");
+            return "redirect:/error/errorPage";  // 에러 발생 시 에러 페이지로 이동
         }
     }
 }
