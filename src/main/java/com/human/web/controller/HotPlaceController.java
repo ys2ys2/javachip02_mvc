@@ -13,6 +13,7 @@ public class HotPlaceController {
 	
 	@Autowired
 	private HotPlaceService hotplaceService;
+    @Autowired
 	
 	// contentID로 해당 핫플레이스 상세 정보 가져오기
 	@GetMapping("/hotplace/detail")
@@ -20,7 +21,8 @@ public class HotPlaceController {
 		//contentid로 해당 hotplace 상세 정보 가져오기
 		Map<String, Object> hotplace = hotplaceService.getHotplaceById(contentid);
 		model.addAttribute("hotplace", hotplace);
-		return "HotPlace/detail";
+		return "HotPlace/hotdetail";
 	}
-
+	
+	
 }

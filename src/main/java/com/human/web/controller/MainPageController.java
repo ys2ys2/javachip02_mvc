@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.human.web.service.BannerPlaceService;
 import com.human.web.service.HotPlaceService;
 
 @Controller
@@ -17,15 +18,22 @@ public class MainPageController {
 
     @Autowired
     private HotPlaceService hotplaceService;
-
+    
+    @Autowired
+    private BannerPlaceService bannerPlaceService;
+    
+    
+    
     // 핫플 테이블의 상세 정보를 랜덤으로 가져오기
     @GetMapping("/HomePage/mainpage")
     public String showHotplaceDetails(Model model) {
         // 랜덤으로 5개의 핫플레이스 정보를 가져옴
         List<Map<String, Object>> hotplaceDetails = hotplaceService.getRandomHotplaceDetail(5);
+        List<Map<String, Object>> bannerPlaces = bannerPlaceService.getRandomBannerPlace(7);
 
         // JSP로 데이터 전달
         model.addAttribute("hotplaceDetails", hotplaceDetails);
+        model.addAttribute("bannerPlaces", bannerPlaces);
 
         return "HomePage/mainpage"; // mainpage.jsp로 이동
     }
@@ -48,7 +56,7 @@ public class MainPageController {
         model.addAttribute("hotplace", hotplace);
 
         // HotPlace detail 페이지로 이동
-        return "HotPlace/detail";
+        return "HotPlace/hotdetail";
 
     }
 }

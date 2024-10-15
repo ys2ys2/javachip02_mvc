@@ -96,12 +96,6 @@ public class HomeController {
 		return "Login/loginProcess";
 	}
 
-	// 예슬 회원가입 페이지
-	@GetMapping("/SignUp/join")
-	public String join() {
-		return "SignUp/join";
-	}
-
 	// 영준 여행기 작성 페이지
 	@GetMapping("/Community/c_board/travelWrite")
 	public String showTravelWritePage() {
