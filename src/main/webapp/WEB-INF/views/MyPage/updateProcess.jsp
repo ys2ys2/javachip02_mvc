@@ -2,9 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 
 <!-- 액션태그를 이용해서 기존의 소스코드 변경하기 -->
-<jsp:useBean id="dto" class="dto.M_MemberDTO" scope="page"/>
+<jsp:useBean id="dto" class="com.human.web.vo.M_MemberVO" scope="page"/>
 <jsp:setProperty name="dto" property="*" />
-<jsp:useBean id="dao" class="dao.M_MemberDAO" scope="page"/>
+<jsp:useBean id="dao" class="com.human.web.repository.M_MemberDAO" scope="page"/>
 
 <!-- dao를 이용해서 dto를 입력하고 결과값을 result 변수에 저장하기 -->
 <c:set var="result" value="${dao.updateM_Member(dto)}" />

@@ -1,3 +1,4 @@
+
 // 모달 열기 함수
 function openTermsModal(type) {
   const modal = document.getElementById('termsModal');
@@ -48,3 +49,5 @@ function closeTermsModal() {
   const modal = document.getElementById('termsModal');
   modal.style.display = 'none';
 }
+
+

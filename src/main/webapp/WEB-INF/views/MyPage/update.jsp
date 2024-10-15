@@ -9,7 +9,7 @@
 <body>
 
 <!-- useBean 액션태그를 이용해서 DAO객체 생성하기 -->
-<jsp:useBean id="dao" class="dao.M_MemberDAO" />
+<jsp:useBean id="dao" class="com.human.web.repository.M_MemberDAO" />
 <!-- DAO의 getMember()메소드를 이용해서 DTO를 반환받고 이것을 dto로 page영역에 저장하기 -->
 <c:set var="dto" value="${dao.getM_Member(member)}" />
 

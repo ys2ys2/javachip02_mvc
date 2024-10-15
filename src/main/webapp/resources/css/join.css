@@ -30,15 +30,15 @@ h1 {
 .joinForm label {
   font-size: 14px;
   color: #333;
-  margin-bottom: 5px;
-  display: block;
+margin-bottom: 50px
+ /*  display: block; */
 }
 
 .joinForm input[type="text"],
 .joinForm input[type="password"] {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
@@ -46,8 +46,8 @@ h1 {
 
 .joinForm input[type="text"]#nickname {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 25px; /* 닉네임 인풋창 아래의 간격을 늘림 */
+  /* padding: 10px; */
+  /* margin-bottom: 25px; */ /* 닉네임 인풋창 아래의 간격을 늘림 */
   border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
@@ -60,7 +60,6 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
 }
 
 .auth-button-group input {
@@ -85,6 +84,16 @@ h1 {
   background-color: #333;
 }
 
+.error-msg {
+    display: block;
+    margin-top: 1px;
+    font-size:11px; 
+    font-weight: 700; 
+    margin-top: 5px;
+    padding-bottom:2px;" /* 인풋 필드와 오류 메시지 사이 간격 */
+}
+
+
 /* 체크박스 섹션 */
 .terms-container {
   background-color: #f7f7f7;
@@ -102,6 +111,7 @@ h1 {
 .terms-list label {
   display: inline-block;
   width: calc(100% - 80px);
+  height: 3px;
 }
 
 .terms-link {

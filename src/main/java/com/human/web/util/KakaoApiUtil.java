@@ -27,7 +27,7 @@ public class KakaoApiUtil {
             // QueryString 형식으로 파라미터 구성
             String params = "grant_type=authorization_code"
                     + "&client_id=cbfd3c2b6545bafe242443ecdb551a7c" // REST API 키
-                    + "&redirect_uri=http://localhost:9090/BBOL_prjt/login/kakao" // Redirect URI
+                    + "&redirect_uri=http://localhost:9090/BBOL/login/kakao" // Redirect URI
                     + "&code=" + code;
 
             // OutputStream으로 데이터 전송

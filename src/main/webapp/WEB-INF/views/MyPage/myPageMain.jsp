@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/header.css"> <!-- mainpage.css -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css"> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" type="text/css" href="myPageMain.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageMain.css"> 
 <title>마이페이지 메인</title>
 </head>
 <body>
@@ -34,21 +37,13 @@
         </ul>
       </nav>
     </div>
-    <!-- 검색 바 -->
-    <div class="search-bar-container">
-      <div class="search-bar-content">
-        <input type="text" placeholder="도시나 키워드를 검색해보세요..." data-ko="도시나 키워드를 검색해보세요..."
-          data-en="Search cities or keywords...">
-        <button class="close-btn"><i class="fa-solid fa-times"></i></button>
-      </div>
-    </div>
   </header>
   <!-- 상단 네비게이션 -->
   <div class="navigation">
-    <a href="#my-trips">내 여행</a>
-    <a href="#my-journeys">내 여행기</a>
-    <a href="#my-saved-list">저장 목록</a>
-    <a href="#comment-management">댓글관리</a>
+     <a href="${pageContext.request.contextPath}/MyPage/m_myTrips">내 여행</a>
+     <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 여행기</a>
+     <a href="${pageContext.request.contextPath}/MyPage/m_savedList">저장목록</a>
+   	 <a href="${pageContext.request.contextPath}/MyPage/m_commentManagement">댓글관리</a>
 </div>
 
 <div class="container">
@@ -60,10 +55,31 @@
             <img src="${pageContext.request.contextPath}/resources/images/profile.jpg" alt="프로필 사진" class="profile-image">
             <h3>박옥수수</h3>
             <p>팔로워: 0 | 팔로잉: 0</p>
-            <button onclick="location.href='editProfile.jsp'">프로필 편집</button>
+            <button onclick="openProfileModal()">프로필 편집</button>
         </div>
     </div>
+<%-- <!-- 모달 창 잠시만 주석 -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <h2>내 프로필 편집</h2>
 
+        <form id="profileForm" enctype="multipart/form-data">
+            <!-- 프로필 이미지 변경 -->
+            <label for="profileImage">프로필 이미지</label>
+            <input type="file" id="profileImage" name="profileImage">
+            
+            <!-- 닉네임 변경 -->
+            <label for="nickname">닉네임*</label>
+            <input type="text" id="nickname" name="nickname" value="${member.m_nickname}" onkeyup="checkNickname(this.value)">
+            <span id="nicknameStatus"></span>
+
+          
+            <button type="button" onclick="updateProfile()">확인</button>
+        </form>
+
+        <button onclick="closeProfileModal()">취소</button>
+    </div>
+</div> --%>
     <!-- 오른쪽 콘텐츠 영역 -->
     <div class="content-section">
 
@@ -99,18 +115,29 @@
             </div>
         </div>
 
-        <!-- 추천 핫플레이스 -->
-        <div class="hotplaces">
-            <h2>BBOL BBOL BBOL 추천 핫플레이스</h2>
-            <div class="content-box"></div>
-        </div>
-
-    </div>
-
+      	<!-- 추천 핫플레이스 섹션 -->
+			<div class="m_hotplaces">
+		    <h2>BBOL BBOL BBOL 추천 핫플레이스</h2>
+		
+		    <!-- 콘텐츠를 보여줄 content-box -->
+		    <div class="m_content-box">
+		        <!-- c:forEach를 사용하여 m_mypageList를 반복 처리 -->
+		        <c:forEach var="mypage" items="${m_mypageList}">
+		            <div class="m_hotplace-item">
+		                <!-- 이미지 출력 (firstimage) -->
+		                <img src="${mypage.firstimage}" alt="${mypage.title}">
+		
+		                <!-- 제목 출력 (title) -->
+		                <h3>${mypage.title}</h3>
+		            </div>
+		        </c:forEach>
+		        
+		    </div>
+		</div>
 </div>
-
+</div>
 </body>
-<script src="../components/header.js"></script>
-<script src="../components/lang-toggle.js"></script>
-<script src="../user.js"></script>
+   <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
+   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
+   <script src="${pageContext.request.contextPath}/resources/js/m_profile.js"></script>
 </html>

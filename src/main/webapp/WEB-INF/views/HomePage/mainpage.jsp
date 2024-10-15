@@ -124,21 +124,28 @@
           <button class="search-btn">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
-          <button class="user-btn" onclick="location.href='${pageContext.request.contextPath}/Login/login'">
+          <button class="user-btn" onclick="location.href='${pageContext.request.contextPath}/Member/login'">
             <i class="fa-solid fa-user"></i>
 		  </button>          
-          <button class="earth-btn">
+          <button class="earth-btn" onclick="location.href='${pageContext.request.contextPath}/MyPage/myPageMain'">
             <i class="fa-solid fa-earth-americas"></i>
           </button>
+          
           <button class="korean" id="lang-btn" data-lang="ko">English</button>
-          	<c:if test="${not empty sessionScope.memberNickname}">
-         		<div class="welcome-message">
-         			${sessionScope.memberNickname}님 환영합니다!
-              <form action="${pageContext.request.contextPath}/Login/logout.jsp" method="post">
-            	<button type="submit">로그아웃</button>
-			</form>         			
-         		</div>
-      		</c:if>
+          	<div class="welcome-message">
+    <c:choose>
+        <c:when test="${not empty sessionScope.member}">
+            ${sessionScope.member.m_nickname}님 환영합니다!
+            <form action="${pageContext.request.contextPath}/Member/logout" method="post">
+                <button type="submit">로그아웃</button>
+            </form>
+        </c:when>
+        <c:otherwise>
+            <a href="${pageContext.request.contextPath}/Member/login">로그인</a>
+            <a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a>
+        </c:otherwise>
+    </c:choose>
+</div>
         </ul>
       </nav>
       

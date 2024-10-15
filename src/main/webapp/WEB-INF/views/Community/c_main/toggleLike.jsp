@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="dao.LikeDAO, dao.PostDAO, dto.LikeDTO" %>
+<%@ page import="com.human.web.repository.PostDAO, com.human.web.vo.LikeVO, com.human.web.repository.LikeDAO" %>
+
 
 <%
 request.setCharacterEncoding("UTF-8");
