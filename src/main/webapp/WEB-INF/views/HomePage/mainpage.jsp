@@ -7,83 +7,6 @@
 <%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- <%
-    // 공공데이터 API URL 및 매개변수 설정
-    String apiKey = "a471e760-6101-4c50-bb4c-560d6fb00f86";
-    String numOfRows = "7"; // 요청할 레코드 수
-    String pageNo = "2"; // 요청할 페이지 번호
-
-    // API 요청 URL 빌드
-    StringBuilder urlBuilder = new StringBuilder("http://api.kcisa.kr/openapi/API_CNV_061/request");
-    urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + URLEncoder.encode(apiKey, "UTF-8"));
-    urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode(numOfRows, "UTF-8"));
-    urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8"));
-
-    // HTTP 연결 설정
-    URL url = new URL(urlBuilder.toString());
-    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-    conn.setRequestMethod("GET");
-    conn.setRequestProperty("Content-type", "application/json");
-
-    // API 응답 처리
-    int responseCode = conn.getResponseCode();
-    BufferedReader rd;
-    if (responseCode >= 200 && responseCode <= 300) {
-        rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-    } else {
-        rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));
-    }
-
-    StringBuilder sb = new StringBuilder();
-    String line;
-    while ((line = rd.readLine()) != null) {
-        sb.append(line);
-    }
-    rd.close();
-    conn.disconnect();
-
-    // XML 데이터를 문자열로 가져옴
-    String xmlResponse = sb.toString();
-
-    // 필요한 데이터 필터링 및 출력
-    String[] items = xmlResponse.split("<item>");
-
-    // 데이터를 저장할 리스트 생성
-    List<Map<String, String>> itemList = new ArrayList<>();
-
-    for (int i = 1; i < items.length; i++) {
-        String item = items[i];
-        
-        // 각 항목의 필요한 필드 추출
-        String title = item.split("<title>")[1].split("</title>")[0];
-        String description = item.split("<description>")[1].split("</description>")[0];
-        String urlStr = item.split("<url>")[1].split("</url>")[0];
-        String viewCnt = item.split("<viewCnt>")[1].split("</viewCnt>")[0];
-        String spatialCoverage = item.split("<spatialCoverage>")[1].split("</spatialCoverage>")[0];
-        
-        // HTML 엔티티를 디코딩
-        description = StringEscapeUtils.unescapeHtml4(description);
-        
-        // 데이터를 Map에 저장
-        Map<String, String> itemData = new HashMap<>();
-        itemData.put("title", title);
-        itemData.put("description", description);
-        itemData.put("urlStr", urlStr);
-        itemData.put("viewCnt", viewCnt);
-        itemData.put("spatialCoverage", spatialCoverage);
-
-        // 리스트에 추가
-        itemList.add(itemData);
-    }
-
-    // 데이터를 request에 저장
-    request.setAttribute("itemList", itemList);
-
-    // 데이터를 JSON 형식으로 변환하여 JavaScript로 전달
-    String jsonItemList = new org.json.JSONArray(itemList).toString();
-    request.setAttribute("jsonItemList", jsonItemList);
-
-%> --%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -198,23 +121,24 @@
 		</div>
 
 
+	<div class="mainratio">
 	<!-- 인기 여행지 섹션 -->
 	<div class="famous">
 	  <h2>인기 여행지</h2>
 	  <div class="famous-list">
 	    <!-- Model에서 전달된 hotplaceTitles 출력 -->
 	    <c:forEach var="hotplace" items="${hotplaceDetails}">
-	      <div class="famous-item">
-	        <!-- 이미지와 타이틀에 링크 추가 -->
+	      <div class="famous-item" onmouseover="expandImage(this)" onmouseout="resetImages()">
 	        <a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
-	          <img src="${hotplace.firstimage}" alt="${hotplace.title}" class="image-placeholder" />
+	          <div class="image-container">
+	            <img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	          </div>
 	          <p>${hotplace.title}</p>
 	        </a>
 	      </div>
 	    </c:forEach>
 	  </div>
 	</div>
-	
 
 
     <!-- 인기 커뮤니티 섹션 -->
@@ -261,8 +185,6 @@
    
       
       
-      
-      
   <!-- 축제 섹션 -->
   <div class="event-section">
     <h2>축제</h2>
@@ -285,8 +207,9 @@
       </div>
     </div>
   </div>
+  </div> <!--  end of mainratio -->
+  
  </div> <!-- end of main-container  -->
-
 
 <!-- 푸터 부분 -->
 <footer>
@@ -345,6 +268,39 @@
   var contextPath = "${pageContext.request.contextPath}";
 </script>
 
+
+<!-- 스크립트 -->
+<script>
+  let currentExpanded = null; // 현재 확장된 이미지 저장
+
+  function resetImages() {
+    const allItems = document.querySelectorAll('.famous-item');
+    allItems.forEach(item => {
+      item.style.flexGrow = '1'; // 모든 이미지를 원래 크기로 복귀
+    });
+    currentExpanded = null; // 확장 상태 초기화
+  }
+
+  function expandImage(element) {
+    const allItems = document.querySelectorAll('.famous-item');
+    
+    // 모든 아이템의 기본 크기를 1로 설정
+    allItems.forEach(item => {
+      item.style.flexGrow = '1';
+    });
+
+    // 클릭한 이미지를 60%로 확장
+    element.style.flexGrow = '5'; // 60%로 확장
+    currentExpanded = element; // 현재 확장된 이미지 저장
+
+    // 나머지 이미지들은 각 20%로 작게 설정
+    allItems.forEach(item => {
+      if (item !== element) {
+        item.style.flexGrow = '2'; // 나머지 아이템은 20%로 설정
+      }
+    });
+  }
+</script>
 
 
    
