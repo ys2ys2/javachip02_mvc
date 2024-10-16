@@ -52,18 +52,31 @@ public class M_MemberServiceImpl implements M_MemberService {
         return dao.findByEmail(m_email);
     }
 
-
-    // 닉네임 중복 체크를 boolean 값으로 반환
+  //회원정보 변경
     @Override
-    public boolean isNicknameAvailable(String m_nickname) {
-        int count = dao.countByNickname(m_nickname); // DAO에서 닉네임 중복 체크
-        return count == 0; // 중복되지 않으면 true 반환
-    }
+	public M_MemberVO updateMember(M_MemberVO vo) {
+    	M_MemberVO newVo = null; //회원정보 변경 실패시 결과값
+    	
+    	// 1. 닉네임 중복 체크
+        int nicknameCount = dao.checkNickname(vo.getM_nickname());
 
+        // 2. 닉네임이 중복된 경우 처리
+        if (nicknameCount > 0) {
+            System.out.println("중복된 닉네임입니다.");
+            return null; // 닉네임 중복 시 null 반환
+        }
 
-	@Override
-    public boolean updateMemberProfile(M_MemberVO member) {
-        int result = dao.updateMemberProfile(member); // DAO에서 프로필 업데이트 수행
-        return result > 0;
+        // 3. 중복되지 않으면 회원 정보 업데이트 진행
+        if (dao.updateMember(vo) == 1) {
+            newVo = dao.getMember(vo.getM_idx()); // 업데이트 후 새로운 회원 정보 가져옴
+        }
+
+        return newVo; // 변경된 회원 정보 반환
 	}
+
+  //회원탈퇴
+  	@Override
+  	public int cancel(int m_idx) {
+  		return dao.cancel(m_idx);
+  	}
 }

@@ -52,34 +52,17 @@
     <div class="profile-section">
     <h4>My BBOL BBOL BBOL</h4>
         <div class="profile-card">
-            <img src="${pageContext.request.contextPath}/resources/images/profile.jpg" alt="프로필 사진" class="profile-image">
-            <h3>박옥수수</h3>
+               <img src="${member.m_profile}" alt="프로필 사진" class="profile-image">
+        
+        <h3>${member.m_nickname}</h3>
             <p>팔로워: 0 | 팔로잉: 0</p>
-            <button onclick="openProfileModal()">프로필 편집</button>
+            <!-- 프로필 편집 버튼 (JavaScript로 페이지 이동) -->
+<a href="${pageContext.request.contextPath}/Member/m_updateProfile">
+    <button>프로필 편집</button>
+</a>
         </div>
     </div>
-<%-- <!-- 모달 창 잠시만 주석 -->
-<div id="profileModal" class="modal">
-    <div class="modal-content">
-        <h2>내 프로필 편집</h2>
 
-        <form id="profileForm" enctype="multipart/form-data">
-            <!-- 프로필 이미지 변경 -->
-            <label for="profileImage">프로필 이미지</label>
-            <input type="file" id="profileImage" name="profileImage">
-            
-            <!-- 닉네임 변경 -->
-            <label for="nickname">닉네임*</label>
-            <input type="text" id="nickname" name="nickname" value="${member.m_nickname}" onkeyup="checkNickname(this.value)">
-            <span id="nicknameStatus"></span>
-
-          
-            <button type="button" onclick="updateProfile()">확인</button>
-        </form>
-
-        <button onclick="closeProfileModal()">취소</button>
-    </div>
-</div> --%>
     <!-- 오른쪽 콘텐츠 영역 -->
     <div class="content-section">
 
@@ -137,7 +120,7 @@
 </div>
 </div>
 </body>
+
    <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
    <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/js/m_profile.js"></script>
 </html>

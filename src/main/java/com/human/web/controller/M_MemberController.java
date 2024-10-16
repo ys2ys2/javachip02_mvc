@@ -1,10 +1,6 @@
 package com.human.web.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,9 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.human.web.service.M_MemberService;
 import com.human.web.vo.M_MemberVO;
@@ -44,6 +37,14 @@ public class M_MemberController {
     public String join() {
         return "Member/join"; // 회원가입 폼으로 이동
     }
+    
+    
+    //프로필 변경
+    @GetMapping("/m_updateProfile")
+    public String m_updateProfile() {
+        return "Member/m_updateProfile"; // 프로필 변경
+    }
+    
     
  // 회원가입 처리 요청
     @PostMapping("/joinProcess")
@@ -115,6 +116,65 @@ public class M_MemberController {
 			}
 			return "redirect:/index.do";				
 		}
+		
+		
+
+		//회원정보 변경 처리 요청
+		@PostMapping("/updateProcess")
+		public String updateProcess(M_MemberVO vo, HttpServletRequest request, Model model) {
+		    
+		    String viewName = "Member/m_updateProfile"; // 회원정보 변경 실패 시 반환할 뷰 이름
+
+		    // 회원 정보 업데이트 요청
+		    M_MemberVO newVo = m_memberServiceImpl.updateMember(vo);
+		    
+		    // 1. 회원 정보 변경 성공 여부 판단
+		    if (newVo != null) {
+		        // 회원정보 변경 성공
+		        HttpSession session = request.getSession();
+		        session.removeAttribute("member");
+		        session.setAttribute("member", newVo);
+		        viewName = "redirect:/index.do"; // 성공 시 메인 페이지로 리다이렉트
+		    } else {
+		        // 회원 정보 변경 실패
+		        int nicknameCount = m_memberServiceImpl.checkNickname(vo.getM_nickname());
+		        if (nicknameCount > 0) {
+		            model.addAttribute("msg", "닉네임이 중복되었습니다. 다른 닉네임을 사용해 주세요.");
+		        } else {
+		            model.addAttribute("msg", "회원정보 변경 중 오류가 발생했습니다. 변경 내용을 확인해 주세요.");
+		        }
+		    }
+
+		    return viewName; // 실패 시 업데이트 페이지로 다시 이동
+		}
+
+		
+		
+		
+		//회원탈퇴 요청
+		@GetMapping("/cancelProcess")
+		public String cancelProcess(HttpServletRequest request, Model model) {
+			HttpSession session = request.getSession();
+			M_MemberVO vo = (M_MemberVO)session.getAttribute("member");
+			int m_idx = vo.getM_idx();
+			
+			int result = m_memberServiceImpl.cancel(m_idx);
+			
+			String viewName = "member/update";//회원탈퇴 실패시 뷰이름
+			
+			if(result == 1) {//회원탈퇴 성공
+				session.invalidate();//세션 초기화
+				viewName = "redirect:/index.do";
+				
+			}else {//회원탈퇴 실패
+				String msg = "시스템에 오류가 발생했습니다. 빠른 시일 내에 시스템을 정상화하도록 하겠습니다.";
+				model.addAttribute("msg", msg);
+			}
+			
+			return viewName;
+		}
+		
+		
 		
 }
 		

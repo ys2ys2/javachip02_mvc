@@ -119,14 +119,49 @@ public class M_MemberDAO {
 	    }
 
 
-		public int countByNickname(String m_nickname) {
-			 return sqlSession.selectOne(MAPPER + ".countByNickname", m_nickname);
+	    public int updateMember(M_MemberVO vo) {
+	        int result = 0;
+	        try {
+	            System.out.println("DAO - 업데이트할 회원 정보: " + vo); // VO 값 확인
+	            result = sqlSession.update(MAPPER + ".updateMember", vo);
+	            System.out.println("DAO - 회원정보 업데이트 결과: " + result); // SQL 실행 결과 확인
+	        } catch (Exception e) {
+	            System.out.println("DAO - 회원정보 변경 중 예외 발생");
+	            e.printStackTrace();
+	        }
+	        return result;
+	    }
+
+		//회원정보 조회
+		public M_MemberVO getMember(int m_idx) {
+			M_MemberVO vo = null;//회원정보 조회 실패시 결과값
+			
+			try {
+				
+				vo = sqlSession.selectOne(MAPPER+".getMember", m_idx);
+				
+			} catch (Exception e) {
+				System.out.println("회원정보 조회 중 예외발생");
+			}
+			
+			return vo;
 		}
 
-
-		public int updateMemberProfile(M_MemberVO member) {
-			   return sqlSession.update(MAPPER + ".updateMemberProfile", member);
+		//회원탈퇴
+		public int cancel(int m_idx) {
+			int result = 0;//회원탈퇴 실패시 결과값
+			
+			try {
+				
+				result = sqlSession.update(MAPPER+".cancel", m_idx);
+				
+			} catch (Exception e) {
+				System.out.println("회원탈퇴 중 예외발생");
+			}
+			
+			return result;
 		}
 
+	}
 
-  }
+  

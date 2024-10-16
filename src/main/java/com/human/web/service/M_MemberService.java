@@ -14,9 +14,9 @@ public interface M_MemberService {
 	int checkNickname(String m_nickname);
 	
 	M_MemberVO findByEmail(String email);
+	
+	M_MemberVO updateMember(M_MemberVO vo);
 
-	boolean isNicknameAvailable(String nickname);
-
-	boolean updateMemberProfile(M_MemberVO member);
+	int cancel(int m_idx);
 
 }

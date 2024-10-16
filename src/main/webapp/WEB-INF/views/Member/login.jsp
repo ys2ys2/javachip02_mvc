@@ -53,7 +53,7 @@
 <div class="login-form-container">
    <h1 class="bbol-logo">BBOL BBOL BBOL</h1>
   <h1 class="bbol-login-title">로그인하고 여행을 시작해 보세요</h1>
-		<form method="post" action="${pageContext.request.contextPath}/loginProcess" class="bbol-login-form">
+		<form method="post" action="loginProcess" class="bbol-login-form">
         <!-- 이메일 입력 필드 -->
         <label for="email">이메일</label>
         <input type="text" id="email" name="m_email" placeholder="example@bbol.com" required>
