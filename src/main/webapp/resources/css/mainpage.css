@@ -43,7 +43,6 @@ body {
 .main-container {
   width: 100%;
   max-width: 100%;
-  margin-top: 10px;
   background-color: white;
 }
 
@@ -67,11 +66,14 @@ body {
   padding: 20px;
   box-sizing: border-box;
   gap: 20%; /* 설명 박스와 슬라이더 사이에 여백 추가 */
+  transition: background-color 0.5s ease;
+  
 }
 
 .swiper {
   width: 190%;
   height: 100%;
+  overflow: hidden;
 }
 
 .swiper-slide {
@@ -81,6 +83,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  background-color:transparent;
 }
 
 .swiper-slide img {
@@ -88,11 +92,9 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 15px;
 }
 
-.swiper-slide {
-  width: 100%;
-}
 
 .swiper-slide:nth-child(2n) {
   width: 40%;
@@ -185,7 +187,8 @@ body {
   flex-direction: column;
   justify-content: space-between;
   margin-left: 10%;
-  max-he
+  transition: background-color 0.5s ease;
+  
 }
 
 #description-text {
@@ -325,6 +328,9 @@ body {
   gap: 20px;
   overflow: auto;
   padding: 20px;
+  text-align: center;
+  overflow: hidden;
+    
 
 }
 
@@ -339,7 +345,7 @@ body {
 
 .hotplace-item {
   width: 100%;
-  max-width: 230px;
+  max-width: 220px;
   height: 350px;
   margin: 10px auto; /* 마진 0, auto로 가운데 정렬(좌우여백 자동 설정) */
   box-sizing: border-box;
@@ -350,12 +356,25 @@ body {
 
 .hotplace-item img {
   width: 100%; 
-  height: 100%;
+  height: 90%;
   object-fit:inherit;
   border-radius: 8px;
   cursor: pointer;
   
 }
+
+.hotplace-item p {
+  font-size: 18px;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+.hotplace-item a {
+	text-decoration: none;
+	color: inherit;
+}
+
+
 
 
 

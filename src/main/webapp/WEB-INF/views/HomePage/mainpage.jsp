@@ -215,36 +215,6 @@
 	  </div>
 	</div>
 	
-        
-        <!-- <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>부산</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>서울</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>오사카</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>타이베이</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>강원도</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>제주도</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>태국</p>
-        </div>
-      </div> -->
 
 
     <!-- 인기 커뮤니티 섹션 -->
@@ -278,33 +248,19 @@
     <div class="hotplace-section">
       <h2>함께 떠나는 핫플 여행</h2>
     <div class="hotplace-list">
+   		<c:forEach var="hotplace" items="${hotplaceDetails}">
     <div class="hotplace-item">
-      	<a href="${pageContext.request.contextPath}/HotPlace/hotplace.jsp" class="hotplace-item">
-      	<img src="${pageContext.request.contextPath}/resources/images/firecastle01.jpg" alt="수원화성1">
+		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	    	<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="image-placeholder" />
+	    	<p>${hotplace.title}</p>
       </a>
     </div>
-    <div class="hotplace-item">
-		<a href="${pageContext.request.contextPath}/HotPlace/hotplace2" class="hotplace-item">
-        <img src="${pageContext.request.contextPath}/resources/images/firecastle02.jpg" alt="수원화성2">
-      </a>
-    </div>
-    <div class="hotplace-item">
-		<a href="${pageContext.request.contextPath}/Login/login" class="hotplace-item">
-		<img src="${pageContext.request.contextPath}/resources/images/firecastle03.jpg" alt="수원화성3">
-	  </a>
-    </div>
-    <div class="hotplace-item">
-      <a href="${pageContext.request.contextPath}/Community/c_board/travelWrite" class="hotplace-item">
-      <img src="${pageContext.request.contextPath}/resources/images/firecastle04.jpg" alt="수원화성4">
-      </a>
-    </div>
-    <div class="hotplace-item">
-      <a href="${pageContext.request.contextPath}/Community/c_main/c_main" class="hotplace-item">
-      <img src="${pageContext.request.contextPath}/resources/images/firecastle05.jpg" alt="수원화성5">
-      </a>
-    </div>
+    	</c:forEach>
   </div>
 </div>
+   
+      
+      
       
       
   <!-- 축제 섹션 -->

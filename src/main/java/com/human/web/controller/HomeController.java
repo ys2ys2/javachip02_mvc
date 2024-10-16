@@ -16,7 +16,7 @@ public class HomeController {
 	// 메인페이지
 	@GetMapping("/")
 	public String home() {
-		return "HomePage/mainpage";
+	    return "redirect:/HomePage/mainpage";
 	}
 
 	// 403에러

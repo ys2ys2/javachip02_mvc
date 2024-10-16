@@ -17,6 +17,19 @@ document.addEventListener("DOMContentLoaded", function () {
       prevEl: ".prev-btn",
     },
   });
+  
+  	//배경색 배열주기
+	const backgroundColors = [
+	  "rgb(214, 240, 255)", // 첫 번째 슬라이드 배경색
+	  "rgb(255, 225, 125)", // 두 번째 슬라이드 배경색
+	  "rgb(227, 201, 238)", // 세 번째 슬라이드 배경색
+	  "rgb(255, 240, 201)", // 네 번째 슬라이드 배경색
+	  "rgb(255, 219, 221)", // 다섯 번째 슬라이드 배경색
+	  "rgb(157, 206, 240)", // 여섯 번째 슬라이드 배경색
+	  "rgb(210, 199, 255)"  // 일곱 번째 슬라이드 배경색
+	];
+  
+  
 
   // 전체 슬라이드 수 구하기 (복사된 슬라이드를 제외한 실제 슬라이드만 계산)
   var totalSlides = document.querySelectorAll('.swiper-wrapper .swiper-slide:not(.swiper-slide-duplicate)').length;
@@ -36,6 +49,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // 슬라이드 변경 시 설명 및 링크 업데이트
   swiper.on('slideChange', function () {
     document.querySelector('.current-slide').textContent = String(swiper.realIndex + 1).padStart(2, '0');
+    
+    const newColor = backgroundColors[swiper.realIndex % backgroundColors.length]; //index값에 맞는 backgroundColor
+    document.querySelector('.swiper-container').style.backgroundColor = newColor;
+    document.querySelector('.description-box').style.backgroundColor = newColor;
+    
+    
     updateDescription(swiper.realIndex); // 설명 및 링크 업데이트
   });
 
@@ -48,10 +67,10 @@ document.addEventListener("DOMContentLoaded", function () {
   pauseBtn.addEventListener('click', function () {
     if (isPaused) {
       swiper.autoplay.start();
-      pauseBtn.querySelector('img').src = '../images/btn_slidem_stop02.png';
+      pauseBtn.querySelector('img').src = contextPath + '/resources/images/btn_slidem_stop02.png';
     } else {
       swiper.autoplay.stop();
-      pauseBtn.querySelector('img').src = '../images/btn_curation_play.png';
+      pauseBtn.querySelector('img').src = contextPath + '/resources/images/btn_curation_play.png';
     }
     isPaused = !isPaused;
   });
