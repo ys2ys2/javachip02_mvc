@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.human.web.repository.PostDAO, com.human.web.vo.PostVO" %>
-<%@ page import="com.human.web.repository.TravelPostDAO, com.human.web.vo.TravelPostVO" %>
+<%@ page import="com.human.notice.repository.PostDAO,com.human.notice.vo.PostVO" %>
+<%@ page import="com.human.notice.repository.TravelPostDAO,com.human.notice.vo.TravelPostVO" %>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %><fmt:setTimeZone value="UTC" />
 <%@ page import="java.util.List" %>

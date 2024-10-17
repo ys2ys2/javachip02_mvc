@@ -58,19 +58,19 @@
             <div class="swiper-wrapper">
                 <!-- 이미지와 지역 이름 -->
                 <div class="swiper-slide">
-                <a href="travel_Seoul.jsp">
+                <a href="${pageContext.request.contextPath}/RecoSpot/travel_Seoul">
                     <img src="${pageContext.request.contextPath}/resources/images/서울.jpg" alt="서울" class="circle-image">
                     <div class="region-name">서울</div>
                     </a>
                 </div>
                 <div class="swiper-slide">
-                <a href="travel_Incheon.jsp">
+                <a href="${pageContext.request.contextPath}/RecoSpot/travel_Incheon">
                     <img src="${pageContext.request.contextPath}/resources/images/인천.jpg" alt="인천" class="circle-image">
                     <div class="region-name">인천</div>
                 </a>    
                 </div>
                 <div class="swiper-slide">
-                 <a href="travel_Daejeon.jsp">
+                 <a href="${pageContext.request.contextPath}/RecoSpot/travel_Daejeon">
                     <img src="${pageContext.request.contextPath}/resources/images/대전.jpg" alt="대전" class="circle-image">
                     <div class="region-name">대전</div>
                     </a>

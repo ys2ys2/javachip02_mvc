@@ -53,7 +53,7 @@
 <div class="login-form-container">
    <h1 class="bbol-logo">BBOL BBOL BBOL</h1>
   <h1 class="bbol-login-title">로그인하고 여행을 시작해 보세요</h1>
-		<form method="post" action="${pageContext.request.contextPath}/Login/loginProcess" class="bbol-login-form">
+		<form method="post" action="loginProcess" class="bbol-login-form">
         <!-- 이메일 입력 필드 -->
         <label for="email">이메일</label>
         <input type="text" id="email" name="m_email" placeholder="example@bbol.com" required>
@@ -85,7 +85,7 @@
 
         <!-- 회원가입 유도 -->
         <div class="bbol-signup-prompt">
-            아직 회원이 아니신가요? <span onclick="location.href='${pageContext.request.contextPath}/SignUp/join'">회원가입</span>
+            아직 회원이 아니신가요? <span onclick="location.href='${pageContext.request.contextPath}/Member/joinmain'">회원가입</span>
         </div>
     </form>
 </div>
@@ -93,10 +93,10 @@
   
     <!-- 로그인 실패 시 오류 메시지 출력 -->
 <!-- 로그인 실패 시 오류 메시지 출력 -->
-<c:if test="${not empty param.msg}">
-    <p style="color:red;">${param.msg}</p>
-</c:if>
-    
+<c:if test="${not empty msg}">
+		<p> ${msg} </p>
+	</c:if>
+
     
 
 </body>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yourpackage.mapper.EventsCommentsMapper">
+
+
+    <!-- 댓글 추가 -->
+    <insert id="insertComment" parameterType="ecVO">
+        INSERT INTO t_events_comments 
+        	(t_comment_content, t_comment_author_id, t_idx)
+        	VALUES 
+        	(#{t_comment_content}, #{t_comment_author_id}, 1)
+    </insert>
+
+    <!-- 모든 댓글 가져오기 -->
+    <select id="getAllComments" resultType="ecVO">
+        SELECT *
+        	FROM t_events_comments
+        	ORDER BY t_comment_author_id DESC
+    </select>
+
+</mapper>

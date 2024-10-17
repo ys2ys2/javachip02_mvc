@@ -9,7 +9,7 @@
 <%@ page import="com.human.web.jdbc.DBCP" %>
 
 <%@ page import="java.util.List" %>
-<%@ page import="com.human.web.vo.TalkVO, com.human.web.repository.TalkDAO" %>
+<%@ page import="com.human.web.vo.TalkVO,com.human.web.repository.TalkDAO" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>

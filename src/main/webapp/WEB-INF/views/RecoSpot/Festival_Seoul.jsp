@@ -5,6 +5,23 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Festival.css"> <!-- CSS 링크 -->
+<!-- jQuery를 사용하기 위한 API 추가 -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+
+<script>
+
+	//맛집을 클릭했을 때 famous.jsp를 호출할 수 있도록 함
+	$(".image-item2").on("click", function(){
+		
+		//famous.jsp를 호출하는 url: /aaa
+		location.href = "${pageContext.request.contextPath}/Matzip/famous";
+		
+	});
+
+
+</script>
+    
+    
 </head>
 <body>
 
@@ -63,16 +80,13 @@
 </div>
 
 
-<h4>날짜 포맷하여 출력하기</h4>
-전체 : <fmt:formatDate value="${today}" type="date" dateStyle="full" /><br>
-짧게 : <fmt:formatDate value="${today}" type="date" dateStyle="short" /><br>
-길게 : <fmt:formatDate value="${today}" type="date" dateStyle="long" /><br>
-기본 : <fmt:formatDate value="${today}" type="date" dateStyle="default" /><br>
 
 <!-- 축제 이미지 섹션 -->
 <div class="festival-images">
     <div class="image-item2">
+     <a href="${pageContext.request.contextPath}/Festival/Event" class="image-item2">
         <img src="${pageContext.request.contextPath}/resources/images/T_6.png" alt="Festival Image 1">
+        </a>
     </div>
     <div class="image-item2">
         <img src="${pageContext.request.contextPath}/resources/images/T_6.png" alt="Festival Image 2">
@@ -81,6 +95,7 @@
         <img src="${pageContext.request.contextPath}/resources/images/T_6.png" alt="Festival Image 3">
     </div>
 </div>
+
 
 <script src="${pageContext.request.contextPath}/resources/js/festival.js"></script>
 

@@ -6,8 +6,11 @@
   
   <!-- MyBatis에서 데이터 타입으로 사용할 객체들에 대한 별칭(alias) 정의 -->
   <typeAliases>
-  	
-  	
+    
+  	<typeAlias alias="ecVO" type="com.human.web.vo.EventsCommetsVO"/>
+  	<typeAlias alias="row" type="com.human.web.vo.SeoulEventApiVO$Row"/>
+ 
   </typeAliases>
+  
   
 </configuration>

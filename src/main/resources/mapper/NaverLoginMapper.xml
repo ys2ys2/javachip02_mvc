@@ -3,21 +3,17 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.human.spring.mapper.NaverLoginMapper">
+<mapper namespace="com.yourpackage.mapper.NaverLoginMapper">
 
-    <!-- 네이버 로그인 정보 삽입 -->
-    <insert id="insertNaverLogin">
-        INSERT INTO NAVER_LOGIN (naver_id, m_idx, naver_name, naver_nickname, create_at)
-        VALUES (#{naverId}, #{mIdx}, #{naverName}, #{naverNickname}, #{createAt})
+    <!-- 댓글 추가 -->
+    <insert id="insertComment" parameterType="com.human.web.vo.EventsCommetsVO">
+        INSERT INTO events_comments (t_comment_content, t_comment_author_id, t_comment_created_at, t_comment_updated_at, t_comment_likes, t_idx)
+        VALUES (#{t_comment_content}, #{t_comment_author_id}, #{t_comment_created_at}, #{t_comment_updated_at}, #{t_comment_likes}, #{t_idx})
     </insert>
 
-    <!-- 네이버 ID로 사용자 정보 조회 -->
-    <select id="getNaverLoginInfo" parameterType="string" resultType="com.human.web.vo.NaverLoginVO">
-        SELECT * FROM NAVER_LOGIN WHERE naver_id = #{naverId}
+    <!-- 특정 행사에 대한 댓글 목록 가져오기 -->
+    <select id="getCommentsByEventId" parameterType="int" resultType="com.human.web.vo.EventsCommetsVO">
+        SELECT * FROM events_comments WHERE t_idx = #{eventId}
     </select>
 
-    <!-- 네이버 ID 중복 검사 -->
-    <select id="checkNaverId" parameterType="string" resultType="int">
-        SELECT COUNT(*) FROM NAVER_LOGIN WHERE naver_id = #{naverId}
-    </select>
 </mapper>

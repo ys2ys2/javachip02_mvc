@@ -9,4 +9,4 @@
 %>
 
 <!-- 로그아웃 후 메인 페이지로 리다이렉트 -->
-<c:redirect url="/HomePage/mainpage.jsp" />
+<c:redirect url="/index.do" />

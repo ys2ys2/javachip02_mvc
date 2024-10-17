@@ -4,6 +4,25 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/journal.css">
+<!-- jQuery를 사용하기 위한 API 추가 -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+
+<script>
+
+	//맛집을 클릭했을 때 famous.jsp를 호출할 수 있도록 함
+	$(".image-item3").on("click", function(){
+		
+		//famous.jsp를 호출하는 url: /aaa
+		location.href = "${pageContext.request.contextPath}/Matzip/famous";
+		
+	});
+
+
+</script>
+
+
+
+
 </head>
 <body>
 
@@ -235,11 +254,13 @@
 
     <div class="image-container">
         <div class="image-item3">
+             <a href="${pageContext.request.contextPath}/Matzip/famous" class="image-item3">
             <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
             <div class="image-description">
                 <div class="image-title">중화일상</div>
                 <div class="location">서울특별시 송파구</div>
             </div>
+          </a>
         </div>
 
         <div class="image-item3">

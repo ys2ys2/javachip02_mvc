@@ -6,9 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <link rel="stylesheet" href="../css/header.css"> <!-- mainpage.css -->
+   <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" type="text/css" href="joinmain.css">
+  <link href="${pageContext.request.contextPath}/resources/css/joinmain.css" rel="stylesheet" type="text/css">
     <title>회원가입 메인페이지</title>
 </head>
 <body>
@@ -58,7 +58,7 @@
         </button>
 
         <!-- 이메일 가입 버튼 -->
-        <button type="button" class="email-button" onclick="location.href='join.jsp'">이메일로 가입</button>
+        <a href="${pageContext.request.contextPath}/Member/join"><button type="button" class="email-button" onclick="location.href='join.jsp'">이메일로 가입</button></a>
 
         <!-- 또는 구분선 -->
         <div class="join-divider">
@@ -73,7 +73,7 @@
         </div>
 
         <!-- 로그인 유도 문구 -->
-        <p class="login-prompt">이미 계정이 있으신가요? <span onclick="location.href='../Login/login.jsp'">로그인</span></p>
+        <p class="login-prompt">이미 계정이 있으신가요? <a href="${pageContext.request.contextPath}/Member/login"><span onclick="location.href='../Login/login.jsp'">로그인</span></a></p>
     </form>
 </div>
  <!-- 카카오 SDK 추가 -->
@@ -130,7 +130,6 @@
     </script>
 </body>
 <!-- 외부 JavaScript 파일 불러오기 -->
-<script src="../components/header.js"></script>
-<script src="../components/lang-toggle.js"></script>
-<script src="../user.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
+   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
 </html>

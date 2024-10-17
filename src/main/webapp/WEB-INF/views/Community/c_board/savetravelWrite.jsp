@@ -1,4 +1,4 @@
-<%@ page import="com.human.web.vo.TravelPostVO, com.human.web.repository.TravelPostDAO, com.human.web.vo.MediaVO, com.human.web.repository.MediaDAO" %>
+<%@ page import="com.human.notice.vo.TravelPostVO,com.human.notice.repository.TravelPostDAO,com.human.notice.vo.MediaVO,com.human.notice.repository.MediaDAO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %> <!-- JSP 파일에서 EL(Expression Language)을 사용하지 않도록 설정 -->
 <%@ page import="java.io.File" %>

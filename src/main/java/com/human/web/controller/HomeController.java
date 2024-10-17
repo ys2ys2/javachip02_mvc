@@ -1,27 +1,39 @@
 package com.human.web.controller;
 
+
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.human.web.service.SeoulEventApiService;
+import com.human.web.vo.SeoulEventApiVO;
+
+import lombok.AllArgsConstructor;
+
 @Controller
+@AllArgsConstructor
 public class HomeController {
-	
-	//기타 요청URL에 대한 처리 메소드
-	@GetMapping("/")
-	public String home() {
-		return "HomePage/mainpage";
-	}
+
+    // 필드 정의 - 주입받을 서비스에 final 추가
+    private SeoulEventApiService seoulEventApiServiceImpl;
+
+    // 프로젝트를 처음 실행시킬 때 요청 URL: /
+    @GetMapping("/")
+    public String home() {
+        return "HomePage/mainpage"; // WEB-INF/views/HomePage/mainpage.jsp 페이지 실행
+    }
 	
 	@GetMapping("/index.do")
 	public String index() {
-		return "HomePage/mainpage";
+		return "HomePage/mainpage";//WEB-INF/views/HomePage/mainpage.jsp 페이지 실행
 	}
 	
 	@GetMapping("/error/error403.do")
@@ -130,65 +142,101 @@ public class HomeController {
         return "Community/c_main/c_main";
     }
     
-    //희진 축제페이지
-	@GetMapping("/Festival/Event")
-	public String Event() {
-	    return "Festival/Event";
-	}
-	
-	//희진 맛집페이지
+
+    //////////////////////////////////  희진  /////////////////////////////////////////////////////
+    
+    //희진 맛집 페이지
 	@GetMapping("/Matzip/famous")
 	public String famous() {
-		return "Matzip/famous";
+	    return "Matzip/famous";
 	}
 	
-	//희진 Festival_Daejeon
-	@GetMapping("/RecoSpot/Festival_Daejeon")
-	public String Festival_Daejeon() {
-		return "RecoSpot/Festival_Daejeon";
+
+	
+	@GetMapping("/Festival/Event")
+	public String Event(Model model) {
+		String viewName = "/RecoSpot/travel_Seoul";//입력 실패시 뷰이름
+		//서울 공공 데이터를 가져와서 Model에 저장하기
+		int result = seoulEventApiServiceImpl.insertSeoul();
+		
+		if(result==1) {
+			System.out.println("서울 공공 데이터가 정상적으로 입력되었습니다.");
+			//DB에 저장된 데이터를 가져와서 Model객체에 저장하기
+			List<SeoulEventApiVO.Row>  events = seoulEventApiServiceImpl.getAllEvents();
+			model.addAttribute("events", events);
+			
+			viewName = "Festival/Event";//입력 성공시 뷰이름
+		}
+		
+	    return viewName;
 	}
 	
-	//희진 Festival_Incheon
-	@GetMapping("/RecoSpot/Festival_Incheon")
-	public String Festival_Incheon() {
-		return "RecoSpot/Festival_Incheon";
+	//희진 행사 페이지
+	
+
+
+	//--------------- 여행지 --------------------
+
+	//서울: travel_Seoul
+	@GetMapping("/RecoSpot/travel_Seoul")
+	public String travel_Seoul() {
+		return "RecoSpot/travel_Seoul";
 	}
 	
-	//희진 Festival_Seoul
+	//인천: travel_Incheon
+	@GetMapping("/RecoSpot/travel_Incheon")
+	public String travel_Incheon() {
+		return "RecoSpot/travel_Incheon";
+	}
+	
+	//대전: travel_Daejeon
+	@GetMapping("/RecoSpot/travel_Daejeon")
+	public String travel_Daejeon() {
+		return "RecoSpot/travel_Daejeon";
+	}
+	
+	//--------------- 축제 --------------------
+	
+	//서울: Festival_Seoul
 	@GetMapping("/RecoSpot/Festival_Seoul")
 	public String Festival_Seoul() {
 		return "RecoSpot/Festival_Seoul";
 	}
 	
+	//인천: Festival_Incheon
+	@GetMapping("/RecoSpot/Festival_Incheon")
+	public String Festival_Incheon() {
+		return "RecoSpot/Festival_Incheon";
+	}
+	
+	//대전: Festival_Daejeon
+	@GetMapping("/RecoSpot/Festival_Daejeon")
+	public String Festival_Daejeon() {
+		return "RecoSpot/Festival_Daejeon";
+	}
+	
+	//--------------- journal --------------------
+	
+	//희진 journal_Seoul
+	@GetMapping("/RecoSpot/journal_Seoul")
+	public String journal_Seoul() {
+		return "RecoSpot/journal_Seoul";
+	}
+	
+	//인천: journal_Incheon
+	@GetMapping("/RecoSpot/journal_Incheon")
+	public String journal_Incheon() {
+		return "RecoSpot/journal_Incheon";
+	}
+
 	//희진 journal_Daejeon
 	@GetMapping("/RecoSpot/journal_Daejeon")
 	public String journal_Daejeon() {
 		return "RecoSpot/journal_Daejeon";
 	}
 	
-	//희진 journal_Incheon
-	@GetMapping("/RecoSpot/journal_Incheon")
-	public String journal_Incheon() {
-		return "RecoSpot/journal_Incheon";
-	}
-	
-	//희진 travel_Daejeon
-	@GetMapping("/RecoSpot/travel_Daejeon")
-	public String travel_Daejeon() {
-		return "RecoSpot/travel_Daejeon";
-	}
-	
-	//희진 travel_Incheon
-	@GetMapping("/RecoSpot/travel_Incheon")
-	public String travel_Incheon() {
-		return "RecoSpot/travel_Incheon";
-	}
-	
-	//희진 travel_Seoul
-	@GetMapping("/RecoSpot/travel_Seoul")
-	public String travel_Seoul() {
-		return "RecoSpot/travel_Seoul";
-	}
+
+
 	
 
 }

@@ -7,10 +7,10 @@ const overlay = document.querySelector('.overlay');
 const closeBtn = document.querySelector('.close-btn');
 
 // 돋보기 버튼 클릭 시 검색 바와 어두운 배경 활성화
-searchBtn.addEventListener('click', () => {
-    searchBar.classList.add('active'); // 검색 바가 나타나도록 active 클래스 추가
-    overlay.style.display = 'block'; // 어두운 배경 표시
-});
+//searchBtn.addEventListener('click', () => {
+//    searchBar.classList.add('active'); // 검색 바가 나타나도록 active 클래스 추가
+//    overlay.style.display = 'block'; // 어두운 배경 표시
+//});
 
 // 닫기 버튼 또는 배경 클릭 시 검색 바와 배경 숨김
 closeBtn.addEventListener('click', () => {

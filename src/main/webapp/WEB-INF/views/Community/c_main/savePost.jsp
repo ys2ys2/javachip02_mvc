@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="dao.PostDAO, dto.PostDTO" %>
+<%@ page import="com.human.notice.repository.PostDAO,com.human.notice.vo.PostVO" %>
 <%@ page import="javax.servlet.http.*, javax.servlet.*" %>
 
 <%
