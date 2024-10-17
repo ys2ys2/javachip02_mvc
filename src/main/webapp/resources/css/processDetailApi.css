@@ -58,8 +58,13 @@
   font-style: normal;
 }
 
+body {
+	  font-family: 'NanumSquareRoundR', sans-serif;
+	
+}
+
 /* container 스타일 */
-.container {
+.resultcontainer {
   position: absolute;
   top: 50%;
   left: 50%;

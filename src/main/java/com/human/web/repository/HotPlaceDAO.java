@@ -50,4 +50,15 @@ public class HotPlaceDAO {
 		return sqlSession.selectOne(MAPPER + ".getHotplaceById", contentid);
 	}
 
+	
+	   // 저장 버튼 클릭 시 mypage 테이블에 m_idx, contentid 저장
+    public void insertMyPage(int m_idx, String contentid) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("m_idx", m_idx);
+        paramMap.put("contentid", contentid);
+
+        sqlSession.insert(MAPPER + ".insertMyPage", paramMap);
+    }
+		
+
 }

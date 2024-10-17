@@ -98,5 +98,13 @@ public class HotPlaceServiceImpl implements HotPlaceService {
 	}
 
 
+	
+	//hotplace 저장하면 mypage 테이블로 저장
+	@Override
+	public void saveHotplace(int m_idx, String contentid) {
+        hotplaceDAO.insertMyPage(m_idx, contentid);
+	}
+
+
 
 }

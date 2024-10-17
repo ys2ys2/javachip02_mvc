@@ -55,7 +55,10 @@
         <c:choose>
           <c:when test="${not empty sessionScope.member}">
             <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
+            <div class="welcome">
+            	<span class="userprofile"><img src="${sessionScope.member.m_profile}" alt="user-profile"></span>
+            	${sessionScope.member.m_nickname}님 환영합니다!
+            </div>
             <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
             <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
               <button type="submit">로그아웃</button>
@@ -112,23 +115,44 @@
 		      <div class="swiper-wrapper">
 		        <c:forEach var="banner" items="${bannerPlaces}">
 		          <div class="swiper-slide">
+		            <a href="${pageContext.request.contextPath}/BannerPlace/${banner.contentid}">
 		            <img src="${banner.firstimage}" alt="${banner.title}">
+		          	</a>
 		          </div>
 		        </c:forEach>
 		      </div>
 		    </div>
 		  </div>
 		</div>
+		
+		
+	<!-- background img -->
+	<div class="hotplaceback" style="background: url(&quot;https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&amp;id=7e0aefba-db64-46d3-ad9d-62332fc470c4&quot;) 50% center no-repeat rgb(255, 255, 255);">
+		<div class="hotratio">
+			<span class="hot-left">
+				<h2>가을은 여행의 계절</h2>
+				<p>청명한 하늘과 선선한 바람 따라 떠나기 좋은 여행지와<br>
+				정부에서 준비한 다양한 혜택과 이벤트를 소개합니다.</p>
+			</span>
+			
+			<span class="hot-right">
+				<img src="${pageContext.request.contextPath}/resources/images/hotplacebackground02.png" alt="여행 이미지">
+			
+			</span>
+		</div>
+	</div>
+	
 
 
 	<div class="mainratio">
+	
 	<!-- 인기 여행지 섹션 -->
 	<div class="famous">
 	  <h2>인기 여행지</h2>
 	  <div class="famous-list">
 	    <!-- Model에서 전달된 hotplaceTitles 출력 -->
 	    <c:forEach var="hotplace" items="${hotplaceDetails}">
-	      <div class="famous-item" onmouseover="expandImage(this)" onmouseout="resetImages()">
+	      <div class="famous-item" onmouseover="expandImage(this)">
 	        <a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
 	          <div class="image-container">
 	            <img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
@@ -300,7 +324,23 @@
       }
     });
   }
+
+  document.querySelectorAll('.famous-item').forEach(item => {
+    // 마우스가 아이템 위로 들어왔을 때 확장
+    item.addEventListener('mouseenter', function() {
+      if (currentExpanded === null) {
+        expandImage(item); // 처음 마우스 올릴 때 이미지 확장
+      }
+    });
+
+    // 마우스가 떠나도 이미지는 그대로 유지 (mouseleave 이벤트 삭제)
+    // 현재 확장된 상태를 유지하기 위해 추가 작업 없음
+  });
+
+  // 이미지 클릭 시 초기화
+  document.querySelector('.reset-button').addEventListener('click', resetImages);
 </script>
+
 
 
    

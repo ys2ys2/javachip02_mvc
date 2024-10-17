@@ -61,7 +61,6 @@
 
 /* 전체적인 헤더 스타일 */
 header {
-    background-color: #a4ed44; /* 밝은 연두색 배경 */
     display: flex;
     /* justify-content: space-between; */
     align-items: center;
@@ -163,5 +162,16 @@ nav ul li a {
   font-size: 12px;
   position: absolute;
   right:20%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  gap: 10px;
   
+}
+
+.userprofile img {
+	width: 50px;
+	height: 50px;
+	border-radius: 100px;
+	
 }

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/processDetailApi.css">
 </head>
 <body>
-    <div class="container">
+    <div class="resultcontainer">
         <h1>DB 저장 결과</h1>
         <p>${message}</p>
         
