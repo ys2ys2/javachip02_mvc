@@ -28,7 +28,7 @@ public class MainPageController {
     @GetMapping("/HomePage/mainpage")
     public String showHotplaceDetails(Model model) {
         // 랜덤으로 5개의 핫플레이스 정보를 가져옴
-        List<Map<String, Object>> hotplaceDetails = hotplaceService.getRandomHotplaceDetail(5);
+        List<Map<String, Object>> hotplaceDetails = hotplaceService.getRandomHotplaceDetail(4);
         List<Map<String, Object>> bannerPlaces = bannerPlaceService.getRandomBannerPlace(7);
 
         // JSP로 데이터 전달

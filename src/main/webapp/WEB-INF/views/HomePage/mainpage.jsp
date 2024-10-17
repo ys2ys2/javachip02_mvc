@@ -7,83 +7,6 @@
 <%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- <%
-    // 공공데이터 API URL 및 매개변수 설정
-    String apiKey = "a471e760-6101-4c50-bb4c-560d6fb00f86";
-    String numOfRows = "7"; // 요청할 레코드 수
-    String pageNo = "2"; // 요청할 페이지 번호
-
-    // API 요청 URL 빌드
-    StringBuilder urlBuilder = new StringBuilder("http://api.kcisa.kr/openapi/API_CNV_061/request");
-    urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + URLEncoder.encode(apiKey, "UTF-8"));
-    urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode(numOfRows, "UTF-8"));
-    urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8"));
-
-    // HTTP 연결 설정
-    URL url = new URL(urlBuilder.toString());
-    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-    conn.setRequestMethod("GET");
-    conn.setRequestProperty("Content-type", "application/json");
-
-    // API 응답 처리
-    int responseCode = conn.getResponseCode();
-    BufferedReader rd;
-    if (responseCode >= 200 && responseCode <= 300) {
-        rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-    } else {
-        rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));
-    }
-
-    StringBuilder sb = new StringBuilder();
-    String line;
-    while ((line = rd.readLine()) != null) {
-        sb.append(line);
-    }
-    rd.close();
-    conn.disconnect();
-
-    // XML 데이터를 문자열로 가져옴
-    String xmlResponse = sb.toString();
-
-    // 필요한 데이터 필터링 및 출력
-    String[] items = xmlResponse.split("<item>");
-
-    // 데이터를 저장할 리스트 생성
-    List<Map<String, String>> itemList = new ArrayList<>();
-
-    for (int i = 1; i < items.length; i++) {
-        String item = items[i];
-        
-        // 각 항목의 필요한 필드 추출
-        String title = item.split("<title>")[1].split("</title>")[0];
-        String description = item.split("<description>")[1].split("</description>")[0];
-        String urlStr = item.split("<url>")[1].split("</url>")[0];
-        String viewCnt = item.split("<viewCnt>")[1].split("</viewCnt>")[0];
-        String spatialCoverage = item.split("<spatialCoverage>")[1].split("</spatialCoverage>")[0];
-        
-        // HTML 엔티티를 디코딩
-        description = StringEscapeUtils.unescapeHtml4(description);
-        
-        // 데이터를 Map에 저장
-        Map<String, String> itemData = new HashMap<>();
-        itemData.put("title", title);
-        itemData.put("description", description);
-        itemData.put("urlStr", urlStr);
-        itemData.put("viewCnt", viewCnt);
-        itemData.put("spatialCoverage", spatialCoverage);
-
-        // 리스트에 추가
-        itemList.add(itemData);
-    }
-
-    // 데이터를 request에 저장
-    request.setAttribute("itemList", itemList);
-
-    // 데이터를 JSON 형식으로 변환하여 JavaScript로 전달
-    String jsonItemList = new org.json.JSONArray(itemList).toString();
-    request.setAttribute("jsonItemList", jsonItemList);
-
-%> --%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -126,13 +49,18 @@
           <li><a href="#">커뮤니티</a></li>
           <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
           <li><a href="#">여행뽈뽈</a></li>
+          <li><a href="#">여행일정</a></li>
+          
         </ul>
       </nav>
       <div class="member">
         <c:choose>
           <c:when test="${not empty sessionScope.member}">
             <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
+            <div class="welcome">
+            	<span class="userprofile"><img src="${sessionScope.member.m_profile}" alt="user-profile"></span>
+            	${sessionScope.member.m_nickname}님 환영합니다!
+            </div>
             <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
             <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
               <button type="submit">로그아웃</button>
@@ -189,62 +117,54 @@
 		      <div class="swiper-wrapper">
 		        <c:forEach var="banner" items="${bannerPlaces}">
 		          <div class="swiper-slide">
+		            <a href="${pageContext.request.contextPath}/BannerPlace/${banner.contentid}">
 		            <img src="${banner.firstimage}" alt="${banner.title}">
+		          	</a>
 		          </div>
 		        </c:forEach>
 		      </div>
 		    </div>
 		  </div>
 		</div>
+		
+		
+	<!-- background img -->
+	<div class="hotplaceback" style="background: url(&quot;https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&amp;id=7e0aefba-db64-46d3-ad9d-62332fc470c4&quot;) 50% center no-repeat rgb(255, 255, 255);">
+		<div class="hotratio">
+			<span class="hot-left">
+				<h2>가을은 여행의 계절</h2>
+				<p>청명한 하늘과 선선한 바람 따라 떠나기 좋은 여행지와<br>
+				정부에서 준비한 다양한 혜택과 이벤트를 소개합니다.</p>
+			</span>
+			
+			<span class="hot-right">
+				<img src="${pageContext.request.contextPath}/resources/images/hotplacebackground02.png" alt="여행 이미지">
+			
+			</span>
+		</div>
+	</div>
+	
 
 
+	<div class="mainratio">
+	
 	<!-- 인기 여행지 섹션 -->
 	<div class="famous">
 	  <h2>인기 여행지</h2>
 	  <div class="famous-list">
 	    <!-- Model에서 전달된 hotplaceTitles 출력 -->
 	    <c:forEach var="hotplace" items="${hotplaceDetails}">
-	      <div class="famous-item">
-	        <!-- 이미지와 타이틀에 링크 추가 -->
+	      <div class="famous-item" onmouseover="expandImage(this)">
 	        <a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
-	          <img src="${hotplace.firstimage}" alt="${hotplace.title}" class="image-placeholder" />
+	          <div class="image-container">
+	            <img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	          </div>
 	          <p>${hotplace.title}</p>
 	        </a>
 	      </div>
 	    </c:forEach>
 	  </div>
 	</div>
-	
-        
-        <!-- <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>부산</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>서울</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>오사카</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>타이베이</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>강원도</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>제주도</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> 이미지 대신 이미지 박스
-          <p>태국</p>
-        </div>
-      </div> -->
 
 
     <!-- 인기 커뮤니티 섹션 -->
@@ -278,33 +198,17 @@
     <div class="hotplace-section">
       <h2>함께 떠나는 핫플 여행</h2>
     <div class="hotplace-list">
+   		<c:forEach var="hotplace" items="${hotplaceDetails}">
     <div class="hotplace-item">
-      	<a href="${pageContext.request.contextPath}/HotPlace/hotplace.jsp" class="hotplace-item">
-      	<img src="${pageContext.request.contextPath}/resources/images/firecastle01.jpg" alt="수원화성1">
+		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	    	<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="image-placeholder" />
+	    	<p>${hotplace.title}</p>
       </a>
     </div>
-    <div class="hotplace-item">
-		<a href="${pageContext.request.contextPath}/HotPlace/hotplace2" class="hotplace-item">
-        <img src="${pageContext.request.contextPath}/resources/images/firecastle02.jpg" alt="수원화성2">
-      </a>
-    </div>
-    <div class="hotplace-item">
-		<a href="${pageContext.request.contextPath}/Login/login" class="hotplace-item">
-		<img src="${pageContext.request.contextPath}/resources/images/firecastle03.jpg" alt="수원화성3">
-	  </a>
-    </div>
-    <div class="hotplace-item">
-      <a href="${pageContext.request.contextPath}/Community/c_board/travelWrite" class="hotplace-item">
-      <img src="${pageContext.request.contextPath}/resources/images/firecastle04.jpg" alt="수원화성4">
-      </a>
-    </div>
-    <div class="hotplace-item">
-      <a href="${pageContext.request.contextPath}/Community/c_main/c_main" class="hotplace-item">
-      <img src="${pageContext.request.contextPath}/resources/images/firecastle05.jpg" alt="수원화성5">
-      </a>
-    </div>
+    	</c:forEach>
   </div>
 </div>
+   
       
       
   <!-- 축제 섹션 -->
@@ -329,8 +233,9 @@
       </div>
     </div>
   </div>
+  </div> <!--  end of mainratio -->
+  
  </div> <!-- end of main-container  -->
-
 
 <!-- 푸터 부분 -->
 <footer>
@@ -387,6 +292,55 @@
   var descriptions = 
     <%= new org.json.JSONArray((List<?>) request.getAttribute("bannerPlaces")).toString() %>;
   var contextPath = "${pageContext.request.contextPath}";
+</script>
+
+
+<!-- 스크립트 -->
+<script>
+  let currentExpanded = null; // 현재 확장된 이미지 저장
+
+  function resetImages() {
+    const allItems = document.querySelectorAll('.famous-item');
+    allItems.forEach(item => {
+      item.style.flexGrow = '1'; // 모든 이미지를 원래 크기로 복귀
+    });
+    currentExpanded = null; // 확장 상태 초기화
+  }
+
+  function expandImage(element) {
+    const allItems = document.querySelectorAll('.famous-item');
+    
+    // 모든 아이템의 기본 크기를 1로 설정
+    allItems.forEach(item => {
+      item.style.flexGrow = '1';
+    });
+
+    // 클릭한 이미지를 60%로 확장
+    element.style.flexGrow = '5'; // 60%로 확장
+    currentExpanded = element; // 현재 확장된 이미지 저장
+
+    // 나머지 이미지들은 각 20%로 작게 설정
+    allItems.forEach(item => {
+      if (item !== element) {
+        item.style.flexGrow = '2'; // 나머지 아이템은 20%로 설정
+      }
+    });
+  }
+
+  document.querySelectorAll('.famous-item').forEach(item => {
+    // 마우스가 아이템 위로 들어왔을 때 확장
+    item.addEventListener('mouseenter', function() {
+      if (currentExpanded === null) {
+        expandImage(item); // 처음 마우스 올릴 때 이미지 확장
+      }
+    });
+
+    // 마우스가 떠나도 이미지는 그대로 유지 (mouseleave 이벤트 삭제)
+    // 현재 확장된 상태를 유지하기 위해 추가 작업 없음
+  });
+
+  // 이미지 클릭 시 초기화
+  document.querySelector('.reset-button').addEventListener('click', resetImages);
 </script>
 
 

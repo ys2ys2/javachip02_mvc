@@ -52,5 +52,12 @@ public class MypageController {
         // "mypage" 이름의 JSP 파일을 반환
 		return "MyPage/myPageMain";
 	}
+	
+	
+	// 출력하든 상세페이지 이런건 여기서 처리
+	
+	
+	
+	
 
 }

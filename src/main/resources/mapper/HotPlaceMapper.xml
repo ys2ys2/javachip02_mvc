@@ -8,7 +8,7 @@
 
 	<!-- DB에 contentID로 가져온 값들 넣기 -->
     <insert id="insertHotPlace">
-        INSERT INTO bannerplace (contentid, title, addr1, overview, mapx, mapy, firstimage, areacode)
+        INSERT INTO hotplace (contentid, title, addr1, overview, mapx, mapy, firstimage, areacode)
         VALUES (#{contentId}, #{title}, #{addr1}, #{overview}, #{mapx}, #{mapy}, #{firstimage}, #{areacode})
     </insert>
     
@@ -26,6 +26,12 @@
     	FROM hotplace
     	WHERE contentid = #{contentid}
     </select>
+	
+	<!-- mypage 테이블에 m_idx, contentid 넣기 -->    
+    <insert id="insertMyPage">
+    	INSERT INTO m_mypage (m_idx, contentid)
+    	VALUES (#{m_idx}, #{contentid})
+    </insert>
     
 
 </mapper>

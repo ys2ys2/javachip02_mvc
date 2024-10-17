@@ -10,6 +10,8 @@ public interface HotPlaceService {
     List<Map<String, Object>> getRandomHotplaceDetail(int limit);
     
     Map<String, Object> getHotplaceById(int contentid);
+
+	void saveHotplace(int m_idx, String contentid);
     
     
 }
