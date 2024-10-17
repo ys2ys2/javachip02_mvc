@@ -129,7 +129,7 @@
 		
 		
 	<!-- background img -->
-	<div class="hotplaceback" style="background: url(&quot;https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&amp;id=7e0aefba-db64-46d3-ad9d-62332fc470c4&quot;) 50% center no-repeat rgb(255, 255, 255);">
+	<div class="hotplaceback" style="background: url(&quot;https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&amp;id=7e0aefba-db64-46d3-ad9d-62332fc470c4&quot;) no-repeat rgb(255, 255, 255);">
 		<div class="hotratio">
 			<span class="hot-left">
 				<h2>가을은 여행의 계절</h2>
@@ -139,16 +139,30 @@
 			
 			<span class="hot-right">
 				<img src="${pageContext.request.contextPath}/resources/images/hotplacebackground02.png" alt="여행 이미지">
-			
 			</span>
 		</div>
+		<div class="tfamous">
+				<img src="${pageContext.request.contextPath}/resources/images/famous-title.png" alt="여행 이미지">
+		  <div class="famous-list">
+		    <!-- Model에서 전달된 hotplaceTitles 출력 -->
+		    <c:forEach var="hotplace" items="${hotplaceDetails}">
+		      <div class="famous-item" onmouseover="expandImage(this)">
+		        <a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+		          <div class="image-container">
+		            <img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+		          </div>
+		          <p>${hotplace.title}</p>
+		        </a>
+		      </div>
+		    </c:forEach>
+		  </div>
+		</div>
 	</div>
-	
 
 
 	<div class="mainratio">
 	
-	<!-- 인기 여행지 섹션 -->
+	<%-- <!-- 인기 여행지 섹션 -->
 	<div class="famous">
 	  <h2>인기 여행지</h2>
 	  <div class="famous-list">
@@ -164,7 +178,7 @@
 	      </div>
 	    </c:forEach>
 	  </div>
-	</div>
+	</div> --%>
 
 
     <!-- 인기 커뮤니티 섹션 -->
