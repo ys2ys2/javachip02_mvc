@@ -75,36 +75,79 @@ public class M_MemberController {
   		return "Member/login";
   	}
   	
-  
-  	//로그인 처리 요청
+  	
+  	
+  	
+ // 로그인 처리 요청
   	@PostMapping("/loginProcess")
   	public String loginProcess(String m_email, String m_password,
-  			HttpServletRequest request, Model model) {
-  		System.out.println("로그인 요청이 들어왔습니다: " + m_email);  // 로그 추가
-  		
-  		String viewName = "Member/login"; //로그인 실패시 뷰이름
-  		
-  		M_MemberVO vo = m_memberServiceImpl.login(m_email, m_password);
-  		
-  		//로그인 성공여부를 vo객체에 저장된 값으로 판단
-  		if(vo != null) {//로그인 성공
-  			//세션객체에 회원정보를 저장함(request객체의 getSession()메소드 이용)
-  			HttpSession session = request.getSession();
-  			session.setAttribute("member", vo);
-  			
-  			System.out.println("세션에 저장된 회원 정보: " + session.getAttribute("member"));  
-  		    System.out.println("닉네임: " + vo.getM_nickname());  
-  		    
-  			viewName = "redirect:/HomePage/mainpage";//메인 페이지 재요청
-  			
-  		}else {//로그인 실패
-  			model.addAttribute("msg", "아이디나 비밀번호가 일치하지 않습니다");
-  		}
-  		
-  		return viewName;
+  	        HttpServletRequest request, Model model) {
+  	    
+  	    // 로그로 로그인 시도 정보 출력
+  	    System.out.println("로그인 요청이 들어왔습니다: " + m_email);
+  	    
+  	    // 로그인 실패시 보여줄 뷰 이름을 미리 설정
+  	    String viewName = "Member/login";
+  	    
+  	    // 이메일과 비밀번호를 사용해 로그인 시도
+  	    M_MemberVO vo = m_memberServiceImpl.login(m_email, m_password);
+  	    
+  	    // 로그인 성공 여부 판단 (vo가 null이 아닐 경우 성공)
+  	    if (vo != null) {
+  	        // 세션 객체를 가져와서 세션에 회원 정보를 저장
+  	        HttpSession session = request.getSession();
+  	        session.setAttribute("member", vo);
+  	        
+  	        // 세션에 회원 정보가 제대로 저장되었는지 확인하기 위한 로그 추가
+  	        M_MemberVO sessionMember = (M_MemberVO) session.getAttribute("member");
+  	        if (sessionMember != null) {
+  	            System.out.println("세션에 저장된 회원 정보: " + sessionMember);
+  	            System.out.println("닉네임: " + sessionMember.getM_nickname());
+  	            System.out.println("m_idx: " + sessionMember.getM_idx());
+  	        } else {
+  	            System.out.println("세션에 저장된 회원 정보가 없습니다.");
+  	        }
+  	        
+  	        // 로그인 성공 시 메인 페이지로 리다이렉트
+  	        viewName = "redirect:/HomePage/mainpage";
+  	    } else {
+  	        // 로그인 실패 시 메시지와 함께 다시 로그인 페이지로 이동
+  	        model.addAttribute("msg", "아이디나 비밀번호가 일치하지 않습니다.");
+  	    }
+  	    
+  	    // 로그인 결과에 따라 뷰 반환
+  	    return viewName;
   	}
+
   	
   	
+  	
+  	
+	/*
+	 * //로그인 처리 요청
+	 * 
+	 * @PostMapping("/loginProcess") public String loginProcess(String m_email,
+	 * String m_password, HttpServletRequest request, Model model) {
+	 * System.out.println("로그인 요청이 들어왔습니다: " + m_email); // 로그 추가
+	 * 
+	 * String viewName = "Member/login"; //로그인 실패시 뷰이름
+	 * 
+	 * M_MemberVO vo = m_memberServiceImpl.login(m_email, m_password);
+	 * 
+	 * //로그인 성공여부를 vo객체에 저장된 값으로 판단 if(vo != null) {//로그인 성공 //세션객체에 회원정보를
+	 * 저장함(request객체의 getSession()메소드 이용) HttpSession session =
+	 * request.getSession(); session.setAttribute("member", vo);
+	 * 
+	 * System.out.println("세션에 저장된 회원 정보: " + session.getAttribute("member"));
+	 * System.out.println("닉네임: " + vo.getM_nickname());
+	 * 
+	 * viewName = "redirect:/HomePage/mainpage";//메인 페이지 재요청
+	 * 
+	 * }else {//로그인 실패 model.addAttribute("msg", "아이디나 비밀번호가 일치하지 않습니다"); }
+	 * 
+	 * return viewName; }
+	 * 
+	 */
 	  	
 		//로그아웃 요청
 		@PostMapping("/logout")

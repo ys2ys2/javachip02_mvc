@@ -46,10 +46,19 @@ public class MypageDAO {
 	        return list;
 	}
 
+	//저장 목록 불러오기
 	public List<MypageVO> getSavedList(int m_idx) {
 			List<MypageVO> savedList = sqlSession.selectList(MAPPER + ".getSavedList", m_idx);
 			System.out.println("DAO에서 가져온 데이터 출력하기: " +savedList);
 			return savedList;
+	}
+	
+	//게시글 불러오기
+	public List<MypageVO> getSavedPostList(int m_idx) {
+	    System.out.println("DAO에서 전달받은 m_idx: " + m_idx);  // m_idx 값을 확인
+	    List<MypageVO> savedPostList = sqlSession.selectList(MAPPER + ".getSavedPostList", m_idx);
+	    System.out.println("DAO에서 가져온 데이터 출력하기: " + savedPostList);  // 가져온 데이터 확인
+	    return savedPostList;
 	}
 	
 	}

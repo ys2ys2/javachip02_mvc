@@ -11,6 +11,8 @@ public interface MypageService {
 
 	List<MypageVO> getSavedList(int m_idx);
 
+	List<MypageVO> getSavedPostList(int m_idx);
+
 	
 	
 }

@@ -141,9 +141,9 @@ public class HomeController {
     }
     
 	//영준 커뮤니티 메인
-    @GetMapping("/Community/c_main/c_main")
+    @GetMapping("/Community/c_main")
     public String c_main() {
-        return "Community/c_main/c_main";
+        return "Community/c_main";
     }
     
     //희진 축제페이지

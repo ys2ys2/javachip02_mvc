@@ -34,4 +34,13 @@ public class MypageServiceImpl implements MypageService {
 	    // DAO를 호출하여 데이터를 가져옴
           return savedList;
     }
+
+//게시글 불러오기
+    @Override
+    public List<MypageVO> getSavedPostList(int m_idx) {
+        System.out.println("서비스에서 전달된 m_idx: " + m_idx);  // m_idx 값 로그 확인
+        List<MypageVO> savedPostList = mypageDao.getSavedPostList(m_idx);
+        System.out.println("서비스에서 가져온 저장 데이터 목록: " + savedPostList);  // 가져온 데이터 출력
+        return savedPostList;
+    }
 }

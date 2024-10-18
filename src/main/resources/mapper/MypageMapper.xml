@@ -3,6 +3,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<mapper namespace="com.human.web.mapper.MypageMapper">
+	
 		 <!-- getMypageList: M_Mypage 테이블의 모든 데이터를 선택하는 쿼리 -->
 		<select id="getRandomHotplaceList" resultType="com.human.web.vo.MypageVO">
 			select * from hotplace
@@ -26,4 +27,29 @@
     </select>
 
 
-	</mapper>
+<select id="getSavedPostList"  resultType="com.human.web.vo.MypageVO">
+SELECT 
+    p.post_writer AS postWriter,         -- VO 필드와 매핑
+    p.post_content AS postContent,       -- VO 필드와 매핑
+    p.post_date AS postDate,             -- VO 필드와 매핑
+    p.like_count AS likeCount,           -- VO 필드와 매핑
+    p.comment_count AS commentCount      -- VO 필드와 매핑
+FROM 
+    m_mypage m
+JOIN 
+    post p ON m.m_idx = p.m_idx          -- m_mypage와 post 테이블의 m_idx로 조인
+WHERE 
+    m.m_idx = #{m_idx};                  -- 로그인된 사용자의 m_idx로 필터링
+</select>
+
+ 
+<!-- MypageMapper.xml 파일에 정의된 쿼리 -->
+<insert id="insertMypage" parameterType="com.human.web.vo.MypageVO">
+    INSERT INTO m_mypage (m_idx)
+    VALUES (#{m_idx});
+</insert>
+
+
+</mapper>
+
+

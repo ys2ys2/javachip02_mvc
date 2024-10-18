@@ -58,34 +58,40 @@
             <button onclick="location.href='editProfile.jsp'">프로필 편집</button>
         </div>
     </div>
-
-   <!-- 오른쪽 콘텐츠 영역 (나의 여행기) -->
-    <div class="content-section">
-
-        <!-- 나의 여행기 섹션 -->
-        <div class="j_section">
-            <div class="j_section-header">
-                <h3>나의 여행기</h3>
-            </div>
-            <div class="j_section-content">
-                <!-- 리스트 형식의 여행기 콘텐츠가 나열될 영역 -->
-                <div class="journey-list">
-                    <!-- 데이터가 없으므로 기본 텍스트로 설정 -->
-                    <div class="journey-item">
-                        <img src="${pageContext.request.contextPath}/resources/images/journey_image1.jpg" alt="여행 이미지">
-                        <div class="journey-info">
-                            <h4>여행 제목</h4>
-                            <p>여행 설명 텍스트가 여기에 표시됩니다.</p>
-                            <span>TRAVEL: 2024.09.03 ~ 2024.09.13</span>
-                        </div>
-                    </div>
-                    <!-- 더 많은 여행 항목을 여기에 추가 가능 -->
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+
+  <h1>저장된 게시글 목록</h1>
+
+    <!-- savedList가 비어있지 않은 경우 리스트를 출력 -->
+    <c:if test="${not empty savedPostList}">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>작성자</th>
+                    <th>게시글 내용</th>
+                    <th>작성 날짜</th>
+                    <th>좋아요 수</th>
+                    <th>댓글 수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- savedList의 각 항목을 반복하여 출력 -->
+                <c:forEach var="post" items="${savedPostList}">
+                    <tr>
+                        <td>${post.postWriter}</td>      <!-- 게시글 작성자 출력 -->
+                        <td>${post.postContent}</td>     <!-- 게시글 내용 출력 -->
+                        <td>${post.postDate}</td>        <!-- 게시글 작성 날짜 출력 -->
+                        <td>${post.likeCount}</td>       <!-- 좋아요 수 출력 -->
+                        <%-- <td>${post.commentCount}</td>    <!-- 댓글 수 출력 --> --%>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </c:if>
+
+    <!-- savedList가 비어있는 경우 표시 -->
+    <c:if test="${empty savedPostList}">
+        <p>저장된 게시글이 없습니다.</p>
+    </c:if>
 </body>
-   <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
 </html>

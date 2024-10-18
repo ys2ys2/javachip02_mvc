@@ -46,7 +46,7 @@
       <nav>
         <ul>
           <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-          <li><a href="#">커뮤니티</a></li>
+          <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
           <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
           <li><a href="#">여행뽈뽈</a></li>
         </ul>

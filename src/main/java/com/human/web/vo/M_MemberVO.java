@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class M_MemberVO {
     
-	 private int m_idx;                 // 회원 번호
+	 	private int m_idx;                 // 회원 번호
 	    private String m_email;            // 이메일
 	    private String m_password;         // 비밀번호
 	    private String m_nickname;         // 닉네임

@@ -1,44 +1,36 @@
 package com.human.web.vo;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class PostVO {
-    private int postId;
-    private String username;
-    private String content;
-    private int likeCount;
+	
+	private int m_idx; //예슬 추가 
+    private int id;              // 게시글 ID
+    private String writer;        // 작성자
+    private String content;       // 내용
+    private LocalDateTime postDate; // 작성 날짜
     private int commentCount;
-    private Timestamp createdAt;
-
-    // 기본 생성자 추가
+    private int likeCount;
+    private boolean isLiked;
+    // 생성자에서 기본 값 설정
     public PostVO() {
+        this.postDate = LocalDateTime.now();  // 현재 시간으로 초기화
     }
 
-    // 모든 필드를 포함한 생성자
-    public PostVO(int postId, String username, String content, int likeCount, int commentCount, Timestamp createdAt) {
-        this.postId = postId;
-        this.username = username;
-        this.content = content;
-        this.likeCount = likeCount;
-        this.commentCount = commentCount;
-        this.createdAt = createdAt;
+    public int getId() {
+        return id;
     }
 
-    // Getter 및 Setter 메서드
-    public int getPostId() {
-        return postId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
+    public String getWriter() {
+        return writer;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
 
     public String getContent() {
@@ -49,14 +41,14 @@ public class PostVO {
         this.content = content;
     }
 
-    public int getLikeCount() {
-        return likeCount;
+    public LocalDateTime getPostDate() {
+        return postDate;
     }
 
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
+    public void setPostDate(LocalDateTime postDate) {
+        this.postDate = postDate;
     }
-
+    
     public int getCommentCount() {
         return commentCount;
     }
@@ -65,11 +57,28 @@ public class PostVO {
         this.commentCount = commentCount;
     }
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
+    public int getLikeCount() {
+        return likeCount;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+	public boolean isLiked() {
+		return isLiked;
+	}
+
+	public void setLiked(boolean isLiked) {
+		this.isLiked = isLiked;
+	}
+	
+    // 예슬 추가 -m_idx에 대한 getter와 setter 추가
+    public int getM_idx() {
+        return m_idx;
+    }
+
+    public void setM_idx(int m_idx) {
+        this.m_idx = m_idx;
     }
 }
