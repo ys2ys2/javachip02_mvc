@@ -18,18 +18,19 @@ public class TalkServiceImpl implements TalkService {
 
     // 댓글 리스트
     @Override
-    public List<TalkVO> getTalkList(int offset, int limit) {
-        // 페이지네이션을 위한 offset과 limit 값을 Map에 담아 DAO로 전달
+    public List<TalkVO> getTalkList(int contentid, int offset, int limit) {
         Map<String, Object> params = new HashMap<>();
+        params.put("contentid", contentid);
         params.put("offset", offset);
         params.put("limit", limit);
-        return talkDAO.getTalkList(params); 
+        return talkDAO.getTalkList(params);
     }
+
 
     // 전체 댓글 수
     @Override
-    public int getTotalTalkCount() {
-        return talkDAO.getTotalTalkCount();
+    public int getTotalTalkCount(int contentid) {
+        return talkDAO.getTotalTalkCount(contentid);
     }
 
     // 댓글 삽입

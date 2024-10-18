@@ -333,7 +333,7 @@ $(document).ready(function() {
         var page = $(this).data('page'); // 버튼의 data-page 속성에서 페이지 번호 가져오기
         
         $.ajax({
-            url: '/BBOL/HotPlace/hotplace2/comments', // URL 설정
+            url: '/BBOL/HotPlace/' + contentid + '/comments', // 서버의 올바른 URL
             type: 'GET',
             data: { page: page }, // 페이지 번호 전달
             dataType: 'json', // JSON으로 받음
@@ -348,7 +348,7 @@ $(document).ready(function() {
                     $('.comments-section').html(talkList.map(talk => 
                         `<div class="comment" data-talk-id="${talk.talkIdx}">
                             <div class="user-info">
-                                <img src="/BBOL/resources/images/user-placeholder.png" alt="user">
+                                <img src="${talk.talkProfile}" alt="user-profile">
                                 <span class="username">${talk.talkNickname}</span>
                                 <span class="date">${talk.talkUpdatedAt ? talk.talkUpdatedAt : talk.talkCreatedAt}</span>
                             </div>

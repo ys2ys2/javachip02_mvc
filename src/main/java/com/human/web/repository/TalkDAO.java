@@ -18,14 +18,14 @@ public class TalkDAO {
     private static final String MAPPER = "com.human.web.mapper.TalkMapper";
     
 
-    // 댓글 리스트 가져오기
+    // contentid를 기준으로 댓글 리스트 가져오기
     public List<TalkVO> getTalkList(Map<String, Object> params) {
         return sqlSession.selectList(MAPPER + ".getTalkList", params);
     }
 
     // 댓글 총 개수 가져오기
-    public int getTotalTalkCount() {
-        return sqlSession.selectOne(MAPPER + ".getTotalTalkCount");
+    public int getTotalTalkCount(int contentid) {
+        return sqlSession.selectOne(MAPPER + ".getTotalTalkCount", contentid);
     }
 
     // 댓글 입력

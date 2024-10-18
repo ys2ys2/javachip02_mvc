@@ -190,6 +190,8 @@
         <c:when test="${not empty sessionScope.member.m_nickname}">
           <!-- 로그인된 사용자가 댓글 작성 가능 -->
           <form action="${pageContext.request.contextPath}/HotPlace/insert" method="post">
+            <!-- hidden으로 contentid 전달하기(위에 form사용) -->
+            <input type="hidden" name="contentid" value="${hotplace.contentid}" />
             <textarea id="commentText" name="talkText" placeholder="소중한 댓글을 남겨주세요."></textarea>
             <div class="form-actions">
               <button class="login-button" id="submitButton">작성하기</button>
@@ -232,6 +234,8 @@
         </div>
       </c:forEach>
     </div>
+    
+
 
     <!-- 페이지네이션 -->
     <div class="pagination">
@@ -313,9 +317,11 @@
     </script>
   
     <script type="text/javascript">
-        var memberEmail = "${sessionScope.memberEmail}";
+    	var memberEmail = "${sessionScope.member.m_email}";
         var memberNickname = "${sessionScope.memberNickname}";
         var memberId = "${sessionScope.memberId}";
+        var contentid = "${hotplace.contentid}"; // contentid를 JSP에서 전달받아 정의
+
     </script>
     
     <c:if test="${not empty message}">

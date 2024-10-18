@@ -90,7 +90,7 @@
             <h2 id="description-title">${banner.title}</h2>
 	        <p id="description-text">${banner.overview}</p>
             <a href="${pageContext.request.contextPath}/BannerPlace/${banner.contentid}" class="detail-link">
-	          자세히 보기
+	          <div class="moreinfo">자세히 보기</div>
 	        </a>
 	        </c:if>
       	</c:forEach>

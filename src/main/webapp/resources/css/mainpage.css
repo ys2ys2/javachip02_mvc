@@ -65,7 +65,7 @@ body {
   background-color: white;
   padding: 30px;
   box-sizing: border-box;
-  gap: 20%; /* 설명 박스와 슬라이더 사이에 여백 추가 */
+  gap: 30vh; /* 설명 박스와 슬라이더 사이에 여백 추가 */
   transition: background-color 0.5s ease;
   
 }
@@ -133,19 +133,19 @@ body {
 .custom-pagination {
   display: flex;
   align-items: center;
-  margin-top: 25%;
+  margin-top: 7vh;
   font-size: 16px;
-  gap: 20px;
+  gap: 10px;
   position: relative;
 }
 
 .current-slide {
-  margin-left: 15px;
+  margin-left: 10px;
+  gap: 10px;
 }
 
 .custom-pagination .controls {
   display: flex;
-  gap: 10px;
 }
 
 .custom-pagination .controls button {
@@ -178,15 +178,14 @@ body {
 
 /* 설명 박스 스타일 */
 .description-box {
-  width: 80%;
-  max-width: 250px;
+  max-width: 24vh;
   /* padding: 20px; */
   background-color: white;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 10%;
+  margin-left: 22vh;
   transition: background-color 0.5s ease;
   
 }
@@ -197,19 +196,20 @@ body {
   text-overflow: ellipsis; /* 필요시 ... 표시 */
   max-height: 100px; /* 최대 높이를 설정하여 너무 길면 잘리게 */
   display: -webkit-box; /* Flexbox의 변형인 Webkit 설정 */
-  -webkit-line-clamp: 3; /* 최대 3줄로 제한 */
+  -webkit-line-clamp: 4; /* 최대 3줄로 제한 */
   -webkit-box-orient: vertical; /* Flexbox 방향 설정 */
 }
 
 
 .description-box h2 {
-  font-size: 20px;
-  color: #333;
+  font-size: 28px;
+  color: black;
   width: 100%;
+  font-weight:bold;
 }
 
 .description-box p {
-  font-size: 18px;
+  font-size: 14px;
   margin-bottom: 20px;
 }
 
@@ -217,6 +217,10 @@ body {
   font-size: 16px;
   color: #000;
   text-decoration: none;
+}
+
+.moreinfo span{
+	color:blue;
 }
 
 
@@ -237,7 +241,7 @@ body {
 
 .hotplaceback {
 	width: 100%;
-	height: 500px;
+	height: 650px;
 	margin-bottom: 30px;
 	
 }
@@ -251,13 +255,13 @@ body {
 
 .hot-left p {
     font-size: 15px;  /* 본문 텍스트 크기 설정 */
-    line-height: 1.6;  /* 텍스트 줄 간격 설정 */
+    line-height: 1.4;  /* 텍스트 줄 간격 설정 */
 }
 
 
 .hot-left h2 {
-    font-size: 36px;  /* 제목의 폰트 크기 설정 */
-    margin-bottom: 15px;  /* 제목 아래 여백 */
+    font-size: 40px;  /* 제목의 폰트 크기 설정 */
+    margin-bottom: 20px;  /* 제목 아래 여백 */
 }
 
 
@@ -354,7 +358,7 @@ tfamous h2 {
 }
 
 .famous-item p {
-    font-size: 16px;
+    font-size: 18px;
     margin-top: 15px;
     color: #333;
     text-decoration: none;
@@ -375,7 +379,7 @@ tfamous h2 {
 
 /* 인기 커뮤니티 스타일 */
 .Community {
-  margin-bottom: 50px;
+  margin-bottom: 10vh;
   background-color: white;
   margin-top: 23%;
 }
@@ -432,8 +436,6 @@ tfamous h2 {
   text-align: center;
   overflow: hidden;
   
-    
-
 }
 
 .hotplace-section {
@@ -452,22 +454,30 @@ tfamous h2 {
   margin: 10px auto; /* 마진 0, auto로 가운데 정렬(좌우여백 자동 설정) */
   box-sizing: border-box;
   border-radius: 8px;
+  transition: transform 0.6s ease;
+  
+}
+
+
+.hotplace-item:hover {
+  /* 마우스를 올렸을 때 위로 10px 이동 */
+  transform: translateY(-20px);
 
 }
 
 
 .hotplace-item img {
   width: 100%; 
-  height: 90%;
-  object-fit:inherit;
-  border-radius: 8px;
+  height: 85%;
+  border-radius: 5px;
+  object-fit: cover;
   cursor: pointer;
   
 }
 
 .hotplace-item p {
-  font-size: 18px;
-  margin-top: 10px;
+  font-size: 17px;
+  margin-top: 11px;
   text-decoration: none;
 }
 
