@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MypageVO {
-	private int id;
-    private String contentid;
-    private String title;
-    private String firstimage;
+	  	private String addr1;        // 주소
+	    private String firstimage;   // 첫 번째 이미지 URL
+	    private String title;        // 장소 제목
+	    private int likes;           // 좋아요 수
 }

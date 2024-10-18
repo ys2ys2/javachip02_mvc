@@ -20,6 +20,7 @@ public class M_MemberServiceImpl implements M_MemberService {
 
     @Override
     public int insertM_Member(M_MemberVO memberVO) {
+    	memberVO.setM_registration_type("email");
     	return dao.insertM_Member(memberVO);
     }
 

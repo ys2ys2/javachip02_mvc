@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.TalkMapper">
+
+     <!-- 댓글 리스트 가져오기 -->
+	 <select id="getTalkList" parameterType="map" resultType="com.human.web.vo.TalkVO">
+	    SELECT 
+	        talk_idx AS talkIdx, 
+	        talk_nickname AS talkNickname, 
+	        talk_email AS talkEmail, 
+	        talk_text AS talkText,
+	        talk_profile as talkProfile,
+	        talk_created_at AS talkCreatedAt, 
+	        talk_updated_at AS talkUpdatedAt
+	    FROM talk
+	    ORDER BY GREATEST(talk_created_at, talk_updated_at) DESC
+	    LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+    <!-- 댓글 총 개수 가져오기 -->
+    <select id="getTotalTalkCount" resultType="int">
+        SELECT COUNT(*) AS total FROM talk
+    </select>
+
+    <!-- 댓글 삽입 -->
+    <insert id="insertTalk" parameterType="com.human.web.vo.TalkVO">
+        INSERT INTO talk (talk_nickname, talk_email, talk_text, talk_profile)
+        VALUES (#{talkNickname}, #{talkEmail}, #{talkText}, #{talkProfile})
+    </insert>
+
+    <!-- 댓글 삭제 -->
+    <delete id="deleteTalk" parameterType="int">
+        DELETE FROM talk WHERE talk_idx = #{talkIdx}
+    </delete>
+
+    <!-- 댓글 수정 -->
+    <update id="updateTalk" parameterType="map">
+        UPDATE talk 
+        SET talk_text = #{updatedText},
+        talk_updated_at = NOW()
+        WHERE talk_idx = #{talkIdx}
+    </update>
+    
+    <!-- 기존의 getItemList 쿼리 -->
+    <select id="getItemList" resultType="map">
+        SELECT title, addr1, overview, firstimage, mapx, mapy
+        FROM hotplace
+    </select>
+    
+    <!-- 새로운 getItemListWithPagination 쿼리 -->
+    <select id="getItemListWithPagination" parameterType="map" resultType="map">
+        SELECT title, addr1, overview, firstimage, mapx, mapy
+        FROM hotplace
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+</mapper>

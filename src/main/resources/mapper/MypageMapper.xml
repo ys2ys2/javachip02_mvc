@@ -4,10 +4,26 @@
 
 	<mapper namespace="com.human.web.mapper.MypageMapper">
 		 <!-- getMypageList: M_Mypage 테이블의 모든 데이터를 선택하는 쿼리 -->
-		<select id="getMypageList" resultType="com.human.web.vo.MypageVO">
-			select * from M_Mypage
-		
+		<select id="getRandomHotplaceList" resultType="com.human.web.vo.MypageVO">
+			select * from hotplace
+			ORDER BY RAND()  -- 랜덤으로 정렬
+        	LIMIT 5          -- 상위 5개 데이터만 가져옴
 		</select>
+		
+ <!-- 로그인된 사용자의 저장 목록을 가져오는 SQL -->
+    <select id="getSavedList" resultType="com.human.web.vo.MypageVO">
+        SELECT 
+            h.addr1,
+            h.firstimage,
+            h.title,
+            h.likes
+        FROM 
+            m_mypage m
+        JOIN 
+            hotplace h ON m.contentid = h.contentid
+        WHERE 
+            m.m_idx = #{m_idx}
+    </select>
 
 
 	</mapper>

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.human</groupId>
     <artifactId>BBOL</artifactId>
@@ -15,6 +15,7 @@
     </properties>
     
     <dependencies>
+    
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -27,6 +28,7 @@
                  </exclusion>
             </exclusions>
         </dependency>
+        
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -219,8 +221,8 @@
     <artifactId>commons-fileupload</artifactId>
     <version>1.4</version>
 </dependency>
-        
-      
+
+     
         
     </dependencies>
 

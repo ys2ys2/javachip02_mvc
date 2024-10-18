@@ -16,7 +16,7 @@ public class HomeController {
 	//기타 요청URL에 대한 처리 메소드
 	@GetMapping("/")
 	public String home() {
-		return "HomePage/mainpage";
+		return "redirect:/HomePage/mainpage";
 	}
 	
 	@GetMapping("/index.do")
@@ -50,17 +50,38 @@ public class HomeController {
 		return "error/error500";
 	}
 	
-	//영신 핫플1(api호출만 있는 페이지)
-	@GetMapping("/HotPlace/hotplace")
-	public String hotplace() {
-	    return "HotPlace/hotplace";
-	}
+	// 영신 회사소개 페이지
+    @GetMapping("/FooterPage/introduce")
+    public String introduce() {
+        return "FooterPage/introduce";
+    }
+
+    // 영신 이용약관 페이지
+    @GetMapping("/FooterPage/clause")
+    public String clause() {
+        return "FooterPage/clause";
+    }
+
+    // 영신 개인정보 수집,동의 페이지
+    @GetMapping("/FooterPage/privacy")
+    public String privacy() {
+        return "FooterPage/privacy";
+    }
+
+    // 영신 개인정보 3자동의 페이지
+    @GetMapping("/FooterPage/thirdparty")
+    public String thirdparty() {
+        return "FooterPage/thirdparty";
+    }
+
+    // 영신 광고성 정보 수신동의 페이지
+    @GetMapping("/FooterPage/marketing")
+    public String marketing() {
+        return "FooterPage/marketing";
+    }
 	
-	//영신 핫플2(DB 저장되어있는 페이지)
-	@GetMapping("/HotPlace/hotplace2")
-	public String hotplace2() {
-	    return "HotPlace/hotplace2";
-	}
+	
+	
 	
 	//예슬 로그인 페이지
 	@GetMapping("/Login/login")

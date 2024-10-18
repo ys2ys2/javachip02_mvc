@@ -7,83 +7,6 @@
 <%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-    // 공공데이터 API URL 및 매개변수 설정
-    String apiKey = "a471e760-6101-4c50-bb4c-560d6fb00f86";
-    String numOfRows = "7"; // 요청할 레코드 수
-    String pageNo = "2"; // 요청할 페이지 번호
-
-    // API 요청 URL 빌드
-    StringBuilder urlBuilder = new StringBuilder("http://api.kcisa.kr/openapi/API_CNV_061/request");
-    urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + URLEncoder.encode(apiKey, "UTF-8"));
-    urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode(numOfRows, "UTF-8"));
-    urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8"));
-
-    // HTTP 연결 설정
-    URL url = new URL(urlBuilder.toString());
-    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-    conn.setRequestMethod("GET");
-    conn.setRequestProperty("Content-type", "application/json");
-
-    // API 응답 처리
-    int responseCode = conn.getResponseCode();
-    BufferedReader rd;
-    if (responseCode >= 200 && responseCode <= 300) {
-        rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-    } else {
-        rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));
-    }
-
-    StringBuilder sb = new StringBuilder();
-    String line;
-    while ((line = rd.readLine()) != null) {
-        sb.append(line);
-    }
-    rd.close();
-    conn.disconnect();
-
-    // XML 데이터를 문자열로 가져옴
-    String xmlResponse = sb.toString();
-
-    // 필요한 데이터 필터링 및 출력
-    String[] items = xmlResponse.split("<item>");
-
-    // 데이터를 저장할 리스트 생성
-    List<Map<String, String>> itemList = new ArrayList<>();
-
-    for (int i = 1; i < items.length; i++) {
-        String item = items[i];
-        
-        // 각 항목의 필요한 필드 추출
-        String title = item.split("<title>")[1].split("</title>")[0];
-        String description = item.split("<description>")[1].split("</description>")[0];
-        String urlStr = item.split("<url>")[1].split("</url>")[0];
-        String viewCnt = item.split("<viewCnt>")[1].split("</viewCnt>")[0];
-        String spatialCoverage = item.split("<spatialCoverage>")[1].split("</spatialCoverage>")[0];
-        
-        // HTML 엔티티를 디코딩
-        description = StringEscapeUtils.unescapeHtml4(description);
-        
-        // 데이터를 Map에 저장
-        Map<String, String> itemData = new HashMap<>();
-        itemData.put("title", title);
-        itemData.put("description", description);
-        itemData.put("urlStr", urlStr);
-        itemData.put("viewCnt", viewCnt);
-        itemData.put("spatialCoverage", spatialCoverage);
-
-        // 리스트에 추가
-        itemList.add(itemData);
-    }
-
-    // 데이터를 request에 저장
-    request.setAttribute("itemList", itemList);
-
-    // 데이터를 JSON 형식으로 변환하여 JavaScript로 전달
-    String jsonItemList = new org.json.JSONArray(itemList).toString();
-    request.setAttribute("jsonItemList", jsonItemList);
-
-%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -99,83 +22,73 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet" type="text/css">
   
-  <script>
-    // JSP에서 전달한 공공데이터를 JavaScript로 전달
-    const descriptions = ${jsonItemList};
-  </script>
+  <!-- 메인 스크립트 -->
+  <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/bannerslider.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+	
 
- 
+	
+
 </head>
 
 <body>
 
+
   <!-- 어두운 배경 -->
   <div class="overlay"></div>
-
   <header>
     <div class="header-container">
-      <div class="logo" data-ko="BBOL BBOL BBOL" data-en="BBOL BBOL BBOL">BBOL BBOL BBOL</div>
+      <div class="logo">
+        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
+      </div>
       <nav>
         <ul>
-          <li><a href="#" data-ko="홈" data-en="Home">홈</a></li>
-          <li><a href="#" data-ko="커뮤니티" data-en="Community">커뮤니티</a></li>
-          <li><a href="#" data-ko="여행지" data-en="RecoHotPlace">여행지</a></li>
-          <li><a href="#" data-ko="여행뽈뽈" data-en="BBOL BBOL BBOL">여행뽈뽈</a></li>
-          <button class="search-btn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-          <button class="user-btn" onclick="location.href='${pageContext.request.contextPath}/Member/login'">
-            <i class="fa-solid fa-user"></i>
-		  </button>          
-          <button class="earth-btn" onclick="location.href='${pageContext.request.contextPath}/MyPage/myPageMain'">
-            <i class="fa-solid fa-earth-americas"></i>
-          </button>
-          
-          <button class="korean" id="lang-btn" data-lang="ko">English</button>
-          	<div class="welcome-message">
-    <c:choose>
-        <c:when test="${not empty sessionScope.member}">
-            ${sessionScope.member.m_nickname}님 환영합니다!
-            <form action="${pageContext.request.contextPath}/Member/logout" method="post">
-                <button type="submit">로그아웃</button>
-            </form>
-        </c:when>
-        <c:otherwise>
-            <a href="${pageContext.request.contextPath}/Member/login">로그인</a>
-            <a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a>
-        </c:otherwise>
-    </c:choose>
-</div>
+          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
+          <li><a href="#">커뮤니티</a></li>
+          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
+          <li><a href="#">여행뽈뽈</a></li>
         </ul>
       </nav>
-      
-
-      
-      
-    </div>
-    <!-- 검색 바 -->
-    <div class="search-bar-container">
-      <div class="search-bar-content">
-        <input type="text" placeholder="도시나 키워드를 검색해보세요..." data-ko="도시나 키워드를 검색해보세요..."
-          data-en="Search cities or keywords...">
-        <button class="close-btn"><i class="fa-solid fa-times"></i></button>
+      <div class="member">
+        <c:choose>
+          <c:when test="${not empty sessionScope.member}">
+            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
+            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
+            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
+            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
+              <button type="submit">로그아웃</button>
+            </form>
+          </c:when>
+          <c:otherwise>
+            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
+            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
+          </c:otherwise>
+        </c:choose>
       </div>
     </div>
   </header>
-
-  <!-- 메인 시작 부분 -->
   
+  <!-- 메인 시작 부분 -->
   <div class="main-container">
     <!-- 첫번째 큰 이미지 슬라이드 영역 -->
     <div class="main-banner">
       <!-- 이미지 슬라이드 컨테이너, 필수는 swiper-container, wrapper, slide -->
       <div class="swiper-container">
       
-        <!-- 설명 박스 -->
-        <div class="description-box">
-          <h2 id="description-title"></h2>
-          <p id="description-text"></p>
-          <a href="#" class="detail-link" id="detail-link">자세히 보기</a>
+    <!-- 설명 박스 -->
+    <div class="description-box">
+    	<c:forEach var="banner" items="${bannerPlaces}" varStatus="status">
+    		<c:if test="${status.first}"> <!-- 첫 번째 요소만 출력 -->
+            <h2 id="description-title">${banner.title}</h2>
+	        <p id="description-text">${banner.overview}</p>
+            <a href="${pageContext.request.contextPath}/BannerPlace/${banner.contentid}" class="detail-link">
+	          자세히 보기
+	        </a>
+	        </c:if>
+      	</c:forEach>
 
             <!-- 슬라이드 컨트롤 -->
             <div class="custom-pagination">
@@ -194,73 +107,41 @@
             </div>
         </div>
 
-        <!-- 슬라이드 이미지 -->
-        <div class="swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_01.jpg" alt="배너1">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_02.jpg" alt="배너2">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_03.jfif" alt="배너3">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_04.jpg" alt="배너4">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_05.jpg" alt="배너5">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_06.jpg" alt="배너6">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_07.jpg" alt="배너7">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+		 <!-- 슬라이드 이미지 -->
+		    <div class="swiper">
+		      <div class="swiper-wrapper">
+		        <c:forEach var="banner" items="${bannerPlaces}">
+		          <div class="swiper-slide">
+		            <a href="${pageContext.request.contextPath}/BannerPlace/${banner.contentid}">
+		            <img src="${banner.firstimage}" alt="${banner.title}">
+		          	</a>
+		          </div>
+		        </c:forEach>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
-    <!-- 인기 여행지 섹션 -->
-    <div class="famous">
-      <h2>인기 여행지</h2>
-      <div class="famous-list">
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>도쿄</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>부산</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>서울</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>오사카</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>타이베이</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>강원도</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>제주도</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>태국</p>
-        </div>
-      </div>
-    </div>
+
+	<div class="mainratio">
+	<!-- 인기 여행지 섹션 -->
+	<div class="famous">
+	  <h2>인기 여행지</h2>
+	  <div class="famous-list">
+	    <!-- Model에서 전달된 hotplaceTitles 출력 -->
+	    <c:forEach var="hotplace" items="${hotplaceDetails}">
+	      <div class="famous-item" onmouseover="expandImage(this)">
+	        <a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	          <div class="image-container">
+	            <img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	          </div>
+	          <p>${hotplace.title}</p>
+	        </a>
+	      </div>
+	    </c:forEach>
+	  </div>
+	</div>
+
 
     <!-- 인기 커뮤니티 섹션 -->
     <div class="Community">
@@ -293,58 +174,44 @@
     <div class="hotplace-section">
       <h2>함께 떠나는 핫플 여행</h2>
     <div class="hotplace-list">
+   		<c:forEach var="hotplace" items="${hotplaceDetails}">
     <div class="hotplace-item">
-      	<a href="${pageContext.request.contextPath}/HotPlace/hotplace.jsp" class="hotplace-item">
-      	<img src="${pageContext.request.contextPath}/resources/images/firecastle01.jpg" alt="수원화성1">
+		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	    	<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="image-placeholder" />
+	    	<p>${hotplace.title}</p>
       </a>
     </div>
-    <div class="hotplace-item">
-		<a href="${pageContext.request.contextPath}/HotPlace/hotplace2" class="hotplace-item">
-        <img src="${pageContext.request.contextPath}/resources/images/firecastle02.jpg" alt="수원화성2">
-      </a>
-    </div>
-    <div class="hotplace-item">
-		<a href="${pageContext.request.contextPath}/Login/login" class="hotplace-item">
-		<img src="${pageContext.request.contextPath}/resources/images/firecastle03.jpg" alt="수원화성3">
-	  </a>
-    </div>
-    <div class="hotplace-item">
-      <a href="${pageContext.request.contextPath}/Community/c_board/travelWrite" class="hotplace-item">
-      <img src="${pageContext.request.contextPath}/resources/images/firecastle04.jpg" alt="수원화성4">
-      </a>
-    </div>
-    <div class="hotplace-item">
-      <a href="${pageContext.request.contextPath}/Community/c_main/c_main" class="hotplace-item">
-      <img src="${pageContext.request.contextPath}/resources/images/firecastle05.jpg" alt="수원화성5">
-      </a>
-    </div>
+    	</c:forEach>
   </div>
 </div>
+   
       
       
-  <!-- 이벤트 섹션 -->
+  <!-- 축제 섹션 -->
   <div class="event-section">
-    <h2>이벤트</h2>
+    <h2>축제</h2>
     <div class="event-list">
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>이벤트 1</p>
+        <p>축제 1</p>
       </div>
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>이벤트 2</p>
+        <p>축제 2</p>
       </div>
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>이벤트 3</p>
+        <p>축제 3</p>
       </div>
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>이벤트 4</p>
+        <p>축제 4</p>
       </div>
     </div>
   </div>
-
+  </div> <!--  end of mainratio -->
+  
+ </div> <!-- end of main-container  -->
 
 <!-- 푸터 부분 -->
 <footer>
@@ -352,9 +219,8 @@
     <div class="footer-section">
       <h4>회사소개</h4>
       <ul>
-        <li><a href="#">회사소개</a></li>
-        <li><a href="#">브랜드 이야기</a></li>
-        <li><a href="#">채용공고</a></li>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/introduce" target="_blank">회사소개</a></li>
+        <li><a href="${pageContext.request.contextPath}/HotPlace/inputApi"target="_blank">공공데이터 API</a></li>
       </ul>
     </div>
 
@@ -372,9 +238,9 @@
     <div class="footer-section">
       <h4>이용약관</h4>
       <ul>
-        <li><a href="#">이용약관</a></li>
-        <li><a href="#">개인정보처리방침</a></li>
-        <li><a href="#">저작권 보호정책</a></li>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/clause" target="_blank">이용약관</a></li>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/privacy" target="_blank">개인정보처리방침</a></li>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/marketing" target="_blank">광고성 정보 수신동의</a></li>
       </ul>
     </div>
 
@@ -391,13 +257,72 @@
       <a href="#"><i class="fab fa-facebook-f"></i></a>
       <a href="#"><i class="fab fa-twitter"></i></a>
     </div>
+    
+  </div>
 </footer>
 
-   <!-- 메인 스크립트 -->
-   <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/js/bannerslider.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+<script type="text/javascript">
+  // JSP에서 전달받은 데이터를 JSON 형식으로 변환하여 자바스크립트로 전달
+  var descriptions = 
+    <%= new org.json.JSONArray((List<?>) request.getAttribute("bannerPlaces")).toString() %>;
+  var contextPath = "${pageContext.request.contextPath}";
+</script>
+
+
+<!-- 스크립트 -->
+<!-- 스크립트 -->
+<script>
+  let currentExpanded = null; // 현재 확장된 이미지 저장
+
+  function resetImages() {
+    const allItems = document.querySelectorAll('.famous-item');
+    allItems.forEach(item => {
+      item.style.flexGrow = '1'; // 모든 이미지를 원래 크기로 복귀
+    });
+    currentExpanded = null; // 확장 상태 초기화
+  }
+
+  function expandImage(element) {
+    const allItems = document.querySelectorAll('.famous-item');
+    
+    // 모든 아이템의 기본 크기를 1로 설정
+    allItems.forEach(item => {
+      item.style.flexGrow = '1';
+    });
+
+    // 클릭한 이미지를 60%로 확장
+    element.style.flexGrow = '5'; // 60%로 확장
+    currentExpanded = element; // 현재 확장된 이미지 저장
+
+    // 나머지 이미지들은 각 20%로 작게 설정
+    allItems.forEach(item => {
+      if (item !== element) {
+        item.style.flexGrow = '2'; // 나머지 아이템은 20%로 설정
+      }
+    });
+  }
+
+  document.querySelectorAll('.famous-item').forEach(item => {
+    // 마우스가 아이템 위로 들어왔을 때 확장
+    item.addEventListener('mouseenter', function() {
+      if (currentExpanded === null) {
+        expandImage(item); // 처음 마우스 올릴 때 이미지 확장
+      }
+    });
+
+    // 마우스가 떠나도 이미지는 그대로 유지 (mouseleave 이벤트 삭제)
+    // 현재 확장된 상태를 유지하기 위해 추가 작업 없음
+  });
+
+  // 이미지 클릭 시 초기화
+  document.querySelector('.reset-button').addEventListener('click', resetImages);
+</script>
+
+
+
+   
    
 </body>
 

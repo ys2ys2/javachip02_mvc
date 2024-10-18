@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.HotPlaceMapper">
+
+
+	<!-- DB에 contentID로 가져온 값들 넣기 -->
+    <insert id="insertHotPlace">
+        INSERT INTO hotplace (contentid, title, addr1, overview, mapx, mapy, firstimage, areacode)
+        VALUES (#{contentId}, #{title}, #{addr1}, #{overview}, #{mapx}, #{mapy}, #{firstimage}, #{areacode})
+    </insert>
+    
+    <!-- 랜덤 핫플 가져오기 -->
+    <select id="getRandomHotplaceDetail" resultType="map">
+    	SELECT contentid, title, firstimage, addr1, overview, mapx, mapy
+    	FROM hotplace
+    	ORDER BY RAND() <!-- 랜덤정렬 -->
+    	LIMIT #{limit}	<!-- 5개 리밋걸기 -->
+    </select>
+    
+    <!-- contentid로 핫플 정보 가져오기 -->
+    <select id="getHotplaceById" resultType="map">
+    	SELECT contentid, title, firstimage, addr1, overview, mapx, mapy
+    	FROM hotplace
+    	WHERE contentid = #{contentid}
+    </select>
+	
+	<!-- mypage 테이블에 m_idx, contentid 넣기 -->    
+    <insert id="insertMyPage">
+    	INSERT INTO m_mypage (m_idx, contentid)
+    	VALUES (#{m_idx}, #{contentid})
+    </insert>
+    
+
+</mapper>

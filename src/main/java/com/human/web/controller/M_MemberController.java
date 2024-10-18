@@ -95,7 +95,7 @@ public class M_MemberController {
   			System.out.println("세션에 저장된 회원 정보: " + session.getAttribute("member"));  
   		    System.out.println("닉네임: " + vo.getM_nickname());  
   		    
-  			viewName = "redirect:/index.do";//메인 페이지 재요청
+  			viewName = "redirect:/HomePage/mainpage";//메인 페이지 재요청
   			
   		}else {//로그인 실패
   			model.addAttribute("msg", "아이디나 비밀번호가 일치하지 않습니다");
@@ -134,7 +134,7 @@ public class M_MemberController {
 		        HttpSession session = request.getSession();
 		        session.removeAttribute("member");
 		        session.setAttribute("member", newVo);
-		        viewName = "redirect:/index.do"; // 성공 시 메인 페이지로 리다이렉트
+		        viewName = "redirect:/MyPage/myPageMain"; // 성공 시 메인 페이지로 리다이렉트
 		    } else {
 		        // 회원 정보 변경 실패
 		        int nicknameCount = m_memberServiceImpl.checkNickname(vo.getM_nickname());

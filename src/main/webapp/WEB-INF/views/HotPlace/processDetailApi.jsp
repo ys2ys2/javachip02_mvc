@@ -61,7 +61,6 @@
 
                 // JSON 응답 출력 (디버깅용)
                 String jsonResponse = sb.toString();
-                System.out.println("JSON Response: " + jsonResponse);
 
                 // JSON 파싱
                 if (jsonResponse.startsWith("{")) {
@@ -131,7 +130,6 @@
 
                                                 // JSON 응답 출력 (디버깅용)
                                                 String imageJsonResponse = imageSb.toString();
-                                                System.out.println("Image JSON Response: " + imageJsonResponse);
 
                                                 // 이미지 JSON 파싱 (items가 JSONObject나 JSONArray 또는 String일 수 있음)
                                                 if (imageJsonResponse.startsWith("{")) {
@@ -231,13 +229,6 @@
 
 
 
-        
-        
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -245,7 +236,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상세 정보 조회 결과</title>
 
-    <link rel="stylesheet" href="../HotPlace/processDetailApi.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/processDetailApi.css">
 </head>
 <body>
     <div class="container">
@@ -255,7 +246,7 @@
         <!-- 콘텐츠 ID로 다른 상세정보 검색하기 입력 폼 추가 -->
         <div class="search-detail-container">
             <h2>DB에 저장하기</h2>
-            <form action="inputDB.jsp" method="post">
+            <form action="${pageContext.request.contextPath}/HotPlace/inputDB" method="post">
                 <label for="selectedContentIds">콘텐츠 ID:</label>
                 <input type="text" id="selectedContentIds" name="selectedContentIds" placeholder="체크된 콘텐츠 ID가 여기에 표시됩니다." required>
                 <button type="submit">DB에 저장</button>

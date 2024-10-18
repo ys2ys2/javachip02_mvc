@@ -40,10 +40,10 @@
   </header>
   <!-- 상단 네비게이션 -->
   <div class="navigation">
+   	<a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지 홈</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_myTrips">내 여행</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 여행기</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_savedList">저장목록</a>
-   	 <a href="${pageContext.request.contextPath}/MyPage/m_commentManagement">댓글관리</a>
 </div>
 
 <div class="container">
@@ -105,13 +105,13 @@
 		    <!-- 콘텐츠를 보여줄 content-box -->
 		    <div class="m_content-box">
 		        <!-- c:forEach를 사용하여 m_mypageList를 반복 처리 -->
-		        <c:forEach var="mypage" items="${m_mypageList}">
+		        <c:forEach var="hotplace" items="${hotplaceList}">
 		            <div class="m_hotplace-item">
 		                <!-- 이미지 출력 (firstimage) -->
-		                <img src="${mypage.firstimage}" alt="${mypage.title}">
+		                <img src="${hotplace.firstimage}" alt="${hotplace.title}">
 		
 		                <!-- 제목 출력 (title) -->
-		                <h3>${mypage.title}</h3>
+		                <h3>${hotplace.title}</h3>
 		            </div>
 		        </c:forEach>
 		        

@@ -6,11 +6,11 @@ import com.human.web.vo.MypageVO;
 
 public interface MypageService {
 
-	List<MypageVO> getMypageList();
+
+	List<MypageVO> getRandomHotplaceList();
+
+	List<MypageVO> getSavedList(int m_idx);
+
 	
-	/*
-	 * M_MemberVO updateMember(M_MemberVO vo);
-	 * 
-	 * int cancel(int m_idx);
-	 */
+	
 }

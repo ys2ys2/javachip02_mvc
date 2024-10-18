@@ -13,29 +13,25 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MypageServiceImpl implements MypageService {
 
-	private MypageDAO mypageDao;  // 마이페이지 관련 DAO
-	
-	@Override
-	public List<MypageVO> getMypageList() {
-		/* System.out.println("MypageServiceImpl - getMypageList 호출됨"); */
-		return mypageDao.getMypageList();  // 마이페이지 목록 조회는 MypageDAO 사용
-	}
+	private MypageDAO mypageDao; // 마이페이지 관련 DAO
 
 	/*
-	 * @Override public M_MemberVO updateMember(M_MemberVO vo) { M_MemberVO newVo =
-	 * null; // 회원정보 변경 실패 시 결과값
-	 * 
-	 * // 회원정보 업데이트가 성공하면 변경된 정보 조회 if (memberDao.updateMember(vo) == 1) { newVo =
-	 * memberDao.getMember(vo.getM_idx());
-	 * System.out.println("Service - 회원 정보 업데이트 성공: " + newVo); // 업데이트된 회원 정보 확인
-	 * }else { System.out.println("Service - 회원 정보 업데이트 실패"); // 디버깅 }
-	 * 
-	 * 
-	 * return newVo; }
-	 * 
-	 * // 회원탈퇴 처리
-	 * 
-	 * @Override public int cancel(int m_idx) { return memberDao.cancel(m_idx); //
-	 * 회원탈퇴는 M_MemberDAO에서 처리 }
+	 * @Override public List<MypageVO> getHotplaceList() {
+	 * System.out.println("MypageServiceImpl - getMypageList 호출됨"); return
+	 * mypageDao.getHotplaceList(); // 마이페이지 목록 조회는 MypageDAO 사용 }
 	 */
+
+	@Override
+	public List<MypageVO> getRandomHotplaceList() {
+		return mypageDao.getRandomHotplaceList();
+	}
+	
+	
+    @Override
+      public List<MypageVO> getSavedList(int m_idx) {
+          List<MypageVO> savedList = mypageDao.getSavedList(m_idx);
+          System.out.println("가져온 저장 데이터 목록: " +savedList);
+	    // DAO를 호출하여 데이터를 가져옴
+          return savedList;
+    }
 }
