@@ -246,7 +246,7 @@
         <p>축제 4</p>
       </div>
     </div>
-  </div>
+   </div>
   </div> <!--  end of mainratio -->
   
  </div> <!-- end of main-container  -->
