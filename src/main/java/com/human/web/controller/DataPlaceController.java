@@ -16,7 +16,7 @@ public class DataPlaceController {
     @Autowired
     private DataPlaceService dataPlaceService;
 
-    // contentID로 배너 상세 페이지 가져오기
+    // contentID로 데이터 상세 페이지 가져오기
     @GetMapping("/DataPlace/{contentid}")
     public String showBannerDetailByContentId(@PathVariable("contentid") int contentid, Model model) {
         // contentid에 해당하는 배너 정보를 가져옴

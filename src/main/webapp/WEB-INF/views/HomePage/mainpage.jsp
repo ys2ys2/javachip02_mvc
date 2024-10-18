@@ -145,13 +145,13 @@
 				<img src="${pageContext.request.contextPath}/resources/images/famous-title.png" alt="여행 이미지">
 		  <div class="famous-list">
 		    <!-- Model에서 전달된 hotplaceTitles 출력 -->
-		    <c:forEach var="hotplace" items="${hotplaceDetails}">
+		    <c:forEach var="dataplace" items="${dataplaceDetails}">
 		      <div class="famous-item" onmouseover="expandImage(this)">
-		        <a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+        		<a href="${pageContext.request.contextPath}/DataPlace/${dataplace.contentid}">
 		          <div class="image-container">
-		            <img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+		            <img src="${dataplace.firstimage}" alt="${dataplace.title}" class="timage-placeholder" />
 		          </div>
-		          <p>${hotplace.title}</p>
+		          <p>${dataplace.title}</p>
 		        </a>
 		      </div>
 		    </c:forEach>

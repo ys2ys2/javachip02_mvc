@@ -5,7 +5,19 @@
 
 <mapper namespace="com.example.mapper.DataPlaceMapper">
 
+	<!-- 랜덤 배너 가져오기 -->
+	<select id = "getRandomBannerPlace" resultType="map">
+		SELECT contentid, title, firstimage, addr1, overview, mapx, mapy
+		FROM dataplace
+		ORDER BY RAND()
+		LIMIT #{limit}
+	</select>
 
-
+	<!-- contentid로 배너 정보 가져오기 -->
+	<select id="getDataplaceById" resultType="map">
+	    SELECT contentid, title, firstimage, addr1, overview, mapx, mapy
+	    FROM dataplace
+	    WHERE contentid = #{contentid}
+	</select>
 
 </mapper>

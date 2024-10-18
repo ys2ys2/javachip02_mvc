@@ -25,7 +25,7 @@
   <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/br.js"></script>
-  <title>최신 여행지! ${banner.title}</title>
+  <title>최신 여행지! ${dataplace.title}</title>
 </head>
 
 <body>
@@ -42,7 +42,7 @@
         <ul>
           <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
           <li><a href="#">커뮤니티</a></li>
-          <li><a href="${pageContext.request.contextPath}/HotPlace/banner2">여행지</a></li>
+          <li><a href="${pageContext.request.contextPath}/HotPlace/dataplace2">여행지</a></li>
           <li><a href="#">여행뽈뽈</a></li>
         </ul>
       </nav>
@@ -69,14 +69,14 @@
   <div class="h_minibody">
     <!-- 타이틀 -->
     <div class="h_title-container">
-        <h2>${banner.title}</h2> <!-- 제목 -->
-        <h3>${banner.addr1}</h3> <!-- 장소 -->
+        <h2>${dataplace.title}</h2> <!-- 제목 -->
+        <h3>${dataplace.addr1}</h3> <!-- 장소 -->
         
         <!-- mapx와 mapy 값을 자바스크립트로 전달 -->
         <script type="text/javascript">
-            var mapx = "${banner.mapx}";
-            var mapy = "${banner.mapy}";
-            var firstimage = "${banner.firstimage}";
+            var mapx = "${dataplace.mapx}";
+            var mapy = "${dataplace.mapy}";
+            var firstimage = "${dataplace.firstimage}";
         </script>
     </div>
     <div class="h_icons">
@@ -87,7 +87,7 @@
 		<!-- 저장하기 버튼 -->
 		<form id="saveForm" action="${pageContext.request.contextPath}/hotplace/save" method="post">
 		    <!-- contentid가 JSP에서 제대로 전달되는지 확인 -->
-		    <input type="hidden" name="contentid" value="${banner.contentid}">
+		    <input type="hidden" name="contentid" value="${dataplace.contentid}">
 		    <button type="submit" class="f_button">
 		        <img src="${pageContext.request.contextPath}/resources/images/favorite.png" alt="favorite">
 		    </button>
@@ -145,7 +145,7 @@
 	    <div class="swiper mySwiper2">
 	        <div class="swiper-wrapper">
 	            <!-- firstimage 필드를 쉼표로 나누어 배열로 처리 -->
-	            <c:set var="imageArray" value="${fn:split(banner.firstimage, ',')}" />
+	            <c:set var="imageArray" value="${fn:split(dataplace.firstimage, ',')}" />
 	            <c:forEach var="imgUrl" items="${imageArray}">
 	                <div class="swiper-slide">
 	                    <img src="${fn:trim(imgUrl)}" alt="핫플 이미지" />
@@ -177,7 +177,7 @@
       <span>상세정보</span>
     </div>
     <div class="h_details">
-        <p id="description-text">${banner.overview}</p>
+        <p id="description-text">${dataplace.overview}</p>
     </div>
 
     <!-- 구글 맵 -->

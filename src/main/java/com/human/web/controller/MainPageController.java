@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.human.web.service.BannerPlaceService;
+import com.human.web.service.DataPlaceService;
 import com.human.web.service.HotPlaceService;
 import com.human.web.service.TalkService;
 import com.human.web.vo.TalkVO;
@@ -32,18 +33,23 @@ public class MainPageController {
     @Autowired
     private TalkService talkService;
     
+    @Autowired
+    private DataPlaceService dataPlaceService;
+    
     
     
     // 핫플 테이블의 상세 정보를 랜덤으로 가져오기
     @GetMapping("/HomePage/mainpage")
     public String showHotplaceDetails(Model model) {
         // 랜덤으로 5개의 핫플레이스 정보를 가져옴
-        List<Map<String, Object>> hotplaceDetails = hotplaceService.getRandomHotplaceDetail(4);
-        List<Map<String, Object>> bannerPlaces = bannerPlaceService.getRandomBannerPlace(7);
-
+        List<Map<String, Object>> hotplaceDetails = hotplaceService.getRandomHotplaceDetail(4);		//핫플 부분
+        List<Map<String, Object>> bannerPlaces = bannerPlaceService.getRandomBannerPlace(7);		//배너 부분
+        List<Map<String, Object>> dataplaceDetails = dataPlaceService.getRandomDataPlace(4); 			//빅데이터 부분
+        
         // JSP로 데이터 전달
         model.addAttribute("hotplaceDetails", hotplaceDetails);
         model.addAttribute("bannerPlaces", bannerPlaces);
+        model.addAttribute("dataplaceDetails", dataplaceDetails);  
 
         return "HomePage/mainpage"; // mainpage.jsp로 이동
     }
