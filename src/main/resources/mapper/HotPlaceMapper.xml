@@ -8,7 +8,7 @@
 
 	<!-- DB에 contentID로 가져온 값들 넣기 -->
     <insert id="insertHotPlace">
-        INSERT INTO bannerplace (contentid, title, addr1, overview, mapx, mapy, firstimage, areacode)
+        INSERT INTO dataplace (contentid, title, addr1, overview, mapx, mapy, firstimage, areacode)
         VALUES (#{contentId}, #{title}, #{addr1}, #{overview}, #{mapx}, #{mapy}, #{firstimage}, #{areacode})
     </insert>
     

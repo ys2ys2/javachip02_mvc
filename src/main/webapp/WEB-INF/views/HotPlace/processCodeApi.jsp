@@ -16,7 +16,7 @@
             
             // 랜덤 페이지 번호 생성 (1부터 10까지 숫자)
             Random random = new Random();
-            int randomPage = random.nextInt(20) + 10;
+            int randomPage = random.nextInt(20) + 5;
             
             
             String params = "?serviceKey=" + apiKey
