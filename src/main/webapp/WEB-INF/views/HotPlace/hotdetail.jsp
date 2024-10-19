@@ -191,7 +191,8 @@
           <!-- 로그인된 사용자가 댓글 작성 가능 -->
           <form action="${pageContext.request.contextPath}/HotPlace/insert" method="post">
             <!-- hidden으로 contentid 전달하기(위에 form사용) -->
-            <input type="hidden" name="contentid" value="${hotplace.contentid}" />
+            <input type="hidden" name="contentid" value="${hotplace.contentid}" />	<!-- contentid로 상세페이지 전달 -->
+            <input type="hidden" name="type" value="HotPlace"> <!-- type으로 어떤 페이지에서 작성되는지 전달 -->
             <textarea id="commentText" name="talkText" placeholder="소중한 댓글을 남겨주세요."></textarea>
             <div class="form-actions">
               <button class="login-button" id="submitButton">작성하기</button>

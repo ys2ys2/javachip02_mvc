@@ -1,15 +1,10 @@
 package com.human.web.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +16,7 @@ import com.human.web.vo.M_MemberVO;
 import com.human.web.vo.TalkVO;
 
 @Controller
-@RequestMapping("/HotPlace")
+@RequestMapping({"/HotPlace", "/DataPlace"})  // hotplace랑 DataPlace 포함
 public class TalkController {
 
     @Autowired
@@ -34,13 +29,14 @@ public class TalkController {
     public String insertTalk
     (@RequestParam("talkText") String talkText, 
      @RequestParam("contentid") int contentid,
+     @RequestParam("type") String type,
      	HttpSession session, RedirectAttributes redirectAttributes) {
         
         // TalkVO 객체 생성
         TalkVO talkVO = new TalkVO();  // 사용자가 입력한 댓글 데이터를 담을 객체 생성
         talkVO.setTalkText(talkText);  // 사용자가 입력한 댓글 내용(talkText)을 TalkVO 객체에 저장
         talkVO.setContentid(contentid); // contentid 저장
-
+        talkVO.setType(type);
         // 세션에서 로그인할 때 저장된 member 객체 가져오기
         // 세션에 로그인한 사용자의 정보(M_MemberVO)를 저장해 두었으므로 그 정보를 꺼내옴
         M_MemberVO member = (M_MemberVO) session.getAttribute("member");
@@ -63,7 +59,7 @@ public class TalkController {
         }
 
         // 해당 contentid로 리다이렉트
-        return "redirect:/HotPlace/" + contentid;  // contentid 페이지로 리다이렉트
+        return "redirect:/" + type + "/" + contentid;  // type + contentid 페이지로 리다이렉트
     }
     
     

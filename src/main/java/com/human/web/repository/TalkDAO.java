@@ -24,8 +24,8 @@ public class TalkDAO {
     }
 
     // 댓글 총 개수 가져오기
-    public int getTotalTalkCount(int contentid) {
-        return sqlSession.selectOne(MAPPER + ".getTotalTalkCount", contentid);
+    public int getTotalTalkCount(Map<String, Object> params) {
+        return sqlSession.selectOne(MAPPER + ".getTotalTalkCount", params);
     }
 
     // 댓글 입력

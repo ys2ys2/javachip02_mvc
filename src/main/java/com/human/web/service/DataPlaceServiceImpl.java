@@ -32,10 +32,13 @@ public class DataPlaceServiceImpl implements DataPlaceService {
 		}).collect(Collectors.toList());
 	}
 	
+	//contetid로 dataplace 가져오기
 	@Override
 	public Map<String, Object> getDataplaceById(int contentid) {
 		
 		return dataPlaceDAO.getDataplaceById(contentid);
 	}
+
+		
 
 }

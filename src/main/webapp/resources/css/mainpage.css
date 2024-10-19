@@ -66,7 +66,7 @@ body {
   padding: 30px;
   box-sizing: border-box;
   gap: 30vh; /* 설명 박스와 슬라이더 사이에 여백 추가 */
-  transition: background-color 0.5s ease;
+  transition: background-color 0.8s ease;
   
 }
 
@@ -186,7 +186,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   margin-left: 22vh;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.8s ease;
   
 }
 

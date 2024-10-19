@@ -6,10 +6,14 @@ import java.util.Map;
 import com.human.web.vo.TalkVO;
 
 public interface TalkService {
-    List<TalkVO> getTalkList(int contentid, int offset, int limit); // 순서 수정
     
-    int getTotalTalkCount(int contentid);  // 전체 댓글 수 가져오기
+	//댓글 리스트
+	List<TalkVO> getTalkList(int contentid, String type, int offset, int limit); 
+    
+	//총 댓글 리스트
+    int getTotalTalkCount(int contentid, String type);  
 
+    //item list
     List<Map<String, String>> getItemList(int offset, int limit);
 
     int insertTalk(TalkVO talkVO);	// 댓글 삽입

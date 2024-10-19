@@ -86,8 +86,7 @@
 		</button>
 		<!-- 저장하기 버튼 -->
 		<form id="saveForm" action="${pageContext.request.contextPath}/hotplace/save" method="post">
-		    <!-- contentid가 JSP에서 제대로 전달되는지 확인 -->
-		    <input type="hidden" name="contentid" value="${dataplace.contentid}">
+		    <input type="hidden" name="contentid" value="${dataplace.contentid}" /> <!-- contentid 전달 -->
 		    <button type="submit" class="f_button">
 		        <img src="${pageContext.request.contextPath}/resources/images/favorite.png" alt="favorite">
 		    </button>
@@ -194,7 +193,9 @@
       <c:choose>
         <c:when test="${not empty sessionScope.member.m_nickname}">
           <!-- 로그인된 사용자가 댓글 작성 가능 -->
-          <form action="${pageContext.request.contextPath}/HotPlace/insert" method="post">
+			<form action="${pageContext.request.contextPath}/DataPlace/insert" method="post">
+			<input type="hidden" name="contentid" value="${dataplace.contentid}"> <!-- contentid -->
+			<input type="hidden" name="type" value="DataPlace">	<!-- type까지 추가 -->
             <textarea id="commentText" name="talkText" placeholder="소중한 댓글을 남겨주세요."></textarea>
             <div class="form-actions">
               <button class="login-button" id="submitButton">작성하기</button>

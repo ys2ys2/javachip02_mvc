@@ -42,8 +42,8 @@ public class MainPageController {
     @GetMapping("/HomePage/mainpage")
     public String showHotplaceDetails(Model model) {
         // 랜덤으로 5개의 핫플레이스 정보를 가져옴
-        List<Map<String, Object>> hotplaceDetails = hotplaceService.getRandomHotplaceDetail(4);		//핫플 부분
-        List<Map<String, Object>> bannerPlaces = bannerPlaceService.getRandomBannerPlace(7);		//배너 부분
+        List<Map<String, Object>> hotplaceDetails = hotplaceService.getRandomHotplaceDetail(4);			//핫플 부분
+        List<Map<String, Object>> bannerPlaces = bannerPlaceService.getRandomBannerPlace(7);			//배너 부분
         List<Map<String, Object>> dataplaceDetails = dataPlaceService.getRandomDataPlace(4); 			//빅데이터 부분
         
         // JSP로 데이터 전달
@@ -54,13 +54,6 @@ public class MainPageController {
         return "HomePage/mainpage"; // mainpage.jsp로 이동
     }
 
-    // contentID로 해당 페이지 가져오기
-    @GetMapping("/hotplace/detail")
-    public String showHotplaceDetail(@RequestParam("contentid") int contentid, Model model) {
-        Map<String, Object> hotplace = hotplaceService.getHotplaceById(contentid);
-        model.addAttribute("hotplace", hotplace);
-        return "hotplace/detail";
-    }
     
 	 // HotPlace 상세 페이지 만들기 + 댓글 가져오기
 	    @GetMapping("/HotPlace/{contentid}")
@@ -75,8 +68,8 @@ public class MainPageController {
 	        int offset = (page - 1) * commentsPerPage;
 	        
 	        // 댓글 리스트 가져오기
-	        List<TalkVO> talkList = talkService.getTalkList(contentid, offset, commentsPerPage);
-	        int totalTalkCount = talkService.getTotalTalkCount(contentid);
+	        List<TalkVO> talkList = talkService.getTalkList(contentid, "hotplace", offset, commentsPerPage);
+	        int totalTalkCount = talkService.getTotalTalkCount(contentid, "hotplace");
 	        int totalPages = (int) Math.ceil((double) totalTalkCount / commentsPerPage);
 	        
 	        // HotPlace 정보와 댓글 정보를 JSP로 전달
@@ -99,7 +92,7 @@ public class MainPageController {
 	        int offset = (page - 1) * commentsPerPage;
 
 	        // contentid에 해당하는 댓글 리스트 가져오기
-	        List<TalkVO> talkList = talkService.getTalkList(contentid, offset, commentsPerPage);
+	        List<TalkVO> talkList = talkService.getTalkList(contentid, "hotplace", offset, commentsPerPage);
 
 	        // 날짜 포맷 정의
 	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -122,7 +115,7 @@ public class MainPageController {
 	            formattedTalkList.add(talkData);
 	        }
 
-	        int totalTalkCount = talkService.getTotalTalkCount(contentid);
+	        int totalTalkCount = talkService.getTotalTalkCount(contentid, "hotplace");
 	        int totalPages = (int) Math.ceil((double) totalTalkCount / commentsPerPage);
 
 	        // 응답 데이터로 댓글 리스트와 페이지네이션 정보를 포함한 맵을 반환
