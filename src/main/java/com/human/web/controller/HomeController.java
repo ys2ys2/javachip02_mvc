@@ -204,5 +204,11 @@ public class HomeController {
 	public String travel_Seoul() {
 		return "RecoSpot/travel_Seoul";
 	}
+	
+	// 여행일정 페이지
+	@GetMapping("/TripSched/tripSched")
+	public String tripSched() {
+		return "TripSched/tripSched";
+	}
 
 }

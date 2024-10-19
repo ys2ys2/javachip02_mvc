@@ -24,7 +24,6 @@
   
   <!-- 메인 스크립트 -->
   <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/bannerslider.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	
