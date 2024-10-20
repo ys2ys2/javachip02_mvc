@@ -269,9 +269,8 @@ body {
 
 .day-cards {
     display: flex;
-    overflow-x: auto; /* 가로 스크롤 가능 */
-    gap: 15px; /* 카드들 사이의 간격 */
-    padding: 10px 0;
+    justify-content: flex-start; /* 카드들은 왼쪽에 */
+    gap: 20px; /* 카드 사이 간격 설정 */
 }
 
 
@@ -325,20 +324,12 @@ body {
 }
 
 .add-day-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 200px; /* 원하는 크기로 조정 */
-    height: 50px; /* 원하는 크기로 조정 */
-    margin: 20px auto;
+    align-self: flex-start; /* 우측에 고정 */
+    margin-left: auto; /* 우측으로 밀림 */
     padding: 10px;
-    border: 2px dashed #aaa; /* 점선 테두리 */
-    border-radius: 10px; /* 둥근 모서리 */
-    background-color: #f9f9f9; /* 배경색 */
-    color: #333; /* 텍스트 색상 */
-    font-size: 16px; /* 텍스트 크기 */
+    border: 1px dashed #ccc;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+}
 }
 
 .add-day-btn:hover {

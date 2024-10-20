@@ -84,11 +84,10 @@
     <!-- 수정 일정 리스트 -->
 	<div class="schedule-container">
 	    <div class="day-cards" id="dayCardsContainer">
-	        <!-- Day 카드들이 여기에 추가됨 -->
+	        <!-- 기본 카드들 -->
 	        <div class="day-card" id="day1">
 	            <div class="day-header">
 	                <h3>DAY 1</h3>
-	                <span class="day-date">2024.10.20</span>
 	                <button class="delete-btn" onclick="deleteDayCard(this)">🗑</button> <!-- 삭제 버튼 -->
 	            </div>
 	            <div class="day-content">
@@ -98,15 +97,13 @@
 	        <div class="day-card" id="day2">
 	            <div class="day-header">
 	                <h3>DAY 2</h3>
-	                <span class="day-date">2024.10.21</span>
 	                <button class="delete-btn" onclick="deleteDayCard(this)">🗑</button> <!-- 삭제 버튼 -->
 	            </div>
 	            <div class="day-content">
 	                <button class="add-schedule-btn" onclick="openPlaceSearch('day2')">📅 일정 추가</button>
 	            </div>
 	        </div>
-	    	<button id="addDayBtn" class="add-day-btn">날짜 추가</button> <!-- 날짜 추가 버튼 -->
-	    	
+	        <button id="addDayBtn" class="add-day-btn">일정 추가</button> <!-- 일정 추가 버튼 -->
 	    </div>
 	</div>
 
@@ -464,6 +461,43 @@ function closePlaceSearch() {
 
 </script>
 
+
+<script>
+    let dayCount = 3; // 기존 2개의 카드가 있으므로, 새로 추가할 카드는 DAY 3부터 시작
+
+    // 일정 추가 버튼을 클릭했을 때 새로운 카드를 추가하는 함수
+    document.getElementById('addDayBtn').addEventListener('click', function() {
+        const dayCardsContainer = document.getElementById('dayCardsContainer');
+        
+        // 새로운 카드 div 생성
+        const newDayCard = document.createElement('div');
+        newDayCard.classList.add('day-card');
+        newDayCard.id = `day${dayCount}`; // id는 day3, day4, ... 이렇게 생성
+        
+        // 새로운 카드의 내부 HTML 설정
+        newDayCard.innerHTML = `
+            <div class="day-header">
+                <h3>DAY ${dayCount}</h3> <!-- DAY 번호 표시 -->
+                <button class="delete-btn" onclick="deleteDayCard(this)">🗑</button> <!-- 삭제 버튼 -->
+            </div>
+            <div class="day-content">
+                <button class="add-schedule-btn" onclick="openPlaceSearch('day${dayCount}')">📅 일정 추가</button>
+            </div>
+        `;
+
+        // 컨테이너에 새로운 카드 추가 (추가 버튼 위에)
+        dayCardsContainer.insertBefore(newDayCard, document.getElementById('addDayBtn'));
+
+        // Day 번호 증가
+        dayCount++;
+    });
+
+    // 카드 삭제 함수
+    function deleteDayCard(button) {
+        const card = button.closest('.day-card');
+        card.remove(); // 선택한 카드 삭제
+    }
+</script>
 
 
 
