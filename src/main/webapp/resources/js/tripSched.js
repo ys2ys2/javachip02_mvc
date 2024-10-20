@@ -1,227 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>뽈뽈뽈 / 여행 일정 만들기</title>
-
-<link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/resources/css/tripSched.css" rel="stylesheet" type="text/css">
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBGXfM-W2P67M4VmuJdGHedKT73_rMEWQ&libraries=places&callback=initMap" async defer></script>
-
-
-
-</head>
-<body>
-
- <!-- 어두운 배경 -->
- <div class="overlay"></div>
- <header>
-   <div class="header-container">
-     <div class="logo">
-       <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
-     </div>
-     <nav>
-       <ul>
-         <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-         <li><a href="#">커뮤니티</a></li>
-         <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
-         <li><a href="#">여행뽈뽈</a></li>
-         <li><a href="#">여행일정</a></li>
-         
-       </ul>
-     </nav>
-     <div class="member">
-       <c:choose>
-         <c:when test="${not empty sessionScope.member}">
-           <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-           <div class="welcome">
-           	<span class="userprofile"><img src="${sessionScope.member.m_profile}" alt="user-profile"></span>
-           	${sessionScope.member.m_nickname}님 환영합니다!
-           </div>
-           <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
-           <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
-             <button type="submit">로그아웃</button>
-           </form>
-         </c:when>
-         <c:otherwise>
-           <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
-           <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-           <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
-         </c:otherwise>
-       </c:choose>
-     </div>
-   </div>
-</header>
-
-<!-- 메인 시작 -->
-
-<div class="t_mainratio">
-	<div class="t_titlesection">
-		<div class="t_title">
-			<input type="text" class="title-input" placeholder="제목을 입력해 주세요">
-		</div>
-		<div class="t_date">
-			<input type="text" class="date-picker" value="">
-			<button type="submit" class="t_calendar">
-				<img src="${pageContext.request.contextPath}/resources/images/t_date.png"></button>
-<!-- 			<div class="date_btnsection">
-			    <button class="date_btn">메모/가계부 보기</button>
-			    <button class="date_btn">항공 일정 등록</button>
-		    </div> -->
-	    </div>
-    </div>
-    
-    <div id="map"></div>
-    
-    <!-- 수정 일정 리스트 -->
-	<div class="schedule-container">
-	    <button class="scroll-btn left" onclick="scrollLeftContent()">&#8249;</button>
-	    
-	    <div class="day-cards" id="dayCardsContainer">
-	        <!-- 기본 카드들 -->
-	        <div class="day-card" id="day1">
-	            <div class="day-header">
-	                <h3>DAY 1</h3>
-	                <button class="delete-btn" onclick="deleteDayCard(this)">🗑</button> <!-- 삭제 버튼 -->
-	            </div>
-	            <div class="day-content">
-	                <button class="add-schedule-btn" onclick="openPlaceSearch('day1')">📅 일정 추가</button>
-	            </div> 	
-	        </div>
-	        <div class="day-card" id="day2">
-	            <div class="day-header">
-	                <h3>DAY 2</h3>
-	                <button class="delete-btn" onclick="deleteDayCard(this)">🗑</button> <!-- 삭제 버튼 -->
-	            </div>
-	            <div class="day-content">
-	                <button class="add-schedule-btn" onclick="openPlaceSearch('day2')">📅 일정 추가</button>
-	            </div>
-	        </div>
-	        <!-- <div class="add-day-btn-M"> -->
-	        	<button id="addDayBtn" class="add-day-btn">일정 추가</button> <!-- 일정 추가 버튼 -->
-	        <!-- </div> -->
-	    </div>
-	    <button class="scroll-btn right" onclick="scrollRightContent()">&#8250;</button>
-	    
-		<c:choose>
-		    <c:when test="${empty sessionScope.member.m_email}">
-		        <!-- 로그인되지 않은 경우 -->
-		        <a href="${pageContext.request.contextPath}/Member/login" class="schedule_save" onclick="alert('로그인 해 주시길 바랍니다!');">저장하기</a>
-		    </c:when>
-		    <c:otherwise>
-		        <!-- 로그인된 경우 -->
-		        <button type="submit" class="schedule_save">저장하기</button>
-		    </c:otherwise>
-		</c:choose>
-	</div>
-	
-
-	<!-- 장소 검색 팝업 -->
-	<div id="placeSearchPanel" class="t_place-search-panel">
-	    <div class="t_search-container-horizontal">
-	        <!-- 도시 검색 -->
-	        <div class="search-itemC">
-	            <img src="https://www.wishbeen.co.kr/geo.922951f5cf1908d9.svg" alt="도시 검색 아이콘" class="search-icon" />
-	            <input id="citySearch" placeholder="전체도시" type="text" />
-	        </div>
-	
-	        <!-- 여행지 자동 완성 -->
-	        <div class="search-item">
-	            <input id="autocomplete" placeholder="가고 싶은 장소를 검색해 보세요." type="text" />
-	            <img src="https://www.wishbeen.co.kr/assets/images/svg/search.svg" alt="검색 아이콘" />
-	        </div>
-	    </div>
-		
-		<!-- 선택한 여행지 -->
-		<div id="selectedPlaces" class="selected-places-container">
-	    <h4>선택한 여행지</h4>
-	    <!-- 선택된 장소들이 태그 형식으로 여기에 추가됩니다 -->
-		</div>
-	    
-	    <!-- 장소 검색 결과 리스트 -->
-	    <div id="placeResults" class="t_place-results">
-		    <ul id="placeResultsList"></ul>
-		</div>
-	    
-	    <!-- 더보기 버튼 -->
-    	<button id="loadMoreBtn" style="display: none;" onclick="loadMorePlaces()">더보기</button>
-	    
-	    <button class="t_close-btn" onclick="closePlaceSearch()">닫기</button>
-	</div>
-
-	
-    
-	
-	
-
-</div><!-- end of t_mainratio -->
-
-
-
-
-
-
-<!-- 푸터 부분 -->
-<footer>
-  <div class="footer-container">
-    <div class="footer-section">
-      <h4>회사소개</h4>
-      <ul>
-        <li><a href="${pageContext.request.contextPath}/FooterPage/introduce" target="_blank">회사소개</a></li>
-        <li><a href="${pageContext.request.contextPath}/HotPlace/inputApi"target="_blank">공공데이터 API</a></li>
-      </ul>
-    </div>
-
-    <!-- 고객지원 -->
-    <div class="footer-section">
-      <h4>고객지원</h4>
-      <ul>
-        <li><a href="#">공지사항</a></li>
-        <li><a href="#">자주묻는 질문</a></li>
-        <li><a href="#">문의하기</a></li>
-      </ul>
-    </div>
-
-    <!-- 이용약관 -->
-    <div class="footer-section">
-      <h4>이용약관</h4>
-      <ul>
-        <li><a href="${pageContext.request.contextPath}/FooterPage/clause" target="_blank">이용약관</a></li>
-        <li><a href="${pageContext.request.contextPath}/FooterPage/privacy" target="_blank">개인정보처리방침</a></li>
-        <li><a href="${pageContext.request.contextPath}/FooterPage/marketing" target="_blank">광고성 정보 수신동의</a></li>
-      </ul>
-    </div>
-
-    <!-- 회사 정보 -->
-    <div class="footer-company-info">
-      <p>상호: (주)BBOL | 대표: 박예슬 | 사업자등록번호: 123-45-67890 | 통신판매업 신고번호: 2024-충남천안-00000 | 개인정보관리 책임자: 수수옥</p>
-      <p>주소: 충청남도 천안시 동남구 123 | 이메일: support@BBOL3.com | 대표전화: 02-1234-5678</p>
-      <p>© 2024 BBOLBBOLBBOL. All Rights Reserved.</p>
-    </div>
-
-    <!-- 소셜 미디어 -->
-    <div class="footer-social">
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-    </div>
-    
-  </div>
-</footer>
-
-
-
-
-<script>
-
 var map, service;
 var city, cityLocation; // 도시 이름과 위치를 저장하는 변수
 var markers = [];  // 여러 마커를 저장하는 배열
@@ -476,10 +252,8 @@ function closePlaceSearch() {
 }
 
 
-</script>
 
 
-<script>
 //카드 순서를 다시 계산하는 함수
 function updateDayHeaders() {
     const dayCards = document.querySelectorAll('.day-card');
@@ -511,9 +285,6 @@ document.getElementById('addDayBtn').addEventListener('click', function() {
 
     // 카드 추가 후 DAY 번호 업데이트
     updateDayHeaders();
-    
-    dayCardsContainer.scrollLeft = dayCardsContainer.scrollWidth;
-
 });
 
 // 카드 삭제 함수
@@ -525,37 +296,30 @@ function deleteDayCard(button) {
     updateDayHeaders();
 }
 
-</script>
 
-<script>
+
 function scrollLeftContent() {
     const container = document.getElementById('dayCardsContainer');
-    const cardWidth = container.querySelector('.day-card').offsetWidth; // 카드 하나의 너비 계산
+    console.log("Current scrollLeft:", container.scrollLeft);
 
     if (container.scrollLeft > 0) {
         container.scrollBy({
-            left: -cardWidth, // 왼쪽으로 카드 하나만큼 이동
-            behavior: 'smooth' // 부드러운 스크롤
+            left: -300, // 왼쪽으로 300px 만큼 이동
+            behavior: 'smooth' // 부드럽게 스크롤
         });
+        console.log("After scrollLeft:", container.scrollLeft);
+    } else {
+        console.log("No space to scroll left.");
     }
 }
 
 function scrollRightContent() {
     const container = document.getElementById('dayCardsContainer');
-    const cardWidth = container.querySelector('.day-card').offsetWidth; // 카드 하나의 너비 계산
-    const maxScrollLeft = container.scrollWidth - container.clientWidth; // 최대 스크롤 범위
+    console.log("Current scrollLeft:", container.scrollLeft);
 
-    if (container.scrollLeft < maxScrollLeft) {
-        container.scrollBy({
-            left: cardWidth, // 오른쪽으로 카드 하나만큼 이동
-            behavior: 'smooth' // 부드러운 스크롤
-        });
-    }
+    container.scrollBy({
+        left: 300, // 오른쪽으로 300px 만큼 이동
+        behavior: 'smooth' // 부드럽게 스크롤
+    });
+    console.log("After scrollRight:", container.scrollLeft);
 }
-</script>
-
-
-
-</body>
-
-</html>

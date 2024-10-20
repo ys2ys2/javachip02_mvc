@@ -255,6 +255,10 @@ body {
     display: flex;
     flex-direction: column; /* 버튼은 세로로 */
     width: 100%;
+    overflow-x: auto; /* 가로 스크롤 가능 */
+    height: auto;
+    position: relative;
+    
 }
 
 .day-card {
@@ -265,13 +269,56 @@ body {
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: relative;
+    flex: 0 0 auto; /* 카드를 한 줄에 표시하고 크기를 자동으로 조정 */
+    
 }
 
 .day-cards {
     display: flex;
     justify-content: flex-start; /* 카드들은 왼쪽에 */
     gap: 20px; /* 카드 사이 간격 설정 */
+    height: 500px;
+    transition: transform 0.5s ease-in-out; /* 부드럽게 스크롤 */
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+    scroll-behavior: smooth;
+    white-space: nowrap; /* 카드가 한 줄로 표시되도록 강제 */
+    flex-wrap: nowrap; /* 한 줄로 모든 카드를 표시 */
+    position: relative; /* 스크롤이 잘 동작하도록 설정 */
+    width: 100%;
+    
 }
+
+.day-cards.active {
+    cursor: grabbing; /* 드래그할 때 손 모양 커서로 변경 */
+    cursor: -webkit-grabbing;
+}
+
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.scroll-btn.left {
+    left: 0;
+}
+
+.scroll-btn.right {
+    right: 0;
+}
+
+.scroll-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
 
 
 .day-header {
@@ -309,6 +356,23 @@ body {
     margin-top: 20px;
 }
 
+
+.schedule_save {
+	color: white;
+	cursor: pointer;
+	padding: 10px;
+	margin: 10px auto;
+	border: none;
+	outline: none;
+	background-color: black;
+	border-radius: 5px;
+	text-decoration-line: none;
+	
+	
+}
+
+
+
 .add-schedule-btn {
     background-color: white;
     border: 1px dashed #333;
@@ -324,13 +388,25 @@ body {
 }
 
 .add-day-btn {
-    align-self: flex-start; /* 우측에 고정 */
-    margin-left: auto; /* 우측으로 밀림 */
+	align-items: center;
     padding: 10px;
     border: 1px dashed #ccc;
     cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    height: 60px;
+    margin-top: 30vh;
+    font-size: 15px;
+    
+    
 }
-}
+
+/* .add-day-btn-M {
+	display: flex;
+	text-align: center;
+	margin: 0 auto;
+	align-items: center;
+} */
 
 .add-day-btn:hover {
     background-color: #e0e0e0; /* 호버 시 배경색 */
