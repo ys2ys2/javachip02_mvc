@@ -147,14 +147,18 @@
 		</div>
 	    
 	    <!-- 장소 검색 결과 리스트 -->
-	    <div id="placeResults" class="t_place-results">
+	    <div id="placeResults" class="t_place-results" style="display: none;">
 		    <ul id="placeResultsList"></ul>
 		</div>
 	    
 	    <!-- 더보기 버튼 -->
-    	<button id="loadMoreBtn" style="display: none;" onclick="loadMorePlaces()">더보기</button>
-	    
-	    <button class="t_close-btn" onclick="closePlaceSearch()">닫기</button>
+    	<button class="t_moreinfo" id="loadMoreBtn" style="display: none;" onclick="loadMorePlaces()">더보기</button>
+	    <div class="t_csbutton">
+		    <!-- 닫기 버튼 -->
+		    <button class="t_close-btn" onclick="closePlaceSearch()">닫기</button>
+		    <!-- 저장 버튼 -->
+	    	<button class="t_save-btn" id="savePlacesBtn" class="t_save-btn" onclick="saveSelectedPlaces()">저장</button>
+    	</div>
 	</div>
 
 	
@@ -225,11 +229,17 @@
 var map, service;
 var city, cityLocation; // 도시 이름과 위치를 저장하는 변수
 var markers = [];  // 여러 마커를 저장하는 배열
+var selectedPlacesCoordinates = []; // 선택된 장소들의 좌표를 저장하는 배열
 var placeResults = [];
 var currentIndex = 0;
 const pageSize = 10;  // 한 번에 보여줄 장소 개수
 var selectedPlaces = []; // 선택된 장소들을 저장할 배열
 var placeAutocomplete;  // 장소 자동완성 객체
+var polyline;  // Polyline 객체
+var selectedPlacesPerDay = {}; // 각 DAY별로 선택된 장소들을 저장하는 객체
+var currentDay = null; // 현재 선택된 DAY를 추적하는 변수
+var paginationObject = null;  // pagination을 저장하는 변수
+
 
 // 지도 및 Autocomplete 초기화
 function initMap() {
@@ -237,6 +247,16 @@ function initMap() {
         center: { lat: 37.5665, lng: 126.9780 },  // 서울 좌표
         zoom: 13
     });
+    
+    // 선을 그릴 Polyline 객체 초기화
+    polyline = new google.maps.Polyline({
+        path: selectedPlacesCoordinates,  // 선택된 좌표로 선을 그림
+        geodesic: true,
+        strokeColor: '#FF0000',  // 선 색상 (빨간색)
+        strokeOpacity: 1.0,      // 선 투명도
+        strokeWeight: 2          // 선 두께
+    });
+    polyline.setMap(map);  // 지도에 선을 추가
 
     // Places 서비스 객체 초기화
     service = new google.maps.places.PlacesService(map);
@@ -308,28 +328,68 @@ function initMap() {
     });
 }
 
-// 장소를 지도에 마커로 표시하고 선택된 장소를 저장하는 함수
-function selectPlaceOnMap(place) {
-    if (!place.geometry || !place.geometry.location) {
+//장소를 지도에 마커로 표시하고 선택된 장소를 저장하는 함수
+function selectPlaceOnMap(place, index = null) {
+    var location;
+    if (place.geometry && place.geometry.location) {
+        // 새로 선택된 장소인 경우
+        location = place.geometry.location;
+    } else if (place.lat && place.lng) {
+        // 이미 저장된 장소를 복원하는 경우
+        location = new google.maps.LatLng(place.lat, place.lng);
+    } else {
         alert("해당 장소에 대한 위치 정보를 찾을 수 없습니다.");
         return;
     }
 
-    // 선택된 장소에 마커 추가
+    // currentDay에 해당하는 장소 배열이 없으면 초기화
+    if (!selectedPlacesPerDay[currentDay]) {
+        selectedPlacesPerDay[currentDay] = [];  // currentDay에 대한 배열 초기화
+    }
+
+    // 마커 번호 설정: 복원된 경우에는 index 값 사용, 새로운 경우에는 배열 길이 사용
+    var markerNumber = index !== null ? (index + 1) : (selectedPlacesPerDay[currentDay].length + 1);
+    
+    // 선택된 장소에 마커 추가 + 순서 라벨까지
     var marker = new google.maps.Marker({
-        position: place.geometry.location,
+        position: location, 
         map: map,
+        label: {
+            text: markerNumber.toString(), // 마커에 붙일 번호
+            color: "white",
+            fontSize: "14px",
+            fontWeight: "bold"
+        },
         title: place.name
     });
-    markers.push(marker);  // 마커 배열에 저장
+    
+    // 마커 배열에 저장
+    markers.push(marker);  
+    // 선택된 장소의 좌표를 배열에 추가
+    selectedPlacesCoordinates.push(location); // 경로 좌표 추가
+    // Polyline에 새 좌표 추가 후 업데이트
+    polyline.setPath(selectedPlacesCoordinates);  // 선 업데이트
 
     // 지도 중심을 선택된 장소로 이동
-    map.setCenter(place.geometry.location);
+    map.setCenter(location);
     map.setZoom(15);
 
     // 선택한 여행지 태그 추가
     addSelectedPlaceTag(place, marker);
+    
+    // currentDay에 선택된 장소 추가 (새로 선택된 경우에만 lat, lng 저장)
+    if (!place.lat && !place.lng) {
+        selectedPlacesPerDay[currentDay].push({
+            name: place.name,
+            vicinity: place.vicinity,
+            lat: location.lat(),  // 위도 저장
+            lng: location.lng()   // 경도 저장
+        });
+    }
+    
+    console.log("Selected places for " + currentDay + ":", selectedPlacesPerDay[currentDay]);  // 선택된 장소들 콘솔 출력
 }
+
 
 // 선택된 여행지를 태그 형식으로 표시하는 함수
 function addSelectedPlaceTag(place, marker) {
@@ -347,23 +407,39 @@ function addSelectedPlaceTag(place, marker) {
         marker.setMap(null);  // 마커 제거
         placeTag.remove();    // 태그 제거
 
-        // selectedPlaces 배열에서도 제거
-        selectedPlaces = selectedPlaces.filter(function(p) {
-            return p !== place;
+     	// Polyline 경로에서 해당 장소 좌표 제거
+        var index = selectedPlacesCoordinates.indexOf(place.geometry.location);
+        if (index !== -1) {
+            selectedPlacesCoordinates.splice(index, 1);  // 경로에서 제거
+            polyline.setPath(selectedPlacesCoordinates);  // 경로 업데이트
+        }
+        
+        // 선택된 장소 배열에서 해당 장소 제거 (currentDay에 해당하는 배열에서 제거)
+        selectedPlacesPerDay[currentDay] = selectedPlacesPerDay[currentDay].filter(function(p) {
+            return p.name !== place.name && p.vicinity !== place.vicinity;
         });
+        
+     	// 저장할 장소가 남아 있는지 확인
+        if (selectedPlacesPerDay[currentDay].length === 0) {
+            console.log('모든 장소가 삭제되었습니다.');
+        }
+        
     });
 
     placeTag.appendChild(closeButton);
     selectedPlaceContainer.appendChild(placeTag);
-
-    selectedPlaces.push(place);
+    selectedPlaces.push(place); // 선택된 장소 배열에 추가
 }
 
-// 장소 목록 출력 함수
+//장소 목록 출력 함수
 function displayPlaces() {
-    var resultContainer = document.getElementById('placeResultsList');
-    var placeResultsBox = document.getElementById('placeResults');
-    resultContainer.innerHTML = '';  // 기존 결과 초기화
+    const resultContainer = document.getElementById('placeResultsList');
+    const placeResultsBox = document.getElementById('placeResults');
+    
+    // 기존 장소 목록을 초기화 (페이지네이션처럼 새 장소로 대체)
+    resultContainer.innerHTML = '';  
+
+    const placesToShow = placeResults.slice(currentIndex, currentIndex + pageSize);
 
     if (placeResults.length > 0) {
         // 장소가 검색되었을 때만 결과 박스를 표시
@@ -373,9 +449,7 @@ function displayPlaces() {
         placeResultsBox.style.display = 'none';
     }
 
-    for (let i = currentIndex; i < Math.min(currentIndex + pageSize, placeResults.length); i++) {
-        var place = placeResults[i];
-
+    placesToShow.forEach(function(place) {
         var placeName = place.name || '이름 정보 없음';
         var placeVicinity = place.vicinity || '근처 정보 없음';
         var placeIcon = place.icon || 'default_icon_path';  // 아이콘이 없을 경우 기본 아이콘 설정
@@ -404,9 +478,13 @@ function displayPlaces() {
         var selectButton = document.createElement('button');
         selectButton.textContent = '선택';
         selectButton.className = 'select-btn';
-        selectButton.addEventListener('click', function() {
-            selectPlaceOnMap(place);  // 선택한 장소에 마커 추가
-        });
+
+        // selectPlaceOnMap에 현재 장소 정보를 전달하는 부분
+        (function(place) {
+            selectButton.addEventListener('click', function() {
+                selectPlaceOnMap(place);  // 선택한 장소에 맞게 마커 추가
+            });
+        })(place);  // 즉시 실행 함수로 place 값을 고정
 
         placeDetails.appendChild(strong);
         placeDetails.appendChild(document.createElement('br'));  // 줄바꿈
@@ -416,19 +494,33 @@ function displayPlaces() {
         li.appendChild(placeDetails);
         li.appendChild(selectButton);  // 선택 버튼 추가
 
-        resultContainer.appendChild(li);
-    }
+        resultContainer.appendChild(li);  // 리스트에 추가
+    });
 
-    currentIndex += pageSize;
+    currentIndex += pageSize;  // 다음 페이지로 넘어가기 위해 인덱스 증가
 
-    if (currentIndex < placeResults.length) {
+    // 장소가 남아 있을 때는 버튼이 계속 표시되도록 변경
+    if (currentIndex < placeResults.length || (paginationObject && paginationObject.hasNextPage)) {
         document.getElementById('loadMoreBtn').style.display = 'block';
     } else {
+        // 장소를 모두 표시했을 때만 버튼을 숨김
         document.getElementById('loadMoreBtn').style.display = 'none';
     }
 
     console.log("표시된 장소:", placeResults);
 }
+
+// 더보기 버튼 클릭 시 실행되는 함수
+function loadMorePlaces() {
+    if (paginationObject && paginationObject.hasNextPage) {
+        // pagination이 있는 경우 다음 페이지 로드
+        paginationObject.nextPage();  // 구글 맵스에서 제공하는 함수로 다음 페이지 데이터를 가져옴
+    } else {
+        displayPlaces();  // 다음 페이지의 장소 불러오기
+    }
+}
+
+
 
 // 선택된 도시 근처 장소를 검색하는 함수
 function searchPlacesInCity() {
@@ -439,17 +531,20 @@ function searchPlacesInCity() {
 
     var request = {
         location: cityLocation,
-        radius: '5000',  // 반경 5km
+        radius: '50000',  // 반경 50km
         type: ['establishment']  // 일반 장소 검색
     };
 
     console.log("검색 요청:", request);
 
-    service.nearbySearch(request, function(results, status) {
+    service.nearbySearch(request, function(results, status, pagination) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             placeResults = results.sort((a, b) => a.name.localeCompare(b.name));  // 가나다순 정렬
-            currentIndex = 0;
-            displayPlaces();
+            currentIndex = 0;  // 검색 시 인덱스 초기화
+            document.getElementById('placeResultsList').innerHTML = '';  // 검색 시 기존 결과 초기화
+            document.querySelector('.t_place-results').style.display = 'block'; //장소 검색 완료
+            paginationObject = pagination;  // pagination 객체 저장
+            displayPlaces();  // 첫 번째 페이지의 장소 표시
         } else {
             console.log("검색 실패:", status);
             alert("장소 검색에 실패했습니다. 다시 시도해주세요.");
@@ -457,16 +552,96 @@ function searchPlacesInCity() {
     });
 }
 
-// 더보기 버튼 클릭 시 실행되는 함수
+/* // 더보기 버튼 클릭 시 실행되는 함수
 function loadMorePlaces() {
-    displayPlaces();
+    displayPlaces();  // 다음 페이지의 장소 불러오기
+} */
+
+
+//저장 버튼 누르면 day에 저장
+function saveSelectedPlaces() {
+    if (!currentDay) {
+        alert('먼저 DAY를 선택해 주세요.');
+        return;
+    }
+    
+    var dayContent = document.querySelector('#' + currentDay + ' .day-content'); // 현재 선택된 DAY의 일정 리스트 부분
+
+    if (!selectedPlacesPerDay[currentDay] || selectedPlacesPerDay[currentDay].length === 0) {
+        alert('저장할 장소가 없습니다.');
+        return;
+    }
+
+    // 기존 장소 목록 초기화 (기존 저장된 장소만 초기화, "일정 추가" 버튼은 유지)
+    var addScheduleBtn = dayContent.querySelector('.add-schedule-btn'); // 일정 추가 버튼 찾기
+    dayContent.innerHTML = ''; // 기존 내용 초기화
+    
+    // 일정 추가 버튼 다시 추가
+    dayContent.appendChild(addScheduleBtn);
+
+    // 선택된 장소들을 DAY에 표시
+    selectedPlacesPerDay[currentDay].forEach(function(place, index) {
+        var listItem = document.createElement('div');
+        listItem.className = 'saved-place-item';
+
+        listItem.innerHTML = '<span>' + (index + 1) + '.</span> ' + // 순서 번호 추가
+                             '<strong><span>' + place.name + '</span></strong><br>' + // 장소 이름
+                             '<div class="p_name">' + place.vicinity; + '</div>'	// 장소 주소
+
+        dayContent.appendChild(listItem); // DAY의 리스트에 추가
+    });
+
+    // 패널 닫기
+    closePlaceSearch();
 }
 
-// 장소 검색 패널 열기
+
+//장소 검색 패널 열기 (DAY 진입 시)
 function openPlaceSearch(dayId) {
+    currentDay = dayId; // 선택된 DAY 기록 (예: 'day1', 'day2' 등)
+
+    // 선택된 태그들 및 장소들 초기화 (새로운 DAY로 진입 시)
+    clearSelectedPlaces();
+    // 새로운 DAY로 들어갈 때, t_place-results를 다시 숨김
+    document.querySelector('.t_place-results').style.display = 'none';
+
+
+    // currentDay에 맞는 장소 표시 (이미 선택된 장소가 있는 경우)
+    if (selectedPlacesPerDay[currentDay] && selectedPlacesPerDay[currentDay].length > 0) {
+        selectedPlacesPerDay[currentDay].forEach(function(place, index) {
+            // 이미 선택된 장소들을 다시 태그로 추가
+            selectPlaceOnMap(place, index);
+        });
+    } else {
+        // 선택된 장소가 없는 경우, 검색 결과와 태그를 모두 초기화
+        document.getElementById('placeResultsList').innerHTML = '';  // 기존 검색 결과 초기화
+    }
+
     document.getElementById('placeSearchPanel').style.display = 'block';
-    document.querySelector('.overlay').style.display = 'block';	// 오버레이 보이기
+    document.querySelector('.overlay').style.display = 'block'; // 오버레이 보이기
 }
+
+
+//선택된 장소 초기화 함수 (태그, 마커, 선 모두 초기화)
+function clearSelectedPlaces() {
+    var selectedPlaceContainer = document.getElementById('selectedPlaces');
+    selectedPlaceContainer.innerHTML = ''; // 선택된 장소 태그 초기화
+
+    // 지도에서 마커 모두 제거
+    markers.forEach(function(marker) {
+        marker.setMap(null);
+    });
+    markers = [];  // 마커 배열 초기화
+
+    // Polyline 좌표 초기화
+    selectedPlacesCoordinates = [];
+    polyline.setPath(selectedPlacesCoordinates);  // 선 초기화
+
+    // 선택된 장소 배열 초기화
+    selectedPlaceInfo = [];
+}
+
+
 
 // 장소 검색 패널 닫기
 function closePlaceSearch() {
@@ -474,6 +649,9 @@ function closePlaceSearch() {
     document.querySelector('.overlay').style.display = 'none';  // 오버레이 숨기기
 
 }
+
+var selectedPlaceInfo = []; // 선택된 장소 정보를 저장하는 배열
+
 
 
 </script>
@@ -490,20 +668,26 @@ function updateDayHeaders() {
 }
 
 // 일정 추가 버튼을 클릭했을 때 새로운 카드를 추가하는 함수
+// 일정 추가 버튼을 클릭했을 때 새로운 카드를 추가하는 함수
 document.getElementById('addDayBtn').addEventListener('click', function() {
     const dayCardsContainer = document.getElementById('dayCardsContainer');
     
+    // 현재 존재하는 day-card의 개수를 기반으로 새로운 ID 생성
+    const dayCount = document.querySelectorAll('.day-card').length + 1; 
+    const newDayId = 'day' + dayCount; // 새로운 day ID 생성
+
     // 새로운 카드 div 생성
     const newDayCard = document.createElement('div');
     newDayCard.classList.add('day-card');
-    
+    newDayCard.id = newDayId; // 고유한 ID 설정
+
    // 새로운 카드의 내부 HTML 설정
    newDayCard.innerHTML = '<div class="day-header">' +
-    '<h3></h3>' +  // DAY 번호는 나중에 업데이트
+    '<h3>' + newDayId.toUpperCase() + '</h3>' +  // DAY 번호 추가
     '<button class="delete-btn" onclick="deleteDayCard(this)">🗑</button>' +
     '</div>' + 
     '<div class="day-content">' + 
-    '<button class="add-schedule-btn" onclick="openPlaceSearch(\'day\')">📅 일정 추가</button>' +
+    '<button class="add-schedule-btn" onclick="openPlaceSearch(\'' + newDayId + '\')">📅 일정 추가</button>' +  // 올바른 ID 전달
     '</div>';
 
     // 컨테이너에 새로운 카드 추가 (추가 버튼 위에)
@@ -512,8 +696,10 @@ document.getElementById('addDayBtn').addEventListener('click', function() {
     // 카드 추가 후 DAY 번호 업데이트
     updateDayHeaders();
     
+    // 새로 생성된 카드가 보이도록 스크롤 이동
     dayCardsContainer.scrollLeft = dayCardsContainer.scrollWidth;
 
+    console.log("New Day Card ID:", newDayId); // 새로운 day ID 로그 확인
 });
 
 // 카드 삭제 함수
@@ -552,6 +738,38 @@ function scrollRightContent() {
         });
     }
 }
+</script>
+
+<script>
+
+const dayCardsContainer = document.querySelector('#dayCardsContainer');
+let isDown = false; // 마우스가 눌린 상태인지 확인하는 변수
+let startX; // 마우스가 눌린 시작 위치
+let scrollLeft; // 기존의 스크롤 위치
+
+dayCardsContainer.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.pageX - dayCardsContainer.offsetLeft; // 마우스 시작 좌표
+    scrollLeft = dayCardsContainer.scrollLeft; // 스크롤 시작 위치 저장
+});
+
+dayCardsContainer.addEventListener('mouseleave', () => {
+    isDown = false; // 마우스가 영역을 벗어나면 드래그 중지
+});
+
+dayCardsContainer.addEventListener('mouseup', () => {
+    isDown = false; // 마우스를 떼면 드래그 중지
+});
+
+dayCardsContainer.addEventListener('mousemove', (e) => {
+    if (!isDown) return; // 마우스가 눌린 상태가 아니면 함수 종료
+    e.preventDefault(); // 기본 동작 방지
+    const x = e.pageX - dayCardsContainer.offsetLeft; // 현재 마우스 좌표
+    const walk = x - startX; // 마우스 시작 좌표와 현재 좌표의 차이만큼 스크롤 이동
+    dayCardsContainer.scrollLeft = scrollLeft - walk; // 스크롤 이동
+});
+
+
 </script>
 
 

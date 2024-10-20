@@ -200,16 +200,43 @@ body {
     cursor: pointer;
 }
 
+
+.t_moreinfo {
+	margin: 10px auto;
+	padding: 10px;
+	border: none;
+	background-color: #454545;
+	color: white;
+	border-radius: 5px;
+	width: 100%;
+}
+
+.t_csbutton {
+	display: flex;
+	gap: 10px;
+	
+	
+}
+
 .t_close-btn {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-    text-align: center;
+	margin: 10px auto;
+	padding: 10px;
+	border: none;
+	background-color: #454545;
+	color: white;
+	border-radius: 5px;
+	width: 50%;
+}
+
+.t_save-btn {
+	margin: 10px auto;
+	padding: 10px;
+	border: none;
+	background-color: #454545;
+	color: white;
+	border-radius: 5px;
+	width: 50%;
+	
 }
 
 #placeResults {
@@ -251,6 +278,14 @@ body {
     margin-left: 10px;
 }
 
+.place-details strong {
+	font-size: 15px;
+}
+
+.place-details span {
+	font-size: 11px;
+}
+
 .schedule-container {
     display: flex;
     flex-direction: column; /* 버튼은 세로로 */
@@ -260,6 +295,11 @@ body {
     position: relative;
     
 }
+
+.schedule-container.active {
+    cursor: grabbing; /* 드래그 중일 때 커서 변경 */
+}
+
 
 .day-card {
     background-color: #f9f9f9;
@@ -278,19 +318,19 @@ body {
     justify-content: flex-start; /* 카드들은 왼쪽에 */
     gap: 20px; /* 카드 사이 간격 설정 */
     height: 500px;
-    transition: transform 0.5s ease-in-out; /* 부드럽게 스크롤 */
     overflow-x: auto; /* 가로 스크롤 활성화 */
     scroll-behavior: smooth;
     white-space: nowrap; /* 카드가 한 줄로 표시되도록 강제 */
     flex-wrap: nowrap; /* 한 줄로 모든 카드를 표시 */
     position: relative; /* 스크롤이 잘 동작하도록 설정 */
     width: 100%;
+    cursor: grab; /* 드래그할 때 손 모양 커서 */
+    user-select: none; /* 드래그 중 텍스트 선택 방지 */
     
 }
 
 .day-cards.active {
     cursor: grabbing; /* 드래그할 때 손 모양 커서로 변경 */
-    cursor: -webkit-grabbing;
 }
 
 
@@ -350,9 +390,6 @@ body {
 }
 
 .day-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     margin-top: 20px;
 }
 
@@ -368,7 +405,22 @@ body {
 	border-radius: 5px;
 	text-decoration-line: none;
 	
+}
+
+.saved-place-item {
+	text-align: left;
+	padding: 1px;
 	
+}
+
+.saved-place-item span {
+	font-size: 15px;
+	margin-right: 1px;
+}
+
+.p_name {
+	font-size: 13px;
+	margin: 4px auto;
 }
 
 
@@ -381,6 +433,7 @@ body {
     width: 100%;
     text-align: center;
     border-radius: 5px;
+    margin: 10px auto;
 }
 
 .add-schedule-btn:hover {
@@ -392,21 +445,14 @@ body {
     padding: 10px;
     border: 1px dashed #ccc;
     cursor: pointer;
-    margin: 0 auto;
+    margin: auto;
     display: block;
     height: 60px;
-    margin-top: 30vh;
     font-size: 15px;
     
     
 }
 
-/* .add-day-btn-M {
-	display: flex;
-	text-align: center;
-	margin: 0 auto;
-	align-items: center;
-} */
 
 .add-day-btn:hover {
     background-color: #e0e0e0; /* 호버 시 배경색 */
@@ -528,4 +574,17 @@ body {
     cursor: pointer; 
 }
 
+.select-btn {
+	color: #fff;
+	background-color: #454545;
+	border-radius: 5px;
+	outline: none;
+	cursor: pointer;
+	border: none;
+	margin: 5px;
+	padding: 5px;
+	font-size: 12px;
+	
+	
+}
 
