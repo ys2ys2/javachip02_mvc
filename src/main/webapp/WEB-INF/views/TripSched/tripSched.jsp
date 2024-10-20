@@ -81,16 +81,33 @@
     
     <div id="map"></div>
     
-    <div class="schedule-container">
-    <div class="day-card" id="day1">
-        <h3>DAY 1</h3>
-        <button class="add-schedule-btn" onclick="openPlaceSearch('day1')">일정 추가</button>
-    </div>
-    <div class="day-card" id="day2">
-        <h3>DAY 2</h3>
-        <button class="add-schedule-btn" onclick="openPlaceSearch('day2')">일정 추가</button>
-    </div>
-    <!-- 추가적인 Day 항목 -->
+    <!-- 수정 일정 리스트 -->
+	<div class="schedule-container">
+	    <div class="day-cards" id="dayCardsContainer">
+	        <!-- Day 카드들이 여기에 추가됨 -->
+	        <div class="day-card" id="day1">
+	            <div class="day-header">
+	                <h3>DAY 1</h3>
+	                <span class="day-date">2024.10.20</span>
+	                <button class="delete-btn" onclick="deleteDayCard(this)">🗑</button> <!-- 삭제 버튼 -->
+	            </div>
+	            <div class="day-content">
+	                <button class="add-schedule-btn" onclick="openPlaceSearch('day1')">📅 일정 추가</button>
+	            </div>
+	        </div>
+	        <div class="day-card" id="day2">
+	            <div class="day-header">
+	                <h3>DAY 2</h3>
+	                <span class="day-date">2024.10.21</span>
+	                <button class="delete-btn" onclick="deleteDayCard(this)">🗑</button> <!-- 삭제 버튼 -->
+	            </div>
+	            <div class="day-content">
+	                <button class="add-schedule-btn" onclick="openPlaceSearch('day2')">📅 일정 추가</button>
+	            </div>
+	        </div>
+	    	<button id="addDayBtn" class="add-day-btn">날짜 추가</button> <!-- 날짜 추가 버튼 -->
+	    	
+	    </div>
 	</div>
 
 	<!-- 장소 검색 팝업 -->
@@ -127,31 +144,6 @@
 	</div>
 
 	
-    
-    <!-- 수정 일정 리스트 -->
-    <div class="schedule-container">
-    <div class="day-card" id="day1">
-        <div class="day-header">
-            <h3>DAY 1</h3>
-            <button class="delete-btn">🗑</button> <!-- 삭제 버튼 -->
-        </div>
-        <div class="day-content">
-            <button class="add-schedule-btn" onclick="openPlaceSearch('day1')">📅 일정 추가</button>
-            <!-- 일정 추가 후, 일정 목록이 여기에 표시됨 -->
-        </div>
-    </div>
-    
-    <div class="day-card" id="day2">
-        <div class="day-header">
-            <h3>DAY 2</h3>
-            <button class="delete-btn">🗑</button> <!-- 삭제 버튼 -->
-        </div>
-        <div class="day-content">
-            <button class="add-schedule-btn" onclick="openPlaceSearch('day2')">📅 일정 추가</button>
-            <!-- 일정 추가 후, 일정 목록이 여기에 표시됨 -->
-        </div>
-    </div>
-</div>
     
 	
 	
@@ -459,18 +451,22 @@ function loadMorePlaces() {
 // 장소 검색 패널 열기
 function openPlaceSearch(dayId) {
     document.getElementById('placeSearchPanel').style.display = 'block';
+    document.querySelector('.overlay').style.display = 'block';	// 오버레이 보이기
 }
 
 // 장소 검색 패널 닫기
 function closePlaceSearch() {
     document.getElementById('placeSearchPanel').style.display = 'none';
+    document.querySelector('.overlay').style.display = 'none';  // 오버레이 숨기기
+
 }
 
 
 </script>
 
+
+
+
 </body>
 
 </html>
-
-
