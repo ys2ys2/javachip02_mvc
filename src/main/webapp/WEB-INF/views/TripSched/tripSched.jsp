@@ -856,8 +856,6 @@ function prepareScheduleData() {
     const period_start = dateRange[0];
     const period_end = dateRange[1];
 
-    debugger;
-
     const hiddenFieldsContainer = document.getElementById('hiddenFieldsContainer');
     hiddenFieldsContainer.innerHTML = ''; // 이전 데이터를 초기화
 

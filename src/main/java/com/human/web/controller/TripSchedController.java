@@ -42,24 +42,7 @@ public class TripSchedController {
         String m_email = member.getM_email();
         String m_nickname = member.getM_nickname();
 
-        // 디버깅용 콘솔 출력
-        System.out.println("Title: " + title);
-        System.out.println("Period Start: " + period_start);
-        System.out.println("Period End: " + period_end);
-        System.out.println("Day Numbers: " + Arrays.toString(dayNumbers));
-        System.out.println("City Names: " + Arrays.toString(cityNames));
-        System.out.println("Label Numbers: " + Arrays.toString(labelNumbers));
-        System.out.println("Place Names: " + Arrays.toString(placeNames));
-        System.out.println("Place Addresses: " + Arrays.toString(placeAddresses));
         
-        // 각 필드가 null인지 체크
-        if (title == null || period_start == null || period_end == null || 
-            dayNumbers.length == 0 || cityNames.length == 0 || labelNumbers.length == 0 || 
-            placeNames.length == 0 || placeAddresses.length == 0) {
-            // 에러 처리: 입력값이 부족함
-            return "redirect:/error"; // 적절한 오류 페이지로 리다이렉트
-        }
-
         // VO 생성
         TripSchedVO tripSchedVO = new TripSchedVO();
         tripSchedVO.setM_idx(m_idx);

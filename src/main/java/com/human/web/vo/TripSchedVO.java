@@ -11,6 +11,7 @@ public class TripSchedVO {
     private String period_start;
     private String period_end;
     private String title;
+    private int post_id;
 
     private int[] dayNumbers;
     private String[] cityNames;
