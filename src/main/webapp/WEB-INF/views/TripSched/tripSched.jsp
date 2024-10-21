@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,10 +14,13 @@
 <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/tripSched.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBGXfM-W2P67M4VmuJdGHedKT73_rMEWQ&libraries=places&callback=initMap" async defer></script>
-
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 </head>
 <body>
@@ -61,67 +65,70 @@
    </div>
 </header>
 
-<!-- 메인 시작 -->
 
-<div class="t_mainratio">
-	<div class="t_titlesection">
-		<div class="t_title">
-			<input type="text" class="title-input" placeholder="제목을 입력해 주세요">
+<!-- 메인 시작 -->
+<form action="${pageContext.request.contextPath}/saveTripSchedule" method="post">
+	<div class="t_mainratio">
+		<div class="t_titlesection">
+			<div class="t_title">
+				<input type="text" class="title-input" name="title" id="titleInput" placeholder="제목을 입력해 주세요">
+			</div>
+			<div class="t_date">
+				<input type="text" class="date-picker" name="t_dbdate" id="dateInput" value="" readonly>
+				<button type="button" class="t_calendar">
+					<img src="${pageContext.request.contextPath}/resources/images/t_date.png">
+				</button>
+			</div>
 		</div>
-		<div class="t_date">
-			<input type="text" class="date-picker" value="">
-			<button type="submit" class="t_calendar">
-				<img src="${pageContext.request.contextPath}/resources/images/t_date.png"></button>
-<!-- 			<div class="date_btnsection">
-			    <button class="date_btn">메모/가계부 보기</button>
-			    <button class="date_btn">항공 일정 등록</button>
-		    </div> -->
-	    </div>
-    </div>
-    
-    <div id="map"></div>
-    
-    <!-- 수정 일정 리스트 -->
-	<div class="schedule-container">
-	    <button class="scroll-btn left" onclick="scrollLeftContent()">&#8249;</button>
-	    
-	    <div class="day-cards" id="dayCardsContainer">
-	        <!-- 기본 카드들 -->
-	        <div class="day-card" id="day1">
-	            <div class="day-header">
-	                <h3>DAY 1</h3>
-	                <button class="delete-btn" onclick="deleteDayCard(this)">🗑</button> <!-- 삭제 버튼 -->
-	            </div>
-	            <div class="day-content">
-	                <button class="add-schedule-btn" onclick="openPlaceSearch('day1')">📅 일정 추가</button>
-	            </div> 	
-	        </div>
-	        <div class="day-card" id="day2">
-	            <div class="day-header">
-	                <h3>DAY 2</h3>
-	                <button class="delete-btn" onclick="deleteDayCard(this)">🗑</button> <!-- 삭제 버튼 -->
-	            </div>
-	            <div class="day-content">
-	                <button class="add-schedule-btn" onclick="openPlaceSearch('day2')">📅 일정 추가</button>
-	            </div>
-	        </div>
-	        <!-- <div class="add-day-btn-M"> -->
-	        	<button id="addDayBtn" class="add-day-btn">일정 추가</button> <!-- 일정 추가 버튼 -->
-	        <!-- </div> -->
-	    </div>
-	    <button class="scroll-btn right" onclick="scrollRightContent()">&#8250;</button>
-	    
-		<c:choose>
-		    <c:when test="${empty sessionScope.member.m_email}">
-		        <!-- 로그인되지 않은 경우 -->
-		        <a href="${pageContext.request.contextPath}/Member/login" class="schedule_save" onclick="alert('로그인 해 주시길 바랍니다!');">저장하기</a>
-		    </c:when>
-		    <c:otherwise>
-		        <!-- 로그인된 경우 -->
-		        <button type="submit" class="schedule_save">저장하기</button>
-		    </c:otherwise>
-		</c:choose>
+
+		<div id="map"></div>
+
+		<!-- 수정 일정 리스트 -->
+		<div class="schedule-container">
+			<button class="scroll-btn left" type="button" onclick="scrollLeftContent()">&#8249;</button>
+
+			<div class="day-cards" id="dayCardsContainer">
+				<!-- 기본 카드들 -->
+				<div class="day-card" id="day1">
+					<div class="day-header">
+						<h3>DAY 1</h3>
+						<button class="delete-btn" type="button" onclick="deleteDayCard(this)">🗑</button> <!-- 삭제 버튼 -->
+					</div>
+					<div class="day-content">
+						<button class="add-schedule-btn" type="button" onclick="openPlaceSearch('day1')">📅 일정 추가</button>
+					</div>
+				</div>
+				<div class="day-card" id="day2">
+					<div class="day-header">
+						<h3>DAY 2</h3>
+						<button class="delete-btn" type="button" onclick="deleteDayCard(this)">🗑</button> <!-- 삭제 버튼 -->
+					</div>
+					<div class="day-content">
+						<button class="add-schedule-btn" type="button" onclick="openPlaceSearch('day2')">📅 일정 추가</button>
+					</div>
+				</div>
+				<button id="addDayBtn" class="add-day-btn" type="button">일정 추가</button> <!-- 일정 추가 버튼 -->
+			</div>
+			<button class="scroll-btn right" type="button" onclick="scrollRightContent()">&#8250;</button>
+
+			<!-- 로그인 상태 확인 후 저장 -->
+			<c:choose>
+				<c:when test="${empty sessionScope.member.m_email}">
+					<!-- 로그인되지 않은 경우 -->
+					<a href="${pageContext.request.contextPath}/Member/login" class="schedule_save" onclick="alert('로그인 해 주시길 바랍니다!');">저장하기</a>
+				</c:when>
+				<c:otherwise>
+					<!-- 로그인된 경우 -->
+					<button type="submit" class="schedule_save" onclick="prepareScheduleData()">저장하기</button>
+				</c:otherwise>
+			</c:choose>
+		</div>
+
+		<!-- Hidden input fields for server submission -->
+		<div id="hiddenFieldsContainer"></div>
+
 	</div>
+</form>
 	
 
 	<!-- 장소 검색 팝업 -->
@@ -239,7 +246,7 @@ var polyline;  // Polyline 객체
 var selectedPlacesPerDay = {}; // 각 DAY별로 선택된 장소들을 저장하는 객체
 var currentDay = null; // 현재 선택된 DAY를 추적하는 변수
 var paginationObject = null;  // pagination을 저장하는 변수
-
+var currentCityName = '';
 
 // 지도 및 Autocomplete 초기화
 function initMap() {
@@ -283,7 +290,11 @@ function initMap() {
         // 선택된 도시의 위치 정보 저장
         cityLocation = place.geometry.location;
         map.setCenter(cityLocation);  // 선택된 도시로 지도 이동
-        map.setZoom(15);
+        map.setZoom(11);
+        
+        // 도시 이름을 currentCityName에 저장
+        currentCityName = place.formatted_address; // 도시 이름
+        console.log("선택된 도시:", currentCityName); // 콘솔에 도시 이름 출력
         
         // 장소 자동완성에서 검색하는 범위를 해당 도시로 한정
         placeAutocomplete.setBounds(new google.maps.LatLngBounds(cityLocation));
@@ -345,6 +356,7 @@ function selectPlaceOnMap(place, index = null) {
     // currentDay에 해당하는 장소 배열이 없으면 초기화
     if (!selectedPlacesPerDay[currentDay]) {
         selectedPlacesPerDay[currentDay] = [];  // currentDay에 대한 배열 초기화
+        console.log("새로운 Day 배열을 초기화했습니다: ", currentDay);
     }
 
     // 마커 번호 설정: 복원된 경우에는 index 값 사용, 새로운 경우에는 배열 길이 사용
@@ -372,7 +384,7 @@ function selectPlaceOnMap(place, index = null) {
 
     // 지도 중심을 선택된 장소로 이동
     map.setCenter(location);
-    map.setZoom(15);
+    map.setZoom(16);
 
     // 선택한 여행지 태그 추가
     addSelectedPlaceTag(place, marker);
@@ -600,6 +612,8 @@ function saveSelectedPlaces() {
 function openPlaceSearch(dayId) {
     currentDay = dayId; // 선택된 DAY 기록 (예: 'day1', 'day2' 등)
 
+    console.log("Current day:", currentDay); // dayId가 올바르게 전달되었는지 확인
+
     // 선택된 태그들 및 장소들 초기화 (새로운 DAY로 진입 시)
     clearSelectedPlaces();
     // 새로운 DAY로 들어갈 때, t_place-results를 다시 숨김
@@ -641,6 +655,26 @@ function clearSelectedPlaces() {
     selectedPlaceInfo = [];
 }
 
+//팝업을 열지 않고 저장된 장소와 마커만 복원하는 함수
+function loadDayPlaces(dayId) {
+    currentDay = dayId;  // 현재 선택된 DAY 설정
+    // 기존 선택된 장소 초기화
+    clearSelectedPlaces();
+
+    // 해당 DAY에 저장된 장소를 복원
+    if (selectedPlacesPerDay[dayId] && selectedPlacesPerDay[dayId].length > 0) {
+        // 첫 번째 장소로 지도 중심 이동
+        const firstPlace = selectedPlacesPerDay[dayId][0];
+        const firstLocation = new google.maps.LatLng(firstPlace.lat, firstPlace.lng);
+        map.setCenter(firstLocation);  // 첫 번째 장소로 지도 중심 이동
+        map.setZoom(16);  // 줌 설정
+
+        //저장된 장소들 마커와 함께 복원
+        selectedPlacesPerDay[dayId].forEach((place, index) => {
+            selectPlaceOnMap(place, index);
+        });
+    }
+}
 
 
 // 장소 검색 패널 닫기
@@ -668,7 +702,6 @@ function updateDayHeaders() {
 }
 
 // 일정 추가 버튼을 클릭했을 때 새로운 카드를 추가하는 함수
-// 일정 추가 버튼을 클릭했을 때 새로운 카드를 추가하는 함수
 document.getElementById('addDayBtn').addEventListener('click', function() {
     const dayCardsContainer = document.getElementById('dayCardsContainer');
     
@@ -681,25 +714,40 @@ document.getElementById('addDayBtn').addEventListener('click', function() {
     newDayCard.classList.add('day-card');
     newDayCard.id = newDayId; // 고유한 ID 설정
 
-   // 새로운 카드의 내부 HTML 설정
-   newDayCard.innerHTML = '<div class="day-header">' +
-    '<h3>' + newDayId.toUpperCase() + '</h3>' +  // DAY 번호 추가
-    '<button class="delete-btn" onclick="deleteDayCard(this)">🗑</button>' +
-    '</div>' + 
-    '<div class="day-content">' + 
-    '<button class="add-schedule-btn" onclick="openPlaceSearch(\'' + newDayId + '\')">📅 일정 추가</button>' +  // 올바른 ID 전달
-    '</div>';
+	 // 새로운 카드의 내부 HTML 설정 (백틱으로 감싸서 처리)
+    newDayCard.innerHTML = `
+   	<div class="day-header">
+       	<h3>${newDayId.toUpperCase()}</h3>
+       	<button class="delete-btn" onclick="deleteDayCard(this)">🗑</button>
+   	</div>
+   	<div class="day-content">
+       	<button class="add-schedule-btn" id="add-schedule-${newDayId}">📅 일정 추가</button>
+   	</div>
+   	`;
+	    
 
     // 컨테이너에 새로운 카드 추가 (추가 버튼 위에)
     dayCardsContainer.insertBefore(newDayCard, document.getElementById('addDayBtn'));
 
+    // 새로 추가된 day에 이벤트 리스너 추가** (우측에 검색 창 안나타나게)
+    const newDayHeader = newDayCard.querySelector('.day-header h3');
+    newDayHeader.addEventListener('click', () => {
+        loadDayPlaces(newDayId);  // 검색 창을 띄우지 않고 해당 DAY의 장소만 불러오기
+        console.log("Loaded places for:", newDayId);  // dayId가 올바르게 설정되었는지 확인
+    });
+    
+    // **새로 추가된 일정 추가 버튼에 이벤트 리스너 추가**
+    const addScheduleBtn = newDayCard.querySelector(`#add-schedule-${newDayId}`);
+    addScheduleBtn.addEventListener('click', () => {
+        openPlaceSearch(newDayId);  // 해당 dayId에 맞춰 장소 검색 창 열기
+    });
+    
     // 카드 추가 후 DAY 번호 업데이트
     updateDayHeaders();
     
     // 새로 생성된 카드가 보이도록 스크롤 이동
     dayCardsContainer.scrollLeft = dayCardsContainer.scrollWidth;
 
-    console.log("New Day Card ID:", newDayId); // 새로운 day ID 로그 확인
 });
 
 // 카드 삭제 함수
@@ -771,6 +819,168 @@ dayCardsContainer.addEventListener('mousemove', (e) => {
 
 
 </script>
+
+<script>
+
+$(document).ready(function() {
+    $('.t_calendar').on('click', function() {
+        // Date Range Picker가 연결된 input을 클릭
+        $('.date-picker').click();
+    });
+    // Date Range Picker 초기화
+    $('.date-picker').daterangepicker({
+        locale: {
+            format: 'YYYY-MM-DD',  // 날짜 형식
+            separator: ' - ',      // 시작/종료 날짜 구분자
+            applyLabel: '확인',     // 확인 버튼 텍스트
+            cancelLabel: '취소',    // 취소 버튼 텍스트
+            fromLabel: '시작',
+            toLabel: '종료',
+            daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
+            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+            firstDay: 1  // 월요일 시작
+        },
+        startDate: moment().startOf('day'),  // 기본 시작 날짜
+        endDate: moment().add(3, 'days')     // 기본 종료 날짜
+    }, function(start, end, label) {
+        // 선택한 날짜가 바뀔 때마다 input에 표시
+        $('.date-picker').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+    });
+});
+
+//일정 저장하기 전에 각 day의 정보를 hidden input으로 추가
+function prepareScheduleData() {
+    const title = document.getElementById('titleInput').value;
+    const dateRange = document.getElementById('dateInput').value.split(' - ');
+
+    const period_start = dateRange[0];
+    const period_end = dateRange[1];
+
+    debugger;
+
+    const hiddenFieldsContainer = document.getElementById('hiddenFieldsContainer');
+    hiddenFieldsContainer.innerHTML = ''; // 이전 데이터를 초기화
+
+    // period_start와 period_end를 hidden 필드로 추가
+    const periodStartInput = document.createElement('input');
+    periodStartInput.setAttribute('type', 'hidden');
+    periodStartInput.setAttribute('name', 'period_start');
+    periodStartInput.setAttribute('value', period_start);
+
+
+    const periodEndInput = document.createElement('input');
+    periodEndInput.setAttribute('type', 'hidden');
+    periodEndInput.setAttribute('name', 'period_end');
+    periodEndInput.setAttribute('value', period_end);
+
+    // hiddenFieldsContainer에 추가
+    hiddenFieldsContainer.appendChild(periodStartInput);
+    hiddenFieldsContainer.appendChild(periodEndInput);
+
+    console.log("Period Start:", period_start);
+    console.log("Period End:", period_end);
+
+    // 도시 이름을 hidden 필드로 추가 (현재 선택된 도시 이름)
+    if (currentCityName) {
+        const cityNameInput = document.createElement('input');
+        cityNameInput.setAttribute('type', 'hidden');
+        cityNameInput.setAttribute('name', 'city_names');
+        cityNameInput.setAttribute('value', currentCityName);
+
+        hiddenFieldsContainer.appendChild(cityNameInput);
+    }
+
+    // selectedPlacesPerDay 객체에 있는 데이터를 hidden 필드로 추가
+    Object.keys(selectedPlacesPerDay).forEach((day, index) => {
+        const places = selectedPlacesPerDay[day];
+
+        if (places && places.length > 0) {
+            places.forEach((place, placeIndex) => {
+                const dayNumber = day.replace('day', '');  // 'day1' -> '1'로 변환
+
+            	
+                // 각 값들을 확인
+                console.log("Day:", day);
+                console.log("City Name:", currentCityName);
+                console.log("Place Name:", place.name);
+                console.log("Place Address:", place.vicinity);
+                console.log("Place Index:", placeIndex + 1);
+
+                // day 입력 필드 생성
+                const dayInput = document.createElement('input');
+                dayInput.setAttribute('type', 'hidden');
+                dayInput.setAttribute('name', 'days[]');
+                dayInput.setAttribute('value', dayNumber);  // 변환된 숫자 값 사용
+
+                // city_names 입력 필드 생성
+                const cityInput = document.createElement('input');
+                cityInput.setAttribute('type', 'hidden');
+                cityInput.setAttribute('name', 'city_names[]');
+                cityInput.setAttribute('value', currentCityName);
+
+                // label_numbers 입력 필드 생성
+                const labelInput = document.createElement('input');
+                labelInput.setAttribute('type', 'hidden');
+                labelInput.setAttribute('name', 'label_numbers[]');
+                labelInput.setAttribute('value', placeIndex + 1);
+
+                // place_names 입력 필드 생성
+                const placeNameInput = document.createElement('input');
+                placeNameInput.setAttribute('type', 'hidden');
+                placeNameInput.setAttribute('name', 'place_names[]');
+                placeNameInput.setAttribute('value', place.name);
+
+                // place_addresses 입력 필드 생성
+                const placeAddressInput = document.createElement('input');
+                placeAddressInput.setAttribute('type', 'hidden');
+                placeAddressInput.setAttribute('name', 'place_addresses[]');
+                placeAddressInput.setAttribute('value', place.vicinity);
+
+                // hiddenFieldsContainer에 추가
+                hiddenFieldsContainer.appendChild(dayInput);
+                hiddenFieldsContainer.appendChild(cityInput);
+                hiddenFieldsContainer.appendChild(labelInput);
+                hiddenFieldsContainer.appendChild(placeNameInput);
+                hiddenFieldsContainer.appendChild(placeAddressInput);
+            });
+        }
+    });
+
+    console.log(hiddenFieldsContainer.innerHTML); // 디버깅용으로 추가된 input 필드 확인
+    console.log("Day Numbers: ", Object.keys(selectedPlacesPerDay));
+    console.log("City Names: ", currentCityName);
+    console.log("Selected Places: ", selectedPlacesPerDay);
+}
+</script>
+
+<script>
+
+$(document).ready(function() {
+    // 각 day-header에 클릭 이벤트를 추가하여 해당 DAY의 장소 불러오기
+    document.querySelectorAll('.day-header h3').forEach(header => {
+        const dayId = header.parentElement.parentElement.id;  // 각 day-card의 ID가 dayId로 설정되어 있음
+        header.addEventListener('click', () => {
+            loadDayPlaces(dayId);  // 팝업 없이 장소만 불러오는 함수
+        });
+    });
+});
+
+// 팝업을 열지 않고 저장된 장소와 마커만 복원하는 함수
+function loadDayPlaces(dayId) {
+    currentDay = dayId;  // 현재 선택된 DAY 설정
+    clearSelectedPlaces();  // 기존 선택된 장소 초기화
+
+    // 해당 DAY에 저장된 장소를 복원
+    if (selectedPlacesPerDay[dayId] && selectedPlacesPerDay[dayId].length > 0) {
+        selectedPlacesPerDay[dayId].forEach((place, index) => {
+            selectPlaceOnMap(place, index);  // 마커 복원 및 지도에 표시
+        });
+    }
+}
+
+</script>
+
+
 
 
 
