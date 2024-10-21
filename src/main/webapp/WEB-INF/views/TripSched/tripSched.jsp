@@ -67,7 +67,7 @@
 
 
 <!-- 메인 시작 -->
-<form action="${pageContext.request.contextPath}/saveTripSchedule" method="post">
+	<form action="${pageContext.request.contextPath}/saveTripSchedule" method="post">
 	<div class="t_mainratio">
 		<div class="t_titlesection">
 			<div class="t_title">
@@ -126,9 +126,9 @@
 
 		<!-- Hidden input fields for server submission -->
 		<div id="hiddenFieldsContainer"></div>
-
 	</div>
-</form>
+	</form>
+	
 	
 
 	<!-- 장소 검색 팝업 -->
@@ -564,10 +564,15 @@ function searchPlacesInCity() {
     });
 }
 
-/* // 더보기 버튼 클릭 시 실행되는 함수
-function loadMorePlaces() {
-    displayPlaces();  // 다음 페이지의 장소 불러오기
-} */
+
+document.querySelectorAll('.add-schedule-btn').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();  // 폼 전송 방지
+        openPlaceSearch();  // 장소 검색 열기 등의 기능 실행
+    });
+});
+
+
 
 
 //저장 버튼 누르면 day에 저장
@@ -608,11 +613,26 @@ function saveSelectedPlaces() {
 }
 
 
+//페이지 로드 시 day1, day2에 대한 이벤트 리스너를 수동으로 추가
+document.addEventListener('DOMContentLoaded', function() {
+    // day1에 대한 일정 추가 버튼에 이벤트 리스너 추가
+    document.querySelector('#day1 .add-schedule-btn').addEventListener('click', function() {
+        openPlaceSearch('day1'); // day1에 대한 장소 검색 열기
+    });
+
+    // day2에 대한 일정 추가 버튼에 이벤트 리스너 추가
+    document.querySelector('#day2 .add-schedule-btn').addEventListener('click', function() {
+        openPlaceSearch('day2'); // day2에 대한 장소 검색 열기
+    });
+});
+
+
+
 //장소 검색 패널 열기 (DAY 진입 시)
 function openPlaceSearch(dayId) {
     currentDay = dayId; // 선택된 DAY 기록 (예: 'day1', 'day2' 등)
-
     console.log("Current day:", currentDay); // dayId가 올바르게 전달되었는지 확인
+    event.preventDefault();
 
     // 선택된 태그들 및 장소들 초기화 (새로운 DAY로 진입 시)
     clearSelectedPlaces();
@@ -703,6 +723,7 @@ function updateDayHeaders() {
 
 // 일정 추가 버튼을 클릭했을 때 새로운 카드를 추가하는 함수
 document.getElementById('addDayBtn').addEventListener('click', function() {
+    event.preventDefault(); // 폼 제출 방지
     const dayCardsContainer = document.getElementById('dayCardsContainer');
     
     // 현재 존재하는 day-card의 개수를 기반으로 새로운 ID 생성
@@ -731,6 +752,7 @@ document.getElementById('addDayBtn').addEventListener('click', function() {
 
     // 새로 추가된 day에 이벤트 리스너 추가** (우측에 검색 창 안나타나게)
     const newDayHeader = newDayCard.querySelector('.day-header h3');
+    
     newDayHeader.addEventListener('click', () => {
         loadDayPlaces(newDayId);  // 검색 창을 띄우지 않고 해당 DAY의 장소만 불러오기
         console.log("Loaded places for:", newDayId);  // dayId가 올바르게 설정되었는지 확인
@@ -875,8 +897,6 @@ function prepareScheduleData() {
     hiddenFieldsContainer.appendChild(periodStartInput);
     hiddenFieldsContainer.appendChild(periodEndInput);
 
-    console.log("Period Start:", period_start);
-    console.log("Period End:", period_end);
 
     // 도시 이름을 hidden 필드로 추가 (현재 선택된 도시 이름)
     if (currentCityName) {
