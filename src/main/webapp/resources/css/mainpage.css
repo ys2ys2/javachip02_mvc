@@ -26,8 +26,26 @@
   font-style: normal;
 }
 
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 /* 바깥 배너 컨테이너: 고정된 크기와 위치 설정 */
 body {
@@ -609,3 +627,194 @@ tfamous h2 {
   background-color: #333;
   color: white;
 }
+
+
+/* 배경을 덮는 wrapper */
+.background-wrapper {
+  background: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/main/bg-theme.jpg') no-repeat center;
+  background-size: cover; /* 이미지를 화면에 꽉 차게 설정 */
+  width: 100%; /* 너비를 전체 화면으로 설정 */
+  min-height: 100vh; /* 화면 높이에 맞춤 */
+  position: relative; /* 내부 요소가 배치되도록 설정 */
+}
+
+/* 전체 섹션 스타일 */
+newhotplace-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* 헤더 부분 */
+newhotplace-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  flex-direction: column;
+  color: white;
+}
+
+.hp01 {
+	font-size: 16px;
+	line-height: 24px;
+	font-family: 'SUIT-Regular', sans-serif;
+}
+
+.hp02 {
+	font-size: 62px;
+	font-family: 'PartialSansKR-Regular', sans-serif;
+	
+}
+
+newhotplace-header img {
+	width: 13px;
+	height: 13px;
+	
+}
+
+/* 탭 네비게이션 */
+.newhotplace_theme-tabs {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  font-family: 'SBAggroB', sans-serif;
+  font-weight: bold;
+  color: white;
+  
+}
+
+.newhotplace_theme-tabs li {
+  display: inline-block;
+  padding: 35px 30px;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'SBAggroB', sans-serif;
+  font-weight: bold;
+  position: relative; /* 화살표 위치를 위한 상대적 위치 설정 */
+  
+  
+  
+}
+
+/* 각각의 li 배경 및 텍스트 색상 변경 */
+.newhotplace_theme-tabs li:nth-child(1) {
+  background-color: white; /* 첫 번째 탭의 배경색 (Tomato) */
+  color: #fa6050;
+}
+
+.newhotplace_theme-tabs li:nth-child(2) {
+  background-color: #f88e38; /* 두 번째 탭의 배경색 (SteelBlue) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(3) {
+  background-color: #5b3e4a; /* 세 번째 탭의 배경색 (LimeGreen) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(4) {
+  background-color: #2e79a7; /* 네 번째 탭의 배경색 (Gold) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(5) {
+  background-color: #767b41; /* 다섯 번째 탭의 배경색 (OrangeRed) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(6) {
+  background-color: #10453f; /* 여섯 번째 탭의 배경색 (Purple) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(7) {
+  background-color: #cd4227; /* 일곱 번째 탭의 배경색 (DodgerBlue) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(8) {
+  background-color: #a56f53; /* 여덟 번째 탭의 배경색 (DeepPink) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(9) {
+  background-color: #cdbd26; /* 아홉 번째 탭의 배경색 (ForestGreen) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(10) {
+  background-color: #812c1f; /* 열 번째 탭의 배경색 (Gold) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(11) {
+  background-color: #125677; /* 열한 번째 탭의 배경색 (Tomato) */
+  color: #ffffff80;
+}
+
+
+
+
+/* a 태그 기본 스타일 수정 */
+.newhotplace_theme-tabs li a {
+  color: inherit; /* 하이퍼링크 글자 색을 흰색으로 설정 */
+  text-decoration: none; /* 하이퍼링크 밑줄 제거 */
+  font-weight: bold; /* 글자 굵게 설정 */
+}
+
+
+.newhotplace_theme-tabs li.active {
+  background-color: #333;
+}
+
+/* 선택된 탭에 주황색 화살표 추가 */
+.newhotplace_theme-tabs li.active::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;  /* 왼쪽 투명 화살표 */
+  border-right: 15px solid transparent; /* 오른쪽 투명 화살표 */
+  border-bottom: 25px solid #ff5a5a;    /* 주황색 화살표 */
+  position: absolute;
+  top: -15px; /* 화살표 위치 */
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg); /* 화살표를 180도 회전시켜 뒤집기 */
+  z-index: 10; /* 다른 요소들 위에 배치 */
+}
+
+/* 선택된 탭 스타일 (active 클래스) */
+.newhotplace_theme-tabs li.active {
+  background-color: #ffffff; /* 선택된 탭의 배경색 */
+  color: #ff5a5a; /* 선택된 탭의 텍스트 색상 */
+  position: relative; /* 화살표 배치용 상대적 위치 */
+  z-index: 5; /* 다른 탭들과의 레이어 구분 */
+}
+
+/* article 패널 스타일 */
+.newhotplace_theme-panel {
+  display: none;
+  padding: 20px;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.newhotplace_theme-panel.active {
+  display: block;
+}
+
+/* article 내부 헤더 스타일 */
+.newhotplace_theme-panel header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.newhotplace_theme-panel p {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+

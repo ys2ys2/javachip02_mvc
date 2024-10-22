@@ -127,6 +127,125 @@
 		</div>
 		
 		
+	<div class="background-wrapper">
+		
+	<newhotplace-section>
+  <!-- 헤더 부분 -->
+	  <newhotplace-header>
+	    <span class="hp01">
+	    <img src="${pageContext.request.contextPath}/resources/images/hotplacemapleicon.png" alt="단풍잎 이미지">
+	    11가지 매력에 빠져보세요.</span>
+	    <span class="hp02">Fall in 로컬</span>
+	  </newhotplace-header>
+
+  <!-- 탭 및 콘텐츠 영역 -->
+  <div>
+    <!-- 11개의 탭을 담고 있는 ul 리스트 -->
+    <ul class="newhotplace_theme-tabs">
+      <li><a href="#newhot-theme-1">L</a></li>
+      <li><a href="#newhot-theme-2">O</a></li>
+      <li><a href="#newhot-theme-3">C</a></li>
+      <li><a href="#newhot-theme-4">A</a></li>
+      <li><a href="#newhot-theme-5">L</a></li>
+      <li><a href="#newhot-theme-6">T</a></li>
+      <li><a href="#newhot-theme-7">R</a></li>
+      <li><a href="#newhot-theme-8">A</a></li>
+      <li><a href="#newhot-theme-9">V</a></li>
+      <li><a href="#newhot-theme-10">E</a></li>
+      <li><a href="#newhot-theme-11">L</a></li>
+    </ul>
+
+    <!-- 각 탭에 해당하는 콘텐츠 패널 -->
+    <article id="newhot-theme-1" class="newhotplace_theme-panel" style="display: block;">
+      <header>
+        <span>테마 1 헤더</span>
+        <span>세부 설명 1</span>
+      </header>
+      <p>테마 1에 대한 내용입니다.</p>
+    </article>
+
+    <article id="newhot-theme-2" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span>테마 2 헤더</span>
+        <span>세부 설명 2</span>
+      </header>
+      <p>테마 2에 대한 내용입니다.</p>
+    </article>
+
+    <article id="newhot-theme-3" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span>테마 3 헤더</span>
+        <span>세부 설명 3</span>
+      </header>
+      <p>테마 3에 대한 내용입니다.</p>
+    </article>
+
+    <article id="newhot-theme-4" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span>테마 4 헤더</span>
+        <span>세부 설명 4</span>
+      </header>
+      <p>테마 4에 대한 내용입니다.</p>
+    </article>
+
+    <article id="newhot-theme-5" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span>테마 5 헤더</span>
+        <span>세부 설명 5</span>
+      </header>
+      <p>테마 5에 대한 내용입니다.</p>
+    </article>
+
+    <article id="newhot-theme-6" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span>테마 6 헤더</span>
+        <span>세부 설명 6</span>
+      </header>
+      <p>테마 6에 대한 내용입니다.</p>
+    </article>
+
+    <article id="newhot-theme-7" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span>테마 7 헤더</span>
+        <span>세부 설명 7</span>
+      </header>
+      <p>테마 7에 대한 내용입니다.</p>
+    </article>
+
+    <article id="newhot-theme-8" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span>테마 8 헤더</span>
+        <span>세부 설명 8</span>
+      </header>
+      <p>테마 8에 대한 내용입니다.</p>
+    </article>
+
+    <article id="newhot-theme-9" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span>테마 9 헤더</span>
+        <span>세부 설명 9</span>
+      </header>
+      <p>테마 9에 대한 내용입니다.</p>
+    </article>
+
+    <article id="newhot-theme-10" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span>테마 10 헤더</span>
+        <span>세부 설명 10</span>
+      </header>
+      <p>테마 10에 대한 내용입니다.</p>
+    </article>
+
+    <article id="newhot-theme-11" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span>테마 11 헤더</span>
+        <span>세부 설명 11</span>
+      </header>
+      <p>테마 11에 대한 내용입니다.</p>
+    </article>
+  </div>
+</newhotplace-section>	
+		
 	<!-- background img -->
 	<div class="hotplaceback" style="background: url(&quot;https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&amp;id=7e0aefba-db64-46d3-ad9d-62332fc470c4&quot;) no-repeat rgb(255, 255, 255);">
 		<div class="hotratio">
@@ -157,7 +276,7 @@
 		  </div>
 		</div>
 	</div>
-
+  </div>
 
 	<div class="mainratio">
 	
@@ -352,6 +471,41 @@
   document.querySelector('.reset-button').addEventListener('click', resetImages);
 </script>
 
+<!-- 스크립트: 탭 클릭 시 콘텐츠 전환 -->
+<script>
+  // 탭을 클릭할 때 해당 article을 보여주고 나머지는 숨김
+  document.querySelectorAll('.newhotplace_theme-tabs li a').forEach(function(tab) {
+    tab.addEventListener('click', function(event) {
+      event.preventDefault();
+      
+      // 모든 article을 숨김
+      document.querySelectorAll('.newhotplace_theme-panel').forEach(function(panel) {
+        panel.style.display = 'none';
+      });
+      
+      // 클릭한 탭에 해당하는 article만 표시
+      var target = this.getAttribute('href');
+      document.querySelector(target).style.display = 'block';
+    });
+  });
+  
+  //탭 누르면 주황색 화살표
+  document.querySelectorAll('.newhotplace_theme-tabs li').forEach(tab => {
+  tab.addEventListener('click', function () {
+    // 모든 탭에서 active 클래스 제거
+    document.querySelectorAll('.newhotplace_theme-tabs li').forEach(t => t.classList.remove('active'));
+    // 클릭한 탭에 active 클래스 추가
+    this.classList.add('active');
+
+    // 모든 패널 숨기기
+    document.querySelectorAll('.newhotplace_theme-panel').forEach(panel => panel.style.display = 'none');
+
+    // 클릭한 탭과 연결된 패널 표시
+    const target = this.querySelector('a').getAttribute('href');
+    document.querySelector(target).style.display = 'block';
+  });
+});
+</script>
 
 
    
