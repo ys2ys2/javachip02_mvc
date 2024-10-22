@@ -48,7 +48,7 @@
           <li><a href="#">커뮤니티</a></li>
           <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
           <li><a href="#">여행뽈뽈</a></li>
-          <li><a href="#">여행일정</a></li>
+          <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
           
         </ul>
       </nav>
@@ -185,24 +185,24 @@
       <h2>인기 커뮤니티</h2>
       <div class="community-list">
         <div class="community-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>커뮤니티 1</p>
-        </div>
-        <div class="community-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>커뮤니티 2</p>
-        </div>
-        <div class="community-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>커뮤니티 3</p>
-        </div>
-        <div class="community-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>커뮤니티 4</p>
-        </div>
-        <div class="community-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>커뮤니티 5</p>
+        	<div class="c_img">
+        		<img src="${pageContext.request.contextPath}/resources/images/c_board.png" alt="여행 이미지">
+        	</div>
+        	<div class="c_board">
+        	  <span class="c_intro">오늘의 인기 커뮤니티</span>
+			    <div class="board-item">
+			        <div class="board-title">서울 여행기</div> <a href="#"><span class="board-desc">[국내 / 서울] 서울 나들이(feat.분식파티)</span></a>
+			    </div>
+			    <div class="board-item">
+			        <div class="board-title">서울 여행기</div> <a href="#"><span class="board-desc">[서울 먹방여행] 직접 기다린 서울 웨이팅 맛집리스트 TOP5</span></a>
+			    </div>
+			    <div class="board-item">
+			        <div class="board-title">충남 여행기</div> <a href="#"><span class="board-desc">가을에 떠나는 천안 2박 3일 여행</span></a>
+			    </div>
+			    <div class="board-item">
+			        <div class="board-title">대전 여행기</div> <a href="#"><span class="board-desc">노잼도시 대전? 유잼도시 대전 여행</span></a>
+			    </div>
+        	</div>
         </div>
       </div>
     </div>
