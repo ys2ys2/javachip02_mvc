@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.LikeMapper">
+
+    <insert id="insertMedia" parameterType="TravelMediaVO">
+    INSERT INTO tb_travel_media (tp_idx, origin_filename, save_filename, file_type, file_size)
+    VALUES (#{tp_idx}, #{origin_filename}, #{save_filename}, #{file_type}, #{file_size})
+</insert>
+
+<select id="getTravelMediaList" parameterType="int" resultType="TravelMediaVO">
+    SELECT media_id, tp_idx, origin_filename, save_filename, file_type, file_size, upload_date
+    FROM tb_travel_media
+    WHERE tp_idx = #{tp_idx}
+</select>
+    
+
+</mapper>

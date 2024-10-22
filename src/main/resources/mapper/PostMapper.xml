@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.PostMapper">
+
+   <!-- 모든 게시글 조회 및 좋아요 개수 포함 -->
+	<select id="getAllPosts" resultType="com.human.web.vo.PostVO">
+    	SELECT 
+       		p.post_id AS id,
+        	p.post_writer AS writer,
+        	p.post_content AS content,
+        	p.post_date AS postDate,
+        	(SELECT COUNT(*) FROM comment c WHERE c.post_id = p.post_id) AS commentCount,
+        	(SELECT COUNT(*) FROM post_like l WHERE l.post_id = p.post_id) AS likeCount
+    	FROM post p
+    	ORDER BY p.post_date DESC;
+	</select>
+   
+    
+    <!-- 게시글 생성 -->
+    <insert id="createPost" parameterType="com.human.web.vo.PostVO">
+        INSERT INTO post (post_writer, post_content)
+        VALUES (#{writer}, #{content});
+    </insert>
+	
+	<update id="updateCommentCount">
+    UPDATE post
+    SET comment_count = (SELECT COUNT(*) FROM comment WHERE post_id = #{postId})
+    WHERE post_id = #{postId};
+	</update>
+	
+	<!-- 특정 사용자가 게시글에 좋아요를 눌렀는지 여부 확인 -->
+	<select id="isLikedByUser" parameterType="map" resultType="boolean">
+    	SELECT COUNT(*) > 0
+    	FROM post_like
+    	WHERE post_id = #{postId} AND user_id = #{userId};
+	</select>
+	
+	
+	<!-- 특정 게시글 조회 및 좋아요 개수, 사용자의 좋아요 여부 포함 -->
+<select id="getPostById" parameterType="map" resultType="com.human.web.vo.PostVO">
+    SELECT 
+        p.post_id AS id, 
+        p.post_writer AS writer, 
+        p.post_content AS content, 
+        p.post_date AS postDate,
+        (SELECT COUNT(*) FROM comment c WHERE c.post_id = p.post_id) AS commentCount,
+        (SELECT COUNT(*) FROM post_like l WHERE l.post_id = p.post_id) AS likeCount,
+        (SELECT COUNT(*) > 0 FROM post_like l WHERE l.post_id = #{postId} AND l.user_id = #{userId}) AS isLiked
+    FROM post p 
+    WHERE p.post_id = #{postId};
+</select>
+	
+	
+	
+	
+</mapper>
