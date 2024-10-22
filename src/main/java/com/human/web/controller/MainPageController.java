@@ -19,6 +19,7 @@ import com.human.web.service.BannerPlaceService;
 import com.human.web.service.DataPlaceService;
 import com.human.web.service.HotPlaceService;
 import com.human.web.service.TalkService;
+import com.human.web.service.TravelPostService;
 import com.human.web.vo.TalkVO;
 
 @Controller
@@ -36,6 +37,9 @@ public class MainPageController {
     @Autowired
     private DataPlaceService dataPlaceService;
     
+    @Autowired
+    private TravelPostService travelPostService;
+    
     
     
     // 핫플 테이블의 상세 정보를 랜덤으로 가져오기
@@ -45,13 +49,23 @@ public class MainPageController {
         List<Map<String, Object>> hotplaceDetails = hotplaceService.getRandomHotplaceDetail(4);			//핫플 부분
         List<Map<String, Object>> bannerPlaces = bannerPlaceService.getRandomBannerPlace(7);			//배너 부분
         List<Map<String, Object>> dataplaceDetails = dataPlaceService.getRandomDataPlace(4); 			//빅데이터 부분
-        
+		//랜덤 travelpost 가져오기
+        List<Map<String, Object>> travelPost = travelPostService.getRandomTravelPost(4);
+
         // JSP로 데이터 전달
         model.addAttribute("hotplaceDetails", hotplaceDetails);
         model.addAttribute("bannerPlaces", bannerPlaces);
         model.addAttribute("dataplaceDetails", dataplaceDetails);  
+        // 랜덤 travelpost
+        model.addAttribute("travelPost", travelPost);
 
         return "HomePage/mainpage"; // mainpage.jsp로 이동
+        
+        //travelPost 랜덤 4개 가져오기
+        
+		//JSP로 전달
+        
+        
     }
 
     
@@ -127,6 +141,9 @@ public class MainPageController {
 
 	        return response;
 	    }
+	    
+	    
+	    
 
 
 	    

@@ -190,18 +190,14 @@
         	</div>
         	<div class="c_board">
         	  <span class="c_intro">오늘의 인기 커뮤니티</span>
+        	  
+        	  <!-- travelPost 데이터를 반복하면서 출력 -->
+        	  <c:forEach var="post" items="${travelPost}">
 			    <div class="board-item">
-			        <div class="board-title">서울 여행기</div> <a href="#"><span class="board-desc">[국내 / 서울] 서울 나들이(feat.분식파티)</span></a>
+            		<div class="board-title">${post.tag_name} 여행기</div> <!-- 매칭된 tag_name 출력 -->
+			    	<a href="#"><span class="board-desc">${post.content}</span></a> <!-- content 출력 -->
 			    </div>
-			    <div class="board-item">
-			        <div class="board-title">서울 여행기</div> <a href="#"><span class="board-desc">[서울 먹방여행] 직접 기다린 서울 웨이팅 맛집리스트 TOP5</span></a>
-			    </div>
-			    <div class="board-item">
-			        <div class="board-title">충남 여행기</div> <a href="#"><span class="board-desc">가을에 떠나는 천안 2박 3일 여행</span></a>
-			    </div>
-			    <div class="board-item">
-			        <div class="board-title">대전 여행기</div> <a href="#"><span class="board-desc">노잼도시 대전? 유잼도시 대전 여행</span></a>
-			    </div>
+			  </c:forEach>
         	</div>
         </div>
       </div>
