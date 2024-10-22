@@ -60,7 +60,7 @@
             	<span class="userprofile"><img src="${sessionScope.member.m_profile}" alt="user-profile"></span>
             	${sessionScope.member.m_nickname}님 환영합니다!
             </div>
-            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
+            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지!</a></span>
             <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
               <button type="submit">로그아웃</button>
             </form>
