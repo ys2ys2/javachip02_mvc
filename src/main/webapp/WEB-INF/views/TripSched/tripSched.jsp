@@ -964,10 +964,6 @@ function prepareScheduleData() {
         }
     });
 
-    console.log(hiddenFieldsContainer.innerHTML); // 디버깅용으로 추가된 input 필드 확인
-    console.log("Day Numbers: ", Object.keys(selectedPlacesPerDay));
-    console.log("City Names: ", currentCityName);
-    console.log("Selected Places: ", selectedPlacesPerDay);
 }
 </script>
 

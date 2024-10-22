@@ -138,8 +138,6 @@
 	    <span class="hp02">Fall in 로컬</span>
 	  </newhotplace-header>
 
-  <!-- 탭 및 콘텐츠 영역 -->
-  <div>
     <!-- 11개의 탭을 담고 있는 ul 리스트 -->
     <ul class="newhotplace_theme-tabs">
       <li><a href="#newhot-theme-1">L</a></li>
@@ -154,96 +152,251 @@
       <li><a href="#newhot-theme-10">E</a></li>
       <li><a href="#newhot-theme-11">L</a></li>
     </ul>
-
+	
+	<div class="panel-tabs">
     <!-- 각 탭에 해당하는 콘텐츠 패널 -->
     <article id="newhot-theme-1" class="newhotplace_theme-panel" style="display: block;">
       <header>
-        <span>테마 1 헤더</span>
-        <span>세부 설명 1</span>
+        <span class="themeintro1">Let's go! 로컬 스토리 여행</span>
+        <span class="themedescription">그 지역이 아니면 느낄 수 없는 역사 스토리 콘텐츠</span>
       </header>
-      <p>테마 1에 대한 내용입니다.</p>
+		<div class="themeimage">
+		<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+			<c:if test="${status.index >= 0 && status.index < 3}">
+			<div class="image-box">
+				<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+				<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+				<span class="image-box-1">
+				로컬 스토리 여행
+				</span>
+			 	<p>${hotplace.title}</p>
+			 	</a>
+			</div>
+			</c:if>
+		</c:forEach>
+		</div>
     </article>
 
     <article id="newhot-theme-2" class="newhotplace_theme-panel" style="display: none;">
       <header>
-        <span>테마 2 헤더</span>
-        <span>세부 설명 2</span>
+	      <span class="themeintro2">One & Only 나홀로 여행</span>
+        	<span class="themedescription">어디에도 없는 나만의 커스터마이징 여행</span>
       </header>
-      <p>테마 2에 대한 내용입니다.</p>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 3 && status.index < 6}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-2">
+	      		나홀로 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
     </article>
 
     <article id="newhot-theme-3" class="newhotplace_theme-panel" style="display: none;">
       <header>
-        <span>테마 3 헤더</span>
-        <span>세부 설명 3</span>
+        <span class="themeintro3">Carnival 로컬 축제</span>
+        <span class="themedescription">오직 가을에만 열리는 지역축제</span>
       </header>
-      <p>테마 3에 대한 내용입니다.</p>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 6 && status.index < 9}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-3">
+	      		로컬 축제
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
     </article>
 
     <article id="newhot-theme-4" class="newhotplace_theme-panel" style="display: none;">
       <header>
-        <span>테마 4 헤더</span>
-        <span>세부 설명 4</span>
+        <span class="themeintro4">Adventure 여행</span>
+        <span class="themedescription">모험 같은 여행을 떠날 계절</span>
       </header>
-      <p>테마 4에 대한 내용입니다.</p>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 9 && status.index < 12}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-4">
+	      		모험 같은 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
     </article>
 
     <article id="newhot-theme-5" class="newhotplace_theme-panel" style="display: none;">
       <header>
-        <span>테마 5 헤더</span>
-        <span>세부 설명 5</span>
+        <span class="themeintro5">Leisure 가을 레저&액티비티</span>
+        <span class="themedescription">높고 깨끗한 가을 하늘 아래 즐기는 여가생활</span>
       </header>
-      <p>테마 5에 대한 내용입니다.</p>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 12 && status.index < 15}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-5">
+	      		가을 레저&액티비티
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
     </article>
 
     <article id="newhot-theme-6" class="newhotplace_theme-panel" style="display: none;">
       <header>
-        <span>테마 6 헤더</span>
-        <span>세부 설명 6</span>
+        <span class="themeintro6">Taste 맛을 찾아 떠나는 여행</span>
+        <span class="themedescription">미식의 계절, 제철음식이 반기는 가을여행</span>
       </header>
-      <p>테마 6에 대한 내용입니다.</p>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 15 && status.index < 18}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-6">
+	      		맛을 찾아 떠나는 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
     </article>
 
     <article id="newhot-theme-7" class="newhotplace_theme-panel" style="display: none;">
       <header>
-        <span>테마 7 헤더</span>
-        <span>세부 설명 7</span>
+        <span class="themeintro7">Relax 휴식을 찾아 떠나는 여행</span>
+        <span class="themedescription">도시를 벗어나 떠나는 여유로운 가을 여행</span>
       </header>
-      <p>테마 7에 대한 내용입니다.</p>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 18 && status.index < 21}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-7">
+	      		휴식을 찾아 떠나는 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
     </article>
 
     <article id="newhot-theme-8" class="newhotplace_theme-panel" style="display: none;">
       <header>
-        <span>테마 8 헤더</span>
-        <span>세부 설명 8</span>
+        <span class="themeintro8">All-new 새로운 여행</span>
+        <span class="themedescription">모든게 새롭고 색다른 로컬 여행</span>
       </header>
-      <p>테마 8에 대한 내용입니다.</p>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 21 && status.index < 24}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-8">
+	      		새로운 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
     </article>
 
     <article id="newhot-theme-9" class="newhotplace_theme-panel" style="display: none;">
       <header>
-        <span>테마 9 헤더</span>
-        <span>세부 설명 9</span>
+        <span class="themeintro9">Vacance 문화 바캉스</span>
+        <span class="themedescription">그 지역만의 문화를 체감하는 문화 바캉스</span>
       </header>
-      <p>테마 9에 대한 내용입니다.</p>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 24 && status.index < 27}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-9">
+	      		문화 바캉스 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
     </article>
 
     <article id="newhot-theme-10" class="newhotplace_theme-panel" style="display: none;">
       <header>
-        <span>테마 10 헤더</span>
-        <span>세부 설명 10</span>
+        <span class="themeintro10">Eco 친환경 여행</span>
+        <span class="themedescription">여행도 챙기고, 환경도 챙기는 친환경 여행</span>
       </header>
-      <p>테마 10에 대한 내용입니다.</p>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 27 && status.index < 30}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-10">
+	      		친환경 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
     </article>
 
     <article id="newhot-theme-11" class="newhotplace_theme-panel" style="display: none;">
       <header>
-        <span>테마 11 헤더</span>
-        <span>세부 설명 11</span>
+        <span class="themeintro11">Limitless 모두의 여행</span>
+        <span class="themedescription">어디에도 구애받지 않고 떠날 수 있는 가을 명소</span>
       </header>
-      <p>테마 11에 대한 내용입니다.</p>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 30 && status.index < 33}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-11">
+	      		모두의 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
     </article>
-  </div>
+   </div>
 </newhotplace-section>	
 		
 	<!-- background img -->
@@ -322,7 +475,7 @@
       </div>
     </div>
 
-    <!-- 핫플 섹션 -->
+<%--     <!-- 핫플 섹션 -->
     <div class="hotplace-section">
       <h2>함께 떠나는 핫플 여행</h2>
     <div class="hotplace-list">
@@ -336,7 +489,7 @@
     	</c:forEach>
   </div>
 </div>
-   
+    --%>
       
       
   <!-- 축제 섹션 -->
@@ -473,6 +626,20 @@
 
 <!-- 스크립트: 탭 클릭 시 콘텐츠 전환 -->
 <script>
+
+//페이지가 로드되면 첫 번째 탭과 패널을 기본으로 표시
+  window.addEventListener('DOMContentLoaded', function() {
+	  const firstTab = document.querySelector('.newhotplace_theme-tabs li:first-child');
+	  const firstPanel = document.querySelector('.newhotplace_theme-panel:first-child');
+  
+  // 첫 번째 탭에 active 클래스 추가
+  firstTab.classList.add('active');
+  
+  // 첫 번째 패널을 표시
+  firstPanel.style.display = 'block';
+  });
+
+
   // 탭을 클릭할 때 해당 article을 보여주고 나머지는 숨김
   document.querySelectorAll('.newhotplace_theme-tabs li a').forEach(function(tab) {
     tab.addEventListener('click', function(event) {

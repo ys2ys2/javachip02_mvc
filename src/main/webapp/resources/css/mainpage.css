@@ -26,6 +26,7 @@
   font-style: normal;
 }
 
+/* 파셜산스체 */
 @font-face {
     font-family: 'PartialSansKR-Regular';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
@@ -33,6 +34,7 @@
     font-style: normal;
 }
 
+/* 수트체 */
 @font-face {
     font-family: 'SUIT-Regular';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
@@ -40,12 +42,30 @@
     font-style: normal;
 }
 
+/* 샌드박스 어그로체 */
 @font-face {
     font-family: 'SBAggroB';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
+
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
 
 /* 바깥 배너 컨테이너: 고정된 크기와 위치 설정 */
 body {
@@ -644,6 +664,7 @@ newhotplace-section {
   text-align: center;
 }
 
+
 /* 헤더 부분 */
 newhotplace-header {
   display: flex;
@@ -680,6 +701,8 @@ newhotplace-header img {
   font-family: 'SBAggroB', sans-serif;
   font-weight: bold;
   color: white;
+  margin: 0; /* ul 요소의 기본 마진 제거 */
+  padding: 0; /* ul 요소의 기본 패딩 제거 */
   
 }
 
@@ -692,15 +715,29 @@ newhotplace-header img {
   font-family: 'SBAggroB', sans-serif;
   font-weight: bold;
   position: relative; /* 화살표 위치를 위한 상대적 위치 설정 */
-  
+  margin: 0;
   
   
 }
 
+.panel-tabs {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	margin: 0; /* 추가적인 마진 제거 */
+    padding-bottom: 100px; /* 아래쪽에 추가 여백을 주어 배경을 더 길게 보이게 설정 */
+    
+	
+}
+
+
+
 /* 각각의 li 배경 및 텍스트 색상 변경 */
 .newhotplace_theme-tabs li:nth-child(1) {
-  background-color: white; /* 첫 번째 탭의 배경색 (Tomato) */
-  color: #fa6050;
+  background-color: #fa6050; /* 첫 번째 탭의 배경색 (Tomato) */
+  color: #ffffff80;
 }
 
 .newhotplace_theme-tabs li:nth-child(2) {
@@ -754,8 +791,6 @@ newhotplace-header img {
 }
 
 
-
-
 /* a 태그 기본 스타일 수정 */
 .newhotplace_theme-tabs li a {
   color: inherit; /* 하이퍼링크 글자 색을 흰색으로 설정 */
@@ -791,13 +826,73 @@ newhotplace-header img {
   z-index: 5; /* 다른 탭들과의 레이어 구분 */
 }
 
+
+.newhotplace_theme-tabs li:nth-child(1).active {
+  background-color: #ffffff;
+  color: #fa6050;
+}
+
+/* 두 번째 탭이 선택되었을 때 (2번째 탭) */
+.newhotplace_theme-tabs li:nth-child(2).active {
+  background-color: #ffffff;
+  color: #f88e38; /* 두 번째 탭의 텍스트 색상 */
+}
+
+.newhotplace_theme-tabs li:nth-child(3).active {
+  background-color: #ffffff;
+  color: #5b3e4a;
+}
+
+.newhotplace_theme-tabs li:nth-child(4).active {
+  background-color: #ffffff;
+  color: #2e79a7;
+}
+
+
+.newhotplace_theme-tabs li:nth-child(5).active {
+  background-color: #ffffff;
+  color: #767b41; 
+}
+
+.newhotplace_theme-tabs li:nth-child(6).active {
+  background-color: #ffffff;
+  color: #10453f; 
+}
+
+.newhotplace_theme-tabs li:nth-child(7).active {
+  background-color: #ffffff;
+  color: #cd4227; 
+}
+
+.newhotplace_theme-tabs li:nth-child(8).active {
+  background-color: #ffffff;
+  color: #a56f53; 
+}
+
+.newhotplace_theme-tabs li:nth-child(9).active {
+  background-color: #ffffff;
+  color: #cdbd26; 
+}
+
+.newhotplace_theme-tabs li:nth-child(10).active {
+  background-color: #ffffff;
+  color: #812c1f; 
+}
+
+.newhotplace_theme-tabs li:nth-child(11).active {
+  background-color: #ffffff;
+  color: #125677; 
+}
+
+
+
 /* article 패널 스타일 */
 .newhotplace_theme-panel {
   display: none;
   padding: 20px;
-  border: 1px solid #e1e1e1;
-  border-radius: 10px;
-  margin-top: 20px;
+  width: 50%;
+  height: 500px;
+  background-color: white;
 }
 
 .newhotplace_theme-panel.active {
@@ -807,14 +902,250 @@ newhotplace-header img {
 /* article 내부 헤더 스타일 */
 .newhotplace_theme-panel header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   font-size: 1.2rem;
   color: #666;
+}
+
+/* 세로 구분선 스타일 추가 */
+.newhotplace_theme-panel header span {
+  padding: 0 20px; /* 텍스트와 구분선 사이의 여백 */
+  line-height: 1.5; /* 선 크기 */
+}
+
+/* 구분선 스타일 */
+.newhotplace_theme-panel header span:first-child {
+  border-right: 2px solid #ccc; /* 첫 번째 span 요소에 오른쪽에 구분선 추가 */
+}
+
+.newhotplace_theme-panel header span:last-child {
+  padding-left: 20px; /* 두 번째 span의 왼쪽에 여백 추가 */
 }
 
 .newhotplace_theme-panel p {
   margin-top: 10px;
   font-size: 1rem;
   color: #333;
+}
+
+.themeintro1 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #fa6050;
+  padding: 10px;
+}
+
+.themeintro2 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #f88e38;
+  padding: 10px;
+	
+}
+
+.themeintro3 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #5b3e4a;
+  padding: 10px;
+	
+}
+
+.themeintro4 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #2e79a7;
+  padding: 10px;
+	
+}
+
+.themeintro5 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #767b41;
+  padding: 10px;
+	
+}
+
+.themeintro6 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #10453f;
+  padding: 10px;
+	
+}
+
+.themeintro7 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #cd4227;
+  padding: 10px;
+	
+}
+
+.themeintro8 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #a56f53;
+  padding: 10px;
+	
+}
+
+.themeintro9 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #cdbd26;
+  padding: 10px;
+	
+}
+
+.themeintro10 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #812c1f;
+  padding: 10px;
+	
+}
+
+.themeintro11 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #125677;
+  padding: 10px;
+	
+}
+
+.themedescription {
+	font-family: 'SUIT-Regular', sans-serif;
+	font-size: 24px;
+	color: black;
+	
+}
+
+.themeimage {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px; /* 이미지 박스 간의 간격 */
+  margin-top: 5vh; /* 위쪽 여백 */
+}
+
+/* 각각의 이미지 박스 */
+.image-box {
+  width: 30%; /* 한 줄에 3개씩 배치 */
+  text-align: left; /* 이미지 설명 가운데 정렬 */
+  margin: 10px auto;
+}
+
+/* 이미지 스타일 */
+.image-box img {
+  width: 100%;
+  height: 250px;
+  border-radius: 10px; /* 모서리를 둥글게 처리 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  object-fit: inherit;
+}
+
+.image-box a {
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 링크의 텍스트 색상을 상속받아 유지 */
+}
+
+/* 이미지 설명 텍스트 */
+.image-box p {
+  margin-top: 5px;
+  font-size: 20px;
+  color: black;
+  font-family: 'SUIT-Regular', sans-serif;
+  
+}
+
+.image-box-1 {
+	color: #fa6050;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-2 {
+	color: #f88e38;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-3 {
+	color: #5b3e4a;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-4 {
+	color: #2e79a7;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-5 {
+	color: #767b41;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-6 {
+	color: #10453f;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-7 {
+	color: #cd4227;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-8 {
+	color: #a56f53;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-9 {
+	color: #cdbd26;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-10 {
+	color: #812c1f;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-11 {
+	color: #125677;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
 }
 

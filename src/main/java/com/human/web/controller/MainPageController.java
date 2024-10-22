@@ -46,7 +46,7 @@ public class MainPageController {
     @GetMapping("/HomePage/mainpage")
     public String showHotplaceDetails(Model model) {
         // 랜덤으로 5개의 핫플레이스 정보를 가져옴
-        List<Map<String, Object>> hotplaceDetails = hotplaceService.getRandomHotplaceDetail(4);			//핫플 부분
+        List<Map<String, Object>> hotplaceDetails = hotplaceService.getRandomHotplaceDetail(33);			//핫플 부분
         List<Map<String, Object>> bannerPlaces = bannerPlaceService.getRandomBannerPlace(7);			//배너 부분
         List<Map<String, Object>> dataplaceDetails = dataPlaceService.getRandomDataPlace(4); 			//빅데이터 부분
 		//랜덤 travelpost 가져오기
