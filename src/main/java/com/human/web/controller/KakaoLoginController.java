@@ -43,7 +43,7 @@ public class KakaoLoginController {
             System.out.println("카카오 사용자 정보가 세션에 저장되었습니다: " + memberInfo);
 
             // 로그인 성공 후 메인 페이지로 리다이렉트
-            return "redirect:/index.do";
+            return "redirect:/";
         } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/error/errorPage";  // 에러 발생 시 에러 페이지로 이동

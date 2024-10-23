@@ -64,7 +64,7 @@ public class M_MemberController {
 
 		// 회원가입 성공 여부 확인 (m_idx가 0보다 크면 성공)
 		if (result > 0) {
-			viewName = "redirect:/index.do"; // 성공 시 메인 페이지로 리다이렉트
+			viewName = "redirect:/"; // 성공 시 메인 페이지로 리다이렉트
 		} else {
 			// 회원가입 실패 시 오류 메시지를 모델에 저장
 			model.addAttribute("msg", "회원가입이 정상적으로 이루어지지 않았습니다.");
@@ -129,7 +129,7 @@ public class M_MemberController {
 		if (session != null) {
 			session.invalidate();
 		}
-		return "redirect:/index.do";
+		return "redirect:/";
 	}
 
 	// 회원정보 변경
@@ -240,7 +240,7 @@ public class M_MemberController {
 
 		if (result == 1) {// 회원탈퇴 성공
 			session.invalidate();// 세션 초기화
-			viewName = "redirect:/index.do";
+			viewName = "redirect:/";
 
 		} else {// 회원탈퇴 실패
 			String msg = "시스템에 오류가 발생했습니다. 빠른 시일 내에 시스템을 정상화하도록 하겠습니다.";

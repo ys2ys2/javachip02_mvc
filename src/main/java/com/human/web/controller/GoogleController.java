@@ -28,7 +28,7 @@ public class GoogleController {
             if (memberVO != null) {
                 // 세션에 M_MemberVO 객체 저장
                 session.setAttribute("member", memberVO); 
-                return "redirect:/index.do"; // 메인 페이지로 리다이렉트
+                return "redirect:/"; // 메인 페이지로 리다이렉트
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,7 +44,7 @@ public class GoogleController {
 
             if (memberVO != null) {
                 session.setAttribute("member", memberVO); // 로그인 정보 세션에 저장
-                return "redirect:/index.do"; // 로그인 성공 시 메인 페이지로 이동
+                return "redirect:/"; // 로그인 성공 시 메인 페이지로 이동
             }
         } catch (Exception e) {
             e.printStackTrace();
