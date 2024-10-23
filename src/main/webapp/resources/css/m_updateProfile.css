@@ -1,13 +1,13 @@
 .navigation {
-    position: fixed;
-    top: 120px; /* 상단에서 100px 아래로 고정 */
-    left: 250px; /* 왼쪽에서 100px 오른쪽으로 고정 */
+    position: absolute;
+    top: 130px; /* 뷰포트 기준으로 상단에서 120px */
+    left: 340px; /* 뷰포트 기준으로 왼쪽에서 250px */
     padding: 15px 20px;
     display: flex;
-    justify-content: flex-start; /* 항목을 왼쪽 정렬 */
+    justify-content: flex-start;
     gap: 40px;
-    z-index: 1000; /* 다른 요소들 위에 위치하도록 설정 */
-    
+    z-index: 1000; /* 다른 요소보다 위에 배치 */
+    background-color: white; /* 배경색 설정 (필요에 따라 조정) */
 }
 
 .navigation a {
@@ -60,7 +60,7 @@
 
 
 
-/*프로필 편집 폼  */
+
 .profile-container {
     display: flex;
     justify-content: center;
@@ -68,31 +68,33 @@
     height: 100vh;
     width: 100vw;
     position: relative;
-    transform: translateY(-30px); /* 위로 100px 이동 */
+    transform: translateY(-30px); 위로 100px 이동
 }
+/* 
 
-/* 프로필 이미지 스타일 */
+
+프로필 이미지 스타일
 .profile-image-section {
     margin-bottom: 20px;
 }
 
 
-/* 프로필 폼의 스타일 */
+프로필 폼의 스타일
 .profile-form-container {
     padding: 20px;
     width: 50%;
     max-width: 600px;
 }
 
-/* .profile-image {
+.profile-image {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 15px;
 }
- */
-/* 입력 필드 및 버튼 스타일 */
+
+입력 필드 및 버튼 스타일
 input[type="text"], input[type="password"], input[type="file"] {
     width: 100%;
     padding: 10px;
@@ -115,3 +117,4 @@ input[type="submit"], input[type="button"] {
 input[type="submit"]:hover, input[type="button"]:hover {
     background-color: #333;
 }
+ */ */

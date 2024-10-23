@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.TripSchedMapper">
+
+    <!-- 여행 일정 저장 -->
+	<insert id="insertTripSchedule" parameterType="com.human.web.vo.TripSchedVO">
+        INSERT INTO travel_schedule 
+        (m_idx, post_id, m_email, m_nickname, period_start, period_end, title, day_number, city_name, label_number, place_name, place_address)
+        VALUES 
+        (#{m_idx}, #{post_id}, #{m_email}, #{m_nickname}, #{period_start}, #{period_end}, #{title}, #{day_number}, #{city_name}, #{label_number}, #{place_name}, #{place_address})
+    </insert>
+    
+        <!-- 가장 큰 post_id 조회 -->
+    <select id="getMaxPostId" resultType="Integer">
+        SELECT MAX(post_id) FROM travel_schedule
+    </select>
+    
+
+
+
+</mapper>

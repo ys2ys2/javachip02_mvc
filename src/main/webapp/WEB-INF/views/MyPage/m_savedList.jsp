@@ -39,24 +39,27 @@
   </header>
   <!-- 상단 네비게이션 -->
   <div class="navigation">
-   	<a href="${pageContext.request.contextPath}/MyPage/m_myTrips">내 여행</a>
-     <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 여행기</a>
+   	<a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지 홈</a>
+     <a href="${pageContext.request.contextPath}/MyPage/m_myTrips">내 여행</a>
+     <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 게시글</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_savedList">저장목록</a>
-     <a href="${pageContext.request.contextPath}/MyPage/m_commentManagement">댓글관리</a>
+   	
 </div>
+
 
 <div class="container">
 
     <!-- 왼쪽 프로필 영역 -->
-    <div class="profile-section">
+       <div class="profile-section">
     <h4>My BBOL BBOL BBOL</h4>
         <div class="profile-card">
-            <img src="${pageContext.request.contextPath}/resources/images/profile.jpg" alt="프로필 사진" class="profile-image">
-            <h3>박옥수수</h3>
-            <p>팔로워: 0 | 팔로잉: 0</p>
-            <button onclick="location.href='editProfile.jsp'">프로필 편집</button>
-        </div>
-    </div>
+               <img src="${pageContext.request.contextPath}${member.m_profile}" alt="프로필 사진" class="profile-image">
+        
+        <h3>${member.m_nickname}</h3>
+         
+<a href="${pageContext.request.contextPath}/Member/m_updateProfile">
+    <button>프로필 편집</button>
+</a>
  </div> 
    <!-- 오른쪽 콘텐츠 영역 (저장 목록) -->
     <div class="s_content-section">

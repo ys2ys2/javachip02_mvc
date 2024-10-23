@@ -271,8 +271,6 @@ function verifyCode() {
 
 
 </body>
-<script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/user.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/join.js"></script>
 </html>

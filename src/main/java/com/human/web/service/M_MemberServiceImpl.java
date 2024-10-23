@@ -1,9 +1,11 @@
 package com.human.web.service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.human.web.repository.M_MemberDAO;
 import com.human.web.vo.M_MemberVO;
@@ -52,32 +54,69 @@ public class M_MemberServiceImpl implements M_MemberService {
     public M_MemberVO findByEmail(String m_email) {
         return dao.findByEmail(m_email);
     }
-
-  //회원정보 변경
     @Override
-	public M_MemberVO updateMember(M_MemberVO vo) {
-    	M_MemberVO newVo = null; //회원정보 변경 실패시 결과값
-    	
-    	// 1. 닉네임 중복 체크
-        int nicknameCount = dao.checkNickname(vo.getM_nickname());
+    public M_MemberVO updateMember(M_MemberVO vo) {
+        M_MemberVO newVo = null; // 회원정보 변경 실패 시 반환값
 
-        // 2. 닉네임이 중복된 경우 처리
-        if (nicknameCount > 0) {
-            System.out.println("중복된 닉네임입니다.");
-            return null; // 닉네임 중복 시 null 반환
+        // 1. 세션에서 기존 정보를 가져와 닉네임이 변경되었는지 확인
+        M_MemberVO existingMember = dao.getMember(vo.getM_idx()); // 기존 회원 정보 조회
+        
+        if (!vo.getM_nickname().equals(existingMember.getM_nickname())) {
+            // 2. 닉네임이 변경되었을 경우에만 중복 체크 수행
+            int nicknameCount = dao.checkNickname(vo.getM_nickname());
+            if (nicknameCount > 0) {
+                System.out.println("중복된 닉네임입니다.");
+                return null; // 닉네임 중복 시 null 반환
+            }
         }
 
-        // 3. 중복되지 않으면 회원 정보 업데이트 진행
+        // 3. 회원 정보 업데이트 진행
         if (dao.updateMember(vo) == 1) {
             newVo = dao.getMember(vo.getM_idx()); // 업데이트 후 새로운 회원 정보 가져옴
         }
 
         return newVo; // 변경된 회원 정보 반환
-	}
+    }
+
+    
+    //회원정보 변경시 비밀번호 유효성 검사
+    public boolean isValidPassword(String password) {
+        // 최소 8자 이상, 하나 이상의 영문자, 숫자 및 특수문자 포함
+        String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
+        return password != null && password.matches(passwordPattern);
+    }
+
+    
+    //프로필 이미지 변경
+    @Override
+    public M_MemberVO updateProfileImage(M_MemberVO vo) {
+        int result = dao.updateProfileImage(vo); // 업데이트 메서드 호출
+        return (result > 0) ? dao.getMember(vo.getM_idx()) : null; // 업데이트 성공 시 회원 정보 반환
+    }
+
+ 
 
   //회원탈퇴
   	@Override
   	public int cancel(int m_idx) {
   		return dao.cancel(m_idx);
   	}
+
+  	
+  	//회원정보 찾기 - 아이디
+	@Override
+	public String findIdByRegistrationAndNickname(String registrationType, String nickname) {
+		return dao.findIdByRegistrationAndNickname(registrationType, nickname);
+	}
+
+
+	@Override
+	public boolean updatePassword(String m_email, String newPassword) {
+	    int result = dao.updatePassword(m_email, newPassword); 
+	    return result > 0;  // 업데이트 성공 여부 반환
+	}
+
+
+
+	
 }

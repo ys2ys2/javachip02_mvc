@@ -84,9 +84,14 @@
 		<button class="h_button" id="likeButton">
 		  <img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="likes" id="likeImage">
 		</button>
-      <button class="f_button">
-        <img src="${pageContext.request.contextPath}/resources/images/favorite.png" alt="favorite">
-      </button>
+		<!-- 저장하기 버튼 -->
+		<form id="saveForm" action="${pageContext.request.contextPath}/hotplace/save" method="post">
+		    <!-- contentid가 JSP에서 제대로 전달되는지 확인 -->
+		    <input type="hidden" name="contentid" value="${hotplace.contentid}">
+		    <button type="submit" class="f_button">
+		        <img src="${pageContext.request.contextPath}/resources/images/favorite.png" alt="favorite">
+		    </button>
+		</form>
       <button class="s_button" onclick="toggleSharePopup()">
         <img src="${pageContext.request.contextPath}/resources/images/share.png" alt="share">
       </button>
@@ -190,6 +195,9 @@
         <c:when test="${not empty sessionScope.member.m_nickname}">
           <!-- 로그인된 사용자가 댓글 작성 가능 -->
           <form action="${pageContext.request.contextPath}/HotPlace/insert" method="post">
+            <!-- hidden으로 contentid 전달하기(위에 form사용) -->
+            <input type="hidden" name="contentid" value="${hotplace.contentid}" />	<!-- contentid로 상세페이지 전달 -->
+            <input type="hidden" name="type" value="HotPlace"> <!-- type으로 어떤 페이지에서 작성되는지 전달 -->
             <textarea id="commentText" name="talkText" placeholder="소중한 댓글을 남겨주세요."></textarea>
             <div class="form-actions">
               <button class="login-button" id="submitButton">작성하기</button>
@@ -232,6 +240,8 @@
         </div>
       </c:forEach>
     </div>
+    
+
 
     <!-- 페이지네이션 -->
     <div class="pagination">
@@ -313,9 +323,11 @@
     </script>
   
     <script type="text/javascript">
-        var memberEmail = "${sessionScope.memberEmail}";
+    	var memberEmail = "${sessionScope.member.m_email}";
         var memberNickname = "${sessionScope.memberNickname}";
         var memberId = "${sessionScope.memberId}";
+        var contentid = "${hotplace.contentid}"; // contentid를 JSP에서 전달받아 정의
+
     </script>
     
     <c:if test="${not empty message}">
@@ -345,8 +357,25 @@
 	    }
 	  });
 	</script>    
-    
+	
+	<script type="text/javascript">
+    // 세션에 저장된 로그인 정보가 있는지 확인하여 JavaScript 변수에 저장
+    var isLoggedIn = <c:out value="${not empty sessionScope.member ? 'true' : 'false'}" />;
 
+    // 로그인 여부에 따른 경고 메시지와 폼 제출 처리
+    document.getElementById('saveForm').addEventListener('submit', function(event) {
+        if (!isLoggedIn) {
+            // 로그인되지 않은 경우 경고 메시지와 로그인 페이지로 리다이렉트
+            event.preventDefault();  // 폼 제출을 막음
+            alert('로그인이 필요합니다!');
+            window.location.href = '${pageContext.request.contextPath}/Member/login';  // 로그인 페이지로 이동
+        } else {
+            // 로그인된 경우에만 저장 작업 진행
+            alert('저장 목록에 추가되었습니다!');
+        }
+    });
+	</script>
+    
 
 </body>
 </html>

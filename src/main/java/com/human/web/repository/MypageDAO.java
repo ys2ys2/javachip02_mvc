@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.human.web.vo.MypageSchedVO;
 import com.human.web.vo.MypageVO;
 
 import lombok.AllArgsConstructor;
@@ -46,21 +47,48 @@ public class MypageDAO {
 	        return list;
 	}
 
-	//저장 목록 불러오기
+	//저장 목록 카테고리에 불러오기
 	public List<MypageVO> getSavedList(int m_idx) {
 			List<MypageVO> savedList = sqlSession.selectList(MAPPER + ".getSavedList", m_idx);
 			System.out.println("DAO에서 가져온 데이터 출력하기: " +savedList);
 			return savedList;
 	}
 	
-	//게시글 불러오기
+	//게시글 카테고리에불러오기
 	public List<MypageVO> getSavedPostList(int m_idx) {
 	    System.out.println("DAO에서 전달받은 m_idx: " + m_idx);  // m_idx 값을 확인
 	    List<MypageVO> savedPostList = sqlSession.selectList(MAPPER + ".getSavedPostList", m_idx);
 	    System.out.println("DAO에서 가져온 데이터 출력하기: " + savedPostList);  // 가져온 데이터 확인
 	    return savedPostList;
 	}
-	
+
+	//게시글 마이페이지 홈에 불러오기
+	public List<MypageVO> getSavedPostListByMidx(Integer m_idx) {
+		  return sqlSession.selectList(MAPPER + ".getSavedPostList", m_idx);
 	}
+
+	
+	//저장목록 마이페이지 홈에 불러오기
+	public List<MypageVO> getSavedListByMidx(Integer m_idx) {
+		return sqlSession.selectList(MAPPER+".getSavedList", m_idx);
+	}
+
+	//여행 일정 카테고리에 불러오기(다가오는 일정)
+	public List<MypageSchedVO> getUpcomingTrips(int m_idx) {
+		  return sqlSession.selectList(MAPPER + ".getUpcomingTrips", m_idx);
+	}
+	//여행 일정 카테고리에 불러오기(지난 일정)
+	public List<MypageSchedVO> getPastTrips(int m_idx) {
+		  return sqlSession.selectList(MAPPER + ".getPastTrips", m_idx);
+	}
+
+	public List<MypageSchedVO> getUpcomingTripsByMidx(Integer m_idx) {
+		return sqlSession.selectList(MAPPER+".getUpcomingTrips", m_idx);
+	}
+	public List<MypageSchedVO> getPastTripsByMidx(Integer m_idx) {
+		return sqlSession.selectList(MAPPER+".getPastTrips", m_idx);
+	}
+
+}
 
 

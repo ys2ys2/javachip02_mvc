@@ -2,6 +2,9 @@ package com.human.web.controller;
 
 
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.human.web.service.M_MemberService;
 import com.human.web.vo.M_MemberVO;
@@ -23,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class M_MemberController {
 
+	
 	private final M_MemberService m_memberServiceImpl;
 
     // 회원가입 페이지
@@ -30,7 +36,6 @@ public class M_MemberController {
     public String joinmain() {
         return "Member/joinmain"; // 회원가입 폼으로 이동
     }
-    
     
     //이메일 회원가입 페이지
     @GetMapping("/join")
@@ -44,6 +49,14 @@ public class M_MemberController {
     public String m_updateProfile() {
         return "Member/m_updateProfile"; // 프로필 변경
     }
+    
+    
+    //회원정보찾기
+    @GetMapping("/m_findId")
+    public String m_findId() {
+        return "Member/m_findId"; // 회원정보찾기
+    }
+    
     
     
  // 회원가입 처리 요청
@@ -66,17 +79,11 @@ public class M_MemberController {
 
         return viewName; // 처리된 뷰 이름 반환
     }
-
-   
-	
     //로그인 페이지 요청
   	@GetMapping("/login")
   	public String login() {
   		return "Member/login";
   	}
-  	
-  	
-  	
   	
  // 로그인 처리 요청
   	@PostMapping("/loginProcess")
@@ -104,6 +111,7 @@ public class M_MemberController {
   	            System.out.println("세션에 저장된 회원 정보: " + sessionMember);
   	            System.out.println("닉네임: " + sessionMember.getM_nickname());
   	            System.out.println("m_idx: " + sessionMember.getM_idx());
+  	          System.out.println("프로필 이미지 경로: " + sessionMember.getM_profile());  // 프로필 이미지 확인
   	        } else {
   	            System.out.println("세션에 저장된 회원 정보가 없습니다.");
   	        }
@@ -119,35 +127,6 @@ public class M_MemberController {
   	    return viewName;
   	}
 
-  	
-  	
-  	
-  	
-	/*
-	 * //로그인 처리 요청
-	 * 
-	 * @PostMapping("/loginProcess") public String loginProcess(String m_email,
-	 * String m_password, HttpServletRequest request, Model model) {
-	 * System.out.println("로그인 요청이 들어왔습니다: " + m_email); // 로그 추가
-	 * 
-	 * String viewName = "Member/login"; //로그인 실패시 뷰이름
-	 * 
-	 * M_MemberVO vo = m_memberServiceImpl.login(m_email, m_password);
-	 * 
-	 * //로그인 성공여부를 vo객체에 저장된 값으로 판단 if(vo != null) {//로그인 성공 //세션객체에 회원정보를
-	 * 저장함(request객체의 getSession()메소드 이용) HttpSession session =
-	 * request.getSession(); session.setAttribute("member", vo);
-	 * 
-	 * System.out.println("세션에 저장된 회원 정보: " + session.getAttribute("member"));
-	 * System.out.println("닉네임: " + vo.getM_nickname());
-	 * 
-	 * viewName = "redirect:/HomePage/mainpage";//메인 페이지 재요청
-	 * 
-	 * }else {//로그인 실패 model.addAttribute("msg", "아이디나 비밀번호가 일치하지 않습니다"); }
-	 * 
-	 * return viewName; }
-	 * 
-	 */
 	  	
 		//로그아웃 요청
 		@PostMapping("/logout")
@@ -160,39 +139,104 @@ public class M_MemberController {
 			return "redirect:/index.do";				
 		}
 		
-		
-
-		//회원정보 변경 처리 요청
+		// 회원정보 변경
 		@PostMapping("/updateProcess")
-		public String updateProcess(M_MemberVO vo, HttpServletRequest request, Model model) {
-		    
+		public String updateProcess(
+			    M_MemberVO vo, 
+			    @RequestParam("profileImage") MultipartFile profileImage,  // 프로필 이미지 파일 받기
+			    HttpServletRequest request, 
+			    Model model) {
+
 		    String viewName = "Member/m_updateProfile"; // 회원정보 변경 실패 시 반환할 뷰 이름
 
-		    // 회원 정보 업데이트 요청
-		    M_MemberVO newVo = m_memberServiceImpl.updateMember(vo);
+		    // 세션에서 기존 회원 정보를 가져옴 (기존 닉네임과 비교를 위해)
+		    HttpSession session = request.getSession();
+		    M_MemberVO sessionMember = (M_MemberVO) session.getAttribute("member");
 		    
-		    // 1. 회원 정보 변경 성공 여부 판단
+		    // 1. 닉네임이 변경되었는지 확인
+		    if (!vo.getM_nickname().equals(sessionMember.getM_nickname())) {
+		        // 닉네임이 변경되었을 경우에만 중복 체크 수행
+		        int nicknameCount = m_memberServiceImpl.checkNickname(vo.getM_nickname());
+		        if (nicknameCount > 0) {
+		            model.addAttribute("nicknameError", "닉네임이 중복되었습니다. 다른 닉네임을 사용해 주세요.");
+		            return viewName;
+		        }
+		    }
+
+		    // 2. 비밀번호 확인 값 가져오기
+		    String confirmPassword = request.getParameter("confirmPassword"); // JSP의 confirmPassword 필드값을 가져옴
+
+		    // 3. 비밀번호가 입력되지 않은 경우 처리: 비밀번호를 변경하지 않고 기존 비밀번호 유지
+		    if ((vo.getM_password() == null || vo.getM_password().isEmpty()) && 
+		        (confirmPassword == null || confirmPassword.isEmpty())) {
+		        // 비밀번호가 공란이면 기존 비밀번호 유지
+		        vo.setM_password(sessionMember.getM_password());  // 세션에서 기존 비밀번호를 유지
+		    } else {
+		        // 3.1. 비밀번호 일치 확인
+		        if (!vo.getM_password().equals(confirmPassword)) {
+		            model.addAttribute("passwordError", "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+		            return viewName;
+		        }
+
+		        // 3.2. 비밀번호 유효성 검사
+		        if (!m_memberServiceImpl.isValidPassword(vo.getM_password())) {
+		            model.addAttribute("passwordValidationError", "비밀번호는 최소 8자 이상이어야 하며, 숫자와 특수문자를 포함해야 합니다.");
+		            return viewName;
+		        }
+
+		    }
+		    // 4. 프로필 이미지 처리
+		    if (profileImage != null && !profileImage.isEmpty()) {
+		    	System.out.println("Uploaded File Name: " + profileImage.getOriginalFilename());
+		    	
+		        // 웹 접근 경로
+		    	  String webPath = "/resources/images";
+		        // 실제 이미지 파일이 저장되어야 하는 서버 컴퓨터 경로
+		    	  String filePath = session.getServletContext().getRealPath(webPath);
+//		        String filePath = "C:/Users/admin/Downloads"; 
+		        System.out.println("Actual File Path: " + filePath);  // 실제 경로 확인
+		        // 파일 저장 경로 설정
+		        String fileName = profileImage.getOriginalFilename();
+		        try {
+		            File saveFile = new File(filePath, fileName);
+		            profileImage.transferTo(saveFile); // 파일 저장
+		            vo.setM_profile(webPath +"/" + fileName); // 이미지 경로 설정
+		            System.out.println("Profile Image Path: " + vo.getM_profile()); // 경로 로그 확인
+		            
+		            // DB 업데이트 시도
+		            M_MemberVO updatedMember = m_memberServiceImpl.updateProfileImage(vo);
+		            if (updatedMember != null) {
+		                System.out.println("DB 업데이트 성공: " + updatedMember.getM_profile());
+		            } else {
+		                System.out.println("DB 업데이트 실패");
+		            }
+
+		            
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		            model.addAttribute("fileError", "파일 업로드 중 오류가 발생했습니다.");
+		            return viewName;
+		        }
+		    }
+		    
+		    // 5. 회원 정보 업데이트 요청
+		    M_MemberVO newVo = m_memberServiceImpl.updateMember(vo);
+
+		    
+		    // 6. 회원 정보 변경 성공 여부 판단
 		    if (newVo != null) {
 		        // 회원정보 변경 성공
-		        HttpSession session = request.getSession();
 		        session.removeAttribute("member");
 		        session.setAttribute("member", newVo);
 		        viewName = "redirect:/MyPage/myPageMain"; // 성공 시 메인 페이지로 리다이렉트
 		    } else {
-		        // 회원 정보 변경 실패
-		        int nicknameCount = m_memberServiceImpl.checkNickname(vo.getM_nickname());
-		        if (nicknameCount > 0) {
-		            model.addAttribute("msg", "닉네임이 중복되었습니다. 다른 닉네임을 사용해 주세요.");
-		        } else {
-		            model.addAttribute("msg", "회원정보 변경 중 오류가 발생했습니다. 변경 내용을 확인해 주세요.");
-		        }
+		        model.addAttribute("generalError", "회원정보 변경 중 오류가 발생했습니다. 변경 내용을 확인해 주세요.");
 		    }
 
-		    return viewName; // 실패 시 업데이트 페이지로 다시 이동
+		    return viewName;
 		}
 
-		
-		
+
 		
 		//회원탈퇴 요청
 		@GetMapping("/cancelProcess")
@@ -218,8 +262,83 @@ public class M_MemberController {
 		}
 		
 		
+		//회원정보 찾기
+		@PostMapping("/findIdProcess")
+		public String findIdProcess(@RequestParam("m_registration_type") String registrationType,
+									@RequestParam("m_nickname") String nickname, 
+									
+									Model model) {
+			
+			//서비스 호출하여 아이디 찾기
+			String foundId = m_memberServiceImpl.findIdByRegistrationAndNickname(registrationType, nickname);
+			
+			//찾은 아이디를 JSP 페이지에 전달
+			if(foundId != null) {
+				model.addAttribute("foundId",foundId);
+			}else {
+				model.addAttribute("errorMessage", "해당 정보로 등록된 아이디가 없습니다.");
+			}
+			
+			//아이디 찾기 결과 페이지로 이동
+			return "/Member/m_findId";
+		}
+		
+		//회원정보 찾기에서 비밀번호 재설정
+		@PostMapping("/resetPassword")
+		public String resetPassword(@RequestParam("newPassword")String newPassword,
+									@RequestParam("confirmPassword") String confirmPassword,
+									HttpSession session, Model model){
+			
+			 // 세션에서 이메일 가져오기 전에 로그 출력
+		    System.out.println("세션에서 이메일 가져오기 시도...");
+			
+			//세션에서 인증된 이메일 가져오기
+			String m_email = (String) session.getAttribute("m_email");
+			System.out.println("세션에 저장된 이메일: " +m_email);
+			
+			if(m_email == null) {
+				model.addAttribute("errorMessage", "인증 정보가 만료되었습니다. 다시 시도해주세요");
+				return "redirect:/Member/m_findId";
+			}
+			
+			
+			
+			//1. 비밀번호 일치 여부확인 
+			if(!newPassword.equals(confirmPassword)) {
+				model.addAttribute("errorMessage", "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+				return "Member/m_findId";
+			}
+			
+			//2. 비밀번호 유효성 검사
+			if(!m_memberServiceImpl.isValidPassword(newPassword)) {
+				model.addAttribute("passwordValidationError", "비밀번호는 최소 8자 이상이어야 하며 숫자와 특수문자를 포함해야 합니다.");
+				return "Member/m_findId";
+			}
+		
+			//3. 비밀번호 업데이트 로직
+			
+			try {
+				boolean isUpdated = m_memberServiceImpl.updatePassword(m_email, newPassword);
+				
+				if (isUpdated) {
+		            return "redirect:/Member/login";  // 비밀번호 변경 성공 시 로그인 페이지로 리다이렉트
+		        } else {
+		            model.addAttribute("errorMessage", "비밀번호 변경에 실패했습니다. 다시 시도해 주세요.");
+		            return "Member/m_findId";  // 업데이트 실패 시 재설정 페이지로 이동
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();  // 에러 로그 출력
+		        model.addAttribute("errorMessage", "비밀번호 변경 중 오류가 발생했습니다.");
+		        return "Member/m_findId";  // 예외 발생 시 비밀번호 재설정 페이지로 이동
+		    }
+		}
+		
 		
 }
+		
+		
+		
+
 		
   	
   

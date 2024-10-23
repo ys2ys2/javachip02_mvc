@@ -40,10 +40,10 @@
   </header>
   <!-- 상단 네비게이션 -->
   <div class="navigation">
+     <a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지 홈</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_myTrips">내 여행</a>
-     <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 여행기</a>
+     <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 게시글</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_savedList">저장목록</a>
-   	 <a href="${pageContext.request.contextPath}/MyPage/m_commentManagement">댓글관리</a>
 </div>
 
 
@@ -52,11 +52,11 @@
     <div class="profile-section">
     <h4>My BBOL BBOL BBOL</h4>
         <div class="profile-card">
-               <img src="${member.m_profile}" alt="프로필 사진" class="profile-image">
+               <img src="${pageContext.request.contextPath}${member.m_profile}" alt="프로필 사진" class="profile-image">
         
         <h3>${member.m_nickname}</h3>
-            <p>팔로워: 0 | 팔로잉: 0</p>
-            <!-- 프로필 편집 버튼 (JavaScript로 페이지 이동) -->
+        
+         
 <a href="${pageContext.request.contextPath}/Member/m_updateProfile">
     <button>프로필 편집</button>
 </a>
@@ -64,46 +64,74 @@
 </div>
 
 <div class="profile-container">
-    <!-- enctype을 추가하여 파일 업로드 가능하도록 설정 enctype="multipart/form-data"-->
     <div class="profile-form-container">
-        <form method="post" action="updateProcess" >
-       <%--     <!-- 프로필 이미지 표시 및 변경 -->
+        <form action="updateProcess" method="post" enctype="multipart/form-data">
+           <!-- 프로필 이미지 표시 및 변경 -->
     <div class="profile-image-section">
-        <img src="${member.m_profile}" alt="프로필 사진" class="profile-image" style="width:150px;height:150px;border-radius:50%;"><br>
-        <label for="m_profileImage">프로필 이미지 변경:</label>
-        <input type="file" id="m_profile" name="m_profile"><br>
+       <%-- 프로필 이미지가 없으면 기본이미지 --%>
+       <c:if test="${empty member.m_profile}" >
+           <img src="${pageContext.request.contextPath}${member.m_profile}" id="profileImage">
+       </c:if>
+       <%-- 프로필 이미지가 있으면 이미지 --%>
+       <c:if test="${!empty member.m_profile}" >
+           <img src = "${pageContext.request.contextPath}${member.m_profile}" id="profileImage">
+       </c:if>
+   </div>
+   <span id="deleteImage">x</span>
+
+   <div class="profile-btn-area">
+       <label for="imageInput">이미지 선택</label>
+       <input type="file" name="profileImage" id="imageInput" accept="image/*">
+  
+   </div>
     </div>
- --%>
+
     <!-- 회원 식별 정보 -->
     <input type="hidden" name="m_idx" value="${member.m_idx}">
     
     <!-- 이메일 (읽기 전용) -->
-    <label for="m_email">이메일:</label>
+    <label for="m_email">이메일</label>
     <input type="text" id="m_email" name="m_email" value="${member.m_email}" readonly><br>
     
     <!-- 비밀번호 -->
-    <label for="m_password">비밀번호:</label>
-    <input type="password" id="m_password" name="m_password" value="${member.m_password}"><br>
+    <label for="m_password">비밀번호</label>
+    <input type="password" id="m_password" name="m_password" ><br>
     
+  
+    <label for="confirmPassword">비밀번호 확인</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" ><br>
+  
+
     <!-- 닉네임 -->
-    <label for="m_nickname">닉네임:</label>
+    <label for="m_nickname">닉네임</label>
     <input type="text" id="m_nickname" name="m_nickname" value="${member.m_nickname}"><br>
-    <!-- 중복된 닉네임 메시지를 표시 -->
-    <c:if test="${not empty msg}">
-        <p style="color:red;">${msg}</p> <!-- 오류 메시지 빨간색으로 표시 -->
+    
+    <!-- 오류 메시지 처리 -->
+    <c:if test="${not empty passwordValidationError}">
+        <p style="color:red;">${passwordValidationError}</p>
     </c:if>
+    <c:if test="${not empty passwordError}">
+        <p style="color:red;">${passwordError}</p>
+    </c:if>
+    <c:if test="${not empty nicknameError}">
+        <p style="color:red;">${nicknameError}</p>
+    </c:if>
+    <c:if test="${not empty generalError}">
+        <p style="color:red;">${generalError}</p>
+    </c:if>
+    
+    
     <!-- 제출 버튼 -->
     <input type="submit" value="변경하기">
     
             <!-- 취소 버튼 -->
-            <input type="button" value="취소하기" onclick="location.href='../index.do'">
+            <input type="button" value="취소하기" onclick="location.href='../MyPage/myPageMain'">
             <p>
     		<a href="javascript:cancel()">회원 탈퇴</a>
 				</p>
         </form>
-    </div>
-</div>
-
+   </div>
+ 
 <br>
 
 <!-- 회원정보 변경 실패 시 오류 메시지 출력 -->

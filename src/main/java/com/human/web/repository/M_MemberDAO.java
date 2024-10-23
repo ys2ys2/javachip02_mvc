@@ -1,5 +1,6 @@
 package com.human.web.repository;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -42,11 +43,12 @@ public class M_MemberDAO {
         return -1;  // 삽입 실패 시 -1 반환
     }
     
-
+    //로그인
 	public M_MemberVO login(Map<String, String> map) {
 		M_MemberVO vo = null;//로그인 실패시 결과값
 		try {
 			vo = sqlSession.selectOne(MAPPER+".login", map);
+			
 		} catch (Exception e) {
 			System.out.println("로그인 중 예외발생");		
 			 e.printStackTrace();
@@ -118,7 +120,7 @@ public class M_MemberDAO {
 	        return memberVO;
 	    }
 
-
+	    //회원정보 변경
 	    public int updateMember(M_MemberVO vo) {
 	        int result = 0;
 	        try {
@@ -131,6 +133,7 @@ public class M_MemberDAO {
 	        }
 	        return result;
 	    }
+	    
 
 		//회원정보 조회
 		public M_MemberVO getMember(int m_idx) {
@@ -162,6 +165,34 @@ public class M_MemberDAO {
 			return result;
 		}
 
+		//프로필 이미지 변경
+		public int updateProfileImage(M_MemberVO vo) {
+			return sqlSession.update(MAPPER +".updateProfileImage",vo);
+		}
+
+		
+		////회원정보 변경- 아이디 찾기
+		public String findIdByRegistrationAndNickname(String registrationType, String nickname) {
+			
+			Map<String, Object>params = new HashMap<>();
+			params.put("registrationType", registrationType);
+			params.put("nickname", nickname);
+			
+			return sqlSession.selectOne(MAPPER + ".findIdByRegistrationAndNickname", params);
+		}
+
+
+		public int updatePassword(String m_email, String newPassword) {
+			 Map<String, Object> params = new HashMap<>();
+			 params.put("m_email", m_email);   
+			 params.put("newPassword", newPassword);  // 새 비밀번호
+
+			    // SQL Mapper에 파라미터 전달하여 비밀번호 업데이트 실행
+			    return sqlSession.update(MAPPER+".updatePassword", params);
+			}
+		
+
 	}
+
 
   

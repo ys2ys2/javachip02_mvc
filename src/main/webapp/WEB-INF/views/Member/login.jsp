@@ -65,7 +65,7 @@
         <!-- 로그인 옵션 및 링크 -->
         <div class="bbol-login-options">
             <label><input type="checkbox"> 로그인 유지</label>
-            <a href="#">아이디 · 비밀번호 찾기</a>
+            <a href="${pageContext.request.contextPath}/Member/m_findId">아이디 · 비밀번호 찾기</a>
         </div>
 
         <!-- 로그인 버튼 -->
@@ -90,12 +90,14 @@
     </form>
 </div>
 
-  
-    <!-- 로그인 실패 시 오류 메시지 출력 -->
-<!-- 로그인 실패 시 오류 메시지 출력 -->
+  <!-- 로그인 실패 시 오류 메시지 출력 -->
 <c:if test="${not empty msg}">
-		<p> ${msg} </p>
-	</c:if>
+    <script type="text/javascript">
+        alert('${msg}');  // 서버에서 전달된 메시지를 alert으로 표시
+    </script>
+</c:if>
+  
+
 <!-- 카카오 SDK 추가 -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
   	<script type="text/javascript">

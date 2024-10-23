@@ -11,44 +11,94 @@
         	LIMIT 5          -- 상위 5개 데이터만 가져옴
 		</select>
 		
- <!-- 로그인된 사용자의 저장 목록을 가져오는 SQL -->
-    <select id="getSavedList" resultType="com.human.web.vo.MypageVO">
-        SELECT 
-            h.addr1,
-            h.firstimage,
-            h.title,
-            h.likes
-        FROM 
-            m_mypage m
-        JOIN 
-            hotplace h ON m.contentid = h.contentid
-        WHERE 
-            m.m_idx = #{m_idx}
+		
+	 	<!-- 로그인된 사용자의 저장 목록을 가져오는 SQL -->
+	    <select id="getSavedList" resultType="com.human.web.vo.MypageVO">
+	        SELECT 
+	            h.addr1,
+	            h.firstimage,
+	            h.title,
+	            h.likes
+	        FROM 
+	            m_mypage m
+	        JOIN 
+	            hotplace h ON m.contentid = h.contentid
+	        WHERE 
+	            m.m_idx = #{m_idx}
+	    </select>
+
+
+		<select id="getSavedPostList"  resultType="com.human.web.vo.MypageVO">
+		SELECT 
+		    p.post_writer AS postWriter,         -- VO 필드와 매핑
+		    p.post_content AS postContent,       -- VO 필드와 매핑
+		    p.post_date AS postDate,             -- VO 필드와 매핑
+		    p.like_count AS likeCount,           -- VO 필드와 매핑
+		    p.comment_count AS commentCount      -- VO 필드와 매핑
+		FROM 
+		    m_mypage m
+		JOIN 
+		    post p ON m.m_idx = p.m_idx          -- m_mypage와 post 테이블의 m_idx로 조인
+		WHERE 
+		    m.m_idx = #{m_idx};                  -- 로그인된 사용자의 m_idx로 필터링
+		</select>
+		
+			 
+			 
+		<!-- MypageMapper.xml 파일에 정의된 쿼리 -->
+		<insert id="insertMypage" parameterType="com.human.web.vo.MypageVO">
+		    INSERT INTO m_mypage (m_idx)
+		    VALUES (#{m_idx});
+		</insert>
+
+
+		 <!-- 다가오는 여행 일정 조회 -->
+    <select id="getUpcomingTrips" parameterType="int" resultType="com.human.web.vo.MypageSchedVO">
+        <![CDATA[
+        SELECT
+            ts.period_start,
+            ts.period_end,
+            ts.title AS t_title,
+            ts.city_name,
+            ts.place_name,
+            ts.place_address,
+            ts.m_idx                
+        FROM
+            M_Mypage mm
+        JOIN
+            travel_schedule ts ON mm.m_idx = ts.m_idx
+        WHERE
+            mm.m_idx = #{m_idx}
+            AND ts.period_end >= CURDATE()
+        ORDER BY
+            ts.period_start ASC
+        ]]>
     </select>
 
-
-<select id="getSavedPostList"  resultType="com.human.web.vo.MypageVO">
-SELECT 
-    p.post_writer AS postWriter,         -- VO 필드와 매핑
-    p.post_content AS postContent,       -- VO 필드와 매핑
-    p.post_date AS postDate,             -- VO 필드와 매핑
-    p.like_count AS likeCount,           -- VO 필드와 매핑
-    p.comment_count AS commentCount      -- VO 필드와 매핑
-FROM 
-    m_mypage m
-JOIN 
-    post p ON m.m_idx = p.m_idx          -- m_mypage와 post 테이블의 m_idx로 조인
-WHERE 
-    m.m_idx = #{m_idx};                  -- 로그인된 사용자의 m_idx로 필터링
-</select>
-
- 
-<!-- MypageMapper.xml 파일에 정의된 쿼리 -->
-<insert id="insertMypage" parameterType="com.human.web.vo.MypageVO">
-    INSERT INTO m_mypage (m_idx)
-    VALUES (#{m_idx});
-</insert>
-
+    <!-- 지난 여행 일정 조회 -->
+    <select id="getPastTrips" parameterType="int" resultType="com.human.web.vo.MypageSchedVO">
+        <![CDATA[
+        SELECT
+            ts.period_start,
+            ts.period_end,
+            ts.title AS t_title,
+            ts.city_name,
+            ts.place_name,
+            ts.place_address,
+            ts.m_idx                 
+        FROM
+            M_Mypage mm
+        JOIN
+            travel_schedule ts ON mm.m_idx = ts.m_idx
+        WHERE
+            mm.m_idx = #{m_idx}
+            AND ts.period_end IS NOT NULL
+            AND DATE(ts.period_end) < CURDATE()
+        ORDER BY
+            ts.period_start ASC
+        ]]>
+    </select>
+	
 
 </mapper>
 
