@@ -207,6 +207,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (updatedText) {
                 // 서버로 데이터 전송 (POST 방식)
                 fetch('/BBOL/HotPlace/update', {
+                fetch('/BBOL/HotPlace/update', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -219,6 +220,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         alert('수정 완료!');
                         window.location.reload(); // 페이지 새로고침으로 댓글 갱신
                     } else {
+                        alert('수정 실패!');
                         alert('수정 실패!');
 						window.location.reload();
                     }
@@ -316,6 +318,57 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 console.log("삭제 취소됨"); // 사용자가 삭제를 취소했는지 확인
                 return;
+
+// 댓글 삭제하기
+
+document.addEventListener("DOMContentLoaded", function() {
+    // 모든 삭제 버튼에 이벤트 추가
+    const deleteButtons = document.querySelectorAll('.delbtn');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // 삭제 확인 경고창 표시
+            const confirmDelete = confirm("정말 삭제하시겠습니까?");
+
+            if (confirmDelete) {
+                // 삭제할 댓글의 ID 가져오기
+                const talkIdx = this.getAttribute("data-talk-id");
+
+                if (!talkIdx) {
+                    console.error("talkIdx를 찾을 수 없습니다.");
+                    return;
+                }
+
+                // 서버로 데이터 전송 (POST 방식)
+                fetch('/BBOL/HotPlace/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'talkIdx=' + encodeURIComponent(talkIdx)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("네트워크 응답이 올바르지 않습니다.");
+                    }
+                    return response.text();
+                })
+                .then(result => {
+                    if (result.trim() === 'success') {
+                        alert('댓글이 삭제되었습니다.');
+                        window.location.reload(); // 페이지 새로고침으로 댓글 갱신
+                    } else {
+                        alert('댓글 삭제에 실패했습니다.');
+                        window.location.reload(); // 페이지 새로고침으로 댓글 갱신
+                    }
+                })
+                .catch(error => {
+                    console.error('삭제 중 오류:', error); // 삭제 중 발생한 오류 출력
+                    window.location.reload(); // 페이지 새로고침으로 댓글 갱신
+                });
+            } else {
+                console.log("삭제 취소됨"); // 사용자가 삭제를 취소했는지 확인
+                return;
             }
         });
     });
@@ -333,7 +386,7 @@ $(document).ready(function() {
         var page = $(this).data('page'); // 버튼의 data-page 속성에서 페이지 번호 가져오기
         
         $.ajax({
-            url: '/BBOL/HotPlace/hotplace2/comments', // URL 설정
+            url: '/BBOL/HotPlace/' + contentid + '/comments', // 서버의 올바른 URL
             type: 'GET',
             data: { page: page }, // 페이지 번호 전달
             dataType: 'json', // JSON으로 받음
@@ -348,7 +401,7 @@ $(document).ready(function() {
                     $('.comments-section').html(talkList.map(talk => 
                         `<div class="comment" data-talk-id="${talk.talkIdx}">
                             <div class="user-info">
-                                <img src="/BBOL/resources/images/user-placeholder.png" alt="user">
+                                <img src="${talk.talkProfile}" alt="user-profile">
                                 <span class="username">${talk.talkNickname}</span>
                                 <span class="date">${talk.talkUpdatedAt ? talk.talkUpdatedAt : talk.talkCreatedAt}</span>
                             </div>

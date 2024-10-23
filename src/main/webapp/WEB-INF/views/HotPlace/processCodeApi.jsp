@@ -4,10 +4,12 @@
 <%@ page import="org.json.JSONObject, org.json.JSONArray" %>
 <%@ page import="java.io.IOException, java.util.ArrayList, java.util.HashMap, java.util.List, java.util.Map" %>
 <%@ page import="java.util.Random" %>
+<%@ page import="java.util.Random" %>
 
 <%
             // 사용자 입력값 가져오기
             String regionCode = request.getParameter("regionCode");
+			
 
             // 공공데이터 API 호출 설정
             String apiKey = "rBOARBGR6WewzR%2BzYF%2BkQmTdL%2FuXaOHo8Xi8oSkMFzA%2F7fiYa80eViuXxb9mLDalaBCEyQPIIt3abBnIMVwU0Q%3D%3D";
@@ -15,7 +17,7 @@
             
             // 랜덤 페이지 번호 생성 (1부터 10까지 숫자)
             Random random = new Random();
-            int randomPage = random.nextInt(20) + 10;
+            int randomPage = random.nextInt(20) + 5;
             
             
             String params = "?serviceKey=" + apiKey
@@ -25,7 +27,9 @@
                           + "&arrange=O" // 정렬구분 (A=제목순, C=수정일순, D=생성일순) 대표이미지가 반드시 있는 정렬 (O=제목순, Q=수정일순, R=생성일순)
                           + "&contentTypeId=12" // 조회 타입 (관광지)
                           + "&numOfRows=10" // 한 번에 조회할 개수
+                          + "&numOfRows=10" // 한 번에 조회할 개수
                           + "&areaCode=" + regionCode
+                          + "&pageNo=" + randomPage; // 페이지 번호 랜덤
                           + "&pageNo=" + randomPage; // 페이지 번호 랜덤
 
             try {
@@ -110,6 +114,7 @@
     <title>공공데이터 API 결과</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/processCodeApi.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/processCodeApi.css">
     
 </head>
 <body>
@@ -120,6 +125,7 @@
         <!-- 콘텐츠 ID로 상세정보 검색하기 입력 폼 추가 -->
         <div class="search-detail-container">
             <h2>콘텐츠 ID로 상세정보 검색하기</h2>
+            <form action="${pageContext.request.contextPath}/HotPlace/processDetailApi" method="post">
             <form action="${pageContext.request.contextPath}/HotPlace/processDetailApi" method="post">
                 <label for="contentIds">콘텐츠 ID:</label>
                 <input type="text" id="contentIds" name="contentIds" placeholder="체크된 컨텐츠 ID가 여기에 표시됩니다." required>

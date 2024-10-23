@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.TravelPostMapper">
+
+<!-- RandomTravelPost 가져오기 -->
+	<select id ="getRandomTravelPost" parameterType="int" resultType="com.human.web.vo.TravelPostVO">
+		
+		SELECT
+        	t.content,  
+            tg.tag_name        
+		FROM
+			tb_travel_post t
+		JOIN
+			tb_travel_tags tg
+		ON
+			t.tp_idx = tg.tp_idx
+		ORDER BY RAND()
+		LIMIT #{limit}	
+		
+	</select>
+
+</mapper> 

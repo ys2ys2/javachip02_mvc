@@ -16,20 +16,25 @@
 	        talk_created_at AS talkCreatedAt, 
 	        talk_updated_at AS talkUpdatedAt
 	    FROM talk
+    	WHERE contentid = #{contentid}  <!-- contentid 조건 추가 -->
+    	AND type = #{type}              <!-- type 조건 추가 -->
 	    ORDER BY GREATEST(talk_created_at, talk_updated_at) DESC
 	    LIMIT #{limit} OFFSET #{offset}
 	</select>
 
     <!-- 댓글 총 개수 가져오기 -->
     <select id="getTotalTalkCount" resultType="int">
-        SELECT COUNT(*) AS total FROM talk
+        SELECT COUNT(*) AS talk
+        FROM talk
+        WHERE contentid = #{contentid} <!-- contentid 조건 추가 -->
+        AND type = #{type}              <!-- type 조건 추가 -->
     </select>
 
     <!-- 댓글 삽입 -->
-    <insert id="insertTalk" parameterType="com.human.web.vo.TalkVO">
-        INSERT INTO talk (talk_nickname, talk_email, talk_text, talk_profile)
-        VALUES (#{talkNickname}, #{talkEmail}, #{talkText}, #{talkProfile})
-    </insert>
+	<insert id="insertTalk" parameterType="com.human.web.vo.TalkVO">
+        INSERT INTO talk (talk_nickname, talk_email, talk_text, talk_profile, contentid, type)
+        VALUES (#{talkNickname}, #{talkEmail}, #{talkText}, #{talkProfile}, #{contentid}, #{type})
+	</insert>
 
     <!-- 댓글 삭제 -->
     <delete id="deleteTalk" parameterType="int">

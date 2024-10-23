@@ -18,24 +18,28 @@ public class TalkServiceImpl implements TalkService {
 
     // 댓글 리스트
     @Override
-    public List<TalkVO> getTalkList(int offset, int limit) {
-        // 페이지네이션을 위한 offset과 limit 값을 Map에 담아 DAO로 전달
+    public List<TalkVO> getTalkList(int contentid, String type, int offset, int limit) {
         Map<String, Object> params = new HashMap<>();
+        params.put("contentid", contentid);
+        params.put("type", type);
         params.put("offset", offset);
         params.put("limit", limit);
-        return talkDAO.getTalkList(params); 
+        return talkDAO.getTalkList(params);
     }
 
-    // 전체 댓글 수
+    // 전체 댓글 수 (type 필드 추가)
     @Override
-    public int getTotalTalkCount() {
-        return talkDAO.getTotalTalkCount();
+    public int getTotalTalkCount(int contentid, String type) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("contentid", contentid);
+        params.put("type", type); // type을 함께 전달
+        return talkDAO.getTotalTalkCount(params);
     }
 
     // 댓글 삽입
     @Override
     public int insertTalk(TalkVO talkVO) {
-        return talkDAO.insertTalk(talkVO);
+        return talkDAO.insertTalk(talkVO); // talkVO 객체에 이미 type 필드가 있음
     }
 
     // 댓글 삭제
@@ -47,7 +51,7 @@ public class TalkServiceImpl implements TalkService {
     // 댓글 수정
     @Override
     public int updateTalk(int talkIdx, String updatedText) {
-    	return talkDAO.updateTalk(talkIdx, updatedText);
+        return talkDAO.updateTalk(talkIdx, updatedText);
     }
 
     // 핫플레이스 아이템 리스트
@@ -55,7 +59,5 @@ public class TalkServiceImpl implements TalkService {
     public List<Map<String, String>> getItemList(int offset, int limit) {
         return talkDAO.getItemList(offset, limit);
     }
-    
-    
-    
+
 }

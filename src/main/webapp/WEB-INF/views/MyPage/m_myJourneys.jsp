@@ -37,6 +37,7 @@
     </div>
  
   </header>
+  
   <!-- 상단 네비게이션 -->
   <div class="navigation">
    	<a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지 홈</a>
