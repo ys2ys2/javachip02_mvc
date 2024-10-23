@@ -18,14 +18,12 @@ public class HomeController {
 	public String home() {
 		return "redirect:/HomePage/mainpage";
 	}
-
-	// 403에러
-
 	@GetMapping("/index.do")
 	public String index() {
 		return "HomePage/mainpage";
 	}
-
+	
+	// 403에러
 	@GetMapping("/error/errorPage")
 	public String errorPage() {
 		return "error/errorPage";
