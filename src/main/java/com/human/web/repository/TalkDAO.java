@@ -49,6 +49,7 @@ public class TalkDAO {
 
     // 댓글 수정
     public int updateTalk(int talkIdx, String updatedText) {
+    	
         // 파라미터를 Map에 담기
         Map<String, Object> params = new HashMap<>();
         params.put("talkIdx", talkIdx);
