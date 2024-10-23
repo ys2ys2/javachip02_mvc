@@ -16,7 +16,7 @@ public class HomeController {
 	// 메인페이지
 	@GetMapping("/")
 	public String home() {
-	    return "redirect:/HomePage/mainpage";
+		return "redirect:/HomePage/mainpage";
 	}
 
 	// 403에러
@@ -204,7 +204,7 @@ public class HomeController {
 	public String travel_Seoul() {
 		return "RecoSpot/travel_Seoul";
 	}
-	
+
 	// 여행일정 페이지
 	@GetMapping("/TripSched/tripSched")
 	public String tripSched() {

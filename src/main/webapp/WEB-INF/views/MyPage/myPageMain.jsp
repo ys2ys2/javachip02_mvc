@@ -49,81 +49,167 @@
   </header>
   <!-- 상단 네비게이션 -->
   <div class="navigation">
+   	<a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지 홈</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_myTrips">내 여행</a>
-     <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 여행기</a>
+     <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 게시글</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_savedList">저장목록</a>
-   	 <a href="${pageContext.request.contextPath}/MyPage/m_commentManagement">댓글관리</a>
 </div>
 
 <div class="container">
 
-    <!-- 왼쪽 프로필 영역 -->
+     <!-- 왼쪽 프로필 영역 -->
     <div class="profile-section">
     <h4>My BBOL BBOL BBOL</h4>
         <div class="profile-card">
-            <img src="${pageContext.request.contextPath}/resources/images/profile.jpg" alt="프로필 사진" class="profile-image">
-            <h3>박옥수수</h3>
-            <p>팔로워: 0 | 팔로잉: 0</p>
-            <button onclick="openProfileModal()">프로필 편집</button>
-        </div>
-    </div>
-<%-- <!-- 모달 창 잠시만 주석 -->
-<div id="profileModal" class="modal">
-    <div class="modal-content">
-        <h2>내 프로필 편집</h2>
+               <img src="${pageContext.request.contextPath}${member.m_profile}" alt="프로필 사진" class="profile-image">
+        
+        <h3>${member.m_nickname}</h3>
+         
+<a href="${pageContext.request.contextPath}/Member/m_updateProfile">
+    <button>프로필 편집</button>
+</a>
 
-        <form id="profileForm" enctype="multipart/form-data">
-            <!-- 프로필 이미지 변경 -->
-            <label for="profileImage">프로필 이미지</label>
-            <input type="file" id="profileImage" name="profileImage">
-            
-            <!-- 닉네임 변경 -->
-            <label for="nickname">닉네임*</label>
-            <input type="text" id="nickname" name="nickname" value="${member.m_nickname}" onkeyup="checkNickname(this.value)">
-            <span id="nicknameStatus"></span>
-
-          
-            <button type="button" onclick="updateProfile()">확인</button>
-        </form>
-
-        <button onclick="closeProfileModal()">취소</button>
-    </div>
-</div> --%>
     <!-- 오른쪽 콘텐츠 영역 -->
     <div class="content-section">
 
         <!-- 다가오는 여행과 내 여행기 (두 개가 나란히 위치) -->
         <div class="top-content">
-            <!-- 다가오는 여행 -->
-            <div id="my-trips" class="upcoming-trips">
-                <h2>다가오는 여행</h2>
-               <button class="black-button">일정 추가</button>
-                <div class="content-box"></div>
-            </div>
+            <!-- 다가오는 여행 섹션 -->
+    <div class="section">
+        <div class="section-header">
+            <h3>다가오는 여행</h3>
+        </div>
+        <div class="section-content">
+            <c:choose>
+                <c:when test="${not empty upcomingTrips}">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>여행 시작 날짜</th>
+                                <th>여행 끝 날짜</th>
+                                <th>여행기 제목</th>
+                                <th>도시 이름</th>
+                                <th>여행 장소</th>
+                                <th>주소</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <c:forEach var="trip" items="${upcomingTrips}">
+    <!-- 배열에서 데이터를 순환하여 표시 -->
+    <tr>
+        <td><fmt:formatDate value="${trip.period_start}" pattern="yyyy-MM-dd" /></td>
+        <td><fmt:formatDate value="${trip.period_end}" pattern="yyyy-MM-dd" /></td>
+        <td>${trip.t_title}</td>
+        <td>${trip.city_name}</td>
+        <td>${trip.place_name}</td>
+        <td>${trip.place_address}</td>
+    </tr>
+</c:forEach>
 
+                        </tbody>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <p>다가오는 여행 일정이 없습니다.</p>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
             <!-- 내 여행기 -->
             <div id="my-journeys" class="my-journeys">
-                <h2>내 여행기</h2>
+                <h2>내 게시글</h2>
                 <button class="black-button">글쓰기</button>
-                <div class="content-box"></div>
+                <div class="content-box">
+                 <div class="saved-post-list">
+            <c:if test="${not empty savedPostList}">
+                <c:forEach var="post" items="${savedPostList}" begin="0" end="1"> <!-- 게시글 2개만 출력 -->
+                    <div class="post-item">
+                        <!-- 게시글 상단: 작성자와 작성 날짜 -->
+                        <div class="post-header">
+                            <div class="post-writer">${post.postWriter}</div>
+                            <div class="post-date">${post.postDate}</div>
+                        </div>
+                        
+                        <!-- 게시글 내용 -->
+                        <div class="post-content">
+                            ${post.postContent}
+                        </div>
+                        
+                        <!-- 게시글 하단: 좋아요 수와 댓글 수 -->
+                        <div class="post-footer">
+                            <span><i class="fa fa-heart"></i> ${post.likeCount}</span>
+                            <span><i class="fa fa-comment"></i> ${post.commentCount}</span>
+                        </div>
+                    </div>
+                </c:forEach>
+            </c:if>
+                
+                </div>
             </div>
         </div>
 
-        <!-- 지난 여행과 나의 저장목록 (두 개가 나란히 위치) -->
-        <div class="middle-content">
-            <!-- 지난 여행 -->
-            <div id="my-past-trips" class="past-trips">
-                <h2>지난 여행</h2>
-                <div class="content-box"></div>
-            </div>
+        <!-- 지난 여행 섹션 -->
+    <div class="section">
+        <div class="section-header">
+            <h3>지난 여행</h3>
+        </div>
+        <div class="section-content">
+            <c:choose>
+                <c:when test="${not empty pastTrips}">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>여행 시작 날짜</th>
+                                <th>여행 끝 날짜</th>
+                                <th>여행기 제목</th>
+                                <th>도시 이름</th>
+                                <th>여행 장소</th>
+                                <th>주소</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="trip" items="${pastTrips}">
+    <!-- 배열에서 데이터를 순환하여 표시 -->
+    <tr>
+        <td><fmt:formatDate value="${trip.period_start}" pattern="yyyy-MM-dd" /></td>
+        <td><fmt:formatDate value="${trip.period_end}" pattern="yyyy-MM-dd" /></td>
+        <td>${trip.t_title}</td>
+        <td>${trip.city_name}</td>
+        <td>${trip.place_name}</td>
+        <td>${trip.place_address}</td>
+    </tr>
+</c:forEach>
 
+                        </tbody>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <p>지난 여행 기록이 없습니다.</p>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+</div>
+
+	<div class="m_content-section-header">
             <!-- 나의 저장목록 -->
-            <div id="my-saved-list" class="my-saved-list">
-                <h2>나의 저장목록</h2>
-                <div class="content-box"></div>
-            </div>
-        </div>
-
+          <c:if test="${not empty savedList}">
+          <div class="m_saved-list">
+          	<c:forEach var="item" items="${savedList}">
+          	<div class="m_saved-item">
+			<img src="${item.firstimage}" alt="${item.title}" class="m_saved-image">   	
+          	<div class="m_saved-info">
+          		 <h4>${item.title}</h4>
+                    <p>❤ ${item.likes}</p>
+                    <p>${item.addr1}</p>
+          	</div>
+          	</div>
+          	<hr>         	
+          	</c:forEach>
+          </div>
+          </c:if>
+          </div>
+          
       	<!-- 추천 핫플레이스 섹션 -->
 			<div class="m_hotplaces">
 		    <h2>BBOL BBOL BBOL 추천 핫플레이스</h2>
@@ -131,13 +217,13 @@
 		    <!-- 콘텐츠를 보여줄 content-box -->
 		    <div class="m_content-box">
 		        <!-- c:forEach를 사용하여 m_mypageList를 반복 처리 -->
-		        <c:forEach var="mypage" items="${m_mypageList}">
+		        <c:forEach var="hotplace" items="${hotplaceList}">
 		            <div class="m_hotplace-item">
 		                <!-- 이미지 출력 (firstimage) -->
-		                <img src="${mypage.firstimage}" alt="${mypage.title}">
+		                <img src="${hotplace.firstimage}" alt="${hotplace.title}">
 		
 		                <!-- 제목 출력 (title) -->
-		                <h3>${mypage.title}</h3>
+		                <h3>${hotplace.title}</h3>
 		            </div>
 		        </c:forEach>
 		        
@@ -145,8 +231,6 @@
 		</div>
 </div>
 </div>
+</div>
 </body>
-   <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/js/m_profile.js"></script>
 </html>

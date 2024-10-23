@@ -1,39 +1,50 @@
 package com.human.web.vo;
 
-import java.sql.Timestamp;
-
 public class CommentVO {
     private int commentId;
     private int postId;
-    private String username;
-    private String content;
-    private Timestamp createdAt;
+    private String commentWriter;
+    private String commentContent;
+    private String commentDate;  // 날짜가 문자열로 저장될 경우
 
-    // 기본 생성자
-    public CommentVO() {}
-
-    // 모든 필드를 포함한 생성자
-    public CommentVO(int commentId, int postId, String username, String content, Timestamp createdAt) {
-        this.commentId = commentId;
-        this.postId = postId;
-        this.username = username;
-        this.content = content;
-        this.createdAt = createdAt;
+    // Getters and Setters
+    public int getCommentId() {
+        return commentId;
     }
 
-    // Getter 및 Setter 메소드
-    public int getCommentId() { return commentId; }
-    public void setCommentId(int commentId) { this.commentId = commentId; }
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
 
-    public int getPostId() { return postId; }
-    public void setPostId(int postId) { this.postId = postId; }
+    public int getPostId() {
+        return postId;
+    }
 
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
 
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
+    public String getCommentWriter() {
+        return commentWriter;
+    }
 
-    public Timestamp getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    public void setCommentWriter(String commentWriter) {
+        this.commentWriter = commentWriter;
+    }
+
+    public String getCommentContent() {
+        return commentContent;
+    }
+
+    public void setCommentContent(String commentContent) {
+        this.commentContent = commentContent;
+    }
+
+    public String getCommentDate() {
+        return commentDate;
+    }
+
+    public void setCommentDate(String commentDate) {
+        this.commentDate = commentDate;
+    }
 }

@@ -1,14 +1,15 @@
 
 
 .navigation {
-	position: fixed;
-	top: 120px; /* 상단에서 100px 아래로 고정 */
-	left: 350px; /* 왼쪽에서 100px 오른쪽으로 고정 */
-	padding: 15px 20px;
-	display: flex;
-	justify-content: flex-start; /* 항목을 왼쪽 정렬 */
-	gap: 40px;
-	z-index: 1000; /* 다른 요소들 위에 위치하도록 설정 */
+    position: absolute;
+    top: 130px; /* 뷰포트 기준으로 상단에서 120px */
+    left: 340px; /* 뷰포트 기준으로 왼쪽에서 250px */
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    z-index: 1000; /* 다른 요소보다 위에 배치 */
+    background-color: white; /* 배경색 설정 (필요에 따라 조정) */
 }
 
 .navigation a {
@@ -67,6 +68,7 @@
 	justify-content: space-between;
 	gap: 20px;
 	margin-bottom: 20px;
+	flex-direction: row; /* 가로로 정렬하도록 변경 */
 }
 
 .upcoming-trips, .my-journeys, .past-trips, .my-saved-list {
@@ -141,3 +143,5 @@ h2 {
 	padding-top: 2px;
 	text-align: center;
 }
+
+

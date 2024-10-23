@@ -42,7 +42,11 @@ public class MailSend extends HttpServlet {
             return;
         }
 
-        
+        // 세션에 이메일 저장
+        HttpSession httpSession = request.getSession();
+        httpSession.setAttribute("m_email", email);  // 세션에 이메일 저장
+        System.out.println("세션에 이메일 저장됨: " + email);
+
         
 
         // SMTP 서버 설정
@@ -77,14 +81,14 @@ public class MailSend extends HttpServlet {
 
             // 인증번호 생성
             String code = CodeGenerator.generateCode();  // 6자리 랜덤 숫자 생성
-            HttpSession httpSession = request.getSession(); // 세션에 인증번호 저장
+//            HttpSession httpSession = request.getSession(); // 세션에 인증번호 저장
             httpSession.setAttribute("authCode", code);  // 세션에 인증번호 저장
 
             // 메일 제목 설정
-            msg.setSubject("이메일 인증번호", "UTF-8");
+            msg.setSubject("BBOLBBOLBBOL 이메일 인증번호", "UTF-8");
 
             // 이메일 본문 설정 (생성된 인증번호 포함)
-            msg.setText("인증번호: " + code, "UTF-8");
+            msg.setText("이메일 인증번호: " + code, "UTF-8");
 
             // 메일 헤더 설정
             msg.setHeader("Content-Type", "text/html");

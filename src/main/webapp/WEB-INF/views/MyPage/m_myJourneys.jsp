@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css"> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/m_myJourneys.css"> 
-<title>마이페이지 메인</title>
+<title>게시글</title>
 </head>
 <body>
   <!-- 어두운 배경 -->
@@ -48,52 +48,65 @@
   
   <!-- 상단 네비게이션 -->
   <div class="navigation">
- 	<a href="${pageContext.request.contextPath}/MyPage/m_myTrips">내 여행</a>
-     <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 여행기</a>
-       <a href="${pageContext.request.contextPath}/MyPage/m_savedList">저장목록</a>
-    <a href="${pageContext.request.contextPath}/MyPage/m_commentManagement">댓글관리</a>
+   	<a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지 홈</a>
+     <a href="${pageContext.request.contextPath}/MyPage/m_myTrips">내 여행</a>
+     <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 게시글</a>
+     <a href="${pageContext.request.contextPath}/MyPage/m_savedList">저장목록</a>
+   	
 </div>
 
 <div class="container">
-
     <!-- 왼쪽 프로필 영역 -->
-    <div class="profile-section">
+       <div class="profile-section">
     <h4>My BBOL BBOL BBOL</h4>
         <div class="profile-card">
-            <img src="${pageContext.request.contextPath}/resources/images/profile.jpg" alt="프로필 사진" class="profile-image">
-            <h3>박옥수수</h3>
-            <p>팔로워: 0 | 팔로잉: 0</p>
-            <button onclick="location.href='editProfile.jsp'">프로필 편집</button>
-        </div>
-    </div>
+               <img src="${pageContext.request.contextPath}${member.m_profile}" alt="프로필 사진" class="profile-image">
+        
+        <h3>${member.m_nickname}</h3>
+         
+<a href="${pageContext.request.contextPath}/Member/m_updateProfile">
+    <button>프로필 편집</button>
+</a>
 
-   <!-- 오른쪽 콘텐츠 영역 (나의 여행기) -->
+    <!-- 게시글 리스트를 포함 -->
     <div class="content-section">
+        <h3>내 게시글</h3>
 
-        <!-- 나의 여행기 섹션 -->
-        <div class="j_section">
-            <div class="j_section-header">
-                <h3>나의 여행기</h3>
-            </div>
-            <div class="j_section-content">
-                <!-- 리스트 형식의 여행기 콘텐츠가 나열될 영역 -->
-                <div class="journey-list">
-                    <!-- 데이터가 없으므로 기본 텍스트로 설정 -->
-                    <div class="journey-item">
-                        <img src="${pageContext.request.contextPath}/resources/images/journey_image1.jpg" alt="여행 이미지">
-                        <div class="journey-info">
-                            <h4>여행 제목</h4>
-                            <p>여행 설명 텍스트가 여기에 표시됩니다.</p>
-                            <span>TRAVEL: 2024.09.03 ~ 2024.09.13</span>
+        <div class="saved-post-list">
+            <c:if test="${not empty savedPostList}">
+                <c:forEach var="post" items="${savedPostList}">
+                    <div class="post-item">
+                        <!-- 게시글 상단: 작성자와 작성 날짜 -->
+                        <div class="post-header">
+                            <div class="post-writer">${post.postWriter}</div>
+                            <div class="post-date">${post.postDate}</div>
+                        </div>
+                        
+                        <!-- 게시글 내용 -->
+                        <div class="post-content">
+                            ${post.postContent}
+                        </div>
+                        
+                        <!-- 게시글 하단: 좋아요 수와 댓글 수 -->
+                        <div class="post-footer">
+                            <span><i class="fa fa-heart"></i> ${post.likeCount}</span>
+                            <span><i class="fa fa-comment"></i> ${post.commentCount}</span>
                         </div>
                     </div>
-                    <!-- 더 많은 여행 항목을 여기에 추가 가능 -->
-                </div>
-            </div>
+                </c:forEach>
+            </c:if>
         </div>
+
+        <!-- savedList가 비어있는 경우 표시 -->
+        <c:if test="${empty savedPostList}">
+            <p>저장된 게시글이 없습니다.</p>
+        </c:if>
     </div>
 </div>
+
+    <!-- savedList가 비어있는 경우 표시 -->
+    <c:if test="${empty savedPostList}">
+        <p>저장된 게시글이 없습니다.</p>
+    </c:if>
 </body>
-   <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
 </html>

@@ -9,27 +9,55 @@
     
     <!-- Root Context: defines shared resources visible to all other web components -->
 
-    <!-- MySQL 데이터베이스 설정 -->
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/webdb?characterEncoding=UTF-8&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC"/>
-        <property name="username" value="web_dev" />
-        <property name="password" value="1234" />
-    </bean>
+	<!-- 오라클 관련 설정 
+	<bean id="dataSource"
+		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="sql_dev" />
+		<property name="password" value="1234" />	  
+	</bean>
+	-->
+	
+	<!-- MySQL 관련 설정 -->
+	<bean id="dataSource"
+		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/webdb?
+									characterEncoding=UTF-8
+									&amp;
+									useSSL=false
+									&amp;
+									allowPublicKeyRetrieval=true
+									&amp;
+									serverTimezone=UTC"/>
+		<property name="username" value="web_dev" />
+		<property name="password" value="1234" />	  
+	</bean>	
+	
+	<!-- MyBatis 관련 빈 등록 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource"/>
+	    <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
+	    <property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml" />
+	</bean>
+		
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+	    <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+		
+	<!--파일 업로드를 위한 MutipartResolver 구현체 CommonsMultipartResolver  bean 등록-> 
+	CommonsMultipartResolver를 bean으로 등록하면
+      multipart/form-data 형식으로 요청 시  input type="file" 태그를 자동적으로 인식하여 
+      MultipartFile 객체로 반환하고
+      파일 외의 데이터(정수, 문자열 등의 텍스트 데이터)는 기존처럼 사용 가능(MultipartRequest 필요 없음) -->	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+       <property name="maxUploadSize" value="104857600"/>
+       <property name="maxUploadSizePerFile" value="104857600"/>
+       <property name="maxInMemorySize" value="104857600"/>
+   </bean>
 
-    <!-- MyBatis 관련 설정 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
-        <property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml" />
-    </bean>
-        
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
-    </bean>
-
-    <!-- 트랜잭션 매니저 설정 -->
+       <!-- 트랜잭션 매니저 설정 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
@@ -39,5 +67,6 @@
 
     <!-- 컴포넌트 스캔 설정 -->
     <context:component-scan base-package="com.human.web" />
-
+		
+		
 </beans>

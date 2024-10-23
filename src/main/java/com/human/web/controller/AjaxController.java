@@ -1,21 +1,10 @@
 package com.human.web.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.human.web.service.M_MemberService;
-import com.human.web.vo.M_MemberVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -57,41 +46,6 @@ public class AjaxController {
 			e.printStackTrace();
 		}
 		return result;
-	}
-
-	// 프로필 업데이트 처리
-	@PostMapping("/Member/updateProfile")
-	@ResponseBody
-	public String updateProfile(@RequestParam("nickname") String nickname,
-			@RequestParam("profileImage") MultipartFile profileImage,
-			HttpSession session) {
-		M_MemberVO member = (M_MemberVO) session.getAttribute("member");
-
-		// 프로필 이미지 저장 로직
-		if (!profileImage.isEmpty()) {
-			String savedPath = saveProfileImage(profileImage);
-			member.setM_profile(savedPath);
-		}
-
-		// 닉네임 및 생년월일 업데이트
-		member.setM_nickname(nickname);
-
-		// 업데이트 수행
-		boolean isUpdated = m_memberServiceImpl.updateMemberProfile(member);
-
-		return isUpdated ? "success" : "fail";
-	}
-
-	private String saveProfileImage(MultipartFile profileImage) {
-		String uploadDir = "C:/uploads/";
-		String fileName = UUID.randomUUID().toString() + "_" + profileImage.getOriginalFilename();
-		Path filePath = Paths.get(uploadDir + fileName);
-		try {
-			Files.write(filePath, profileImage.getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return fileName;
 	}
 
 }

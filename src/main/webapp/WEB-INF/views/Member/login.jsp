@@ -26,16 +26,15 @@
         <ul>
           <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
           <li><a href="#">커뮤니티</a></li>
-          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
+          <li><a href="${pageContext.request.contextPath}/HotPlace/banner2">여행지</a></li>
           <li><a href="#">여행뽈뽈</a></li>
         </ul>
       </nav>
       <div class="member">
         <c:choose>
-        
           <c:when test="${not empty sessionScope.member}">
             <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <span>${sessionScope.member.m_nickname}님 환영합니다!</span>
+            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
             <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
             <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
               <button type="submit">로그아웃</button>
@@ -44,7 +43,7 @@
           <c:otherwise>
             <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
             <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/signup">회원가입</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/join">회원가입</a></span>
           </c:otherwise>
         </c:choose>
       </div>
@@ -66,7 +65,7 @@
         <!-- 로그인 옵션 및 링크 -->
         <div class="bbol-login-options">
             <label><input type="checkbox"> 로그인 유지</label>
-            <a href="#">아이디 · 비밀번호 찾기</a>
+            <a href="${pageContext.request.contextPath}/Member/m_findId">아이디 · 비밀번호 찾기</a>
         </div>
 
         <!-- 로그인 버튼 -->
@@ -91,14 +90,80 @@
     </form>
 </div>
 
-  
-    <!-- 로그인 실패 시 오류 메시지 출력 -->
-<!-- 로그인 실패 시 오류 메시지 출력 -->
+  <!-- 로그인 실패 시 오류 메시지 출력 -->
 <c:if test="${not empty msg}">
-		<p> ${msg} </p>
-	</c:if>
+    <script type="text/javascript">
+        alert('${msg}');  // 서버에서 전달된 메시지를 alert으로 표시
+    </script>
+</c:if>
+  
+
+<!-- 카카오 SDK 추가 -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+  	<script type="text/javascript">
+   
+   Kakao.init('490f42bb026448a091429ee1b1c4cb0c');  // 발급받은 JavaScript 키로 초기화
+   console.log("Kakao SDK Initialized.");
+
+   // 카카오 로그인 버튼 클릭 시 처리
+   document.getElementById("kakao-login-btn").addEventListener("click", function() {
+       console.log("카카오 로그인 버튼이 클릭되었습니다.");
+       
+       // 카카오 로그인 요청
+       Kakao.Auth.login({
+           success: function(authObj) {
+               console.log("카카오 로그인 성공:", authObj);
+
+               // 로그인 성공 시 서버로 액세스 토큰 전달하여 리다이렉트
+               let kakaoLoginUrl = '${pageContext.request.contextPath}/login/kakao?accessToken=' + authObj.access_token;
+               console.log("Redirecting to: " + kakaoLoginUrl);
+
+               // 카카오 로그인 URL로 이동
+               window.location.href = kakaoLoginUrl;
+           },
+           fail: function(err) {
+               console.error("카카오 로그인 실패:", err);
+               alert("카카오 로그인 실패: " + JSON.stringify(err));
+           }
+       });
+   });
+   
+   
+   
+   
+    // 네이버 로그인 버튼 클릭 시 처리
+    document.getElementById("naver-login-btn").addEventListener("click", function () {
+        console.log("네이버 로그인 버튼이 클릭되었습니다.");
+
+        // 네이버 로그인 URL로 이동
+        let naverLoginUrl = "${pageContext.request.contextPath}/naver/login";  // 컨트롤러의 네이버 로그인 경로로 리다이렉트
+        window.location.href = naverLoginUrl;
+    });
+    
+    
+    const GOOGLE_CLIENT_ID = "981203649264-3mco0tr5ao6bgb6eulod79rn2bhvtmjd.apps.googleusercontent.com";
+    const GOOGLE_REDIRECT_URI = "http://localhost:9090/BBOL/auth/google/callback";
+    
+    document.getElementById("google-login-btn").addEventListener("click", function() {
+        console.log("구글 로그인 버튼이 클릭되었습니다.");
+
+        // 구글 OAuth 2.0 로그인 요청
+        let googleLoginUrl = "https://accounts.google.com/o/oauth2/v2/auth" +
+            "?client_id=" + GOOGLE_CLIENT_ID +   // 구글 클라이언트 ID
+            "&redirect_uri=" + GOOGLE_REDIRECT_URI +  // 로그인 후 리디렉트할 URI
+            "&response_type=code" +  // 인증 코드 요청
+            "&scope=https://www.googleapis.com/auth/userinfo.email openid";
+             // 요청할 사용자 정보 범위
+
+        console.log("Redirecting to: " + googleLoginUrl);
+
+        // 구글 로그인 페이지로 이동
+        window.location.href = googleLoginUrl;
+    });
 
     
+    
+</script>
 
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
