@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.human.notice.repository.PostDAO,com.human.notice.vo.PostVO" %>
+<%@ page import="com.human.web.repository.PostDAO,com.human.web.vo.PostVO" %>
 <%@ page import="java.util.List" %>
 <%
 PostDAO postDAO = new PostDAO();

@@ -23,6 +23,84 @@
  
  %>
 
+<%--
+
+  // 서울 공공데이터 API, URL 및 매개변수 설정하기
+  String apiKey = "796275674f676d6c383351444e4c70"; // 발급받은 인증키
+  String startIndex = "1"; // 데이터 시작 인덱스
+  String endIndex = "5"; // 데이터 종료 인덱스
+  
+  // API 요청 URL 빌드 - 서울 공공데이터 포털 형식에 맞게 URL 작성
+  StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088");
+  urlBuilder.append("/" + URLEncoder.encode(apiKey, "UTF-8"));
+  urlBuilder.append("/json/culturalEventInfo"); // 서비스명 (XML 형식 요청)
+  urlBuilder.append("/" + URLEncoder.encode(startIndex, "UTF-8"));
+  urlBuilder.append("/" + URLEncoder.encode(endIndex, "UTF-8"));
+
+  
+  // HTTP 연결 설정
+  URL url = new URL(urlBuilder.toString());
+  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+  conn.setRequestMethod("GET");
+  conn.setRequestProperty("Content-type", "application/json");
+
+  // API 응답 처리하기
+  int responseCode = conn.getResponseCode();
+  BufferedReader rd;
+  if (responseCode >= 200 && responseCode <= 300) {
+    rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+  } else {
+    rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));
+  }
+
+  StringBuilder sb = new StringBuilder();
+  String line;
+  while ((line = rd.readLine()) != null) {
+    sb.append(line);
+  }
+  rd.close();
+  conn.disconnect();
+
+  String responseBody = sb.toString(); // JSON 응답 문자열이 sb에 저장되어 있다고 가정
+  int startIndex2 = responseBody.indexOf("\"row\": [");
+
+  if (startIndex2 != -1) {
+      startIndex2 += 7; // "row": [ 의 끝 부분을 가리키도록 조정
+      int endIndex2 = responseBody.indexOf("]", startIndex2);
+
+      if (endIndex2 != -1) {
+          String rowArrayString = responseBody.substring(startIndex2, endIndex2 + 1);
+          String[] rowItems = rowArrayString.split("},\\s*\\{");
+
+          List<SeoulEventApiVO.Row> rowList = new ArrayList<>();
+          for (String rowData : rowItems) {
+              rowData = "{" + rowData.replaceAll("[\\[\\]]", "") + "}"; // JSON 형식으로 보정
+              
+          	  SeoulEventApiVO.Row row = new SeoulEventApiVO.Row();
+
+              // 개별 JSON 필드를 추출하여 Row 객체에 저장(가지고 올 내용 정리)
+              row.setCODENAME(getFieldValue(rowData, "CODENAME"));
+              row.setCODENAME(getFieldValue(rowData, "GUNAME"));
+              row.setCODENAME(getFieldValue(rowData, "TITLE"));
+              row.setCODENAME(getFieldValue(rowData, "DATE"));
+              row.setCODENAME(getFieldValue(rowData, "PLACE"));
+              row.setCODENAME(getFieldValue(rowData, "ORG_NAME"));
+              row.setCODENAME(getFieldValue(rowData, "USE_TRGT"));
+              row.setCODENAME(getFieldValue(rowData, "USE_FEE"));
+              row.setCODENAME(getFieldValue(rowData, "ORG_LINK"));
+              row.setCODENAME(getFieldValue(rowData, "MAIN_IMG"));
+              rowList.add(row);
+          }
+		  //세션에 rowList 저장
+		  session.setAttribute("rowList", rowList);
+      }
+  }
+	
+  //컨트롤러로 저장 요청하기
+  String controllerUrl = "/Festival/Event";
+  response.sendRedirect(controllerUrl);
+--%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +158,7 @@
         <div class="t_title-container">
          <%-- <c:forEach var="event" items="${events}" varStatus="vs"> 행사 데이터를 여러개 가겨올 때 사용하는 반복문--%>
 	      <h2>제목 : ${events[0].TITLE}</h2> <!-- EL로 제목 표시 -->
-	      <h3>장소 : ${events[0].GUNAME}</h3> <!--  EL로 장소 표시 -->
+	      <h3>장소 : ${events[0].GUNAME}</h3> <!-- EL로 장소 표시 -->
 	      <h4>소제목 : 일러스트레이션페어</h4>
 	        </div>
 	
@@ -149,31 +227,22 @@
         </div>
         <!-- https://maps.googleapis.com/maps/api/js?key= 인증키 &callback=myMap -->
          
-
-
+</head>
+<body>
 <!-- 댓글 작성 폼 -->
 <div class="comment-form">
     <div class="textarea-container">
-        <!-- 로그인한 경우 -->
-        <c:if test="${not empty member}">
-            <!-- POST 방식으로 댓글 전송하는 form -->
-            <form>
-                <!-- 댓글 내용 입력 -->
-                <textarea id="commentContent" name="comment" placeholder="소중한 댓글을 남겨주세요."></textarea>
-                <!-- m_idx 값을 hidden 필드로 전송 -->
-                <input type="hidden" name="m_idx" value="${member.m_idx}">
-                <!-- 댓글 등록 버튼 -->
-                <button type="button" class="comment-submit" data-m_idx="${member.m_idx}">등록</button>
-            </form>
-        </c:if>
+    	<c:if test="${not empty member}" var="result">
+    		<textarea id="commentContent" placeholder="소중한 댓글을 남겨주세요."></textarea>
+    		<button class="comment-submit" data-m_idx="${member.m_idx}">등록</button>
+    	</c:if>
+    	<c:if test="${not result}">
+    		<textarea id="commentContent" placeholder="로그인 후 소중한 댓글을 남겨주세요." disabled></textarea>
+    		<button class="comment-submit" disabled>등록</button>
+    	</c:if>
         
-        <!-- 로그인하지 않은 경우 -->
-        <c:if test="${empty member}">
-            <textarea id="commentContent" placeholder="로그인 후 소중한 댓글을 남겨주세요." disabled></textarea>
-            <button type="button" class="comment-submit">등록</button>
-        </c:if>
     </div>
-</div>
+ </div>  
 
 <div id="comments" class="h_talk">
     <button class="comment-button">
@@ -183,65 +252,38 @@
     </button>
 </div>
 
-<div class="comments-section">
-    <c:choose>
-        <c:when test="${not empty commentsList}">
-            <c:forEach var="comment" items="${commentsList}">
-                <div class="comment">
-                    <div class="user-info">
-                        <img src="${pageContext.request.contextPath}/resources/images/2.jpg" 
-                             alt="<c:out value='${comment.t_comment_author_id}'/>" 
-                             class="de">
-                        <span class="username"><c:out value="${comment.t_comment_author_id}" /></span>
+<div class="comments-section" id="commentsSection">
+    <c:forEach var="comment" items="${comments}">
+        <div class="comment">
+            <div class="user-info">
+                <img src="${pageContext.request.contextPath}/resources/images/2.jpg" 
+                     alt="<c:out value='${comment.t_comment_author_id}'/>" 
+                     class="de">
+                <span class="username"><c:out value="${comment.t_comment_author_id}" /></span>
 
-                        <span class="date">
-                            <c:choose>
-                                <c:when test="${not empty comment.t_comment_created_at}">
-                                    <fmt:formatDate value="${comment.t_comment_created_at}" pattern="yyyy-MM-dd" />
-                                </c:when>
-                                <c:otherwise>
-                                    날짜 정보 없음
-                                </c:otherwise>
-                            </c:choose>
-                        </span>
-                    </div>
-
-                    <p><c:out value="${comment.t_comment_content}" /></p>
-
-                    <!-- 댓글 액션 버튼: 답글, 수정, 삭제 -->
-                    <div class="comment-actions">
-                      
-
-                        <!-- 댓글 수정 및 삭제 버튼: 로그인한 사용자만 본인의 댓글 수정 및 삭제 가능 -->
-                        <c:if test="${comment.t_comment_author_id == member.m_idx}">
-                            <button type="button" class="comment-edit" 
-                            	    data-t_comment_author_id="${comment.t_comment_author_id}"
-                            	    data-t_ec_idx="${comment.t_ec_idx}">
-                                수정
-                            </button>
-                            <button type="button" class="comment-delete" 
-                            	    data-t_comment_author_id="${comment.t_comment_author_id}"
-                            	    data-t_ec_idx="${comment.t_ec_idx}">
-                                삭제
-                            </button>
-                        </c:if>
-
-                        <i class="fa-solid fa-comment-dots"></i> 
-                    </div>
-                </div>
-            </c:forEach>
-        </c:when>
-        <c:otherwise>
-            <p>댓글이 없습니다. 첫 번째 댓글을 작성해 주세요!</p>
-        </c:otherwise>
-    </c:choose>
+                <span class="date">
+                    <c:choose>
+                        <c:when test="${not empty comment.t_comment_created_at}">
+                            <fmt:formatDate value="${comment.t_comment_created_at}" pattern="yyyy-MM-dd" />
+                        </c:when>
+                        <c:otherwise>
+                            날짜 정보 없음
+                        </c:otherwise>
+                    </c:choose>
+                </span>
+            </div>
+            <p><c:out value="${comment.t_comment_content}" /></p>
+            <div class="comment-actions">
+                <i class="fa-solid fa-thumbs-up"></i> 좋아요
+                <i class="fa-solid fa-comment-dots"></i> 답글
+            </div>
+        </div>
+    </c:forEach>
 </div>
-
-
 
 <!-- JavaScript 변수 설정을 위한 스크립트 블록 -->
 <script>
-  var isLoggedIn = "${sessionScope.member != null}"; // 로그인 상태 확인
+  var isLoggedIn = ${sessionScope.member != null}; // 로그인 상태 확인
   var memberId = "${sessionScope.member != null ? sessionScope.member.m_idx : ''}"; // 로그인된 사용자 ID
   var eventId = "${itemList[0].title}"; // 이벤트 ID
   var contextPath = "${pageContext.request.contextPath}"; // 컨텍스트 경로
@@ -312,49 +354,46 @@
 <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script> <!-- lang-toggle.js -->
 <script src="${pageContext.request.contextPath}/resources/js/famous.js"></script>	<!-- famous.js -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<%-- <script src="${pageContext.request.contextPath}/resources/js/Events.js"></script> --%>
+<script src="${pageContext.request.contextPath}/resources/js/Events.js"></script>
 <script>
 
 //댓글 작성 함수
 
 //jQuery 이용
 
- $(function(){
+$(function(){
 
 	$(".comment-submit").on("click", function(){
 	
 		alert("등록버튼 실행");
 		
-		if (isLoggedIn==="false") {//로그인이 안된 경우
+		 if (!isLoggedIn()) {//로그인이 안된 경우
+  
 	        alert("로그인 후 댓글을 작성할 수 있습니다.");
 	        redirectToLogin();
 	        return;
-  		 }
-   		 
-	  	 const commentContent = $('#commentContent').val();
-	  	 const m_idx = $(this).data('m_idx');// data-m_idx의 속성값 가져오기
-	  	
-	  	 if (commentContent.trim() === "") {
-		        alert("댓글을 입력하세요.");
-		        return;
-		 }
+  	}
+  	
+  	const commentContent = $('#commentContent').val();
+  	const m_idx = this.dataset.m_idx;
+  	
+  	if (commentContent.trim() === "") {
+	        alert("댓글을 입력하세요.");
+	        return;
+	    }
 	    
 	    $.ajax({
 	    	type: "post",
 	    	url: "comments",
-	    	data: { m_idx: m_idx, 
+	    	data: { m_idx:m_idx, 
       			    comment: commentContent },
-	    	success: function(response){
-	    		if(response.trim() === "SUCCESS"){
-		    		alert("댓글이 등록되었습니다.");
-		    		$('#commentContent').val("");
-		    		window.location.reload();//현재 페이지 새로고침
-	    		}else{
-	    			alert("댓글 등록 실패");
-	    		}
+	    	success: function(){
+	    		alert("댓글이 등록되었습니다.");
+	    		$('#commentContent').val("");
+	    		loadComments(); // 댓글 목록 새로고침
 	    	},
 	    	error: function(){
-	    		alert("댓글 등록 중 에러발생");
+	    		alert("댓글 등록에 실패했습니다.");
 	    	}
 	    
 	    
@@ -363,91 +402,6 @@
 	});
 
 });
-// 댓글 목록을 불러오는 함수
-function loadComments() {
-    $.ajax({
-        type: "get",
-        url: "commentsList", // 서버에서 댓글 목록 가져오기
-        dataType: "json",
-        success: function(data) {
-        	//댓글 목록을 HTML 양식으로 만들어서 html() 메소드에 인수로 넣어줌
-        	console.log("data:"+data);
-        	let dataHtml='테스트';
-            $("#commentsSection").html(dataHtml); // 댓글 목록을 페이지에 삽입
-        },
-        error: function() {
-            alert("댓글 목록을 불러오는 중 에러 발생");
-        }
-    });//end of ajax
-    
-}//end of loadComments
-
-//댓글 삭제 버튼 이벤트
-$(".comment-delete").on("click", function(){
-	const t_ec_idx = $(this).data('t_ec_idx'); // 행사 댓글번호 가져오기
-	const t_comment_author_id = $(this).data('t_comment_author_id'); //행사 댓글 작성자 ID
-	console.log("t_ec_idx: ", t_ec_idx);
-	console.log("t_comment_author_id: ", t_comment_author_id);
-	
-
-	if (confirm("정말로 이 댓글을 삭제하시겠습니까?")) {
-		$.ajax({
-			type: "post",
-			url: "deleteComment", // URL 수정
-			data: {
-				t_ec_idx: t_ec_idx,
-				t_comment_author_id: t_comment_author_id
-			},
-			success: function(response){
-				if(response.trim() === "SUCCESS"){
-					alert("댓글이 삭제되었습니다.");
-					window.location.reload();//현재 페이지 새로고침
-				} else {
-					alert("댓글 삭제 실패");
-				}
-			},
-			error: function(){
-				alert("댓글 삭제 중 에러 발생");
-			}
-		});
-	}
-});
-
-//댓글 수정 버튼 이벤트
-$(".comment-edit").on("click", function(){
-	const t_ec_idx = $(this).data('t_ec_idx'); // data-t_ec_idx 속성에서 댓글 ID 가져오기
-	const t_comment_author_id = $(this).data('t_comment_author_id'); //행사 댓글 작성자 ID
-	const newCommentContent = prompt("수정할 댓글 내용을 입력하세요:");
-
-	if (newCommentContent !== null && newCommentContent.trim() !== "") {
-		$.ajax({
-			type: "post",
-			url: "editComment", // URL 수정
-			data: {
-				commentId: t_ec_idx,  // 서버에서 t_ec_idx를 commentId로 받음
-				newComment: newCommentContent,
-				authorId: t_comment_author_id
-			},
-			success: function(response){
-				if(response.trim() === "SUCCESS"){
-					alert("댓글이 수정되었습니다.");
-					window.location.reload();//현재 페이지 새로고침
-					// AJAX로 댓글 목록 다시 불러오기 (비동기 방식)
-					//loadComments(); // 댓글 목록 새로고침 함수 호출
-				} else {
-					alert("댓글 수정 실패");
-				}
-			},
-			error: function(){
-				alert("댓글 수정 중 에러 발생");
-			}
-		});
-	} else {
-		alert("댓글 내용을 입력해주세요.");
-	}
-});
-
-
 
 
   const swiper = new Swiper('.swiper', {
@@ -459,8 +413,6 @@ $(".comment-edit").on("click", function(){
     },
     loop: true
   });
-  
-
 </script>
 
     </body>

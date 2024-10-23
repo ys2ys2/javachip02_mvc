@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.human.notice.repository.CommentDAO,com.human.notice.vo.CommentVO" %>
+<%@ page import="com.human.web.repository.CommentDAO,com.human.web.vo.CommentVO" %>
 <%
 // 인코딩 설정
     request.setCharacterEncoding("UTF-8");

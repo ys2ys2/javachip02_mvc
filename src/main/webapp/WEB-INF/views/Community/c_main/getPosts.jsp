@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.human.notice.repository.PostDAO,com.human.notice.vo.PostVO" %>
+<%@ page import="com.human.web.repository.PostDAO,com.human.web.vo.PostVO" %>
 
 
 <%

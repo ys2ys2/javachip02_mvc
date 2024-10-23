@@ -6,13 +6,13 @@
 <mapper namespace="com.yourpackage.mapper.NaverLoginMapper">
 
     <!-- 댓글 추가 -->
-    <insert id="insertComment" parameterType="com.human.web.vo.EventsCommetsVO">
+    <insert id="insertComment" parameterType="com.human.web.vo.EventsCommentsVO">
         INSERT INTO events_comments (t_comment_content, t_comment_author_id, t_comment_created_at, t_comment_updated_at, t_comment_likes, t_idx)
         VALUES (#{t_comment_content}, #{t_comment_author_id}, #{t_comment_created_at}, #{t_comment_updated_at}, #{t_comment_likes}, #{t_idx})
     </insert>
 
     <!-- 특정 행사에 대한 댓글 목록 가져오기 -->
-    <select id="getCommentsByEventId" parameterType="int" resultType="com.human.web.vo.EventsCommetsVO">
+    <select id="getCommentsByEventId" parameterType="int" resultType="com.human.web.vo.EventsCommentsVO">
         SELECT * FROM events_comments WHERE t_idx = #{eventId}
     </select>
 

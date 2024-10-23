@@ -1,86 +1,172 @@
-// 로그인 상태 확인 함수
-function isLoggedIn() {
-    return isLoggedIn; // JSP에서 전달받은 전역 변수 사용
-}
+document.addEventListener("DOMContentLoaded", function() {
+    // 수정 버튼에 이벤트 추가
+    const editButtons = document.querySelectorAll('.editbtn');
+    const saveButtons = document.querySelectorAll('.savebtn');
+    const cancelButtons = document.querySelectorAll('.cancelbtn');
 
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const t_ec_idx = this.getAttribute("data-t_ec_idx");
+            const commentDiv = this.closest('.comment');
 
-/*
-function submitComment() {
+            if (!commentDiv) {
+                console.error("commentDiv 요소를 찾을 수 없습니다.");
+                return;
+            }
 
-    if (!isLoggedIn()) {//로그인이 안된 경우
-    
-        alert("로그인 후 댓글을 작성할 수 있습니다.");
-        redirectToLogin();
-        return;
-    }
+            const commentText = commentDiv.querySelector('.comment-text');
+            const editCommentText = commentDiv.querySelector('.edit-comment-text');
+            const saveButton = commentDiv.querySelector('.savebtn');
+            const cancelButton = commentDiv.querySelector('.cancelbtn');
+            const deleteButton = commentDiv.querySelector('.delbtn'); // 삭제 버튼 선택
 
-    const commentContent = document.getElementById('commentContent').value;
+            // 요소가 null인지 확인 후 처리
+            if (!commentText || !editCommentText || !saveButton || !cancelButton || !deleteButton) {
+                console.error("필수 요소 중 하나를 찾을 수 없습니다. 수정 작업을 중단합니다.");
+                return;
+            }
 
-    if (commentContent.trim() === "") {
-        alert("댓글을 입력하세요.");
-        return;
-    }
+            // 기존 텍스트 숨기고 수정용 텍스트 에어리어 표시
+            commentText.style.display = 'none';
+            editCommentText.style.display = 'block';
+            this.style.display = 'none'; // 수정 버튼 숨기기
+            saveButton.style.display = 'inline'; // 저장 버튼 표시
+            cancelButton.style.display = 'inline'; // 취소 버튼 표시
+            deleteButton.style.display = 'none'; // 삭제 버튼 숨기기
+        });
+    });
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", `${contextPath}/Festival/comments`, true); // JSP에서 전달받은 전역 변수 사용
-    xhr.setRequestHeader("Content-Type", "application/json");
+    // 저장 버튼에 이벤트 추가
+    saveButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const t_ec_idx = this.getAttribute("data-t_ec_idx");
+            const commentDiv = this.closest('.comment');
 
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            alert("댓글이 등록되었습니다.");
-            document.getElementById('commentContent').value = '';
-            loadComments(); // 댓글 목록 새로고침
-        } else {
-            alert("댓글 등록에 실패했습니다.");
-        }
-    };
+            if (!commentDiv) {
+                console.error("commentDiv 요소를 찾을 수 없습니다.");
+                return;
+            }
 
-    // 요청 본문에 필요한 데이터 필드를 맞춰 전송
-    xhr.send(JSON.stringify({
-        eventId: eventId, 
-        memberId: memberId, 
-        t_comment_content: commentContent 
-    }));
-}
-*/
+            const editCommentText = commentDiv.querySelector('.edit-comment-text');
+            if (!editCommentText) {
+                console.error("editCommentText 요소를 찾을 수 없습니다.");
+                return;
+            }
 
+            const updatedText = editCommentText.value.trim();
 
-// 로그인 페이지로 리디렉션
-function redirectToLogin() {
-    window.location.href = `${contextPath}/Login/login`;
-}
+            if (updatedText) {
+                // 서버로 데이터 전송 (POST 방식)
+                fetch('/Festival/updateComment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 't_ec_idx=' + encodeURIComponent(t_ec_idx) + '&updatedText=' + encodeURIComponent(updatedText)
+                })
+                .then(response => response.text())
+                .then(result => {
+                    if (result.trim() === 'SUCCESS') {
+                        alert('수정 완료!');
+                        window.location.reload(); // 페이지 새로고침으로 댓글 갱신
+                    } else {
+                        alert('수정 실패!');
+						window.location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('수정 중 오류:', error);
+					window.location.reload();
+                });
+            } else {
+                alert('댓글 내용을 입력해주세요.');
+            }
+        });
+    });
 
-// 댓글 목록을 불러오는 함수
-function loadComments() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `${contextPath}/Festival/comments?eventId=${eventId}`, true);
+    // 취소 버튼에 이벤트 추가
+    cancelButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const commentDiv = this.closest('.comment');
+            if (!commentDiv) {
+                console.error("commentDiv 요소를 찾을 수 없습니다.");
+                return;
+            }
 
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            const comments = JSON.parse(xhr.responseText);
-            const commentsSection = document.getElementById('commentsSection');
-            commentsSection.innerHTML = '';
+            const commentText = commentDiv.querySelector('.comment-text');
+            const editCommentText = commentDiv.querySelector('.edit-comment-text');
+            const editButton = commentDiv.querySelector('.editbtn');
+            const saveButton = commentDiv.querySelector('.savebtn');
+            const cancelButton = commentDiv.querySelector('.cancelbtn');
+            const deleteButton = commentDiv.querySelector('.delbtn'); // 삭제 버튼 선택
 
-            comments.forEach(comment => {
-                const commentDiv = document.createElement('div');
-                commentDiv.className = 'comment';
-                commentDiv.innerHTML = `
-                    <div class="user-info">
-                        <span class="username">${comment.t_comment_author_id}</span>
-                        <span class="date">${comment.t_comment_created_at}</span>
-                    </div>
-                    <p>${comment.t_comment_content}</p>
-                    <div class="comment-actions">
-                        <i class="fa-solid fa-thumbs-up"></i> 좋아요 <span>${comment.t_comment_likes}</span>
-                        <i class="fa-solid fa-comment-dots"></i> 답글
-                    </div>
-                `;
-                commentsSection.appendChild(commentDiv);
-            });
-        } else {
-            alert("댓글 목록을 불러오는 데 실패했습니다.");
-        }
-    };
+            if (!commentText || !editCommentText || !editButton || !saveButton || !cancelButton || !deleteButton) {
+                console.error("필수 요소 중 하나를 찾을 수 없습니다. 수정 작업을 취소합니다.");
+                return;
+            }
 
-    xhr.send();
-}
+            // 기존 텍스트 다시 표시
+            commentText.style.display = 'block';
+            editCommentText.style.display = 'none';
+            editButton.style.display = 'inline';
+            saveButton.style.display = 'none';
+            cancelButton.style.display = 'none';
+            deleteButton.style.display = 'inline'; // 삭제 버튼 다시 표시
+        });
+    });
+});
+
+// 댓글 삭제하기
+
+document.addEventListener("DOMContentLoaded", function() {
+    // 모든 삭제 버튼에 이벤트 추가
+    const deleteButtons = document.querySelectorAll('.delbtn');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // 삭제 확인 경고창 표시
+            const confirmDelete = confirm("정말 삭제하시겠습니까?");
+
+            if (confirmDelete) {
+                // 삭제할 댓글의 ID 가져오기
+                const t_ec_idx = this.getAttribute("data-t_ec_idx"); // t_ec_idx 가져오기
+
+                if (!t_ec_idx) {
+                    console.error("t_ec_idx를 찾을 수 없습니다.");
+                    return;
+                }
+
+                // 서버로 데이터 전송 (POST 방식)
+                fetch('/Festival/deleteComment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 't_ec_idx=' + encodeURIComponent(t_ec_idx)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("네트워크 응답이 올바르지 않습니다.");
+                    }
+                    return response.text();
+                })
+                .then(result => {
+                    if (result.trim() === 'SUCCESS') {
+                        alert('댓글이 삭제되었습니다.');
+                        window.location.reload(); // 페이지 새로고침으로 댓글 갱신
+                    } else {
+                        alert('댓글 삭제에 실패했습니다.');
+                        window.location.reload(); // 페이지 새로고침으로 댓글 갱신
+                    }
+                })
+                .catch(error => {
+                    console.error('삭제 중 오류:', error); // 삭제 중 발생한 오류 출력
+                    window.location.reload(); // 페이지 새로고침으로 댓글 갱신
+                });
+            } else {
+                console.log("삭제 취소됨"); // 사용자가 삭제를 취소했는지 확인
+                return;
+            }
+        });
+    });
+});

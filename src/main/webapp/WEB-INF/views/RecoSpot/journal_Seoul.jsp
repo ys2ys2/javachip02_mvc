@@ -254,7 +254,7 @@
 
     <div class="image-container">
         <div class="image-item3">
-             <a href="${pageContext.request.contextPath}/Matzip/famous" class="image-item3">
+             <a href="${pageContext.request.contextPath}/Matzip/seoulFamous" class="image-item3">
             <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
             <div class="image-description">
                 <div class="image-title">중화일상</div>

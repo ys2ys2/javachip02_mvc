@@ -7,25 +7,25 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.human.web.explorer.SeoulApiExplorer;
-import com.human.web.repository.SeoulEventApiDAO;
-import com.human.web.vo.EventsCommentsVO;
-import com.human.web.vo.SeoulEventApiVO;
-import com.human.web.vo.SeoulEventApiVO.Row;
+import com.human.web.explorer.SeoulMatzipApiExplorer;
+import com.human.web.repository.SeoulMatzipApiDAO;
+
+import com.human.web.vo.SeoulMatzipApiVO;
+
 
 import lombok.AllArgsConstructor;
 
 
 @Service
 @AllArgsConstructor
-public class SeoulEventApiServiceImpl implements SeoulEventApiService {
+public class SeoulMatzipApiServiceImpl implements SeoulMatzipApiService {
 
-	 private SeoulEventApiDAO dao;
+	 private SeoulMatzipApiDAO dao;
 
 
 	  @Override
-	    public List<Row> getAllEvents() {
-	        return dao.getAllEvents();
+	    public List<SeoulMatzipApiVO.Row> getAllSeoulMatzip() {
+	        return dao.getAllSeoulMatzip();
 	    }
 
 
@@ -37,11 +37,11 @@ public class SeoulEventApiServiceImpl implements SeoulEventApiService {
 		
 		//getApiJsonData()메소드 매개변수 세팅하기
 		String serviceKey = "796275674f676d6c383351444e4c70";
-		String srcUrl = "http://openapi.seoul.go.kr:8088/"+serviceKey+"/json/culturalEventInfo/1/500/";
-		SeoulEventApiVO data = null;
+		String srcUrl = "http://openapi.seoul.go.kr:8088/"+serviceKey+"/json/SebcJungguTourKkor/1/200/";
+		SeoulMatzipApiVO data = null;
 		try {
 			
-			data = (SeoulEventApiVO) SeoulApiExplorer.getApiJsonData(srcUrl, new TypeReference<SeoulEventApiVO>() {});
+			data = (SeoulMatzipApiVO) SeoulMatzipApiExplorer.getApiJsonData(srcUrl, new TypeReference<SeoulMatzipApiVO>() {});
 			
 		} catch (IOException | URISyntaxException e) {
 			System.out.println("공공데이터 가져오기 중 예외발생");
@@ -54,8 +54,5 @@ public class SeoulEventApiServiceImpl implements SeoulEventApiService {
 
 
 
-	    //@Override
-//	    public int saveEvent(SeoulEventApiVO.Row row) {
-//	        return seoulEventApiDAO.insertEvent(row);
-//	    }
+
 	}

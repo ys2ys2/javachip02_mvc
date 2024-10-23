@@ -6,7 +6,7 @@
 <mapper namespace="com.human.web.mapper.SeoulEventApiMapper">
 
     <!-- 모든 이벤트 가져오기 -->
-     <select id="getAllEvents" resultType="row">
+     <select id="getAllEvents" resultType="eventRow">
           SELECT 
             t_codename AS CODENAME, 
             t_guname AS GUNAME,
@@ -19,7 +19,7 @@
             t_main_img AS MAIN_IMG,
             t_rgstdate AS RGSTDATE
         FROM 
-            tb_seoultour_api
+            t_events
         ORDER BY 
             t_id ASC
     </select>
@@ -27,7 +27,7 @@
     <!-- 서울 공공데이터 삽입 -->
     <insert id="insertSeoul">
 	
-		insert into tb_seoultour_api (t_codename, t_guname, t_title, t_date, t_place, t_use_trgt, t_use_fee, t_org_link, t_main_img, t_rgstdate)
+		insert into t_events (t_codename, t_guname, t_title, t_date, t_place, t_use_trgt, t_use_fee, t_org_link, t_main_img, t_rgstdate)
 			<trim prefix="values" suffixOverrides=",">
 				<foreach item="row" collection="array">
 					( #{row.CODENAME}, #{row.GUNAME}, #{row.TITLE}, #{row.DATE}, #{row.PLACE}, #{row.USE_TRGT}, #{row.USE_FEE}, #{row.ORG_LINK}, #{row.MAIN_IMG}, #{row.RGSTDATE} ),

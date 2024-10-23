@@ -1,10 +1,13 @@
 package com.human.web.service;
 
-import com.human.web.vo.SeoulEventApiVO;
 import java.util.List;
 
+import com.human.web.vo.EventsCommentsVO;
+import com.human.web.vo.SeoulEventApiVO.Row;
+
 public interface SeoulEventApiService {
-    List<SeoulEventApiVO.Row> getAllEvents();
+    List<Row> getAllEvents();
     //int saveEvent(SeoulEventApiVO.Row event);
 	int insertSeoul();
+
 }
