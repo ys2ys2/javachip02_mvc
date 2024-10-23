@@ -135,8 +135,9 @@
       <ul class="h_navbar">
         <li class="h_nav-item"><a href="#" data-target="section-photos">사진보기</a></li>
         <li class="h_nav-item"><a href="#" data-target="section-details">상세정보</a></li>
+        <li class="h_nav-item"><a href="#" data-target="section-weather">날씨정보</a></li>
         <li class="h_nav-item"><a href="#" data-target="section-talk">여행톡</a></li>
-        <li class="h_nav-item"><a href="#" data-target="section-recommend">추천여행</a></li>
+        
       </ul>
     </div>
 
@@ -174,7 +175,7 @@
 
     <!-- 상세정보 -->
     <div id="section-details" class="h_details_title">
-      <span>상세정보</span>
+      <span>상세 정보</span>
     </div>
     <div class="h_details">
         <p id="description-text">${hotplace.overview}</p>
@@ -184,6 +185,25 @@
     <div id="map" class="h_map">
       <div class="google_map"></div>
     </div>
+    
+    
+    <!-- 날씨정보 -->
+    <div id="section-weather" class="h_details_title">
+      <span>날씨정보</span>
+    </div>
+    <div class="h_details">
+        	<p>MapX: ${hotplace.mapx}</p>
+			<p>MapY: ${hotplace.mapy}</p>
+    	<div id="weather-info">
+
+    	<!-- 날씨 정보를 불러오기 전, 기본 메시지 표시 -->
+    	<p>날씨 정보를 불러오는 중입니다...</p>
+  	</div>
+    </div>
+    
+    
+    
+    
 
     <!-- 여행톡 부분 -->
     <div id="section-talk" class="h_talk">
@@ -375,6 +395,48 @@
         }
     });
 	</script>
+	
+	
+
+	
+<script>
+   // JSP에서 넘겨받은 위도와 경도 값을 자바스크립트 변수로 할당
+   var lat = '${hotplace.mapx}';  // 서버에서 받아온 위도 (hotplace.mapx)
+   var lon = '${hotplace.mapy}';  // 서버에서 받아온 경도 (hotplace.mapy)
+
+   // 위도와 경도를 숫자형으로 변환
+   lat = parseFloat('${hotplace.mapx}');
+   lon = parseFloat('${hotplace.mapy}');
+   
+   // 위도와 경도 값이 제대로 들어오는지 확인하는 로그
+   console.log("위도:", lat);
+   console.log("경도:", lon);
+
+   // OpenWeatherMap API 키
+   var apiKey = 'd230d08fe6ad082f54615c077bf76b16'; 
+   
+   // API 호출 URL 만들기
+   var url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=kr`;
+   
+   console.log("API 호출 URL:", url); // API 호출 URL 확인
+
+   // 날씨 데이터를 가져오는 함수
+   $.getJSON(url, function(data) {
+       var weatherInfo = `
+           <h3>현재 위치의 날씨 정보</h3>
+           <p>현재 온도: ${data.main.temp} °C</p>
+           <p>체감 온도: ${data.main.feels_like} °C</p>
+           <p>최저 온도: ${data.main.temp_min} °C</p>
+           <p>최고 온도: ${data.main.temp_max} °C</p>
+           <p>습도: ${data.main.humidity} %</p>
+       `;
+       // 가져온 데이터를 HTML에 삽입
+       $('#weather-info').html(weatherInfo);
+   }).fail(function() {
+       $('#weather-info').html('<p>날씨 정보를 불러오는 데 실패했습니다.</p>');
+   });
+</script>
+
     
 
 </body>

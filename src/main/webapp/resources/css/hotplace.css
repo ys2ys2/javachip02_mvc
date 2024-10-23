@@ -58,6 +58,39 @@
   font-style: normal;
 }
 
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 파셜산스체 */
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 body {
   background-color: white;;
   align-items: center;
@@ -65,6 +98,8 @@ body {
   width: 100%; 
   margin: 0 auto; /* 가로 방향으로 가운데 정렬 */
 }
+
+
 
 html {
   scroll-behavior: smooth;
@@ -82,17 +117,19 @@ html {
   margin-top: 7%;
   width: 100%;
   height: 200px;
-  background-color: white;;
+  background-color: white;
   text-align: center;
 }
 
 .h_title-container h2 {
   font-size: 50px;
+  font-family: 'SBAggroB', sans-serif;
 }
 
 .h_title-container h3 {
   font-size: 18px;
   color: #666;
+  font-family: 'SBAggroB', sans-serif;
 }
 
 .h_title-container h4 {
@@ -161,12 +198,14 @@ html {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 2000; /* 오버레이보다 더 높은 z-index 설정 */
     width: 300px;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 .share-popup-content {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 
@@ -176,6 +215,7 @@ html {
     align-items: center;
     font-size: 1.2em;
     font-weight: bold;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 .close-btn {
@@ -214,6 +254,7 @@ html {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 .share-url input {
@@ -221,6 +262,7 @@ html {
     padding: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 .share-url button {
@@ -230,8 +272,7 @@ html {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-family: 'NanumSquareRoundR', sans-serif;
-    
+	font-family: 'SUIT-Regular', sans-serif;    
 }
 
 
@@ -256,6 +297,7 @@ html {
   list-style-type: none; /* 기본 리스트 스타일 제거 */
   padding: 0;
   margin: 0;
+  font-family: 'SUIT-Regular', sans-serif;
 }
 
 .h_nav-item {
@@ -296,23 +338,24 @@ html {
 .h_content {
   text-align: center;
   position: relative;
-  height: 900px;
-  width: 95%;
-  margin: 20px auto;
+  height: 850px;
+  margin: 10px auto;
 
 }
 
 .h_details_title {
-  margin: 10px auto;
+  margin: 30px auto;
   width: 100%; /* 부모 컨테이너 너비 */
   border-bottom: 2px solid black; /* 하단 구분선 */
   font-size: 30px;
   font-weight: bold;
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
 }
 
 .h_details p {
 	font-size: 18px;
-	line-height: 1.8;
+	line-height: 1.5;
+	font-family: 'SUIT-Regular', sans-serif;
 	
 }
 
@@ -332,7 +375,7 @@ html {
 }
 
 .h_map {
-  margin: 50px auto;
+  margin: 0 auto;
   text-align: center;
   align-items: center;
   width: 100%;
@@ -342,6 +385,7 @@ html {
 /* 구글 맵 */
 .google_map {
   width: 100%;
+  margin: 0 auto;
 }
 
 .h_talk {
@@ -368,6 +412,7 @@ html {
   border: 1px solid #ddd;
   padding: 20px;
   background-color: #f9f9f9;
+  font-family: 'SUIT-Regular', sans-serif;
 }
 
 .comment-form textarea {
@@ -377,6 +422,8 @@ html {
   border-radius: 4px;
   font-size: 14px;
   resize: none;
+  font-family: 'SUIT-Regular', sans-serif;
+  
 }
 
 .form-actions {
@@ -698,4 +745,78 @@ html {
 }
 
 
+/* 하단 여행지 배너 슬라이드 */
+/* 배너 슬라이드 스타일 */
+#banner-slider {
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+#banner-slider .swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px; /* 슬라이드의 너비 */
+  height: 300px; /* 슬라이드의 높이 */
+}
+
+#banner-slider .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 300px;
+  border-radius: 15px;
+}
+
+/* Pagination 스타일 */
+.swiper-pagination {
+  bottom: 10px;
+  text-align: center;
+}
+
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #8E8E8E;
+  opacity: 0.8;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: black;
+  opacity: 1;
+}
+
+/* 네비게이션 버튼 스타일 */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #007aff;
+  width: 44px;
+  height: 44px;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 24px;
+}
+
+/* 슬라이드 이미지 아래에 배치되는 제목 스타일 */
+.banner-title {
+    text-align: center;  /* 제목을 가운데 정렬 */
+    font-size: 16px;     /* 제목의 크기 조정 */
+    margin-top: 10px;    /* 이미지와 제목 사이 간격 */
+    color: black;         /* 텍스트 색상 */
+    font-weight: bold;   /* 굵은 글씨 */
+ 	text-decoration: none; /* 기본 링크 밑줄 제거 */
+    
+}
+
+
+.detail-link {
+	text-decoration: none; /* 기본 링크 밑줄 제거 */
+	color: black;
+}
+
+.detail-link a {
+  	text-decoration: none; /* 기본 링크 밑줄 제거 */
+	color: black;
+}
 

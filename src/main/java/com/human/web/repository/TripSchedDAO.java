@@ -22,4 +22,5 @@ public class TripSchedDAO {
     public Integer getMaxPostId() {
     	return sqlSession.selectOne(MAPPER + ".getMaxPostId");
     }
+    
 }

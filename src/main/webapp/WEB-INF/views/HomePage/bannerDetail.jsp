@@ -135,8 +135,8 @@
       <ul class="h_navbar">
         <li class="h_nav-item"><a href="#" data-target="section-photos">사진보기</a></li>
         <li class="h_nav-item"><a href="#" data-target="section-details">상세정보</a></li>
-        <li class="h_nav-item"><a href="#" data-target="section-talk">여행톡</a></li>
-        <li class="h_nav-item"><a href="#" data-target="section-recommend">추천여행</a></li>
+        <li class="h_nav-item"><a href="#" data-target="section-map">위치정보</a></li>
+        <li class="h_nav-item"><a href="#" data-target="section-talk">지역여행</a></li>
       </ul>
     </div>
 
@@ -180,17 +180,39 @@
         <p id="description-text">${banner.overview}</p>
     </div>
 
+    <!-- 위치정보 -->
+    <div id="section-map" class="h_details_title">
+      <span>위치정보</span>
+    </div>
     <!-- 구글 맵 -->
     <div id="map" class="h_map">
       <div class="google_map"></div>
     </div>
 
-    <!-- 여행톡 부분 -->
-    <div id="section-talk" class="h_talk">
-      <h2>여행톡 <span>${totalTalkCount}</span></h2>
+    <!-- 지역 여행지 부분 -->
+    <div id="section-talk" class="h_details_title">
+      <span>${banner.areacode} 지역 여행지  <span>${totalTalkCount}</span></span>
     </div>
+    
+    <!-- 지역 여행지 슬라이드 -->
+    <div id="banner-slider" class="swiper mySwiperNew">
+        <div class="swiper-wrapper">
+            <!-- 슬라이드 이미지들을 반복적으로 출력 -->
+          <c:forEach var="banner" items="${bannersByArea}">
+            <div class="swiper-slide">
+            <a href="${pageContext.request.contextPath}/BannerPlace/${banner.contentid}" class="detail-link">
+                <img src="${banner.firstimage}" alt="${banner.title}">
+                <p class="banner-title">${banner.title}</p>
+            </a>
+            </div>
+          </c:forEach>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    
+    
 
-    <div class="comment-form">
+<%--     <div class="comment-form">
       <c:choose>
         <c:when test="${not empty sessionScope.member.m_nickname}">
           <!-- 로그인된 사용자가 댓글 작성 가능 -->
@@ -208,9 +230,9 @@
           </a>
         </c:otherwise>
       </c:choose>
-    </div>
+    </div> --%>
 
-    <div class="comments-section">
+<%--     <div class="comments-section">
       <c:forEach var="talk" items="${talkList}">
         <div class="comment" data-talk-id="${talk.talkIdx}">
           <div class="user-info">
@@ -236,7 +258,7 @@
           </div>
         </div>
       </c:forEach>
-    </div>
+    </div> --%>
 
     <!-- 페이지네이션 -->
     <div class="pagination">
@@ -368,8 +390,30 @@
 	        }
 	    });
 	</script>
+	
+	
+	<script>
+	
+    var swiperNew = new Swiper(".mySwiperNew", {
+    	effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        coverflowEffect: {
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+    });
+	
+	</script>
     
-
 
 </body>
 </html>

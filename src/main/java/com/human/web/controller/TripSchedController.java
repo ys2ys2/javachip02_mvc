@@ -18,6 +18,7 @@ public class TripSchedController {
 
     @Autowired
     private TripSchedService tripSchedService;
+    
 
     // 여행 일정 저장을 처리하는 메서드
     @PostMapping("/saveTripSchedule")
@@ -42,7 +43,6 @@ public class TripSchedController {
         String m_email = member.getM_email();
         String m_nickname = member.getM_nickname();
 
-        
         // VO 생성
         TripSchedVO tripSchedVO = new TripSchedVO();
         tripSchedVO.setM_idx(m_idx);
