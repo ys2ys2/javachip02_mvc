@@ -831,3 +831,38 @@ html {
 	color: black;
 }
 
+
+/* 날씨 그래프 스타일 */
+    .weather-chart-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      margin: 20px auto;
+    }
+
+    /* 시간별 날씨 상태 아이콘과 온도 */
+    .weather-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .weather-row div {
+      text-align: center;
+      margin: 0 10px;
+    }
+
+    /* 날씨 아이콘 스타일 */
+    .weather-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    /* 그래프 캔버스 스타일 */
+    #weatherChart {
+      width: 100%;
+      height: 300px;
+    }
+

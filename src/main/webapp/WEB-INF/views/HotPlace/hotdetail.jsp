@@ -12,6 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hotplace.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
@@ -25,6 +26,8 @@
   <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/br.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- 차트 -->
+  
   <title>함께 떠나는 핫플 여행! ${hotplace.title}</title>
 </head>
 
@@ -199,6 +202,18 @@
     	<!-- 날씨 정보를 불러오기 전, 기본 메시지 표시 -->
     	<p>날씨 정보를 불러오는 중입니다...</p>
   	</div>
+  	
+  	    <!-- 날씨 차트 및 시간별 아이콘 -->
+  	    <div class="weather-chart-container">
+	  <!-- 시간별 날씨 상태 및 아이콘 -->
+      <div class="weather-row" id="weatherIconsRow">
+	    <!-- JavaScript로 시간별 날씨 아이콘 및 정보를 삽입합니다 -->
+	  </div>
+	
+	  <!-- 온도 그래프 -->
+      <canvas id="weatherChart"></canvas>
+	</div>
+  	
     </div>
     
     
@@ -320,6 +335,9 @@
       </div>
     </footer>
 
+
+
+
     <!-- 이미지 슬라이드 JS -->
     <script>
       var swiper = new Swiper(".mySwiper", {
@@ -397,47 +415,122 @@
 	</script>
 	
 	
+<!-- 기본 정보 -->	
+<!-- <script>
+   window.onload = function() {
+		// 위도와 경도를 JSP에서 받아옵니다.
+		var lat = parseFloat('${hotplace.mapy}');  // JSP에서 hotplace.mapy (위도) 값 받아오기
+		var lon = parseFloat('${hotplace.mapx}');  // JSP에서 hotplace.mapx (경도) 값 받아오기
 
-	
-<script>
-   // JSP에서 넘겨받은 위도와 경도 값을 자바스크립트 변수로 할당
-   var lat = '${hotplace.mapx}';  // 서버에서 받아온 위도 (hotplace.mapx)
-   var lon = '${hotplace.mapy}';  // 서버에서 받아온 경도 (hotplace.mapy)
+       // OpenWeatherMap API 키
+       var apiKey = 'd230d08fe6ad082f54615c077bf76b16';  // 실제 API 키
 
-   // 위도와 경도를 숫자형으로 변환
-   lat = parseFloat('${hotplace.mapx}');
-   lon = parseFloat('${hotplace.mapy}');
-   
-   // 위도와 경도 값이 제대로 들어오는지 확인하는 로그
-   console.log("위도:", lat);
-   console.log("경도:", lon);
+       // API 호출 URL 만들기 (문자열 연결 방식)
+       var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=metric&lang=kr';
 
-   // OpenWeatherMap API 키
-   var apiKey = 'd230d08fe6ad082f54615c077bf76b16'; 
-   
-   // API 호출 URL 만들기
-   var url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=kr`;
-   
-   console.log("API 호출 URL:", url); // API 호출 URL 확인
+       // 콘솔에서 변수 값 확인
+       console.log("위도:", lat);
+       console.log("경도:", lon);
+       console.log("API Key:", apiKey);
+       console.log("API 호출 URL:", url);
 
-   // 날씨 데이터를 가져오는 함수
-   $.getJSON(url, function(data) {
-       var weatherInfo = `
-           <h3>현재 위치의 날씨 정보</h3>
-           <p>현재 온도: ${data.main.temp} °C</p>
-           <p>체감 온도: ${data.main.feels_like} °C</p>
-           <p>최저 온도: ${data.main.temp_min} °C</p>
-           <p>최고 온도: ${data.main.temp_max} °C</p>
-           <p>습도: ${data.main.humidity} %</p>
-       `;
-       // 가져온 데이터를 HTML에 삽입
-       $('#weather-info').html(weatherInfo);
-   }).fail(function() {
-       $('#weather-info').html('<p>날씨 정보를 불러오는 데 실패했습니다.</p>');
-   });
-</script>
+       // 날씨 데이터를 가져오는 함수
+       $.getJSON(url, function(data) {
+    	    console.log("API 응답 데이터:", data);  // 전체 응답 데이터를 콘솔에 출력하여 확인
+    	    console.log("현재 온도:", data.main.temp);  // 온도를 콘솔에 출력
+			console.log("feels_like", data.main.feels_like);
+    	    
 
-    
+			var weatherInfo = 
+			    '<h3>' + data.name + '의 날씨 정보</h3>' +
+			    '<p>날씨 상태: ' + data.weather[0].description + '</p>' +
+			    '<p>현재 온도: ' + data.main.temp + ' °C</p>' +
+			    '<p>체감 온도: ' + data.main.feels_like + ' °C</p>' +
+			    '<p>최저 온도: ' + data.main.temp_min + ' °C</p>' +
+			    '<p>최고 온도: ' + data.main.temp_max + ' °C</p>' +
+			    '<p>습도: ' + data.main.humidity + ' %</p>' +
+			    '<p>풍속: ' + data.wind.speed + ' m/s</p>' +
+			    '<p>구름량: ' + data.clouds.all + ' %</p>';
+           
+           // 가져온 데이터를 HTML에 삽입
+           $('#weather-info').html(weatherInfo);
+       }).fail(function(jqxhr, textStatus, error) {
+           var err = textStatus + ", " + error;
+    	    console.log("API 호출 실패: " + err);
+            $('#weather-info').html('<p>날씨 정보를 불러오는 데 실패했습니다.</p>');
+       });
+   };
+</script> -->
+
+
+<!-- 5일 3시간 간격 -->
+ <script>
+    window.onload = function() {
+      var lat = parseFloat('${hotplace.mapy}');
+      var lon = parseFloat('${hotplace.mapx}');
+      var apiKey = 'd230d08fe6ad082f54615c077bf76b16';
+      var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=metric&lang=kr';
+
+      $.getJSON(url, function(data) {
+        console.log("API 응답 데이터:", data);
+
+        var forecastList = data.list;
+        var labels = [];
+        var temperatures = [];
+
+        // 시간별 날씨 상태 및 아이콘 표시
+        forecastList.slice(0, 40).forEach(function(forecast, index) {
+          var dateTime = forecast.dt_txt;
+          var temp = Math.round(forecast.main.temp);
+          var icon = forecast.weather[0].icon;
+          
+          console.log("아이콘 코드:", icon);
+
+
+          labels.push(dateTime.slice(11, 16)); // 시간만 추출
+          temperatures.push(temp);
+
+          var weatherDiv = document.createElement('div');
+          weatherDiv.innerHTML = 
+              '<p>' + dateTime.slice(11, 16) + '</p>' +
+              '<img src="http://openweathermap.org/img/wn/' + icon + '@2x.png" class="weather-icon" alt="weather-icon">' +
+              '<p>' + temp + '°</p>';
+            
+            document.getElementById('weatherIconsRow').appendChild(weatherDiv);
+          });
+
+        // Chart.js로 온도 그래프 생성
+        var ctx = document.getElementById('weatherChart').getContext('2d');
+        var weatherChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: '온도 (°C)',
+              data: temperatures,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 2,
+              fill: false,
+              pointBackgroundColor: '#fff',
+              pointRadius: 5
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: false
+              }
+            }
+          }
+        });
+      }).fail(function(jqxhr, textStatus, error) {
+        console.log("API 호출 실패: " + textStatus + ", " + error);
+        $('#weather-info').html('<p>날씨 정보를 불러오는 데 실패했습니다.</p>');
+      });
+    };
+  </script>
+
+
 
 </body>
 </html>
