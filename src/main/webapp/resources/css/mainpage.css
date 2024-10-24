@@ -442,8 +442,6 @@ tfamous h2 {
 .famous-item a {
     text-decoration: none;
     color: inherit;
-}
-
     font-size: 16px;
     margin-top: 15px;
     color: #333;
@@ -790,7 +788,8 @@ newhotplace-header img {
 
 
 
-/* 각각의 li 배경 및 텍스트 색상 변경 */
+/*02~!
+ 각각의 li 배경 및 텍스트 색상 변경 */
 .newhotplace_theme-tabs li:nth-child(1) {
   background-color: #fa6050; /* 첫 번째 탭의 배경색 (Tomato) */
   color: #ffffff80;

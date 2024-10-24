@@ -1,1 +1,149 @@
-@charset "UTF-8";
+
+/* 프리젠테이션 */
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* 아이디/비밀번호 찾기 폼 전체 컨테이너 */
+#idForm, #passwordForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 75px auto;
+  padding: 20px;
+  box-sizing: border-box;
+  
+}
+
+/* 라디오 버튼 숨김 */
+input[type="radio"] {
+  display: none;
+}
+
+
+/* .radio-group 내의 라벨을 탭처럼 스타일링 */
+.radio-group {
+  margin-top: 35px; 
+  display: flex;
+  justify-content: center;
+}/* 라벨 그룹을 중앙 정렬 */
+
+
+/* .radio-group 내의 라벨을 탭처럼 스타일링 */
+.radio-group label {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-family: 'Freesentation-9Black';
+  cursor: pointer;
+  border-bottom: 2px solid transparent; /* 기본 탭 경계선 숨김 */
+  color: black;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+/* 라벨을 탭처럼 스타일링 */
+label {
+  display: inline-block;
+  font-size: 16px;
+  font-family: 'Pretendard-Regular';
+  font-weight:600;
+  cursor: pointer;
+  border-bottom: 2px solid transparent; /* 기본 탭 경계선 숨김 */
+  color: black;
+  transition: color 0.3s, border-bottom 0.3s;
+  padding:3px;
+}
+
+/* 선택된 탭 스타일 */
+.radio-group input[type="radio"]:checked + label {
+  
+  border-bottom: 2px solid black; /* 선택된 탭에만 경계선 표시 */
+}
+
+
+
+/* 폼 스타일 */
+form {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+/* 입력 필드 스타일 */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  font-family: 'Pretendard-Regular';
+  font-weight:500;
+  border-radius: 4px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+/* 버튼 스타일 */
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  font-family: 'Pretendard-Regular';
+  font-weight:500;
+}
+
+/* 버튼 hover 효과 */
+button:hover {
+  background-color: black;
+}
+
+/* 인증번호 입력 구역 스타일 */
+#verificationSection {
+  margin-top: 20px;
+}
+
+/* 인증번호 상태 표시 */
+#verificationStatus {
+  margin-top: 10px;
+  color: red;
+  font-size: 14px;
+}
+
+/* 비밀번호 재설정 폼 숨김 */
+#newPasswordSection {
+  margin-top: 20px;
+}
+
+/* 안내 문구 스타일 */
+.custom-text {
+  font-size: 16px;
+  font-family: 'Pretendard-Regular';
+  font-weight: 700;
+  letter-spacing: 1px; /* 문자 간격 추가 */
+  line-height: 1.8; /* 줄 간격 늘리기 */
+}
+
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}

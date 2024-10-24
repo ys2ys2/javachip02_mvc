@@ -1,3 +1,88 @@
+/* 파셜산스체 */
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* 보배섬진도체 */
+@font-face {
+    font-family: 'BobaesumJindoTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/BobaesumJindoTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+/* 카페24 써라운드 */
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 이누라이두리네 */
+@font-face {
+    font-family: 'RixInooAriDuriR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+/* 프리젠테이션 */
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
 /* 회원가입 폼 전체 컨테이너 */
 .joinmain-form-container {
   display: flex;
@@ -6,18 +91,24 @@
   align-items: center;
   width: 100%;
   max-width: 450px;
-  margin: 100px auto 0 auto; /* 폼 전체를 300px 아래로 이동 */
+  margin: 50px auto 120px auto; /* 폼 전체를 300px 아래로 이동 */
   padding: 20px;
   box-sizing: border-box;
 }
 
 /* 회원가입 페이지 제목 스타일 */
 .bbol-login-title {
-  font-size: 30px;
-  font-weight: bold;
+  font-size: 31px;
+  font-weight: 700;
   text-align: center;
   margin-bottom: 40px; /* 폼과 제목 사이 간격 조정 */
   color: black;
+   line-height: 1.5;
+ 	font-family: 'Pretendard-Regular';
+}
+
+h3.bbol-login-title span {
+    font-family: 'yg-jalnan';
 }
 
 /* 회원가입 폼 전체 스타일 */
@@ -28,9 +119,11 @@
   justify-content: center;
   width: 100%;
   max-width: 400px;
-  padding: 15px;
+  padding: 30px;
   box-sizing: border-box;
 }
+
+
 
 
 .kakao-button {
@@ -102,6 +195,8 @@
 
 .join-divider span {
   font-size: 14px; /* 텍스트 크기 */
+  font-family: 'Freesentation-9Black';
+  font-weight: 100px;
   color: #999; /* 텍스트 색상 */
 }
 
@@ -129,8 +224,10 @@
 /* 로그인 문구 스타일 */
 .login-prompt {
   font-size: 14px;
+  font-family: 'Freesentation-9Black';
+  font-weight: 100px;
   color: #666;
-  margin-top: 30px;
+  margin-top: 40px;
   text-align: center; /* 가운데 정렬 */
 }
 

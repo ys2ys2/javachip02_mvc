@@ -1,3 +1,21 @@
+/*지마켓 산스  */
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*프리텐다드  */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+
 /* 회원가입 폼 전체 컨테이너 */
 .join-form-container {
   display: flex;
@@ -6,7 +24,7 @@
   align-items: center;
   width: 100%;
   max-width: 450px;
-  margin: 0 auto;
+  margin: 70px auto 100px auto;
 }
 
 /* 회원가입 폼 스타일 */
@@ -19,18 +37,21 @@
 
 /* 폼 내부 타이틀 스타일 */
 h1 {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 28px;
+  font-weight: 500px;
+  font-family: 'Pretendard-Regular';
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 50px;
   color: #333;
 }
 
 /* 라벨과 입력 필드 스타일 */
 .joinForm label {
   font-size: 14px;
+  font-weight: 500px;
+  font-family: 'Pretendard-Regular';
   color: #333;
-margin-bottom: 50px
+  margin-bottom: 50px
  /*  display: block; */
 }
 
@@ -38,7 +59,7 @@ margin-bottom: 50px
 .joinForm input[type="password"] {
   width: 100%;
   padding: 10px;
-  margin-bottom: 3px;
+  margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
@@ -46,8 +67,6 @@ margin-bottom: 50px
 
 .joinForm input[type="text"]#nickname {
   width: 100%;
-  /* padding: 10px; */
-  /* margin-bottom: 25px; */ /* 닉네임 인풋창 아래의 간격을 늘림 */
   border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
@@ -60,11 +79,13 @@ margin-bottom: 50px
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 
 .auth-button-group input {
   flex: 2;
   margin-right: 10px;
+  font-family: 'Pretendard-Regular';
 }
 
 .auth-button-group button {
@@ -73,11 +94,12 @@ margin-bottom: 50px
   background-color: #000;
   color: white;
   border: none;
+  font-family: 'Pretendard-Regular';
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
   box-sizing: border-box;
-  margin-bottom: 10px;
+  margin-bottom: 17px;
 }
 
 .auth-button-group button:hover {
@@ -85,11 +107,10 @@ margin-bottom: 50px
 }
 
 .error-msg {
-    display: block;
-    margin-top: 1px;
-    font-size:11px; 
-    font-weight: 700; 
-    margin-top: 5px;
+    font-size:13px; 
+    font-weight: 500;
+    font-family: 'Pretendard-Regular'; 
+    margin-top: -10px;
     padding-bottom:2px;" /* 인풋 필드와 오류 메시지 사이 간격 */
 }
 
@@ -102,10 +123,12 @@ margin-bottom: 50px
   margin-top: 20px;
   width: 100%;
   box-sizing: border-box;
+  font-family: 'Pretendard-Regular';
 }
 
 .terms-list {
   margin-top: 10px;
+  font-family: 'Pretendard-Regular';
 }
 
 .terms-list label {
@@ -137,6 +160,7 @@ margin-bottom: 50px
   font-size: 16px;
   cursor: pointer;
   box-sizing: border-box;
+  font-family: 'Pretendard-Regular';
 }
 
 #submitBtn:hover {

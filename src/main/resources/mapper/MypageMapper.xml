@@ -29,7 +29,7 @@
 
 
 		<select id="getSavedPostList"  resultType="com.human.web.vo.MypageVO">
-		SELECT 
+		SELECT DISTINCT
 		    p.post_writer AS postWriter,         -- VO 필드와 매핑
 		    p.post_content AS postContent,       -- VO 필드와 매핑
 		    p.post_date AS postDate,             -- VO 필드와 매핑
@@ -98,6 +98,31 @@
             ts.period_start ASC
         ]]>
     </select>
+	
+	
+<select id="getLatestPastTrip" resultType="com.human.web.vo.MypageSchedVO">
+   <![CDATA[
+    SELECT period_start, period_end, ts.title AS t_title
+    FROM travel_schedule ts
+    WHERE m_idx = #{m_idx}
+    AND period_end < NOW() -- 현재 날짜보다 지난 일정만
+    ORDER BY period_end DESC
+    LIMIT 1; -- 가장 최근의 지난 일정 한 개만 가져오기
+     ]]>
+</select>
+
+	<select id="getLatestUpcomingTripByMidx" resultType="com.human.web.vo.MypageSchedVO">
+   <![CDATA[
+    SELECT period_start, period_end, ts.title AS t_title
+    FROM travel_schedule ts
+    WHERE m_idx = #{m_idx}
+    AND period_start > NOW() -- 현재 날짜 이후의 일정만
+    ORDER BY period_start ASC -- 가까운 일정부터 정렬
+    LIMIT 1; -- 가장 가까운 한 개의 일정만 가져오기
+   ]]>
+</select>
+	
+	
 	
 
 </mapper>

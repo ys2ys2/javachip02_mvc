@@ -71,14 +71,15 @@ public class MypageServiceImpl implements MypageService {
 		 return mypageDao.getPastTrips(m_idx);
 	}
 
+//메인홈화면에 지난여행/ 다가오는 여행 불러오기 (최신만)
 	@Override
-	public List<MypageSchedVO> getUpcomingTripsByMidx(Integer m_idx) {
-		return mypageDao.getUpcomingTripsByMidx(m_idx);
+	public MypageSchedVO getLatestPastTrip(Integer m_idx) {
+		return mypageDao.getLatestPastTrip(m_idx);
 	}
 
 	@Override
-	public List<MypageSchedVO> getPastTripsByMidx(Integer m_idx) {
-		return mypageDao.getPastTripsByMidx(m_idx);
+	public MypageSchedVO getLatestUpcomingTripByMidx(Integer m_idx) {
+		return mypageDao.getLatestUpcomingTripByMidx(m_idx);
 	}
 
 }

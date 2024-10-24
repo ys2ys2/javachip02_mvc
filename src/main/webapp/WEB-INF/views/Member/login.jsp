@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css"> <!-- header.css -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css"> <!-- login.css -->
     <title>로그인</title>
 </head>
@@ -43,7 +44,7 @@
           <c:otherwise>
             <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
             <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/join">회원가입</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
           </c:otherwise>
         </c:choose>
       </div>
@@ -52,7 +53,7 @@
 
 <div class="login-form-container">
    <h1 class="bbol-logo">BBOL BBOL BBOL</h1>
-  <h1 class="bbol-login-title">로그인하고 여행을 시작해 보세요</h1>
+  <h1 class="bbol-login-title">로그인하고 여행을 시작해 보세요!</h1>
 		<form method="post" action="loginProcess" class="bbol-login-form">
         <!-- 이메일 입력 필드 -->
         <label for="email">이메일</label>
@@ -97,7 +98,53 @@
     </script>
 </c:if>
   
+<!-- 푸터 부분 -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-section">
+      <h4>회사소개</h4>
+      <ul>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/introduce" target="_blank">회사소개</a></li>
+        <li><a href="${pageContext.request.contextPath}/HotPlace/inputApi"target="_blank">공공데이터 API</a></li>
+      </ul>
+    </div>
 
+    <!-- 고객지원 -->
+    <div class="footer-section">
+      <h4>고객지원</h4>
+      <ul>
+        <li><a href="#">공지사항</a></li>
+        <li><a href="#">자주묻는 질문</a></li>
+        <li><a href="#">문의하기</a></li>
+      </ul>
+    </div>
+
+    <!-- 이용약관 -->
+    <div class="footer-section">
+      <h4>이용약관</h4>
+      <ul>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/clause" target="_blank">이용약관</a></li>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/privacy" target="_blank">개인정보처리방침</a></li>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/marketing" target="_blank">광고성 정보 수신동의</a></li>
+      </ul>
+    </div>
+
+    <!-- 회사 정보 -->
+    <div class="footer-company-info">
+      <p>상호: (주)BBOL | 대표: 박예슬 | 사업자등록번호: 123-45-67890 | 통신판매업 신고번호: 2024-충남천안-00000 | 개인정보관리 책임자: 수수옥</p>
+      <p>주소: 충청남도 천안시 동남구 123 | 이메일: support@BBOL3.com | 대표전화: 02-1234-5678</p>
+      <p>© 2024 BBOLBBOLBBOL. All Rights Reserved.</p>
+    </div>
+
+    <!-- 소셜 미디어 -->
+    <div class="footer-social">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+    
+  </div>
+</footer>
 <!-- 카카오 SDK 추가 -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
   	<script type="text/javascript">

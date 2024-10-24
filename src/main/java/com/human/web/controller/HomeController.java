@@ -18,14 +18,12 @@ public class HomeController {
 	public String home() {
 		return "redirect:/HomePage/mainpage";
 	}
-
-	// 403에러
-
 	@GetMapping("/index.do")
 	public String index() {
 		return "HomePage/mainpage";
 	}
-
+	
+	// 403에러
 	@GetMapping("/error/errorPage")
 	public String errorPage() {
 		return "error/errorPage";
@@ -84,17 +82,17 @@ public class HomeController {
 		return "FooterPage/marketing";
 	}
 
-	// 예슬 로그인 페이지
-	@GetMapping("/Login/login")
-	public String login() {
-		return "Login/login";
-	}
+	/*
+	 * // 예슬 로그인 페이지
+	 * 
+	 * @GetMapping("/Login/login") public String login() { return "Login/login"; }
+	 */
 
 	// 예슬 로그인Process = PostMapping → login.jsp에서 <form method="post">로 쓰고 있음
-	@PostMapping("/Login/loginProcess")
-	public String loginProcess() {
-		return "Login/loginProcess";
-	}
+	/*
+	 * @PostMapping("/Login/loginProcess") public String loginProcess() { return
+	 * "Login/loginProcess"; }
+	 */
 
 	// 영준 여행기 작성 페이지
 	@GetMapping("/Community/c_board/travelWrite")
@@ -140,9 +138,9 @@ public class HomeController {
 	}
 
 	// 영준 커뮤니티 메인
-	@GetMapping("/Community/c_main/c_main")
+	@GetMapping("/Community/c_main")
 	public String c_main() {
-		return "Community/c_main/c_main";
+		return "Community/c_main";
 	}
 
 	// 희진 축제페이지

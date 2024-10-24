@@ -21,10 +21,10 @@ public interface MypageService {
 	List<MypageSchedVO> getUpcomingTrips(int m_idx);
 
 	List<MypageSchedVO> getPastTrips(int m_idx);
+	
+	MypageSchedVO getLatestPastTrip(Integer m_idx);
 
-	List<MypageSchedVO> getUpcomingTripsByMidx(Integer m_idx);
-
-	List<MypageSchedVO> getPastTripsByMidx(Integer m_idx);
+	MypageSchedVO getLatestUpcomingTripByMidx(Integer m_idx);
 
 
 	
