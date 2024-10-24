@@ -191,7 +191,7 @@
 
     <!-- 지역 여행지 부분 -->
     <div id="section-talk" class="h_details_title">
-      <span>${banner.areacode} 지역 여행지  <span>${totalTalkCount}</span></span>
+      <span>추천 ${banner.areacode} 지역 여행지<span>${totalTalkCount}</span></span>
     </div>
     
     <!-- 지역 여행지 슬라이드 -->

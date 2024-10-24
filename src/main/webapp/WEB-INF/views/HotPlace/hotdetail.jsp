@@ -194,30 +194,30 @@
     <div id="section-weather" class="h_details_title">
       <span>날씨정보</span>
     </div>
-    <div class="h_details">
-        	<p>MapX: ${hotplace.mapx}</p>
-			<p>MapY: ${hotplace.mapy}</p>
-    	<div id="weather-info">
-
-    	<!-- 날씨 정보를 불러오기 전, 기본 메시지 표시 -->
-    	<p>날씨 정보를 불러오는 중입니다...</p>
-  	</div>
+    
+    <div class="weather_area">
+<!-- 	    <div class="weather_tag">
+	      <span>날씨</span>
+	      <span>강수</span>
+	      <span>바람</span>
+	      <span>습도</span>
+	    </div> -->
+	    
   	
-  	    <!-- 날씨 차트 및 시간별 아이콘 -->
-  	    <div class="weather-chart-container">
-	  <!-- 시간별 날씨 상태 및 아이콘 -->
-      <div class="weather-row" id="weatherIconsRow">
-	    <!-- JavaScript로 시간별 날씨 아이콘 및 정보를 삽입합니다 -->
-	  </div>
-	
-	  <!-- 온도 그래프 -->
-      <canvas id="weatherChart"></canvas>
+	<div class="weather_info">
+	    <button id="prevButton" class="slide-button">
+	      <img src="${pageContext.request.contextPath}/resources/images/hot_left_button.png" alt="Prev">
+	    </button>
+  		<canvas id="weatherCanvas" width="4000" height="300" style="position:absolute; top:0; left:0; z-index:10;"></canvas>
+  		<ul class="temperature-list" style="position:relative; z-index:2;">
+ 	    </ul>
+        <button id="nextButton" class="slide-button">
+          <img src="${pageContext.request.contextPath}/resources/images/hot_right_button.png" alt="Prev">
+        </button>
+	   
 	</div>
-  	
-    </div>
-    
-    
-    
+	</div>
+	    
     
 
     <!-- 여행톡 부분 -->
@@ -415,120 +415,190 @@
 	</script>
 	
 	
-<!-- 기본 정보 -->	
-<!-- <script>
-   window.onload = function() {
-		// 위도와 경도를 JSP에서 받아옵니다.
-		var lat = parseFloat('${hotplace.mapy}');  // JSP에서 hotplace.mapy (위도) 값 받아오기
-		var lon = parseFloat('${hotplace.mapx}');  // JSP에서 hotplace.mapx (경도) 값 받아오기
-
-       // OpenWeatherMap API 키
-       var apiKey = 'd230d08fe6ad082f54615c077bf76b16';  // 실제 API 키
-
-       // API 호출 URL 만들기 (문자열 연결 방식)
-       var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=metric&lang=kr';
-
-       // 콘솔에서 변수 값 확인
-       console.log("위도:", lat);
-       console.log("경도:", lon);
-       console.log("API Key:", apiKey);
-       console.log("API 호출 URL:", url);
-
-       // 날씨 데이터를 가져오는 함수
-       $.getJSON(url, function(data) {
-    	    console.log("API 응답 데이터:", data);  // 전체 응답 데이터를 콘솔에 출력하여 확인
-    	    console.log("현재 온도:", data.main.temp);  // 온도를 콘솔에 출력
-			console.log("feels_like", data.main.feels_like);
-    	    
-
-			var weatherInfo = 
-			    '<h3>' + data.name + '의 날씨 정보</h3>' +
-			    '<p>날씨 상태: ' + data.weather[0].description + '</p>' +
-			    '<p>현재 온도: ' + data.main.temp + ' °C</p>' +
-			    '<p>체감 온도: ' + data.main.feels_like + ' °C</p>' +
-			    '<p>최저 온도: ' + data.main.temp_min + ' °C</p>' +
-			    '<p>최고 온도: ' + data.main.temp_max + ' °C</p>' +
-			    '<p>습도: ' + data.main.humidity + ' %</p>' +
-			    '<p>풍속: ' + data.wind.speed + ' m/s</p>' +
-			    '<p>구름량: ' + data.clouds.all + ' %</p>';
-           
-           // 가져온 데이터를 HTML에 삽입
-           $('#weather-info').html(weatherInfo);
-       }).fail(function(jqxhr, textStatus, error) {
-           var err = textStatus + ", " + error;
-    	    console.log("API 호출 실패: " + err);
-            $('#weather-info').html('<p>날씨 정보를 불러오는 데 실패했습니다.</p>');
-       });
-   };
-</script> -->
-
 
 <!-- 5일 3시간 간격 -->
- <script>
-    window.onload = function() {
-      var lat = parseFloat('${hotplace.mapy}');
-      var lon = parseFloat('${hotplace.mapx}');
-      var apiKey = 'd230d08fe6ad082f54615c077bf76b16';
-      var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=metric&lang=kr';
+<script>
+window.onload = function() {
+    var lat = parseFloat('${hotplace.mapy}');
+    var lon = parseFloat('${hotplace.mapx}');
+    var apiKey = '3e865753bd8625e5661275515b2f320c';
+    var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=metric&lang=kr';
 
-      $.getJSON(url, function(data) {
+    $.getJSON(url, function(data) {
         console.log("API 응답 데이터:", data);
 
         var forecastList = data.list;
-        var labels = [];
-        var temperatures = [];
+        var baseTemp = Math.round(forecastList[0].main.temp); // 첫 번째 항목의 온도를 기준으로 설정
+        var points = []; // 점 좌표를 저장할 배열
 
-        // 시간별 날씨 상태 및 아이콘 표시
         forecastList.slice(0, 40).forEach(function(forecast, index) {
-          var dateTime = forecast.dt_txt;
-          var temp = Math.round(forecast.main.temp);
-          var icon = forecast.weather[0].icon;
-          
-          console.log("아이콘 코드:", icon);
+            var dateTime = forecast.dt_txt;
+            var temp = Math.round(forecast.main.temp);
+            var icon = forecast.weather[0].icon;
 
-
-          labels.push(dateTime.slice(11, 16)); // 시간만 추출
-          temperatures.push(temp);
-
-          var weatherDiv = document.createElement('div');
-          weatherDiv.innerHTML = 
-              '<p>' + dateTime.slice(11, 16) + '</p>' +
-              '<img src="http://openweathermap.org/img/wn/' + icon + '@2x.png" class="weather-icon" alt="weather-icon">' +
-              '<p>' + temp + '°</p>';
-            
-            document.getElementById('weatherIconsRow').appendChild(weatherDiv);
-          });
-
-        // Chart.js로 온도 그래프 생성
-        var ctx = document.getElementById('weatherChart').getContext('2d');
-        var weatherChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: '온도 (°C)',
-              data: temperatures,
-              borderColor: 'rgba(75, 192, 192, 1)',
-              borderWidth: 2,
-              fill: false,
-              pointBackgroundColor: '#fff',
-              pointRadius: 5
-            }]
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: false
-              }
+            // 시간별로 낮과 밤 구분
+            var hour = parseInt(dateTime.slice(11, 13));
+            if (hour >= 18 || hour < 7) {
+                icon = icon.replace('d', 'n');
+            } else {
+                icon = icon.replace('n', 'd');
             }
-          }
+
+            // 사용자 정의 아이콘 경로 설정
+            var customIconUrl = getCustomIconUrl(icon);
+
+            // 온도 차이에 따라 점의 위치 계산 (1도당 2px 이동)
+            var tempDifference = temp - baseTemp; // 기준 온도와의 차이
+            var topOffset = -tempDifference * 2; // 1도당 2px 위로 이동 (기준 온도보다 높으면 위로, 낮으면 아래로)
+
+            // 리스트 항목 생성
+            var li = document.createElement('li');
+            li.innerHTML =
+                '<div class="temp">' + temp + '°</div>' +
+                '<span class="dot" style="top: ' + (40 + topOffset) + 'px;"></span>' + // 점의 위치 조정
+                '<div class="icon"><img src="' + customIconUrl + '" alt="weather-icon"></div>' +
+                '<div class="time">' + dateTime.slice(11, 16) + '</div>' +
+                '<div class="date">' + dateTime.slice(5, 10) + '</div>' +
+                '<div class="day">' + getDayOfWeek(dateTime) + '</div>'; // 요일 표시
+
+            // 리스트에 추가
+            document.querySelector('.temperature-list').appendChild(li);
         });
-      }).fail(function(jqxhr, textStatus, error) {
-        console.log("API 호출 실패: " + textStatus + ", " + error);
-        $('#weather-info').html('<p>날씨 정보를 불러오는 데 실패했습니다.</p>');
-      });
-    };
-  </script>
+
+        // dot이 그려진 후, 좌표를 찾아 선을 그리는 작업 실행
+        setTimeout(function() {
+	    var dots = document.querySelectorAll('.temperature-list .dot');
+	    var points = [];
+	
+	    // 각 dot 요소의 위치를 계산
+	    dots.forEach(function(dot, index) {
+	        var rect = dot.getBoundingClientRect();  // 요소의 좌표 정보 얻기
+	        //var xPos = rect.left + (rect.width / 2); // 중앙 x 좌표 계산
+	        //var yPos = rect.top + (rect.height / 2); // 중앙 y 좌표 계산 (window.scrollY 제거)
+	        
+	        var xPos = rect.x;
+	        var yPos = rect.y;
+	       
+	        
+	        // 좌표 저장
+	        points.push({ x: xPos, y: yPos });
+	        //points.push({ x: rect.x, y: rect.y });
+	 		
+	        //쌤이 알려주신 console.log
+	        //console.log("x:"+rect.x+",y:"+rect.y);
+	        //console.log(`Dot ${index + 1}: X = ${rect.x}, Y = ${rect.y}`);
+	        
+	    });
+	
+	    // 점들을 이음
+	    drawLines(points);
+	    
+	}, 0); // 1초 후에 좌표 계산 시작 (렌더링 후 지연 시간)
+    });
+    
+    // 선 그리는 함수
+    function drawLines(points) {
+        var canvas = document.getElementById('weatherCanvas');
+        var ctx = canvas.getContext('2d');
+        
+        //Canvas 크기, 위치 가져오기
+    	var canvasRect = canvas.getBoundingClientRect(); // canvas의 화면 내 위치 가져오기
+        
+        //캔버스 크기 console
+        //console.log("Canvas width: " + canvas.width + ", height: " + canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // 기존 선을 지움
+        ctx.translate(0, 2); // 전체 Y 좌표를 1px 아래로 이동
+
+
+        // 선 그리기
+        if (points.length > 0) {
+            ctx.beginPath();
+            
+            // 첫 번째 점으로 이동 (캔버스 좌표계로 변환 + 1px 아래로 이동)
+            ctx.moveTo(points[0].x - canvasRect.left, points[0].y - canvasRect.top);
+
+            // 각 점으로 선을 그림
+            for (var i = 1; i < points.length; i++) {
+            	//어디서부터 선 그렸는지 console.log
+                //console.log(`Drawing line to Point ${i + 1}: X = ${points[i].x}, Y = ${points[i].y}`);
+                ctx.lineTo(points[i].x - canvasRect.left, points[i].y - canvasRect.top);
+            }
+            
+            ctx.strokeStyle = '#D5D5D5'; // 선 색상
+            ctx.lineWidth = 2;	//선 굵기
+            ctx.stroke();
+        }
+    }
+};
+
+    // 요일 계산 함수
+    function getDayOfWeek(dateTime) {
+        var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+        var dateObj = new Date(dateTime);
+        return daysOfWeek[dateObj.getDay()];
+    }
+
+    // 아이콘 커스텀 함수
+    function getCustomIconUrl(iconCode) {
+        var iconMap = {
+            '01d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt1.svg',
+            '01n': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt2.svg',
+            '02d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt3.svg',
+            '02n': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt6.svg',
+            '03d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt5.svg',
+            '03n': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt6.svg',
+            '04d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt7.svg',
+            '04n': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt6.svg',
+            '09d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt9.svg',
+            '10d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt22.svg',
+            '11d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt18.svg',
+            '13d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt11.svg',
+            '50d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt17.svg'
+        };
+
+        return iconMap[iconCode] || 'https://example.com/icons/default-icon.png';
+    }
+    
+    
+
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var prevButton = document.getElementById('prevButton');
+    var nextButton = document.getElementById('nextButton');
+
+    prevButton.addEventListener('click', function() {
+        var list = document.querySelector('.temperature-list');
+        list.scrollBy({ left: -300, behavior: 'smooth' });
+
+        // 스크롤 이동 후 0.5초 뒤에 선 다시 그리기
+        setTimeout(updateLinesAfterScroll, 2000);  // 스크롤 완료 후 선을 업데이트
+    });
+
+    nextButton.addEventListener('click', function() {
+        var list = document.querySelector('.temperature-list');
+        list.scrollBy({ left: 300, behavior: 'smooth' });
+
+        // 스크롤 이동 후 0.5초 뒤에 선 다시 그리기
+        setTimeout(updateLinesAfterScroll, 2000);  // 스크롤 완료 후 선을 업데이트
+    });
+});
+
+function updateLinesAfterScroll() {
+    var dots = document.querySelectorAll('.temperature-list .dot');
+    var points = [];
+
+    dots.forEach(function(dot) {
+        var rect = dot.getBoundingClientRect();  // 요소의 좌표 정보 얻기
+        points.push({ x: rect.x, y: rect.y });
+    });
+
+    drawLines(points);  // 새로운 점 좌표로 선을 다시 그림
+}
+</script>
+
+
 
 
 
