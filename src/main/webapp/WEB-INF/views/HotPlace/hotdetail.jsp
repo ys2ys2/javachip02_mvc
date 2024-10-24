@@ -195,27 +195,19 @@
       <span>날씨정보</span>
     </div>
     
-    <div class="weather_area">
-<!-- 	    <div class="weather_tag">
-	      <span>날씨</span>
-	      <span>강수</span>
-	      <span>바람</span>
-	      <span>습도</span>
-	    </div> -->
-	    
-  	
-	<div class="weather_info">
-	    <button id="prevButton" class="slide-button">
+	<div class="weather_area">
+		<div class="weather_info">
+    	<button id="prevButton" class="slide-button">
 	      <img src="${pageContext.request.contextPath}/resources/images/hot_left_button.png" alt="Prev">
 	    </button>
-  		<canvas id="weatherCanvas" width="4000" height="300" style="position:absolute; top:0; left:0; z-index:10;"></canvas>
-  		<ul class="temperature-list" style="position:relative; z-index:2;">
- 	    </ul>
+	    <div class="temperature-container" >
+      		<canvas id="weatherCanvas" width="4000" height="300" style="position:absolute; top:0; left:0; z-index:10;"></canvas>
+	      	<ul class="temperature-list" style="position:relative; z-index:2; width: 4000px; display: flex;"></ul>
+ 	  	</div>
         <button id="nextButton" class="slide-button">
           <img src="${pageContext.request.contextPath}/resources/images/hot_right_button.png" alt="Prev">
         </button>
-	   
-	</div>
+		</div>
 	</div>
 	    
     
@@ -564,39 +556,30 @@ window.onload = function() {
 </script>
 
 <script>
+
 document.addEventListener('DOMContentLoaded', function() {
     var prevButton = document.getElementById('prevButton');
     var nextButton = document.getElementById('nextButton');
+    var container = document.querySelector('.temperature-container');  // 스크롤할 컨테이너
 
     prevButton.addEventListener('click', function() {
-        var list = document.querySelector('.temperature-list');
-        list.scrollBy({ left: -300, behavior: 'smooth' });
-
-        // 스크롤 이동 후 0.5초 뒤에 선 다시 그리기
-        setTimeout(updateLinesAfterScroll, 2000);  // 스크롤 완료 후 선을 업데이트
+        console.log("Prev Button Clicked");
+        if (container) {
+            container.scrollBy({ left: -300, behavior: 'smooth' });  // 왼쪽으로 300px 스크롤
+        }
     });
 
     nextButton.addEventListener('click', function() {
-        var list = document.querySelector('.temperature-list');
-        list.scrollBy({ left: 300, behavior: 'smooth' });
-
-        // 스크롤 이동 후 0.5초 뒤에 선 다시 그리기
-        setTimeout(updateLinesAfterScroll, 2000);  // 스크롤 완료 후 선을 업데이트
+        console.log("Next Button Clicked");
+        if (container) {
+            container.scrollBy({ left: 300, behavior: 'smooth' });  // 오른쪽으로 300px 스크롤
+        }
     });
 });
 
-function updateLinesAfterScroll() {
-    var dots = document.querySelectorAll('.temperature-list .dot');
-    var points = [];
 
-    dots.forEach(function(dot) {
-        var rect = dot.getBoundingClientRect();  // 요소의 좌표 정보 얻기
-        points.push({ x: rect.x, y: rect.y });
-    });
-
-    drawLines(points);  // 새로운 점 좌표로 선을 다시 그림
-}
 </script>
+
 
 
 

@@ -485,7 +485,7 @@ html {
 
 .date {
   color: #999;
-  width: 50px;
+  width: 150px;
 }
 
 .comment-actions {
@@ -894,7 +894,7 @@ html {
     position: relative; /* 캔버스를 배경으로 사용하기 위해 */
     margin-top: 20px;
     width: 100%;
-    overflow:hidden;
+    overflow-y: hidden;
 }
 
 .weather_info ul {
@@ -978,7 +978,8 @@ html {
     flex-wrap: nowrap;
     width: max-content;
     position: realative;
-    overflow-x: scroll;
+    overflow-x: auto;  /* 가로 스크롤을 허용 */
+    scroll-behavior: smooth;  /* 스크롤 애니메이션을 부드럽게 */
 }
 
 .temperature-list li {
@@ -987,6 +988,7 @@ html {
     margin: 0 5px;
     position: relative;
     main-width: 120px;
+    align-items: center;
 }
 
 /* 좌우 버튼 스타일 */
@@ -1024,7 +1026,11 @@ html {
 
 }
 
-
-
+.temperature-container {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	overflow-y: hidden;
+}
 
 
