@@ -1,7 +1,13 @@
 package com.human.web.repository;
 
 import java.util.HashMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -34,6 +40,7 @@ public class TalkDAO {
     }
 
 
+
     // 댓글 삭제
     public int deleteTalk(int talkIdx) {
         return sqlSession.delete(MAPPER + ".deleteTalk", talkIdx);
@@ -56,6 +63,7 @@ public class TalkDAO {
         params.put("limit", limit);
         return sqlSession.selectList(MAPPER + ".getItemListWithPagination", params);
     }
+
 
 
     // 댓글 수정

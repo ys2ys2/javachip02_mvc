@@ -6,6 +6,9 @@
   
   <!-- MyBatis에서 데이터 타입으로 사용할 객체들에 대한 별칭(alias) 정의 -->
   <typeAliases>
+<<<<<<< HEAD
+  	<typeAlias alias="M_MemberVO" type="com.human.web.vo.M_MemberVO"/>
+=======
   		<typeAlias alias="M_MemberVO" type="com.human.web.vo.M_MemberVO"/>
   		 <!-- 게시글 VO -->
     <typeAlias alias="postVO" type="com.human.web.vo.PostVO"/>
@@ -14,6 +17,7 @@
     <!-- 좋아요 VO -->
     <typeAlias alias="likeVO" type="com.human.web.vo.LikeVO"/>
     
+>>>>>>> origin/yeseul
   	<typeAlias alias="MypageVO" type="com.human.web.vo.MypageVO"/>
   	
  </typeAliases>

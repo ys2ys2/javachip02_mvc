@@ -5,14 +5,21 @@ document.addEventListener("DOMContentLoaded", function () {
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
+      el: ".swiper-pagination",
+      clickable: true,
     },
     loop: true,
+    loop: true,
     autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
       delay: 3000,
       disableOnInteraction: false,
     },
     speed: 400,
     navigation: {
+      nextEl: ".next-btn",
+      prevEl: ".prev-btn",
       nextEl: ".next-btn",
       prevEl: ".prev-btn",
     },
@@ -70,14 +77,18 @@ document.addEventListener("DOMContentLoaded", function () {
   // 자동 슬라이드 일시 정지/재개 버튼
   const pauseBtn = document.querySelector('.pause-btn');
   let isPaused = false;
+  let isPaused = false;
   pauseBtn.addEventListener('click', function () {
     if (isPaused) {
       swiper.autoplay.start();
       pauseBtn.querySelector('img').src = contextPath + '/resources/images/btn_slidem_stop02.png';
+      pauseBtn.querySelector('img').src = contextPath + '/resources/images/btn_slidem_stop02.png';
     } else {
       swiper.autoplay.stop();
       pauseBtn.querySelector('img').src = contextPath + '/resources/images/btn_curation_play.png';
+      pauseBtn.querySelector('img').src = contextPath + '/resources/images/btn_curation_play.png';
     }
+    isPaused = !isPaused;
     isPaused = !isPaused;
   });
 });

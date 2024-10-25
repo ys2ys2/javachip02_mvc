@@ -1,6 +1,5 @@
 package com.human.web.controller;
 
-//수정테스트
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +8,7 @@ import com.human.web.service.M_MemberService;
 
 import lombok.RequiredArgsConstructor;
 
-@RestController //@Controller + @ResponseBody
+@RestController // @Controller + @ResponseBody
 @RequiredArgsConstructor
 public class AjaxController {
 

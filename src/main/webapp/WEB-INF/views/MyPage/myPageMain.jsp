@@ -25,6 +25,9 @@
       <div class="logo">
         <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
       </div>
+      <div class="logo">
+        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
+      </div>
       <nav>
         <ul>
           <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>

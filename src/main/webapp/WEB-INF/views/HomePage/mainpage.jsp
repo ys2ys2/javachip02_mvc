@@ -35,10 +35,14 @@
 <body>
 
 
+
   <!-- 어두운 배경 -->
   <div class="overlay"></div>
   <header>
     <div class="header-container">
+      <div class="logo">
+        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
+      </div>
       <div class="logo">
         <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
       </div>
@@ -48,6 +52,8 @@
           <li><a href="#">커뮤니티</a></li>
           <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
           <li><a href="#">여행뽈뽈</a></li>
+          <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
+          
           <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
           
         </ul>
@@ -71,9 +77,17 @@
             <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
           </c:otherwise>
         </c:choose>
+          </c:when>
+          <c:otherwise>
+            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
+            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
+          </c:otherwise>
+        </c:choose>
       </div>
     </div>
   </header>
+  
   
   <!-- 메인 시작 부분 -->
   <div class="main-container">
@@ -480,12 +494,17 @@
       <h2>함께 떠나는 핫플 여행</h2>
     <div class="hotplace-list">
    		<c:forEach var="hotplace" items="${hotplaceDetails}">
+   		<c:forEach var="hotplace" items="${hotplaceDetails}">
     <div class="hotplace-item">
+		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	    	<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="image-placeholder" />
+	    	<p>${hotplace.title}</p>
 		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
 	    	<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="image-placeholder" />
 	    	<p>${hotplace.title}</p>
       </a>
     </div>
+    	</c:forEach>
     	</c:forEach>
   </div>
 </div>
@@ -495,21 +514,26 @@
   <!-- 축제 섹션 -->
   <div class="event-section">
     <h2>축제</h2>
+    <h2>축제</h2>
     <div class="event-list">
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
+        <p>축제 1</p>
         <p>축제 1</p>
       </div>
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
         <p>축제 2</p>
+        <p>축제 2</p>
       </div>
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
         <p>축제 3</p>
+        <p>축제 3</p>
       </div>
       <div class="event-item">
         <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
+        <p>축제 4</p>
         <p>축제 4</p>
       </div>
     </div>
@@ -524,6 +548,8 @@
     <div class="footer-section">
       <h4>회사소개</h4>
       <ul>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/introduce" target="_blank">회사소개</a></li>
+        <li><a href="${pageContext.request.contextPath}/HotPlace/inputApi"target="_blank">공공데이터 API</a></li>
         <li><a href="${pageContext.request.contextPath}/FooterPage/introduce" target="_blank">회사소개</a></li>
         <li><a href="${pageContext.request.contextPath}/HotPlace/inputApi"target="_blank">공공데이터 API</a></li>
       </ul>
@@ -546,6 +572,9 @@
         <li><a href="${pageContext.request.contextPath}/FooterPage/clause" target="_blank">이용약관</a></li>
         <li><a href="${pageContext.request.contextPath}/FooterPage/privacy" target="_blank">개인정보처리방침</a></li>
         <li><a href="${pageContext.request.contextPath}/FooterPage/marketing" target="_blank">광고성 정보 수신동의</a></li>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/clause" target="_blank">이용약관</a></li>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/privacy" target="_blank">개인정보처리방침</a></li>
+        <li><a href="${pageContext.request.contextPath}/FooterPage/marketing" target="_blank">광고성 정보 수신동의</a></li>
       </ul>
     </div>
 
@@ -561,6 +590,9 @@
       <a href="#"><i class="fab fa-instagram"></i></a>
       <a href="#"><i class="fab fa-facebook-f"></i></a>
       <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+    
+  </div>
     </div>
     
   </div>

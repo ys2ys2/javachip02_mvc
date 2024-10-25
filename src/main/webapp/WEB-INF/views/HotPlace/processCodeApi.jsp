@@ -30,6 +30,7 @@
                           + "&numOfRows=10" // 한 번에 조회할 개수
                           + "&areaCode=" + regionCode
                           + "&pageNo=" + randomPage; // 페이지 번호 랜덤
+                          + "&pageNo=" + randomPage; // 페이지 번호 랜덤
 
             try {
                 StringBuilder urlBuilder = new StringBuilder(apiUrl);
