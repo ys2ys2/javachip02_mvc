@@ -77,13 +77,7 @@
             <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
           </c:otherwise>
         </c:choose>
-          </c:when>
-          <c:otherwise>
-            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
-            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
-          </c:otherwise>
-        </c:choose>
+          
       </div>
     </div>
   </header>

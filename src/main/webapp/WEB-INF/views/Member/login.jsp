@@ -79,14 +79,14 @@
 
         <!-- SNS 로그인 버튼 -->
         <div class="bbol-sns-buttons">
-            <img src="${pageContext.request.contextPath}/resources/images/kakaotalkicon.png" alt="Kakao" class="bbol-sns-icon">
-            <img src="${pageContext.request.contextPath}/resources/images/navericon.png" alt="Naver" class="bbol-sns-icon">
-            <img src="${pageContext.request.contextPath}/resources/images/googleicon.png" alt="Google" class="bbol-sns-icon">
+            <img src="${pageContext.request.contextPath}/resources/images/kakaotalkicon.png" alt="Kakao" class="bbol-sns-icon" id="kakao-login-btn">
+            <img src="${pageContext.request.contextPath}/resources/images/navericon.png" alt="Naver" class="bbol-sns-icon" id="naver-login-btn">
+            <img src="${pageContext.request.contextPath}/resources/images/googleicon.png" alt="Google" class="bbol-sns-icon" id="google-login-btn">
         </div>
 
         <!-- 회원가입 유도 -->
         <div class="bbol-signup-prompt">
-            아직 회원이 아니신가요? <span onclick="location.href='${pageContext.request.contextPath}/Member/join'">회원가입</span>
+            아직 회원이 아니신가요? <span onclick="location.href='${pageContext.request.contextPath}/Member/joinmain'">회원가입</span>
         </div>
     </form>
 </div>

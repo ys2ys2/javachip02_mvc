@@ -72,13 +72,6 @@ public class MypageController {
 
 	    return "MyPage/myPageMain";
 	}
-	
-	
-	// 출력하든 상세페이지 이런건 여기서 처리
-	
-	
-	
-	
 
 
 	//저장목록
