@@ -15,11 +15,8 @@
 <title>회원정보 변경</title>
 </head>
 <body>
- <div class="overlay"></div>
 
-  <!-- 어두운 배경 -->
-    <div class="overlay"></div>
-  <header>
+ <header>
     <div class="header-container">
       <div class="logo">
         <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
@@ -27,16 +24,20 @@
       <nav>
         <ul>
           <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-          <li><a href="#">커뮤니티</a></li>
-          <li><a href="${pageContext.request.contextPath}/HotPlace/banner2">여행지</a></li>
-          <li><a href="#">여행뽈뽈</a></li>
+          <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
+          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
+          <li><a href="${pageCOntext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
+          <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
         </ul>
       </nav>
-      <div class="member">
+        <div class="member">
         <c:choose>
-          <c:when test="${not empty sessionScope.member}">
+          <c:when test="${not empty member}">
             <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
+            <div class="welcome">
+                <span class="userprofile"><img src="${pageContext.request.contextPath}${member.m_profile}" alt="user-profile"></span>
+                ${member.m_nickname}님 환영합니다!
+            </div>
             <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
             <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
               <button type="submit">로그아웃</button>
@@ -45,13 +46,13 @@
           <c:otherwise>
             <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
             <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/join">회원가입</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
           </c:otherwise>
         </c:choose>
+
       </div>
     </div>
   </header>
-  
   
   
   <!-- 상단 네비게이션 -->
@@ -146,7 +147,19 @@
     </div>
 </div>
 
-<br>
+<!-- 프로필 이미지 미리보기 JavaScript -->
+<script>
+    document.getElementById('imageInput').addEventListener('change', function(event) {
+        var file = event.target.files[0]; // 선택한 파일 가져오기
+        if (file) {
+            var reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
+            reader.onload = function(e) {
+                document.getElementById('profileImage').src = e.target.result; // img 태그의 src를 새 이미지로 변경
+            };
+            reader.readAsDataURL(file); // 파일을 Data URL로 변환하여 이미지로 읽기
+        }
+    });
+</script>
 
 <!-- 회원정보 변경 실패 시 오류 메시지 출력 -->
 <c:if test="${not empty msg}">

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  
     
@@ -17,30 +16,28 @@
 <title>마이페이지 메인</title>
 </head>
 <body>
- 
-  <!-- 어두운 배경 -->
-    <div class="overlay"></div>
-  <header>
+ <header>
     <div class="header-container">
-      <div class="logo">
-        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
-      </div>
       <div class="logo">
         <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
       </div>
       <nav>
         <ul>
           <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-          <li><a href="#">커뮤니티</a></li>
-          <li><a href="${pageContext.request.contextPath}/HotPlace/banner2">여행지</a></li>
-          <li><a href="#">여행뽈뽈</a></li>
+          <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
+          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
+          <li><a href="${pageCOntext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
+          <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
         </ul>
       </nav>
-      <div class="member">
+        <div class="member">
         <c:choose>
-          <c:when test="${not empty sessionScope.member}">
+          <c:when test="${not empty member}">
             <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
+            <div class="welcome">
+                <span class="userprofile"><img src="${pageContext.request.contextPath}${member.m_profile}" alt="user-profile"></span>
+                ${member.m_nickname}님 환영합니다!
+            </div>
             <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
             <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
               <button type="submit">로그아웃</button>
@@ -49,9 +46,10 @@
           <c:otherwise>
             <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
             <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/join">회원가입</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
           </c:otherwise>
         </c:choose>
+
       </div>
     </div>
   </header>
@@ -92,8 +90,8 @@
             <button class="add-trip-btn" onclick="location.href='${pageContext.request.contextPath}/TripSched/tripSched'">일정 추가</button>
             <c:if test="${not empty latestUpcomingTrip}">
                 <div class="upcoming-trip-item">
-                    <p>${latestUpcomingTrip.t_title}</p>
-                    <p> 
+                    <p class="upcoming-trip-item-title">${latestUpcomingTrip.t_title}</p>
+                    <p class="upcoming-trip-item-date"> 
                         <fmt:formatDate value="${latestUpcomingTrip.period_start}" pattern="yyyy-MM-dd" /> - 
                         <fmt:formatDate value="${latestUpcomingTrip.period_end}" pattern="yyyy-MM-dd" />
                     </p>
@@ -103,14 +101,14 @@
                 <p class="no-upcoming-trip-message">다가오는 여행이 없습니다.</p>
             </c:if>
         </div>
-
         <!-- 지난 여행 -->
         <div class="section-past-trips">
             <h3 class="past-trips-title">지난 여행</h3>
+            <button class="add-trip-btn" onclick="location.href='${pageContext.request.contextPath}/MyPage/m_myTrips'">더보기</button>
             <c:if test="${not empty latestPastTrip}">
                 <div class="latest-past-trip">
-                    <p>여행 제목: ${latestPastTrip.t_title}</p>
-                    <p>여행 기간: 
+                    <p class="latest-past-trip-title">${latestPastTrip.t_title}</p>
+                    <p class="latest-past-trip-date"> 
                         <fmt:formatDate value="${latestPastTrip.period_start}" pattern="yyyy-MM-dd" /> - 
                         <fmt:formatDate value="${latestPastTrip.period_end}" pattern="yyyy-MM-dd" />
                     </p>
@@ -127,19 +125,17 @@
     <!-- 내 게시물 섹션 -->
     <div class="my-journeys-custom">
         <h3 class="my-journeys-title">내 게시글</h3>
-        <button class="my-journeys-btn">글쓰기</button>
+        <button class="my-journeys-btn" onclick="location.href='${pageContext.request.contextPath}/Community/c_main'">글쓰기</button>
         <div class="my-journeys-list">
             <c:if test="${not empty savedPostList}">
                 <c:forEach var="post" items="${savedPostList}">
                     <div class="post-item-custom">
                         <div class="post-header-custom">
                             <div class="post-writer-custom">${post.postWriter}</div>
-                            <div class="post-date-custom">${post.postDate}</div>
+                            <div class="post-date-custom">${post.formattedPostDate}</div>
                         </div>
                         <div class="post-content-custom">${post.postContent}</div>
                         <div class="post-footer-custom">
-                            <span class="post-like-count"><i class="fa fa-heart"></i> ${post.likeCount}</span>
-                            <span class="post-comment-count"><i class="fa fa-comment"></i> ${post.commentCount}</span>
                         </div>
                     </div>
                 </c:forEach>
@@ -149,15 +145,14 @@
 
     <!-- 나의 저장목록 섹션 -->
     <div class="m_content-section-header-custom">
+     			<h3>나의 저장목록</h3>
         <c:if test="${not empty savedList}">
             <div class="m_saved-list-custom">
-                <h3>나의 저장목록</h3>
                 <c:forEach var="item" items="${savedList}">
                     <div class="m_saved-item-custom">
                         <img src="${item.firstimage}" alt="${item.title}" class="m_saved-image-custom">
                         <div class="m_saved-info-custom">
                             <h4 class="saved-title-custom">${item.title}</h4>
-                            <p class="saved-likes-custom">❤ ${item.likes}</p>
                             <p class="saved-addr-custom">${item.addr1}</p>
                         </div>
                     </div>
@@ -170,7 +165,10 @@
 
     <!-- 추천 핫플레이스 섹션 -->
     <div class="m_hotplaces-custom">
-        <h2 class="hotplaces-title-custom">BBOL BBOL BBOL 추천 핫플레이스</h2>
+        <h2 class="hotplaces-title-custom">
+    <span class="highlight-font">BBOL BBOL BBOL</span> 추천 핫플레이스
+		</h2>
+
         <div class="m_content-box-custom">
             <c:forEach var="hotplace" items="${hotplaceList}">
                 <div class="m_hotplace-item-custom">
@@ -182,7 +180,7 @@
     </div>
 </div>
 
-<%-- <%-- <!-- 푸터 부분 --> 
+ <!-- 푸터 부분 --> 
 <footer>
   <div class="footer-container">
     <!-- 회사소개 섹션 -->
@@ -229,7 +227,7 @@
     </div>
   </div>
 </footer>
-<!-- 푸터 끝 --> --%>
+<!-- 푸터 끝 -->
 
 </body>
 </html>

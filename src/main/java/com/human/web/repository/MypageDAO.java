@@ -1,7 +1,7 @@
 package com.human.web.repository;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +29,37 @@ public class MypageDAO {
 	
 	 // getMypageList: 데이터베이스에서 M_Mypage 테이블의 모든 데이터를 가져오는 메서드
     // 반환값: List<MypageVO> - M_Mypage 테이블의 모든 데이터를 VO 객체 리스트로 반환
+	
+	
+	//랜덤 핫플레이스 가져오기, 이미지 1개처리
 	public List<MypageVO> getRandomHotplaceList() {
-		 System.out.println("MypageDAO - getRandomHotplaceList 호출됨");  // 메서드 호출 시 출력
+	    System.out.println("MypageDAO - getRandomHotplaceList 호출됨");  // 메서드 호출 시 출력
 	        
-	        List<MypageVO> list = sqlSession.selectList(MAPPER + ".getRandomHotplaceList");
+	    List<MypageVO> list = sqlSession.selectList(MAPPER + ".getRandomHotplaceList");
 
-	        // 쿼리 결과 출력
-	        if (list != null && !list.isEmpty()) {
-	            
-	            for (MypageVO vo : list) {
-	                System.out.println(vo);
+	    // 쿼리 결과가 있는 경우 처리
+	    if (list != null && !list.isEmpty()) {
+	        list = list.stream().map(vo -> {
+	            String firstimage = vo.getFirstimage(); // MypageVO의 firstimage 필드를 가져옴
+	            if (firstimage != null && firstimage.contains(",")) {
+	                // 쉼표로 구분된 이미지 중 첫 번째만 추출
+	                firstimage = firstimage.split(",")[0].trim();
 	            }
-	        } else {
-	            System.out.println("쿼리 결과가 없습니다.");
-	        }
+	            vo.setFirstimage(firstimage); // 수정된 firstimage를 다시 설정
+	            return vo;  // vo 객체 반환
+	        }).collect(Collectors.toList());
 	        
-	        return list;
+	        // 쿼리 결과 출력
+	        for (MypageVO vo : list) {
+	            System.out.println(vo);
+	        }
+	    } else {
+	        System.out.println("쿼리 결과가 없습니다.");
+	    }
+	    
+	    return list;
 	}
+
 
 	//저장 목록 카테고리에 불러오기
 	public List<MypageVO> getSavedList(int m_idx) {

@@ -8,7 +8,6 @@
   <typeAliases>
   	<typeAlias alias="M_MemberVO" type="com.human.web.vo.M_MemberVO"/>
 
-  		<typeAlias alias="M_MemberVO" type="com.human.web.vo.M_MemberVO"/>
   		 <!-- 게시글 VO -->
     <typeAlias alias="postVO" type="com.human.web.vo.PostVO"/>
     <!-- 댓글 VO -->

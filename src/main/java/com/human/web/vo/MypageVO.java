@@ -1,7 +1,9 @@
 package com.human.web.vo;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +31,18 @@ public class MypageVO {
 	    private int m_idx;
 	
 			
+
+	    // 포맷팅된 날짜 반환 메서드 (한국 시간으로 변환)
+	    public String getFormattedPostDate() {
+	        if (postDate == null) return ""; // null 처리
+	        
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	        
+	        // 한국 시간대(KST)로 변환 (LocalDateTime은 시간대 정보가 없기 때문에 현재 시간대를 한국으로 고정)
+	        ZonedDateTime koreaTime = postDate.atZone(ZoneId.of("Asia/Seoul"));
+	        
+	        return koreaTime.format(formatter);
+	    
 		}      
 
-
+}
