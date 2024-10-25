@@ -12,20 +12,20 @@ public class CommentDAO {
     @Autowired
     private SqlSession sqlSession;
 
-    private static final String NAMESPACE = "com.human.web.mapper.CommentMapper";
+    private static final String MAPPER = "com.human.web.mapper.CommentMapper";
 
     // 특정 게시글의 댓글 목록 조회
     public List<CommentVO> getCommentsByPostId(int postId) {
-        return sqlSession.selectList(NAMESPACE + ".getCommentsByPostId", postId);
+        return sqlSession.selectList(MAPPER + ".getCommentsByPostId", postId);
     }
 
     // 댓글 추가
     public void insertComment(CommentVO comment) {
-        sqlSession.insert(NAMESPACE + ".insertComment", comment);
+        sqlSession.insert(MAPPER + ".insertComment", comment);
     }
 
     // 댓글 삭제
     public void deleteComment(int commentId) {
-        sqlSession.delete(NAMESPACE + ".deleteComment", commentId);
+        sqlSession.delete(MAPPER + ".deleteComment", commentId);
     }
 }

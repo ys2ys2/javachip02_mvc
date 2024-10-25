@@ -1,4 +1,5 @@
 package com.human.web.controller;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ public class CommentController {
     private CommentService commentService;
     @Autowired
     private PostService postService;
+
     // 특정 게시글의 댓글 목록 조회
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CommentVO>> getComments(@PathVariable("postId") int postId) {
@@ -71,4 +73,5 @@ public class CommentController {
         commentService.deleteComment(commentId);
         return ResponseEntity.ok("댓글이 삭제되었습니다.");
     }
+
 }

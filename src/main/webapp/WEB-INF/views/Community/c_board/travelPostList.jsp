@@ -1,136 +1,94 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>여행기 목록</title>
-    <link href="${pageContext.request.contextPath}/resources/css/travelList.css" rel="stylesheet" type="text/css">
-    <style>
-        .table-container {
-            max-width: 1000px;
-            margin: 30px auto;
-            border-collapse: collapse;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 18px;
-            text-align: left;
-        }
-
-        th, td {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f4f4f4;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .button-group {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-        }
-
-        .btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/travelpostlist.css">
+    <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+    <script>
+        var contextPath = '${pageContext.request.contextPath}';
+    </script>
 </head>
 <body>
-    <div class="table-container">
-        <h2>여행기 목록</h2>
-        
-        <!-- 검색 및 글 작성 버튼 -->
-        <div class="button-group">
-            <form method="get" action="${pageContext.request.contextPath}/community/c_board/travelPostList.do">
-                <select name="searchField">
-                    <option value="title">제목</option>
-                    <option value="content">내용</option>
-                </select>
-                <input type="text" name="searchWord" placeholder="검색어를 입력하세요">
-                <button type="submit" class="btn">검색</button>
-            </form>
-            
-            <!-- 글 작성 버튼 -->
-            <a href="${pageContext.request.contextPath}/Community/c_board/travelWrite">
-                <button class="btn">여행기 작성</button>
-            </a>
-        </div>
+<div class="overlay"></div>
 
-        <!-- 여행기 목록 테이블 -->
-        <table>
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성일</th>
-                    <th>조회수</th>
-                    <th>첨부파일</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:choose>
-                    <c:when test="${empty travelPosts}">
-                        <tr>
-                            <td colspan="5" style="text-align:center;">등록된 여행기가 없습니다.</td>
-                        </tr>
-                    </c:when>
-                    <c:otherwise>
-                        <c:forEach var="post" items="${travelPosts}" varStatus="vs">
-                            <tr>
-                                <!-- 번호 -->
-                                <td>${vs.count}</td>
-                                
-                                <!-- 제목: 상세보기 페이지로 이동 -->
-                                <td>
-                                    <a href="${pageContext.request.contextPath}/community/c_board/travelPostDetail.do?tp_idx=${post.tp_idx}">
-                                        ${post.title}
-                                    </a>
-                                </td>
-                                
-                                <!-- 작성일 -->
-                                <td>
-                                    <fmt:formatDate value="${post.post_date}" type="date" pattern="yyyy-MM-dd" />
-                                </td>
-                                
-                                <!-- 조회수 -->
-                                <td>${post.read_cnt}</td>
-                                
-                                <!-- 첨부파일 아이콘 표시 -->
-                                <td>
-                                    <c:if test="${not empty post.attachedFiles}">
-                                        <i class="fa fa-paperclip"></i>
-                                    </c:if>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
-            </tbody>
-        </table>
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
+          <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
+          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
+          <li><a href="${pageCOntext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
+          <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
+        </ul>
+      </nav>
+      <div class="member">
+        <c:choose>
+          <c:when test="${not empty member}">
+            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
+            <div class="welcome">
+            	<span class="userprofile"><img src="${member.m_profile}" alt="user-profile"></span>
+            	${member.m_nickname}님 환영합니다!
+            </div>
+            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
+            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
+              <button type="submit">로그아웃</button>
+            </form>
+          </c:when>
+          <c:otherwise>
+            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
+            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
+          </c:otherwise>
+        </c:choose>
+      </div>
+    </div>
+  </header>
+
+<!-- 전체 레이아웃을 컨트롤하는 컨테이너 -->
+<div class="container">
+    <!-- 태그/토픽 섹션 -->
+    <div class="tag-section">
+        <h4>#태그/토픽 선택</h4>
+        <div class="tags">
+            <button class="filter-button" data-filter="전체">#전체</button>
+            <button class="filter-button" data-filter="서울">#서울</button>
+            <button class="filter-button" data-filter="부산">#부산</button>
+            <button class="filter-button" data-filter="제주">#제주</button>
+            <button class="filter-button" data-filter="인천">#인천</button>
+            <button class="filter-button" data-filter="도시여행">#도시여행</button>
+            <button class="filter-button" data-filter="자연여행">#자연여행</button>
+            <button class="filter-button" data-filter="해외여행">#해외여행</button>
+        </div>
     </div>
 
-    <!-- 목록 끝 -->
+    <!-- 여행기 목록 및 페이지네이션을 묶음 -->
+    <div class="post-list-container">
+    	 <!-- 검색 입력 필드를 우측 상단으로 이동 -->
+        <div class="search-section">
+            <input type="text" id="search-query" placeholder="검색어를 입력하세요" />
+            <button id="search-button">검색</button>
+        </div>
+        <div class="post-list">
+            <!-- 필터링된 여행기들이 여기에 AJAX로 동적으로 추가됩니다 -->
+        </div>
+        
+        <!-- 페이지네이션을 게시글 목록 바로 밑에 배치 -->
+        <div class="pagination">
+            <!-- 페이지네이션 버튼이 여기에 동적으로 추가됩니다 -->
+        </div>
+    </div>
+</div>
+    
+<script src="${pageContext.request.contextPath}/resources/js/travelpostlist.js"></script>
 </body>
 </html>

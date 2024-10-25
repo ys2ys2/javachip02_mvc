@@ -3,18 +3,19 @@ package com.human.web.vo;
 import java.time.LocalDateTime;
 
 public class PostVO {
-	
-	private int m_idx; //예슬 추가 
-    private int id;              // 게시글 ID
-    private String writer;        // 작성자
-    private String content;       // 내용
+
+    private int m_idx; // 예슬 추가
+    private int id; // 게시글 ID
+    private String writer; // 작성자
+    private String content; // 내용
     private LocalDateTime postDate; // 작성 날짜
     private int commentCount;
     private int likeCount;
     private boolean isLiked;
+
     // 생성자에서 기본 값 설정
     public PostVO() {
-        this.postDate = LocalDateTime.now();  // 현재 시간으로 초기화
+        this.postDate = LocalDateTime.now(); // 현재 시간으로 초기화
     }
 
     public int getId() {
@@ -48,7 +49,7 @@ public class PostVO {
     public void setPostDate(LocalDateTime postDate) {
         this.postDate = postDate;
     }
-    
+
     public int getCommentCount() {
         return commentCount;
     }
@@ -65,14 +66,14 @@ public class PostVO {
         this.likeCount = likeCount;
     }
 
-	public boolean isLiked() {
-		return isLiked;
-	}
+    public boolean isLiked() {
+        return isLiked;
+    }
 
-	public void setLiked(boolean isLiked) {
-		this.isLiked = isLiked;
-	}
-	
+    public void setLiked(boolean isLiked) {
+        this.isLiked = isLiked;
+    }
+
     // 예슬 추가 -m_idx에 대한 getter와 setter 추가
     public int getM_idx() {
         return m_idx;

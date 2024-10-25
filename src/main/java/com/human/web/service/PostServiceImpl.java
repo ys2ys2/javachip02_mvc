@@ -13,7 +13,7 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostDAO postDAO;
-    
+
     @Override
     public List<PostVO> getAllPosts() {
         return postDAO.getAllPosts();
@@ -24,11 +24,7 @@ public class PostServiceImpl implements PostService {
         return postDAO.getPostById(postId);
     }
 
-    //예슬 추가: 게시글 생성 및 m_mypage 테이블에 데이터 삽입
-    @Override
-    public int createPost(PostVO post) {
-        return postDAO.createPostAndMypage(post);
-    }
+    
 	/*
 	 * @Override public int createPost(PostVO post) { return
 	 * postDAO.createPost(post); }
@@ -38,11 +34,17 @@ public class PostServiceImpl implements PostService {
     public void updateCommentCount(int postId) {
         postDAO.updateCommentCount(postId);
     }
-    
+
     // 추가: 특정 사용자가 해당 게시글을 좋아요 했는지 여부 확인
     @Override
     public boolean isLikedByUser(int postId, String userId) {
         return postDAO.isLikedByUser(postId, userId);
+    }
+
+    // 예슬 추가: 게시글 생성 및 m_mypage 테이블에 데이터 삽입
+    @Override
+    public int createPost(PostVO post) {
+        return postDAO.createPostAndMypage(post);
     }
 
 }

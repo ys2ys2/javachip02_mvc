@@ -247,7 +247,7 @@
         <div class="search-detail-container">
             <h2>DB에 저장하기</h2>
             <form action="${pageContext.request.contextPath}/HotPlace/inputDB" method="post">
-                <label for="selectedContentIds">콘텐츠 ID:</label>
+                <label class="searchContentId" for="selectedContentIds">콘텐츠 ID:</label>
                 <input type="text" id="selectedContentIds" name="selectedContentIds" placeholder="체크된 콘텐츠 ID가 여기에 표시됩니다." required>
                 <button type="submit">DB에 저장</button>
                 <label>

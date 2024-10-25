@@ -14,11 +14,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class HomeController {
 
 	// 메인페이지
-
-	// 메인페이지
 	@GetMapping("/")
 	public String home() {
 		return "redirect:/HomePage/mainpage";
+		
 	}
 	@GetMapping("/index.do")
 	public String index() {
@@ -37,7 +36,6 @@ public class HomeController {
 		return "error/error403";
 	}
 
-	// 404에러
 
 	// 404에러
 	@GetMapping("/error/error404.do")
@@ -45,15 +43,12 @@ public class HomeController {
 		return "error/error404";
 	}
 
-	// 405에러
 
 	// 405에러
 	@GetMapping("/error/error405.do")
 	public String error405() {
 		return "error/error405";
 	}
-
-	// 500에러
 
 	// 500에러
 	@GetMapping("/error/error500.do")
@@ -219,4 +214,30 @@ public class HomeController {
 		return "TripSched/tripSched";
 	}
 
+	
+	// 여행일정작성 페이지
+    @GetMapping("/TripSchedule/TripSchedule")
+    public String tripSchedule() {
+        return "TripSchedule/TripSchedule";
+    }
+    
+	// 여행일정 리스트 페이지
+	@GetMapping("/TripSchedule/List")
+	public String TripScheduleList() {
+	    return "TripSchedule/TripList";
+	}
+	    
+	    
+	// 여행일정 상세 페이지
+	@GetMapping("TripSchedule/TripDetail")
+	public String TripDetail() {
+	    return "TripSchedule/TripPage";
+	}
+	
+	
+	// 여행뽈볼 페이지
+	@GetMapping("/TravelSpot/TravelSpot")
+	public String TravelSpot() {
+	    return "TravelSpot/TravelSpot";
+	}
 }

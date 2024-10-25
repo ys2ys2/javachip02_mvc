@@ -29,7 +29,10 @@ public class TripSchedController {
             @RequestParam("city_names[]") String[] cityNames, // 도시 이름 배열
             @RequestParam("label_numbers[]") String[] labelNumbers, // 라벨 번호 배열
             @RequestParam("place_names[]") String[] placeNames, // 장소 이름 배열
-            @RequestParam("place_addresses[]") String[] placeAddresses) { // 주소 배열
+            @RequestParam("place_addresses[]") String[] placeAddresses, // 주소 배열
+            @RequestParam("place_latitudes[]") String[] placeLatitudes, // 위도 배열
+            @RequestParam("place_longitudes[]") String[] placeLongitudes) { // 경도 배열
+
         // 세션에서 m_idx, m_email, m_nickname을 가져옴
         M_MemberVO member = (M_MemberVO) session.getAttribute("member");
 
@@ -57,6 +60,10 @@ public class TripSchedController {
         tripSchedVO.setLabelNumbers(convertStringArrayToIntArray(labelNumbers)); // String 배열을 int 배열로 변환
         tripSchedVO.setPlaceNames(placeNames);
         tripSchedVO.setPlaceAddresses(placeAddresses);
+        
+        // 좌표 정보 추가
+        tripSchedVO.setPlaceLatitudes(convertStringArrayToDoubleArray(placeLatitudes)); // String 배열을 double 배열로 변환
+        tripSchedVO.setPlaceLongitudes(convertStringArrayToDoubleArray(placeLongitudes)); // String 배열을 double 배열로 변환
 
         // 서비스 호출
         tripSchedService.saveTripSchedule(tripSchedVO);
@@ -67,5 +74,10 @@ public class TripSchedController {
     // String 배열을 int 배열로 변환하는 유틸리티 메서드
     private int[] convertStringArrayToIntArray(String[] stringArray) {
         return Arrays.stream(stringArray).mapToInt(Integer::parseInt).toArray();
+    }
+
+    // String 배열을 double 배열로 변환하는 유틸리티 메서드
+    private double[] convertStringArrayToDoubleArray(String[] stringArray) {
+        return Arrays.stream(stringArray).mapToDouble(Double::parseDouble).toArray();
     }
 }
