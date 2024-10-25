@@ -110,43 +110,6 @@ public class HomeController {
 		return "Community/c_board/travelWrite";
 	}
 
-	// 영준 여행기 작성 저장 페이지
-	@PostMapping("/Community/c_board/savetravelWrite")
-	public String saveTravelPost(
-			@RequestParam("topic") String topic,
-			@RequestParam("title") String title,
-			@RequestParam("content") String content,
-			@RequestParam("tags") String tags,
-			@RequestParam("imageUpload") MultipartFile imageUpload,
-			RedirectAttributes redirectAttributes) {
-
-		// 이미지 파일 저장 처리
-		if (!imageUpload.isEmpty()) {
-			try {
-				// 이미지 파일 저장 경로 설정
-				String uploadDir = "C:/team_dev/uploads/"; // 실제 경로에 맞게 수정
-				File uploadDirFile = new File(uploadDir);
-				if (!uploadDirFile.exists()) {
-					uploadDirFile.mkdirs(); // 디렉토리가 없으면 생성
-				}
-
-				// 파일 저장
-				String filePath = uploadDir + imageUpload.getOriginalFilename();
-				File file = new File(filePath);
-				imageUpload.transferTo(file); // 파일을 해당 경로에 저장
-
-			} catch (IOException e) {
-				e.printStackTrace();
-				redirectAttributes.addFlashAttribute("message", "파일 업로드 중 오류가 발생했습니다.");
-				return "redirect:/Community/c_board/travelWrite";
-			}
-		}
-
-		// 폼 데이터 처리 후 리다이렉트
-		redirectAttributes.addFlashAttribute("message", "여행기가 성공적으로 작성되었습니다.");
-		return "redirect:/Community/c_board/travelWrite";
-	}
-
 	// 영준 커뮤니티 메인
 	@GetMapping("/Community/c_main")
 	public String c_main() {
@@ -219,4 +182,30 @@ public class HomeController {
 		return "TripSched/tripSched";
 	}
 
+	
+	// 여행일정작성 페이지
+    @GetMapping("/TripSchedule/TripSchedule")
+    public String tripSchedule() {
+        return "TripSchedule/TripSchedule";
+    }
+    
+	// 여행일정 리스트 페이지
+	@GetMapping("/TripSchedule/List")
+	public String TripScheduleList() {
+	    return "TripSchedule/TripList";
+	}
+	    
+	    
+	// 여행일정 상세 페이지
+	@GetMapping("TripSchedule/TripDetail")
+	public String TripDetail() {
+	    return "TripSchedule/TripPage";
+	}
+	
+	
+	// 여행뽈볼 페이지
+	@GetMapping("/TravelSpot/TravelSpot")
+	public String TravelSpot() {
+	    return "TravelSpot/TravelSpot";
+	}
 }

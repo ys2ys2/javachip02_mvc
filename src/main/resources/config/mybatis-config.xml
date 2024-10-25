@@ -16,6 +16,15 @@
     
   	<typeAlias alias="MypageVO" type="com.human.web.vo.MypageVO"/>
   	
+  	<typeAlias alias="TravelPostVO" type="com.human.web.vo.TravelPostVO"/>
+  	
+    <typeAlias alias="travelmediaVO" type="com.human.web.vo.TravelMediaVO"/>
+    
+    <typeAlias alias="tagInsertVO" type="com.human.web.vo.TagInsertVO"/>
+  	    
+  	
+  	
  </typeAliases>
-  
+ 
+ 
 </configuration>

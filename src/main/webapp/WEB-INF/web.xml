@@ -20,9 +20,23 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+			<param-value>
+			/WEB-INF/spring/appServlet/servlet-context.xml
+			/WEB-INF/spring/appServlet/security-context.xml
+			</param-value>
+			
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		
+		<multipart-config>
+			<max-file-size>5242880</max-file-size><!-- 업로드할 한 개 파일의 최대 크기: 5MB(1024*1024*5) -->
+			<max-request-size>20971520</max-request-size><!-- 한번에 업로드할 수 있는 파일들의 최대 크기: 20MB(1024*1024*20) -->
+			<file-size-threshold>5242880</file-size-threshold><!-- 파일 한 개가 5MB(1024*1024*5)를 초과하면 임시 디렉토리에 저장 -->
+		</multipart-config>
+		
+		
+		
+		
 	</servlet>
 		
 	<servlet-mapping>

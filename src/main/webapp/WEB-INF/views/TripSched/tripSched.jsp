@@ -916,13 +916,17 @@ function prepareScheduleData() {
                 const dayNumber = day.replace('day', '');  // 'day1' -> '1'로 변환
 
             	
-                // 각 값들을 확인
-                console.log("Day:", day);
-                console.log("City Name:", currentCityName);
-                console.log("Place Name:", place.name);
-                console.log("Place Address:", place.vicinity);
-                console.log("Place Index:", placeIndex + 1);
+                // lat와 lng 좌표를 hidden 필드로 추가
+                const latInput = document.createElement('input');
+                latInput.setAttribute('type', 'hidden');
+                latInput.setAttribute('name', 'place_latitudes[]');
+                latInput.setAttribute('value', place.lat);
 
+                const lngInput = document.createElement('input');
+                lngInput.setAttribute('type', 'hidden');
+                lngInput.setAttribute('name', 'place_longitudes[]');
+                lngInput.setAttribute('value', place.lng);
+                
                 // day 입력 필드 생성
                 const dayInput = document.createElement('input');
                 dayInput.setAttribute('type', 'hidden');
@@ -952,6 +956,8 @@ function prepareScheduleData() {
                 placeAddressInput.setAttribute('type', 'hidden');
                 placeAddressInput.setAttribute('name', 'place_addresses[]');
                 placeAddressInput.setAttribute('value', place.vicinity);
+                
+
 
                 // hiddenFieldsContainer에 추가
                 hiddenFieldsContainer.appendChild(dayInput);
@@ -959,6 +965,9 @@ function prepareScheduleData() {
                 hiddenFieldsContainer.appendChild(labelInput);
                 hiddenFieldsContainer.appendChild(placeNameInput);
                 hiddenFieldsContainer.appendChild(placeAddressInput);
+                hiddenFieldsContainer.appendChild(latInput);
+                hiddenFieldsContainer.appendChild(lngInput);
+                
             });
         }
     });
@@ -990,6 +999,8 @@ function loadDayPlaces(dayId) {
         });
     }
 }
+
+
 
 </script>
 
