@@ -58,8 +58,70 @@
   font-style: normal;
 }
 
+
+/* 파셜산스체 */
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 body {
-	  font-family: 'NanumSquareRoundR', sans-serif;
+	  font-family: 'SUIT-Regular', sans-serif;
+}
+
+h1 {
+	font-family: 'Paperlogy-8ExtraBold', sans-serif;
+}
+
+h2 {
+	font-family: 'Paperlogy-8ExtraBold', sans-serif;
+}
+
+.searchContentId {
+	font-family: 'Paperlogy-8ExtraBold', sans-serif;
 	
 }
 
@@ -70,7 +132,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0 auto;
-  font-family: 'NanumSquareRoundR', sans-serif;
+  font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 리스트 정렬 */
@@ -97,6 +159,8 @@ li {
     background-color: #f9f9f9;
     height: 700px; /* 모든 박스의 높이를 600px로 고정 */
     overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+    font-family: 'SUIT-Regular', sans-serif;
+    
     
     
 }
@@ -135,6 +199,8 @@ li p.overview {
     -webkit-box-orient: vertical;
     font-size: 15px; /* 폰트 크기 조정 */
     line-height: 1.5; /* 글씨 높낮이 */
+    font-family: 'SUIT-Regular', sans-serif;
+    
 }
 
 
@@ -161,7 +227,7 @@ li p.overview {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease; /* 호버 시 색상 변경 애니메이션 */
-    font-family: 'NanumSquareRoundR', sans-serif; /* 폰트 설정 */
+	font-family: 'SUIT-Regular', sans-serif;
     margin-bottom: 10px;
 }
 
@@ -178,7 +244,7 @@ li p.overview {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box; /* 너비 계산을 위해 box-sizing 설정 */
-    font-family: 'NanumSquareRoundR', sans-serif; /* 폰트 설정 */
+    font-family: 'SUIT-Regular', sans-serif;
     
 }
 
@@ -192,14 +258,14 @@ button[type="submit"] {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease; /* 호버 시 배경색 변화 애니메이션 */
-    font-family: 'NanumSquareRoundR', sans-serif; /* 폰트 설정 */
+    font-family: 'SUIT-Regular', sans-serif;
     
 }
 
 /* 버튼 호버 효과 */
 button[type="submit"]:hover {
     background-color: #028a15; /* 버튼 호버 시 색상 변경 */
-    font-family: 'NanumSquareRoundR', sans-serif; /* 폰트 설정 */
+    font-family: 'SUIT-Regular', sans-serif;
     
 }
 

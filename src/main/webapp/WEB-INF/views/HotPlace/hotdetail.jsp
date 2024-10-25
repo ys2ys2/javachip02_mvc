@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBGXfM-W2P67M4VmuJdGHedKT73_rMEWQ&callback=initMap" async defer></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/googlemap.js"></script>
@@ -33,41 +33,44 @@
 
 <body>
 
-
-  <!-- 어두운 배경 -->
-  <div class="overlay"></div>
-  <header>
-    <div class="header-container">
-      <div class="logo">
-        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-          <li><a href="#">커뮤니티</a></li>
-          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
-          <li><a href="#">여행뽈뽈</a></li>
-        </ul>
-      </nav>
-      <div class="member">
-        <c:choose>
-          <c:when test="${not empty sessionScope.member}">
-            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
-            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
-            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
-              <button type="submit">로그아웃</button>
-            </form>
-          </c:when>
-          <c:otherwise>
-            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
-            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/join">회원가입</a></span>
-          </c:otherwise>
-        </c:choose>
-      </div>
+<header>
+  <div class="header-container">
+    <div class="logo">
+      <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
     </div>
-  </header>
+    <nav>
+      <ul>
+        <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
+        <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
+        <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
+        <li><a href="${pageCOntext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
+        <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
+      </ul>
+    </nav>
+<div class="member">
+      <c:choose>
+        <c:when test="${not empty member}">
+          <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
+          <div class="welcome">
+              <span class="userprofile"><img src="${pageContext.request.contextPath}${member.m_profile}" alt="user-profile"></span>
+              ${member.m_nickname}님 환영합니다!
+          </div>
+          <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
+          <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
+            <button type="submit">로그아웃</button>
+          </form>
+        </c:when>
+        <c:otherwise>
+          <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
+          <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
+          <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
+        </c:otherwise>
+      </c:choose>
+
+    </div>
+  </div>
+</header>
+  
 
   <div class="h_minibody">
     <!-- 타이틀 -->
