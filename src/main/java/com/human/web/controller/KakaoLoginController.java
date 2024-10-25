@@ -23,7 +23,7 @@ public class KakaoLoginController {
         ModelAndView mav = new ModelAndView();
         try {
             kakaoService.saveUserInfo(accessToken);
-            mav.setViewName("redirect:/index.do");  // 회원가입 후 메인 페이지로 이동
+            mav.setViewName("redirect:/");  // 회원가입 후 메인 페이지로 이동
         } catch (Exception e) {
             mav.addObject("error", "카카오 회원가입 중 오류가 발생했습니다.");
             mav.setViewName("error");

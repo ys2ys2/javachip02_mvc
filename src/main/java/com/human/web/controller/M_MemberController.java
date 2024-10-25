@@ -69,6 +69,13 @@ public class M_MemberController {
 			// 회원가입 실패 시 오류 메시지를 모델에 저장
 			model.addAttribute("msg", "회원가입이 정상적으로 이루어지지 않았습니다.");
 		}
+		// 회원가입 성공 여부 확인 (m_idx가 0보다 크면 성공)
+		if (result > 0) {
+			viewName = "redirect:/"; // 성공 시 메인 페이지로 리다이렉트
+		} else {
+			// 회원가입 실패 시 오류 메시지를 모델에 저장
+			model.addAttribute("msg", "회원가입이 정상적으로 이루어지지 않았습니다.");
+		}
 
 		return viewName; // 처리된 뷰 이름 반환
 	}
@@ -307,7 +314,8 @@ public class M_MemberController {
 			boolean isUpdated = m_memberServiceImpl.updatePassword(m_email, newPassword);
 
 			if (isUpdated) {
-				return "redirect:/Member/login"; // 비밀번호 변경 성공 시 로그인 페이지로 리다이렉트
+				model.addAttribute("passwordResetSuccess", true); // 성공 여부 전달
+				return "Member/m_findId"; // 재설정 페이지로 돌아감
 			} else {
 				model.addAttribute("errorMessage", "비밀번호 변경에 실패했습니다. 다시 시도해 주세요.");
 				return "Member/m_findId"; // 업데이트 실패 시 재설정 페이지로 이동

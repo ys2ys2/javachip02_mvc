@@ -34,6 +34,7 @@ public class TalkDAO {
     }
 
 
+
     // 댓글 삭제
     public int deleteTalk(int talkIdx) {
         return sqlSession.delete(MAPPER + ".deleteTalk", talkIdx);
@@ -56,6 +57,7 @@ public class TalkDAO {
         params.put("limit", limit);
         return sqlSession.selectList(MAPPER + ".getItemListWithPagination", params);
     }
+
 
 
     // 댓글 수정

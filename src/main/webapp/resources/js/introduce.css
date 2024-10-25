@@ -1,0 +1,232 @@
+@font-face {
+  font-family: 'NanumSquareRoundB';
+  src: url('../fonts/NanumSquareRoundB.ttf') format('truetype'),
+       url('../fonts/NanumSquareRoundOTFB.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundEB';
+  src: url('../fonts/NanumSquareRoundEB.ttf') format('truetype'),
+       url('../fonts/NanumSquareRoundOTFEB.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundR';
+  src: url('../fonts/NanumSquareRoundR.ttf') format('truetype'),
+       url('../fonts/NanumSquareRoundOTFR.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundL';
+  src: url('../fonts/NanumSquareRoundL.ttf') format('truetype'),
+       url('../fonts/NanumSquareRoundOTFL.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundOTFR';
+  src: url('../fonts/NanumSquareRoundOTFR.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundOTFB';
+  src: url('../fonts/NanumSquareRoundOTFB.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundOTFEB';
+  src: url('../fonts/NanumSquareRoundOTFEB.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundOTFL';
+  src: url('../fonts/NanumSquareRoundOTFL.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+body {
+  background-color: white;;
+  align-items: center;
+  font-family: 'NanumSquareRoundR', sans-serif;
+  width: 100%; 
+  margin: 0 auto; /* 가로 방향으로 가운데 정렬 */
+}
+
+.introimg {
+  width: 100%;
+  height: 300px; /* 높이 설정 */
+  background-size: cover; /* 배경 이미지 크기를 컨테이너에 맞춤 */
+  background-position: center; /* 배경 이미지 중앙 정렬 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
+  /* opacity: 0.8; */
+  
+  display: flex; /* 플렉스 박스 사용 */
+  flex-direction: column;
+  justify-content: center; /* 가로 방향 중앙 정렬 */
+  align-items: center; /* 세로 방향 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  
+}
+
+.introimg h2 {
+  color: grey;
+  margin: 0; /* 상하 여백 제거 */
+  
+
+}
+
+
+.i_section-container {
+  position: sticky;
+  top: 0;
+  text-align: center; /* 컨텐츠 가운데 정렬 */
+  background-color: white;;
+  padding: 5px 0;
+  z-index: 20;
+  margin: 0 auto;
+
+}
+
+.i_navbar {
+  display: flex; /* 플렉스 박스로 정렬 */
+  justify-content: center; /* 항목을 가운데 정렬 */
+  list-style-type: none; /* 기본 리스트 스타일 제거 */
+  padding: 0;
+  margin: 10px auto;
+}
+
+.i_nav-item {
+  padding: 10px 50px; /* 상하, 좌우 패딩 */
+  position: relative; /* 밑줄을 위한 위치 설정 */
+}
+
+.i_nav-item a {
+  text-decoration: none; /* 기본 링크 밑줄 제거 */
+  color: black; /* 기본 텍스트 색상 */
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.i_nav-item a:hover {
+	color:#007BFF;
+}
+
+.i_nav-item.active a {
+  font-weight: bold; /* 활성화된 탭 굵게 표시 */
+  color: #333; /* 활성화된 탭 색상 */
+}
+
+.i_nav-item:not(:last-child) {
+  border-right: 1px solid #aaa; /* 각 탭 사이 구분선 */
+  
+}
+
+.introduce {
+	align-items: center;
+	text-align: center;
+	width: 100%;
+}
+
+.introduce h1 {
+	font-size: 48px;
+	
+}
+
+.introduce h3 {
+	font-size: 18px;
+	color: grey;
+	
+}
+
+.introduce img{
+  width: 35rem;
+
+}
+
+.introduce-main {
+	display: flex;
+	align-items: center;
+	height: 300px;
+	text-align:center;
+	align-items: center;
+	margin: 30px auto;
+	width: 80%;
+	border-radius: 10px;
+}
+
+
+.introduce-main img {
+	border-radius: 10px;
+	max-width: 90%;
+	max-height: 90%;
+	
+}
+
+
+.introduce-mainintro {
+  display: flex; /* 이미지와 텍스트를 나란히 배치하기 위해 flex 사용 */
+  align-items: center; /* 세로 정렬 */
+  margin: 0 auto; /* 마진 추가 */
+  height: 300px;
+  text-align: center;
+  border-radius: 10px; /* 이미지 테두리 둥글게 */
+  
+}
+
+
+.introduce-content {
+  display: flex; /* 이미지와 텍스트를 나란히 배치하기 위해 flex 사용 */
+  align-items: center; /* 세로 정렬 */
+  margin: 10px auto; /* 마진 추가 */
+  width: 60%;
+  height: 300px;
+  text-align: center;
+  
+  
+}
+
+.introduce-company {
+	margin: 0 auto;
+}
+
+
+.introduce-company img {
+    max-width: 50%; /* 이미지의 최대 너비 설정 */
+    height: auto; /* 높이 자동 조정 */
+    border-radius: 10px; /* 이미지 테두리 둥글게 */
+}
+
+.introduce-text {
+  width: 50%; /* 텍스트 박스의 최대 너비 설정 */
+  padding: 20px; /* 패딩 추가 */
+}
+
+.introduce-text h2 {
+  font-size: 24px; /* 제목 크기 조정 */
+  margin-bottom: 10px; /* 제목과 본문 사이의 간격 */
+}
+
+
+.introduce-text p {
+  font-size: 16px; /* 본문 크기 조정 */
+  line-height: 1.5; /* 줄 간격 조정 */
+}
+
+.centertext {
+	margin: 100px auto;
+}
+

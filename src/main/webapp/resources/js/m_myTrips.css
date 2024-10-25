@@ -1,0 +1,93 @@
+.navigation {
+    position: absolute;
+    top: 130px; /* 뷰포트 기준으로 상단에서 120px */
+    left: 340px; /* 뷰포트 기준으로 왼쪽에서 250px */
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    z-index: 1000; /* 다른 요소보다 위에 배치 */
+    background-color: white; /* 배경색 설정 (필요에 따라 조정) */
+}
+
+.navigation a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.navigation a:hover {
+    text-decoration: underline;
+}
+.container {
+    display: flex;
+    width: 90%;
+    margin-top: 130px; /* 네비게이션 아래로 여유 공간 추가 */
+}
+
+
+.profile-section {
+    width: 20%;
+    padding: 20px;
+    position: relative; 
+}
+
+.profile-section h4 {
+	position: relative;
+    top: -50px; /* h3 요소를 위로 15px 이동 */
+    margin-bottom: 20px; /* 프로필 카드와의 간격 추가 */
+    text-align:left; /* 중앙 정렬 */
+}
+
+.profile-card {
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: -60px;
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.content-section {
+    width: 75%;
+    margin-left: 5%;
+}
+
+.content-box {
+    margin-top: 20px;
+    background-color: #e0e0e0;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+/* 섹션 스타일링 */
+.section {
+    margin-bottom: 30px;
+}
+
+.section-header {
+    background-color: black;
+    width: 130px;
+    height:50px;
+    font-size: 15px;
+    color: white;
+    display: flex;        /* 플렉스 박스를 사용하여 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; 
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.section-content {
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+}

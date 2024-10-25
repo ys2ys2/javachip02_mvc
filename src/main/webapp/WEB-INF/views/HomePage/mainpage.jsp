@@ -50,15 +50,17 @@
           <li><a href="#">여행뽈뽈</a></li>
           <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
           
+          <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
+          
         </ul>
       </nav>
       <div class="member">
         <c:choose>
-          <c:when test="${not empty sessionScope.member}">
+          <c:when test="${not empty member}">
             <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
             <div class="welcome">
-            	<span class="userprofile"><img src="${sessionScope.member.m_profile}" alt="user-profile"></span>
-            	${sessionScope.member.m_nickname}님 환영합니다!
+            	<span class="userprofile"><img src="${member.m_profile}" alt="user-profile"></span>
+            	${member.m_nickname}님 환영합니다!
             </div>
             <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
             <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">

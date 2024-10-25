@@ -85,8 +85,17 @@ public class MypageDAO {
 	public List<MypageSchedVO> getUpcomingTripsByMidx(Integer m_idx) {
 		return sqlSession.selectList(MAPPER+".getUpcomingTrips", m_idx);
 	}
-	public List<MypageSchedVO> getPastTripsByMidx(Integer m_idx) {
-		return sqlSession.selectList(MAPPER+".getPastTrips", m_idx);
+
+	/*
+	 * public List<MypageSchedVO> getPastTripsByMidx(Integer m_idx) { return
+	 * sqlSession.selectList(MAPPER+".getPastTrips", m_idx); }
+	 */
+	public MypageSchedVO getLatestPastTrip(Integer m_idx) {
+		return sqlSession.selectOne(MAPPER+".getLatestPastTrip", m_idx);
+	}
+
+	public MypageSchedVO getLatestUpcomingTripByMidx(Integer m_idx) {
+		return sqlSession.selectOne(MAPPER+".getLatestUpcomingTripByMidx", m_idx);
 	}
 
 }
