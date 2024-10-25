@@ -1,0 +1,75 @@
+footer {
+  background-color: black;  ; /* 어두운 배경색 */
+  color: white; /* 텍스트 색상 */
+  padding: 40px 20px;
+  font-size: 14px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  gap: 20px;
+}
+
+.footer-section h4 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.footer-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+  color: #A7F25C;
+}
+
+.footer-company-info {
+  grid-column: span 3;
+  color: white;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+.footer-company-info p {
+  margin: 5px 0;
+}
+
+.footer-certificates {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footer-certificates img {
+  width: 120px;
+  margin-bottom: 10px;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.footer-social a {
+  color: white;
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+.footer-social a:hover {
+  color: #A7F25C;
+}

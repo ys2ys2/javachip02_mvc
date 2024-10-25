@@ -1,0 +1,336 @@
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Pretendard */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.navigation {
+    position: absolute;
+    top: 130px; /* 뷰포트 기준으로 상단에서 120px */
+    left: 340px; /* 뷰포트 기준으로 왼쪽에서 250px */
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    z-index: 1000; /* 다른 요소보다 위에 배치 */
+    background-color: white; /* 배경색 설정 (필요에 따라 조정) */
+}
+
+.navigation a {
+    color: black;
+    text-decoration: none;
+    font-family: 'Pretendard-Regular';
+    font-weight: 800;
+    font-size: 16px;
+}
+
+.navigation a:hover {
+	text-decoration: underline;
+}
+
+.container {
+	display: flex;
+	width: 90%;
+	margin-top: 130px; /* 네비게이션 아래로 여유 공간 추가 */
+}
+
+.profile-section {
+    width: 16%;
+    padding: 20px;
+    position: absolute;
+    left: 10px; /* 왼쪽에 고정 */
+    top: 150px; /* 상단에서 150px 아래로 */
+}
+
+.profile-section h4 {
+	position: relative;
+	font-family: 'yg-jalnan';
+	top: -50px; /* h3 요소를 위로 15px 이동 */
+	margin-bottom: 20px; /* 프로필 카드와의 간격 추가 */
+	text-align: left; /* 중앙 정렬 */
+}
+
+.profile-card {
+	background-color: #ffffff;
+	padding: 20px;
+	text-align: center;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	margin-top: -60px;
+}
+
+
+.profile-image {
+	width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+	margin-bottom: 10px;
+}
+
+
+/* 프로필 편집 아이콘과 텍스트 컨테이너 스타일 */
+.profile-edit-container {
+    display: flex; /* 아이콘과 텍스트를 나란히 배치 */
+    align-items: center; /* 수직 가운데 정렬 */
+    color: #808080; /* 텍스트와 아이콘 색상 */
+    font-size: 13px; /* 텍스트 크기 */
+    font-family: 'Pretendard-Regular';
+    font-weight: 800;
+    margin-left: 30px;
+    margin-top:30px;
+    cursor: pointer; /* 마우스 오버 시 포인터 변경 */
+}
+
+/* 프로필 편집 링크 스타일 */
+.profile-edit-link {
+    text-decoration: none; /* 하이퍼링크 밑줄 제거 */
+    color: gray; /* 텍스트 및 아이콘 색상을 검정색으로 변경 */
+    display: flex; /* 아이콘과 텍스트를 나란히 배치 */
+    align-items: center; /* 아이콘과 텍스트 수직 가운데 정렬 */
+    font-size: 12px; /* 텍스트 크기 */
+    cursor: pointer; /* 마우스 오버 시 포인터 변경 */
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-edit-link i {
+    margin-right: 8px; /* 아이콘과 텍스트 사이 간격 */
+    font-size: 10px; /* 아이콘 크기 */
+}
+
+.profile-edit-link:hover {
+    background-color: #f0f0f0; /* 호버 시 배경색 */
+}
+
+
+
+.nickname-header {
+    font-size: 20px; /* 글자 크기 */
+    color: black; /* 글자 색상 */
+    margin: 15px 0; /* 상하 10px 여백, 좌우 0 */
+    text-align: center; /* 가운데 정렬 */
+    font-family: 'Pretendard-Regular';
+    font-weight: 800;
+}
+
+/*여기 위에까지는 고정적인 영역으로 수정x  */
+
+
+
+
+
+/* 전체 레이아웃 */
+.content-section-custom {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* 각 섹션 간의 간격 */
+    margin-left: 300px; /* 전체적으로 오른쪽으로 이동 */
+    width: calc(100% - 300px); /* 전체 너비에서 마진을 뺀 값 */
+    margin-top: 150px; /* 하단으로 150px 내려줌 */
+}
+
+/* 상단 여행 섹션 - 다가오는 여행과 지난 여행을 좌우 배치 */
+.travel-section {
+   display: flex;
+    justify-content: flex-start; /* 두 섹션을 왼쪽에 배치 */
+    gap: 20px; /* 두 섹션 사이의 간격을 고정된 값으로 설정 */
+    width: 100%; /* 전체 너비를 사용 */
+    margin-left: 40px; /* 왼쪽으로부터 40px 이동 */
+   
+}
+
+.section-upcoming-trips, 
+.section-past-trips {
+     width: 40%; /* 박스 너비를 40%로 설정 */
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+    box-sizing: border-box;
+    margin-bottom: 20px; /* 내 게시글과의 간격을 맞추기 위한 하단 여백 */
+}
+
+.upcoming-trips-title, 
+.past-trips-title {
+    font-family: 'Pretendard-Regular';
+    font-weight: 800;
+    font-size:23px;
+    line-height:1;
+    
+    margin-bottom: 10px;
+}
+
+.upcoming-trip-item{
+	background-color:gray;
+	
+}
+
+.upcoming-trip-item p{
+	font-family: 'Pretendard-Regular';
+    font-weight: 700;
+    font-size:17px;
+    line-height:1;
+    
+}
+.add-trip-btn {
+    background-color: black; /* 버튼 배경색 */
+    color: white; /* 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 5px 10px; /* 상하 좌우 여백 */
+    font-size: 12px; /* 글자 크기 */
+    cursor: pointer; /* 포인터 커서 */
+    margin-top: 10px; /* 상단 여백 */
+}
+
+.add-trip-btn:hover {
+    background-color: #45a049; /* 호버 시 색상 변경 */
+}
+
+/* 게시글과 저장목록을 감싸는 컨테이너 */
+.post-and-saved-container {
+    display: flex; /* Flexbox 사용 */
+    justify-content: space-between; /* 좌우로 정렬 */
+    width: 83%; /* 전체 너비 사용 */
+    gap: 10px; /* 간격 설정 */
+    margin-left: 42px; /* 오른쪽으로 50px 이동 */
+}
+
+/* 내 게시물 섹션 */
+.my-journeys-custom {
+    width: 48%; /* 너비를 48%로 설정하여 두 섹션 간의 여유 공간 생성 */
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px; /* 내부 여백 줄이기 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+    max-height: 300px; /* 최대 높이 설정 */
+    overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+}
+
+.my-journeys-title {
+   font-family: 'Pretendard-Regular';
+    font-weight: 800;
+    font-size:23px;
+    margin-bottom: 10px;
+}
+
+.my-journeys-list {
+    display: flex;
+    gap: 20px; /* 게시물 간의 간격 */
+    flex-wrap: wrap; /* 게시물들이 여러 열로 표시되도록 */
+}
+
+.post-item-custom {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%; /* 게시물 너비를 100%로 설정 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-header-custom {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.post-content-custom {
+    margin-bottom: 10px;
+}
+
+/* 나의 저장목록 섹션 */
+.m_content-section-header-custom {
+    width: 48%; /* 너비를 48%로 설정하여 두 섹션 간의 여유 공간 생성 */
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px; /* 내부 여백 줄이기 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+    max-height: 300px; /* 최대 높이 설정 */
+    overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+}
+
+.m_saved-list-custom h3{
+	font-family: 'Pretendard-Regular';
+    font-weight: 800;
+    font-size:23px;
+	
+}
+
+/* 각 저장 아이템 스타일 */
+.m_saved-item {
+    display: flex; /* 수평 배치 */
+    align-items: center; /* 수직 가운데 정렬 */
+    margin-bottom: 15px; /* 아래쪽 여백 */
+}
+
+/* 저장목록 이미지 스타일 */
+.m_saved-image-custom {
+    width: 100px; /* 이미지 너비 조정 */
+    height: 80px; /* 이미지 높이 조정 */
+    object-fit: cover; /* 비율 유지하며 자르기 */
+    border-radius: 5px; /* 모서리 둥글게 */
+}
+
+
+
+/* 나의 저장목록 정보 스타일 */
+.m_saved-info-custom {
+    margin-top: 10px; /* 위쪽 여백 추가 */
+    text-align: center; /* 중앙 정렬 */
+}
+
+/* 나의 저장목록 항목 스타일 */
+.m_saved-item-custom {
+    display: flex; /* Flexbox 사용 */
+    align-items: center; /* 세로 가운데 정렬 */
+    margin-bottom: 10px; /* 항목 간의 간격 */
+}
+
+
+
+
+/* 추천 핫플레이스 섹션 */
+.m_hotplaces-custom {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+    width: 85%; /* 너비를 100%로 설정 */
+    margin-top: 10px; /* 내 게시글과의 간격을 맞추기 위한 위쪽 여백 */
+    margin-left: 30px; /* 전체 박스와 정렬을 맞추기 위한 왼쪽 여백 */
+}
+.m_content-box-custom {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* 핫플레이스 간의 간격 */
+}
+
+.m_hotplace-item-custom {
+    text-align: center;
+    flex: 1;
+}
+
+.hotplace-image-custom {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.hotplace-title-custom {
+    font-size: 1rem;
+    color: #333;
+    margin-top: 10px;
+}
