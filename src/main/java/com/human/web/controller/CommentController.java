@@ -39,7 +39,6 @@ public class CommentController {
         return ResponseEntity.ok(comments);
     }
 
-
     // 댓글 추가
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, String>> addComment(@PathVariable int postId, @RequestBody CommentVO comment) {
@@ -62,8 +61,6 @@ public class CommentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
-
-
 
     // 댓글 삭제
     @DeleteMapping(value = "/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)

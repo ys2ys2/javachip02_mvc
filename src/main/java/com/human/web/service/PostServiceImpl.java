@@ -24,10 +24,10 @@ public class PostServiceImpl implements PostService {
         return postDAO.getPostById(postId);
     }
 
-    @Override
-    public int createPost(PostVO post) {
-        return postDAO.createPost(post);
-    }
+	/*
+	 * @Override public int createPost(PostVO post) { return
+	 * postDAO.createPost(post); }
+	 */
    
     @Override
     public void updateCommentCount(int postId) {
@@ -38,6 +38,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public boolean isLikedByUser(int postId, String userId) {
         return postDAO.isLikedByUser(postId, userId);
+    }
+    
+    //예슬 추가: 게시글 생성 및 m_mypage 테이블에 데이터 삽입
+    @Override
+    public int createPost(PostVO post) {
+        return postDAO.createPostAndMypage(post);
     }
 
 }

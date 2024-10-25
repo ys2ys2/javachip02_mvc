@@ -31,6 +31,7 @@ public class FileManager {
 
         // 2. 지정된 경로에 파일 저장하기
         String saveDirectory = request.getServletContext().getRealPath("resources/uploads/");
+        System.out.println("파일 저장 경로: " + saveDirectory);
         String fullPath = saveDirectory + saveFileName;
 
         try {

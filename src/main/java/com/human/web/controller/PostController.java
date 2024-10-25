@@ -30,7 +30,6 @@ public class PostController {
         return ResponseEntity.ok(posts);  // 상태 코드와 함께 반환
     }
     
-    
     // 특정 게시글 조회 (상세 보기)
     @GetMapping("/detail/{postId}")
     public ResponseEntity<PostVO> getPostDetail(@PathVariable int postId) {
@@ -44,7 +43,6 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
 
     // 게시글 작성 처리 (JSON 응답)
     @PostMapping("/create")

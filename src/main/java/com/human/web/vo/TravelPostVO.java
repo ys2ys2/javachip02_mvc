@@ -18,10 +18,18 @@ public class TravelPostVO {
     private Date update_date;     // 수정일
     private String tp_status;     // 상태 (N:삭제요청 없음, Y:삭제요청함)
     private int m_idx;            // 회원번호(외래키)
-
+    private String writer;  	  // 작성자 추가
+    private int likeCount; 		  // 좋아요 개수
+    private boolean liked;     // 사용자가 좋아요를 눌렀는지 여부	
+    private int commentCount;     // 댓글 수 추가
+    
     private MultipartFile[] uploadFiles;      // 첨부 파일 (최대 4개)
     private List<TravelMediaVO> attachedList; // 첨부파일 리스트
     private List<String> tags;    // 태그 리스트
-    private List<TravelMediaVO> mediaList;
+    private List<TravelMediaVO> mediaList; 	 // 첨부파일 리스트
+   
+    
+		
+	
 }
 

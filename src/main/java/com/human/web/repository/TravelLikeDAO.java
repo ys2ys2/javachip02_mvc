@@ -8,42 +8,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class LikeDAO {
+public class TravelLikeDAO {
 
     @Autowired
     private SqlSession sqlSession;
 
-    private static final String NAMESPACE = "com.human.web.mapper.LikeMapper";
+    private static final String NAMESPACE = "com.human.web.mapper.TravelLikeMapper";
 
-    public void insertLike(int postId, String userId) {
+    public void insertLike(int tp_idx, String userId) {
         Map<String, Object> params = new HashMap<>();
-        params.put("postId", postId);
+        params.put("tp_idx", tp_idx);
         params.put("userId", userId);
         sqlSession.insert(NAMESPACE + ".insertLike", params);
     }
 
-    public void deleteLike(int postId, String userId) {
+    public void deleteLike(int tp_idx, String userId) {
         Map<String, Object> params = new HashMap<>();
-        params.put("postId", postId);
+        params.put("tp_idx", tp_idx);
         params.put("userId", userId);
         sqlSession.delete(NAMESPACE + ".deleteLike", params);
     }
 
-    public void updateLikeCount(int postId) {
-        sqlSession.update(NAMESPACE + ".updateLikeCount", postId);
+    public void updateLikeCount(int tp_idx) {
+        sqlSession.update(NAMESPACE + ".updateLikeCount", tp_idx);
     }
 
-    public boolean likeExists(int postId, String userId) {
+    public boolean likeExists(int tp_idx, String userId) {
         Map<String, Object> params = new HashMap<>();
-        params.put("postId", postId);
+        params.put("tp_idx", tp_idx);
         params.put("userId", userId);
         Integer result = sqlSession.selectOne(NAMESPACE + ".likeExists", params);
-        return result != null && result > 0; // 좋아요가 존재하면 true 반환
+        return result != null && result > 0;
     }
 
-    // 좋아요 개수를 가져오는 메소드 구현
-    public int getLikeCount(int postId) {
-        return sqlSession.selectOne(NAMESPACE + ".getLikeCount", postId);
+    public int getLikeCount(int tp_idx) {
+        return sqlSession.selectOne(NAMESPACE + ".getLikeCount", tp_idx);
     }
 }
-

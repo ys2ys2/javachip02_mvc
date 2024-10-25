@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
-                           http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
-    
-    <!-- Root Context: defines shared resources visible to all other web components -->
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
 
-    <!-- MySQL 데이터베이스 설정 -->
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/webdb?characterEncoding=UTF-8&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC"/>
-        <property name="username" value="web_dev" />
-        <property name="password" value="1234" />
-    </bean>
-
-    <!-- MyBatis 관련 설정 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
-        <property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml" />
-    </bean>
-        
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
-    </bean>
-
-    <!-- 트랜잭션 매니저 설정 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-    <!-- 트랜잭션 어노테이션 활성화 -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-
-    <!-- 컴포넌트 스캔 설정 -->
-    <context:component-scan base-package="com.human.web" />
-
+	<!-- 오라클 관련 설정 
+	<bean id="dataSource"
+		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="sql_dev" />
+		<property name="password" value="1234" />	  
+	</bean>
+	-->
+	
+	<!-- MySQL 관련 설정 -->
+	<bean id="dataSource"
+		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/webdb?
+									characterEncoding=UTF-8
+									&amp;
+									useSSL=false
+									&amp;
+									allowPublicKeyRetrieval=true
+									&amp;
+									serverTimezone=UTC"/>
+		<property name="username" value="web_dev" />
+		<property name="password" value="1234" />	  
+	</bean>	
+	
+	<!-- MyBatis 관련 빈 등록 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource"/>
+	    <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
+	    <property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml" />
+	</bean>
+		
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+	    <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<!-- 트랜잭션 매니저 빈 등록 -->
+	<bean id="transactionManager"
+	      class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	      <property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 트랜잭션 관리 활성화 : namespaces 탭에서 tx 체크 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+		
 </beans>

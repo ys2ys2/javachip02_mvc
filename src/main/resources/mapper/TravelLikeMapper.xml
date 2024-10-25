@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.TravelLikeMapper">
+
+    <!-- 특정 여행기에 대한 좋아요 개수 조회 -->
+    <select id="getLikeCount" resultType="int" parameterType="int">
+        SELECT COUNT(*) 
+        FROM travel_post_like 
+        WHERE tp_idx = #{tp_idx}
+    </select>
+
+    <!-- 좋아요 존재 여부 확인 -->
+    <select id="likeExists" resultType="int" parameterType="map">
+        SELECT COUNT(*) 
+        FROM travel_post_like 
+        WHERE tp_idx = #{tp_idx} 
+        AND user_id = #{userId}
+    </select>
+
+    <!-- 좋아요 추가 -->
+    <insert id="insertLike" parameterType="map">
+        INSERT INTO travel_post_like (tp_idx, user_id) 
+        VALUES (#{tp_idx}, #{userId})
+    </insert>
+
+    <!-- 좋아요 삭제 -->
+    <delete id="deleteLike" parameterType="map">
+        DELETE FROM travel_post_like 
+        WHERE tp_idx = #{tp_idx} 
+        AND user_id = #{userId}
+    </delete>
+
+    <!-- 좋아요 개수 업데이트 -->
+    <update id="updateLikeCount">
+        UPDATE tb_travel_post 
+        SET like_count = (SELECT COUNT(*) FROM travel_post_like WHERE tp_idx = #{tp_idx}) 
+        WHERE tp_idx = #{tp_idx};
+    </update>
+
+</mapper>

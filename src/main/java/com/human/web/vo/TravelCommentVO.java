@@ -1,11 +1,11 @@
 package com.human.web.vo;
 
-public class CommentVO {
+public class TravelCommentVO {
     private int commentId;
-    private int postId;
+    private int tpIdx;              // 여행기 ID
     private String commentWriter;
     private String commentContent;
-    private String commentDate;  // 날짜가 문자열로 저장될 경우
+    private String commentDate;
 
     // Getters and Setters
     public int getCommentId() {
@@ -16,12 +16,12 @@ public class CommentVO {
         this.commentId = commentId;
     }
 
-    public int getPostId() {
-        return postId;
+    public int getTpIdx() {
+        return tpIdx;
     }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
+    public void setTpIdx(int tpIdx) {
+        this.tpIdx = tpIdx;
     }
 
     public String getCommentWriter() {

@@ -6,87 +6,67 @@
 <head>
     <meta charset="UTF-8">
     <title>여행기 목록</title>
-    <link href="${pageContext.request.contextPath}/resources/css/list.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/travelpostlist.css">
+    <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+    <script>
+        var contextPath = '${pageContext.request.contextPath}';
+    </script>
 </head>
 <body>
+<div class="overlay"></div>
 
-<h3>여행기 게시글 목록</h3>
+<header>
+    <div class="header-container">
+        <div class="logo">BBOL BBOL BBOL</div>
+        <nav>
+            <ul>
+                <li><a href="#">홈</a></li>
+                <li><a href="#">커뮤니티</a></li>
+                <li><a href="#">여행지</a></li>
+                <li><a href="#">여행뽈뽈</a></li>
+            </ul>
+        </nav>
+        
+    </div>
+</header>
 
+<!-- 전체 레이아웃을 컨트롤하는 컨테이너 -->
+<div class="container">
+    <!-- 태그/토픽 섹션 -->
+    <div class="tag-section">
+        <h4>#태그/토픽 선택</h4>
+        <div class="tags">
+            <button class="filter-button" data-filter="전체">#전체</button>
+            <button class="filter-button" data-filter="서울">#서울</button>
+            <button class="filter-button" data-filter="부산">#부산</button>
+            <button class="filter-button" data-filter="제주">#제주</button>
+            <button class="filter-button" data-filter="인천">#인천</button>
+            <button class="filter-button" data-filter="도시여행">#도시여행</button>
+            <button class="filter-button" data-filter="자연여행">#자연여행</button>
+            <button class="filter-button" data-filter="해외여행">#해외여행</button>
+        </div>
+    </div>
 
-<!-- taggedPosts 데이터가 제대로 들어왔는지 확인 -->
-<c:if test="${not empty taggedPosts}">
-    <c:out value="${taggedPosts}" />
-</c:if>
-<c:if test="${empty taggedPosts}">
-    <p>태그별 게시물이 없습니다.</p>
-</c:if>
-
-<!-- 지역 태그별로 나눠서 게시글 출력 -->
-<div class="tag-section">
-    <h4>#서울</h4>
-    <div class="post-list">
-        <c:forEach var="post" items="${taggedPosts['서울']}">
-            <div class="post-item">
-                <a href="${pageContext.request.contextPath}/Community/travelPostDetail?tp_idx=${post.tp_idx}">
-                    <c:if test="${not empty post.mediaList}">
-                        <img src="${pageContext.request.contextPath}/resources/uploads/thumbnail-${post.mediaList[0].save_filename}" alt="게시물 이미지">
-                    </c:if>
-                    <p>${post.title}</p>
-                </a>
-            </div>
-        </c:forEach>
+    <!-- 여행기 목록 및 페이지네이션을 묶음 -->
+    <div class="post-list-container">
+    	 <!-- 검색 입력 필드를 우측 상단으로 이동 -->
+        <div class="search-section">
+            <input type="text" id="search-query" placeholder="검색어를 입력하세요" />
+            <button id="search-button">검색</button>
+        </div>
+        <div class="post-list">
+            <!-- 필터링된 여행기들이 여기에 AJAX로 동적으로 추가됩니다 -->
+        </div>
+        
+        <!-- 페이지네이션을 게시글 목록 바로 밑에 배치 -->
+        <div class="pagination">
+            <!-- 페이지네이션 버튼이 여기에 동적으로 추가됩니다 -->
+        </div>
     </div>
 </div>
-
-<div class="tag-section">
-    <h4>#부산</h4>
-    <div class="post-list">
-        <c:forEach var="post" items="${taggedPosts['부산']}">
-            <div class="post-item">
-                <a href="${pageContext.request.contextPath}/Community/travelPostDetail?tp_idx=${post.tp_idx}">
-                    <c:if test="${not empty post.mediaList}">
-                        <img src="${pageContext.request.contextPath}/resources/uploads/thumbnail-${post.mediaList[0].save_filename}" alt="게시물 이미지">
-                    </c:if>
-                    <p>${post.title}</p>
-                </a>
-            </div>
-        </c:forEach>
-    </div>
-</div>
-
-<div class="tag-section">
-    <h4>#제주</h4>
-    <div class="post-list">
-        <c:forEach var="post" items="${taggedPosts['제주']}">
-            <div class="post-item">
-                <a href="${pageContext.request.contextPath}/Community/travelPostDetail?tp_idx=${post.tp_idx}">
-                    <c:if test="${not empty post.mediaList}">
-                        <img src="${pageContext.request.contextPath}/resources/uploads/thumbnail-${post.mediaList[0].save_filename}" alt="게시물 이미지">
-                    </c:if>
-                    <p>${post.title}</p>
-                </a>
-            </div>
-        </c:forEach>
-    </div>
-</div>
-
-<div class="tag-section">
-    <h4>#인천</h4>
-    <div class="post-list">
-        <c:forEach var="post" items="${taggedPosts['인천']}">
-            <div class="post-item">
-                <a href="${pageContext.request.contextPath}/Community/travelPostDetail?tp_idx=${post.tp_idx}">
-                    <c:if test="${not empty post.mediaList}">
-                        <img src="${pageContext.request.contextPath}/resources/uploads/thumbnail-${post.mediaList[0].save_filename}" alt="게시물 이미지">
-                    </c:if>
-                    <p>${post.title}</p>
-                </a>
-            </div>
-        </c:forEach>
-    </div>
-</div>
-
-<!-- 추가 태그 섹션을 원할 경우 여기에 더 추가하세요 -->
-
+    
+<script src="${pageContext.request.contextPath}/resources/js/travelpostlist.js"></script>
 </body>
 </html>

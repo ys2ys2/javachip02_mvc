@@ -279,7 +279,7 @@ function formatDate(dateArray) {
         // UTC 시간으로 날짜 생성
         const utcDate = new Date(Date.UTC(year, month - 1, day, hour, minute));
         // UTC + 9 시간(한국 표준시)로 변환
-        const kstDate = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000));
+        const kstDate = new Date(utcDate.getTime() + (6 * 60 * 60 * 1000));
         // 유효한 날짜인지 확인
         if (!isNaN(kstDate.getTime())) {
             return kstDate.toLocaleString('ko-KR', {

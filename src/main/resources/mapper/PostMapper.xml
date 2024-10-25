@@ -19,11 +19,18 @@
 	</select>
    
     
-    <!-- 게시글 생성 -->
-    <insert id="createPost" parameterType="com.human.web.vo.PostVO">
+     <!-- 게시글 생성 -->
+   <!--  <insert id="createPost" parameterType="com.human.web.vo.PostVO">
         INSERT INTO post (post_writer, post_content)
         VALUES (#{writer}, #{content});
+    </insert>  -->
+	
+	 <!-- 게시글 생성 --> <!--예슬 추가: #{m_idx}  -->
+    <insert id="createPost" parameterType="com.human.web.vo.PostVO">
+        INSERT INTO post (post_writer, post_content, m_idx)
+        VALUES (#{writer}, #{content}, #{m_idx});
     </insert>
+    
 	
 	<update id="updateCommentCount">
     UPDATE post

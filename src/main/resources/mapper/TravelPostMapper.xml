@@ -4,58 +4,169 @@
 
 <mapper namespace="com.human.web.mapper.TravelPostMapper">
 
-    <!-- 여행기 등록: useGeneratedKeys 설정으로 tp_idx 값을 가져옴 -->
-    <!-- 여행기 데이터를 DB에 삽입하는 쿼리. 여행기 등록 후, 자동으로 생성된 tp_idx 값이 TravelPostVO 객체의 tp_idx 필드에 자동으로 설정됨. -->
+    <!-- 여행기 게시물 삽입 -->
     <insert id="insertTravelPost" parameterType="TravelPostVO" useGeneratedKeys="true" keyProperty="tp_idx">
-        INSERT INTO tb_travel_post (title, content, topic, post_date) 
+        INSERT INTO tb_travel_post (title, content, topic, post_date)
         VALUES (#{title}, #{content}, #{topic}, NOW())
     </insert>
 
-    <!-- 태그 등록 -->
-    <!-- 여행기에 연결된 태그를 DB에 저장하는 쿼리. 태그와 여행기의 연관을 위해 tp_idx와 tag를 사용. -->
+    <!-- 태그 삽입 -->
     <insert id="insertTag" parameterType="map">
         INSERT INTO tb_travel_tags (tp_idx, tag_name)
         VALUES (#{tp_idx}, #{tag})
     </insert>
-    
-    <!-- 태그 중복 확인 -->
-    <!-- 특정 여행기와 태그가 이미 존재하는지 중복 여부를 확인하는 쿼리. 동일한 tp_idx와 태그가 있는지 체크하여 중복 태그 방지. -->
-	<select id="checkDuplicateTag" parameterType="map" resultType="int">
-    	SELECT COUNT(*) 
-    	FROM tb_travel_tags 
-    	WHERE tp_idx = #{tp_idx} 
-      	AND tag_name = #{tag}
-	</select>
-    
 
-     <!-- 여행기 목록 조회 -->
-     <!-- 모든 여행기 데이터를 DB에서 가져오는 쿼리. 최신 순으로 정렬됨. -->
-    <select id="getAllPosts" resultType="TravelPostVO">
-        SELECT * FROM tb_travel_post ORDER BY post_date DESC
-    </select> 
-
-    <!-- 특정 여행기 조회 -->
-    <!-- 특정 tp_idx에 해당하는 하나의 여행기 데이터를 조회하는 쿼리. 여행기 상세 페이지를 위해 사용. -->
-    <select id="getTravelPost" parameterType="int" resultType="TravelPostVO">
-        SELECT * FROM tb_travel_post WHERE tp_idx = #{tp_idx}
+    <!-- 태그 중복 체크 -->
+    <select id="checkDuplicateTag" parameterType="map" resultType="int">
+        SELECT COUNT(*) 
+        FROM tb_travel_tags 
+        WHERE tp_idx = #{tp_idx} 
+        AND tag_name = #{tag}
+    </select>
+    
+    <!-- 특정 게시물 태그 조회 -->
+    <select id="getTagsForPost" parameterType="int" resultType="string">
+        SELECT tag_name
+        FROM tb_travel_tags
+        WHERE tp_idx = #{tp_idx}
     </select>
 
-    <!-- 첨부파일 등록 -->
-    <!-- 여행기에 연결된 첨부파일 정보를 DB에 저장하는 쿼리. 파일명, 파일 크기, 파일 유형 등을 함께 저장. -->
+    <!-- 모든 게시물 조회 (첨부파일 포함) -->
+    <select id="getAllPosts" resultMap="TravelPostResultMap">
+        SELECT p.*, m.save_filename
+        FROM tb_travel_post p
+        LEFT JOIN tb_travel_media m ON p.tp_idx = m.tp_idx
+        ORDER BY p.post_date DESC
+    </select>
+
+    <!-- 특정 게시물 조회 (첨부파일 포함) -->
+    <select id="getTravelPost" parameterType="int" resultMap="TravelPostResultMap">
+        SELECT p.*, m.save_filename
+        FROM tb_travel_post p
+        LEFT JOIN tb_travel_media m ON p.tp_idx = m.tp_idx
+        WHERE p.tp_idx = #{tp_idx}
+    </select>
+
+    <!-- 첨부파일 삽입 -->
     <insert id="insertTravelMedia" parameterType="TravelMediaVO">
         INSERT INTO tb_travel_media (tp_idx, origin_filename, save_filename, file_type, file_size, upload_date)
         VALUES (#{tp_idx}, #{origin_filename}, #{save_filename}, #{file_type}, #{file_size}, NOW())
     </insert>
 
-    <!-- 태그별 최신 게시물 조회 -->
-    <!-- 특정 태그에 연결된 최신 여행기 데이터를 제한된 개수만 가져오는 쿼리. 태그에 해당하는 게시물 중에서 최신 순으로 정렬하여 limit 개수만큼 가져옴. -->
-    <select id="selectRecentPostsByTag" parameterType="map" resultType="TravelPostVO">
-        SELECT p.* 
+    <!-- 태그별 게시물 조회 (첨부파일 포함) -->
+    <select id="getPostsByTag" parameterType="string" resultMap="TravelPostResultMap">
+        SELECT p.*, m.save_filename
         FROM tb_travel_post p
         JOIN tb_travel_tags t ON p.tp_idx = t.tp_idx
+        LEFT JOIN tb_travel_media m ON p.tp_idx = m.tp_idx
+        WHERE t.tag_name = #{tag}
+        ORDER BY p.post_date DESC
+    </select>
+    
+    <!-- 태그별 최신 게시물 조회 (첨부파일 포함) -->
+    <select id="selectRecentPostsByTag" parameterType="map" resultMap="TravelPostResultMap">
+        SELECT p.*, m.save_filename
+        FROM tb_travel_post p
+        JOIN tb_travel_tags t ON p.tp_idx = t.tp_idx
+        LEFT JOIN tb_travel_media m ON p.tp_idx = m.tp_idx
         WHERE t.tag_name = #{tag}
         ORDER BY p.post_date DESC
         LIMIT #{limit}
     </select>
+
     
+    <!-- 필터와 페이지네이션을 적용한 게시물 조회 (첨부파일 포함) -->
+	<select id="getPostsByFilterWithPagination" parameterType="map" resultMap="TravelPostResultMap">
+    	SELECT p.*, 
+           (SELECT COUNT(*) FROM travel_post_like WHERE tp_idx = p.tp_idx) AS likeCount,  <!-- 좋아요 수 계산 -->
+           (SELECT COUNT(*) FROM tb_travel_comment WHERE tp_idx = p.tp_idx) AS commentCount, <!-- 댓글 수 계산 -->
+           m.save_filename
+    	FROM tb_travel_post p
+    	LEFT JOIN tb_travel_media m ON p.tp_idx = m.tp_idx
+    	LEFT JOIN tb_travel_tags t ON p.tp_idx = t.tp_idx
+    	WHERE (t.tag_name = #{filter} OR p.topic = #{filter} OR #{filter} IS NULL)
+    	ORDER BY p.post_date DESC
+    	LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+	
+    
+
+    <!-- 필터에 따른 게시물 수 조회 -->
+    <select id="getTotalPostCountByFilter" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM tb_travel_post p
+        JOIN tb_travel_tags t ON p.tp_idx = t.tp_idx
+        WHERE t.tag_name = #{filter} OR p.topic = #{filter}
+    </select>
+
+    <!-- 페이지네이션을 적용한 전체 게시물 조회 (첨부파일 포함) -->
+    <select id="getAllPostsWithPagination" parameterType="map" resultMap="TravelPostResultMap">
+    SELECT p.*, 
+           (SELECT COUNT(*) FROM travel_post_like WHERE tp_idx = p.tp_idx) AS likeCount,
+           (SELECT COUNT(*) FROM tb_travel_comment WHERE tp_idx = p.tp_idx) AS commentCount,
+           m.save_filename
+    FROM tb_travel_post p
+    LEFT JOIN tb_travel_media m ON p.tp_idx = m.tp_idx
+    ORDER BY p.post_date DESC 
+    LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+    
+
+    <!-- 전체 게시물 수 조회 -->
+    <select id="getTotalPostCount" resultType="int">
+        SELECT COUNT(*) 
+        FROM tb_travel_post
+    </select>
+    
+   <!-- 필터와 검색어로 게시글을 가져오는 쿼리 (첨부파일 포함) -->
+    <select id="selectPostsByFilterAndQuery" resultMap="TravelPostResultMap">
+    SELECT DISTINCT p.*, 
+           (SELECT COUNT(*) FROM travel_post_like WHERE tp_idx = p.tp_idx) AS likeCount,
+           (SELECT COUNT(*) FROM tb_travel_comment WHERE tp_idx = p.tp_idx) AS commentCount,
+           m.save_filename
+    FROM tb_travel_post p
+    LEFT JOIN tb_travel_tags t ON p.tp_idx = t.tp_idx
+    LEFT JOIN tb_travel_media m ON p.tp_idx = m.tp_idx
+    WHERE (#{filter} IS NULL OR t.tag_name = #{filter} OR p.topic = #{filter})
+    AND (p.title LIKE CONCAT('%', #{query}, '%') OR p.content LIKE CONCAT('%', #{query}, '%'))
+    ORDER BY p.post_date DESC
+    LIMIT #{offset}, #{pageSize}
+</select>
+    
+
+    <!-- 필터와 검색어로 게시글의 총 개수를 가져오는 쿼리 -->
+    <select id="countPostsByFilterAndQuery" resultType="int">
+        SELECT COUNT(DISTINCT p.tp_idx)
+        FROM tb_travel_post p
+        LEFT JOIN tb_travel_tags t ON p.tp_idx = t.tp_idx
+        WHERE (#{filter} IS NULL OR t.tag_name = #{filter} OR p.topic = #{filter})
+        AND (p.title LIKE CONCAT('%', #{query}, '%') OR p.content LIKE CONCAT('%', #{query}, '%'))
+    </select>
+    
+    <update id="updateCommentCount" parameterType="int">
+    UPDATE tb_travel_post
+    SET comment_count = (SELECT COUNT(*) FROM tb_travel_comment WHERE tp_idx = #{tp_idx})
+    WHERE tp_idx = #{tp_idx};
+	</update>
+    
+
+  
+	 <!-- ResultMap 정의 -->
+	<resultMap id="TravelPostResultMap" type="TravelPostVO">
+    	<id property="tp_idx" column="tp_idx"/>
+    	<result property="title" column="title"/>
+    	<result property="content" column="content"/>
+    	<result property="topic" column="topic"/>
+    	<result property="post_date" column="post_date"/>
+    	<result property="likeCount" column="likeCount"/> 
+    	<result property="commentCount" column="commentCount"/> 
+    	<collection property="mediaList" ofType="TravelMediaVO">
+        	<result property="save_filename" column="save_filename"/>
+        	<result property="origin_filename" column="origin_filename"/>
+        	<result property="file_type" column="file_type"/>
+        	<result property="file_size" column="file_size"/>
+    	</collection>
+	</resultMap>
+    
+
 </mapper>

@@ -6,10 +6,27 @@
   
   <!-- MyBatis에서 데이터 타입으로 사용할 객체들에 대한 별칭(alias) 정의 -->
   <typeAliases>
-  	<typeAlias alias="M_MemberVO" type="com.human.web.vo.M_MemberVO"/>
-  	<typeAlias alias="MypageVO" type="com.human.web.vo.MypageVO"/>
-  	
-  	
+    <!-- 게시글 VO -->
+    <typeAlias alias="postVO" type="com.human.web.vo.PostVO"/>
+    <!-- 댓글 VO -->
+    <typeAlias alias="commentVO" type="com.human.web.vo.CommentVO"/>
+    <!-- 좋아요 VO -->
+    <typeAlias alias="likeVO" type="com.human.web.vo.LikeVO"/>
+    <!-- 추가적으로 다른 VO 클래스가 있다면 여기에 계속 추가합니다 -->
+    <typeAlias alias="travelmediaVO" type="com.human.web.vo.TravelMediaVO"/>
+    
+    <typeAlias alias="travelPostVO" type="com.human.web.vo.TravelPostVO"/>
+    
+    <typeAlias alias="tagInsertVO" type="com.human.web.vo.TagInsertVO"/>
+    
   </typeAliases>
+  
+  <!-- <typeHandlers>
+        LocalDateTime을 TIMESTAMP와 매핑
+        <typeHandler
+            javaType="java.time.LocalDateTime"
+            jdbcType="TIMESTAMP"
+            handler="org.apache.ibatis.type.LocalDateTimeTypeHandler" />
+    </typeHandlers> -->
   
 </configuration>

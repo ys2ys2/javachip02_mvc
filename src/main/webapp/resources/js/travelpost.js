@@ -26,10 +26,18 @@ function loadTravelPostsByTag(tag, containerId) {
                                    contextPath + '/resources/images/default-thumbnail.png';
 
                     // 게시글 항목 HTML 생성 (이미지 상단, 제목 하단)
-                    var postItem = '<div class="post-item">' +
-                                       '<img src="' + imageUrl + '" alt="게시글 이미지" class="post-image">' +
-                                       '<div class="post-title">' + post.title + '</div>' +
-                                   '</div>';
+                    var postItem = `
+        <a href="${contextPath}/Community/travelPostDetail/${post.tp_idx}" class="post-item" style="display: block; text-decoration: none; color: inherit;">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <img src="${imageUrl}" alt="게시글 이미지" style="width: 100px; height: 100px; margin-right: 10px;">
+                <div class="post-content">
+                    <h5 style="margin: 0;">${post.title}</h5>
+                    <p style="margin: 5px 0;">${post.content}</p>
+                </div>
+            </div>
+        </a>
+    `;
+                    
                     section.append(postItem);
                 });
             } else {
