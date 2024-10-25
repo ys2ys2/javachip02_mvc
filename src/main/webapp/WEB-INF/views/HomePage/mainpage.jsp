@@ -49,9 +49,6 @@
           <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
           <li><a href="#">여행뽈뽈</a></li>
           <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
-          
-          <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
-          
         </ul>
       </nav>
       <div class="member">

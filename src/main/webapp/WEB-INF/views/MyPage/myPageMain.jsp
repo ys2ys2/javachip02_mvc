@@ -109,8 +109,8 @@
             <h3 class="past-trips-title">지난 여행</h3>
             <c:if test="${not empty latestPastTrip}">
                 <div class="latest-past-trip">
-                    <p>여행 제목: ${latestPastTrip.t_title}</p>
-                    <p>여행 기간: 
+                    <p>${latestPastTrip.t_title}</p>
+                    <p> 
                         <fmt:formatDate value="${latestPastTrip.period_start}" pattern="yyyy-MM-dd" /> - 
                         <fmt:formatDate value="${latestPastTrip.period_end}" pattern="yyyy-MM-dd" />
                     </p>
