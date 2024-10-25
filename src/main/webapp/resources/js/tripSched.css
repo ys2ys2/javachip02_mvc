@@ -1,0 +1,643 @@
+@font-face {
+  font-family: 'NanumSquareRoundB';
+  src: url('${pageContext.request.contextPath}/resources/fonts/NanumSquareRoundB.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundEB';
+  src: url('${pageContext.request.contextPath}/resogurces/fonts/NanumSquareRoundEB.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundR';
+  src: url('${pageContext.request.contextPath}/resources/fonts/NanumSquareRoundR.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRoundL';
+  src: url('${pageContext.request.contextPath}/resources/fonts/NanumSquareRoundL.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+
+
+
+body {
+	margin: 0 auto;
+	font-family: 'NanumSquareRoundR', sans-serif;
+	background-color: white;
+	
+}
+
+
+/* 기본적으로 보이지 않도록 설정 */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검정색 */
+    z-index: 500; /* 팝업보다 낮은 z-index로 설정 */
+    display: none; /* 기본적으로 안 보이도록 설정 */
+}
+
+.t_mainratio {
+	width: 50%;
+	margin: 0 auto;
+	align-items: center;
+	text-align: center;
+	font-family: 'NanumSquareRoundR', sans-serif;
+	
+	
+}
+
+.t_titlesection {
+	display: flex;
+    align-items: flex-start; /* 왼쪽 정렬 */
+    margin: 20px 0;
+    gap: 30px; /* 요소 간 간격 */
+    flex-direction: column; /* 세로 배치 */
+    
+	
+}
+
+.t_title {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin: 0 auto;
+}
+
+/* 제목 입력창 스타일 */
+.title-input {
+	display: flex;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: .1rem solid #d7d7d7;
+    outline: none;
+    width: 100%;
+   	font-family: 'NanumSquareRoundR', sans-serif;
+    
+}
+
+.t_date {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin: 0 auto;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    gap: 10px;
+}
+
+.t_calendar {
+	background-color: transparent; /* 버튼 배경 투명 */
+  	border: none; /* 버튼 테두리 제거 */
+  	cursor: pointer; /* 마우스 커서가 버튼 위에 있을 때 손 모양으로 변경 */
+	
+}
+
+/* 확인 버튼 스타일링 */
+.daterangepicker .applyBtn {
+    background-color: #276BF2; /* 버튼 배경색 */
+    color: white; /* 텍스트 색 */
+    border: none; /* 테두리 없애기 */
+    padding: 10px 20px; /* 내부 여백 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    text-decoration: none; /* 밑줄 제거 */
+    display: inline-block; /* 인라인 블록 */
+    font-size: 16px; /* 텍스트 크기 */
+    margin: 4px 2px; /* 버튼 간격 */
+    cursor: pointer; /* 커서 변경 */
+    border-radius: 5px; /* 모서리 둥글게 */
+}
+
+/* 취소 버튼 스타일링 */
+.daterangepicker .cancelBtn {
+    background-color: #f44336; /* 취소 버튼 배경색 */
+    color: white; /* 텍스트 색 */
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* 버튼에 마우스 오버 시 스타일 */
+.daterangepicker .cancelBtn:hover {
+    background-color: #FF9456; 
+    color: white;
+}
+
+.daterangepicker .applyBtn:hover {
+	background-color: #729DF2; 
+	color: white;
+	
+}
+
+
+
+
+
+
+
+/* 날짜 선택창 스타일 */
+.date-picker {
+    font-size: 16px;
+    border: none;
+    border-bottom: .1rem solid #d7d7d7;
+    padding: 0 0 .8rem;
+    outline: none;
+    width: 40%;
+    align-items: unset !important;
+}
+
+/* 버튼 스타일 */
+.date_btn {
+	height: 40px;
+    padding: 10px;
+    border: 1px solid #242424;
+    border-radius: 5px;
+    display: inline-block;
+    position: relative;
+    font-size: 14px;
+    text-align: center;
+    background: transparent;
+    margin-left: auto; /* 버튼들을 오른쪽 끝으로 정렬 */
+    font-family: 'NanumSquareRoundR', sans-serif;
+    cursor: pointer;
+    
+}
+
+.btn:hover {
+    background-color: #f0f0f0;
+}
+
+.date_btnsection {
+	margin-left: auto;
+	display: flex;
+	gap: 15px;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+}
+
+
+#placeSearchPanel {
+    display: none;  /* 기본적으로 팝업이 열리지 않도록 설정 */
+}
+
+
+.t_place-search-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.t_search-container {
+    margin-bottom: 20px;
+}
+
+.t_search-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.t_search-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.t_place-results {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.place-results p {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+
+.t_moreinfo {
+	margin: 10px auto;
+	padding: 10px;
+	border: none;
+	background-color: #454545;
+	color: white;
+	border-radius: 5px;
+	width: 100%;
+	cursor: pointer;
+}
+
+.t_csbutton {
+	display: flex;
+	gap: 10px;
+	
+	
+}
+
+.t_close-btn {
+	margin: 10px auto;
+	padding: 10px;
+	border: none;
+	background-color: #454545;
+	color: white;
+	border-radius: 5px;
+	width: 50%;
+	cursor: pointer;
+	
+}
+
+.t_save-btn {
+	margin: 10px auto;
+	padding: 10px;
+	border: none;
+	background-color: #454545;
+	color: white;
+	border-radius: 5px;
+	width: 50%;
+	cursor: pointer;
+	
+	
+}
+
+#placeResults {
+    height: auto; /* 또는 필요한 크기 설정 */
+    overflow-y: auto; /* 스크롤 가능하게 설정 */
+    border: 1px solid #ccc; /* 가시성 높이기 위해 테두리 추가 */
+    display: none;
+}
+
+/* 장소 리스트 컨테이너 스타일 */
+#placeResultsList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 장소 리스트 아이템 스타일 */
+/* 장소 리스트 아이템 스타일 (가운데 정렬 추가) */
+.place-item {
+    display: flex;
+    justify-content: space-between; /* 아이콘과 텍스트의 간격을 맞추기 위해 추가 */
+    align-items: center;  /* 아이템을 수직으로 가운데 정렬 */
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    text-align: left;  /* 텍스트를 좌측 정렬 */
+}
+
+/* 장소 아이콘 스타일 */
+.place-icon img {
+    width: 20px; /* 아이콘 크기 조정 */
+    height: 20px;
+    margin-left: 10px; /* 텍스트와 아이콘 간의 간격 */
+}
+
+/* 장소 세부 정보 스타일 */
+.place-details {
+    flex: 1; 
+    text-align: left; /* 텍스트를 좌측 정렬 */
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.place-details strong {
+	font-size: 15px;
+}
+
+.place-details span {
+	font-size: 11px;
+}
+
+.schedule-container {
+    display: flex;
+    flex-direction: column; /* 버튼은 세로로 */
+    width: 100%;
+    overflow-x: auto; /* 가로 스크롤 가능 */
+    height: auto;
+    position: relative;
+    
+}
+
+.schedule-container.active {
+    cursor: grabbing; /* 드래그 중일 때 커서 변경 */
+}
+
+
+.day-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    min-width: 250px; /* 카드 가로 크기 */
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    flex: 0 0 auto; /* 카드를 한 줄에 표시하고 크기를 자동으로 조정 */
+    
+}
+
+.day-cards {
+    display: flex;
+    justify-content: flex-start; /* 카드들은 왼쪽에 */
+    gap: 20px; /* 카드 사이 간격 설정 */
+    height: 500px;
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+    scroll-behavior: smooth;
+    white-space: nowrap; /* 카드가 한 줄로 표시되도록 강제 */
+    flex-wrap: nowrap; /* 한 줄로 모든 카드를 표시 */
+    position: relative; /* 스크롤이 잘 동작하도록 설정 */
+    width: 100%;
+    user-select: none; /* 드래그 중 텍스트 선택 방지 */
+    
+}
+
+.day-cards.active {
+    cursor: grabbing; /* 드래그할 때 손 모양 커서로 변경 */
+}
+
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.scroll-btn.left {
+    left: 0;
+}
+
+.scroll-btn.right {
+    right: 0;
+}
+
+.scroll-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+}
+
+.day-header h3 {
+    margin: 0;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.day-date {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.delete-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+}
+
+.day-content {
+    margin-top: 20px;
+}
+
+
+.schedule_save {
+	color: white;
+	cursor: pointer;
+	padding: 10px;
+	margin: 10px auto;
+	border: none;
+	outline: none;
+	background-color: black;
+	border-radius: 5px;
+	text-decoration-line: none;
+	
+}
+
+.saved-place-item {
+	text-align: left;
+	padding: 1px;
+	
+}
+
+.saved-place-item span {
+	font-size: 15px;
+	margin-right: 1px;
+}
+
+.p_name {
+	font-size: 13px;
+	margin: 4px auto;
+}
+
+
+
+.add-schedule-btn {
+    background-color: white;
+    border: 1px dashed #333;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    margin: 10px auto;
+}
+
+.add-schedule-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.add-day-btn {
+	align-items: center;
+    padding: 10px;
+    border: 1px dashed #ccc;
+    cursor: pointer;
+    margin: auto;
+    display: block;
+    height: 60px;
+    font-size: 15px;
+    
+    
+}
+
+
+.add-day-btn:hover {
+    background-color: #e0e0e0; /* 호버 시 배경색 */
+}
+
+.add-day-btn::before {
+    content: '➕'; /* 플러스 아이콘 */
+    margin-right: 10px; /* 텍스트와 아이콘 사이의 간격 */
+    font-size: 20px; /* 아이콘 크기 */
+}
+
+
+.selected-place-tag {
+    display: inline-block;
+    background-color: #f0f8ff;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* 가로 정렬을 위한 스타일 */
+.t_search-container-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* 도시 검색과 여행지 검색 필드 간의 간격 */
+}
+
+.search-itemC {
+    display: flex;
+    align-items: center; /* 아이콘과 입력 필드를 수직 가운데 정렬 */
+    width: 60%
+}
+
+.search-item {
+	display: flex;
+    align-items: center; /* 아이콘과 입력 필드를 수직 가운데 정렬 */
+    width: 100%
+}
+
+.search-icon {
+    width: 20px; /* 아이콘 크기 조정 */
+    height: 20px;
+    margin-right: 10px; /* 아이콘과 입력 필드 간의 간격 */
+}
+
+#citySearch {
+	width: 100%;
+	padding: 10px;
+	border: none;
+	border-bottom: 1px solid #ccc;
+	font-size: 14px;
+	outline: none;
+	
+}
+#autocomplete {
+    width: 100%; /* 검색 필드의 너비 설정 */
+    padding: 10px;
+    border: none; /* 테두리 제거 */
+    border-bottom: 1px solid #ccc; /* 하단 테두리만 유지 */
+    font-size: 14px;
+    outline: none; /* 입력 시 테두리 강조 제거 */
+}
+
+.pac-container {
+	font-family: 'NanumSquareRoundR', sans-serif; /* 원하는 폰트로 변경 */
+}
+
+.pac-item-query {
+    font-weight: bold; /* 자동완성의 쿼리 부분을 볼드체로 변경 */
+}
+
+/* 자동완성 결과 컨테이너 스타일 */
+.autocomplete-results-container {
+    position: absolute; /* 위치를 부모 엘리먼트 기준으로 설정 */
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ddd;
+    max-height: 200px; /* 스크롤을 위한 최대 높이 설정 */
+    overflow-y: auto;
+    z-index: 1000; /* 검색 결과가 다른 요소들 위에 표시되도록 설정 */
+    display: none; /* 기본적으로 숨김 */
+}
+
+/* 검색 필드 바로 밑에 자동완성 결과 표시 */
+#citySearch:focus + #autocompleteResults,
+#autocomplete:focus + #autocompleteResults {
+    display: block; /* 입력 필드에 포커스가 있을 때 결과 표시 */
+    outline: none; /* 클릭 시 테두리 강조 제거 */
+    
+}
+
+
+#citySearch::placeholder,
+#autocomplete::placeholder {
+    color: #ccc; /* 플레이스홀더 텍스트 색상 */
+    border: none;
+}
+
+/* 검색 버튼 스타일 */
+.search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.search-btn img {
+    width: 20px; 
+    height: 20px;
+    cursor: pointer; 
+}
+
+.select-btn {
+	color: #fff;
+	background-color: #454545;
+	border-radius: 5px;
+	outline: none;
+	cursor: pointer;
+	border: none;
+	margin: 5px;
+	padding: 5px;
+	font-size: 12px;
+	
+	
+}
+

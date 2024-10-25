@@ -1,5 +1,6 @@
 package com.human.web.repository;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -42,11 +43,12 @@ public class M_MemberDAO {
         return -1;  // 삽입 실패 시 -1 반환
     }
     
-
+    //로그인
 	public M_MemberVO login(Map<String, String> map) {
 		M_MemberVO vo = null;//로그인 실패시 결과값
 		try {
 			vo = sqlSession.selectOne(MAPPER+".login", map);
+			
 		} catch (Exception e) {
 			System.out.println("로그인 중 예외발생");		
 			 e.printStackTrace();
@@ -118,15 +120,79 @@ public class M_MemberDAO {
 	        return memberVO;
 	    }
 
+	    //회원정보 변경
+	    public int updateMember(M_MemberVO vo) {
+	        int result = 0;
+	        try {
+	            System.out.println("DAO - 업데이트할 회원 정보: " + vo); // VO 값 확인
+	            result = sqlSession.update(MAPPER + ".updateMember", vo);
+	            System.out.println("DAO - 회원정보 업데이트 결과: " + result); // SQL 실행 결과 확인
+	        } catch (Exception e) {
+	            System.out.println("DAO - 회원정보 변경 중 예외 발생");
+	            e.printStackTrace();
+	        }
+	        return result;
+	    }
+	    
 
-		public int countByNickname(String m_nickname) {
-			 return sqlSession.selectOne(MAPPER + ".countByNickname", m_nickname);
+		//회원정보 조회
+		public M_MemberVO getMember(int m_idx) {
+			M_MemberVO vo = null;//회원정보 조회 실패시 결과값
+			
+			try {
+				
+				vo = sqlSession.selectOne(MAPPER+".getMember", m_idx);
+				
+			} catch (Exception e) {
+				System.out.println("회원정보 조회 중 예외발생");
+			}
+			
+			return vo;
+		}
+
+		//회원탈퇴
+		public int cancel(int m_idx) {
+			int result = 0;//회원탈퇴 실패시 결과값
+			
+			try {
+				
+				result = sqlSession.update(MAPPER+".cancel", m_idx);
+				
+			} catch (Exception e) {
+				System.out.println("회원탈퇴 중 예외발생");
+			}
+			
+			return result;
+		}
+
+		//프로필 이미지 변경
+		public int updateProfileImage(M_MemberVO vo) {
+			return sqlSession.update(MAPPER +".updateProfileImage",vo);
+		}
+
+		
+		////회원정보 변경- 아이디 찾기
+		public String findIdByRegistrationAndNickname(String registrationType, String nickname) {
+			
+			Map<String, Object>params = new HashMap<>();
+			params.put("registrationType", registrationType);
+			params.put("nickname", nickname);
+			
+			return sqlSession.selectOne(MAPPER + ".findIdByRegistrationAndNickname", params);
 		}
 
 
-		public int updateMemberProfile(M_MemberVO member) {
-			   return sqlSession.update(MAPPER + ".updateMemberProfile", member);
-		}
+		public int updatePassword(String m_email, String newPassword) {
+			 Map<String, Object> params = new HashMap<>();
+			 params.put("m_email", m_email);   
+			 params.put("newPassword", newPassword);  // 새 비밀번호
+
+			    // SQL Mapper에 파라미터 전달하여 비밀번호 업데이트 실행
+			    return sqlSession.update(MAPPER+".updatePassword", params);
+			}
+		
+
+	}
 
 
-  }
+  

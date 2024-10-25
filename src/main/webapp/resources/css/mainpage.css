@@ -26,24 +26,77 @@
   font-style: normal;
 }
 
+/* 파셜산스체 */
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 
 /* 바깥 배너 컨테이너: 고정된 크기와 위치 설정 */
 body {
   background-color: white;
+  background-color: white;
   align-items: center;
   font-family: 'NanumSquareRoundR', sans-serif;
+  width: 100%; 
   width: 100%; 
   margin: 0 auto; /* 가로 방향으로 가운데 정렬 */
   overflow-x: hidden;
 }
 
+.logo {
+	font-family: 'yg-jalnan', sans-serif;
+	font-size: 30px;
+}
 /* 메인 컨테이너 */
 /* 전체 컨테이너 설정 */
 .main-container {
   width: 100%;
   max-width: 100%;
+  background-color: white;
   background-color: white;
 }
 
@@ -74,15 +127,19 @@ body {
   width: 190%;
   height: 100%;
   overflow: hidden;
+  overflow: hidden;
 }
 
 .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: white;
+  background: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  background-color:transparent;
   width: 100%;
   background-color:transparent;
 }
@@ -92,6 +149,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 15px;
   border-radius: 15px;
 }
 
@@ -118,6 +176,7 @@ body {
 .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
+  background-color: white;
   background-color: white;
   opacity: 0.5;
   margin: 0 5px;
@@ -181,6 +240,7 @@ body {
   max-width: 24vh;
   /* padding: 20px; */
   background-color: white;
+  background-color: white;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -198,14 +258,16 @@ body {
   display: -webkit-box; /* Flexbox의 변형인 Webkit 설정 */
   -webkit-line-clamp: 4; /* 최대 3줄로 제한 */
   -webkit-box-orient: vertical; /* Flexbox 방향 설정 */
+  font-family: 'SUIT-Regular', sans-serif;
 }
 
 
 .description-box h2 {
   font-size: 28px;
   color: black;
-  width: 100%;
+  width: 500px;
   font-weight:bold;
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
 }
 
 .description-box p {
@@ -219,8 +281,10 @@ body {
   text-decoration: none;
 }
 
-.moreinfo span{
-	color:blue;
+.moreinfo {
+	color: black;
+	font-family: 'SUIT-Regular', sans-serif;
+	font-weight: 600;
 }
 
 
@@ -262,6 +326,7 @@ body {
 .hot-left h2 {
     font-size: 40px;  /* 제목의 폰트 크기 설정 */
     margin-bottom: 20px;  /* 제목 아래 여백 */
+    font-family: 'Paperlogy-8ExtraBold', sans-serif;
 }
 
 
@@ -319,6 +384,8 @@ tfamous h2 {
 .famous {
     background-color: white;
     padding: 20px;
+    background-color: white;
+    padding: 20px;
 }
 
 .famous h2 {
@@ -347,6 +414,7 @@ tfamous h2 {
     position: relative;
     transition: flex-grow 0.6s ease; /* 부드러운 애니메이션 추가 */
     height: 300px; /* 기본 높이 설정 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 
@@ -358,7 +426,23 @@ tfamous h2 {
 }
 
 .famous-item p {
-    font-size: 18px;
+    font-size: 16px;
+    margin-top: 15px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.timage-placeholder {
+    width: 100%;
+    height: 100%; /* 부모인 famous-item의 높이에 맞춰짐 */
+    object-fit: cover; /* 비율 유지하면서 박스에 맞춰 자름 */
+}
+
+.famous-item a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 16px;
     margin-top: 15px;
     color: #333;
     text-decoration: none;
@@ -381,10 +465,13 @@ tfamous h2 {
 .Community {
   margin-bottom: 10vh;
   background-color: white;
-  margin-top: 23%;
+  margin-top: 20vh;
+  width: 100%;
+  justify-content: center;
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
 }
 
-.Community .image-placeholder {
+.image-placeholder {
   width: 100%;
   height: 500px; /* 고정된 높이 */
   background-color: #FFB85A; /* 이미지가 없는 동안의 배경 색상 */
@@ -404,17 +491,20 @@ tfamous h2 {
 .community-list {
   display: flex;
   gap: 20px;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .community-item {
-  flex: 1;
-  text-align: center;
-  max-width: 200px; /* 각 아이템의 최대 너비 */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   padding: 10px;
   box-sizing: border-box;
   border-radius: 8px;
+  gap: 20px;
+  width: 500px;
 }
 
 .community-item img {
@@ -427,6 +517,83 @@ tfamous h2 {
   font-size: 18px;
   margin-top: 10px;
 }
+
+.c_img {
+	width: 100%;
+	
+}
+
+.c_img img {
+	width: 380px;
+	height: auto;
+	border-radius: 15px;
+	padding: 10px;
+}
+
+
+.c_board {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 10px;
+	width: 100%;
+	height: auto;
+	margin-top:20px;
+	font-family: 'SUIT-Regular', sans-serif;
+	
+	
+}
+
+.c_board a {
+	text-decoration: none;
+	font-size: 14px;
+	color: black;
+}
+
+.c_board a:hover {
+	text-decoration: underline;
+	color: black;
+	
+}
+
+.c_intro {
+	margin-bottom: 2vh;
+	color: black;
+	font-size: 22px;
+	font-weight: bold;
+	
+}
+
+.board-item {
+    display: flex;
+    gap: 10px; /* 제목과 설명 사이의 간격 */
+    align-items: center; /* 제목과 설명을 세로 중앙에 정렬 */
+    font-size: 14px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.board-title {
+    font-weight: bold; /* 제목 부분 굵게 */
+    text-decoration: none; /* 밑줄 제거 */
+    color: black;
+    width: 80px;
+}
+
+
+.board-desc {
+    color: #555; /* 설명 부분의 색상 */
+    flex-grow: 1; /* 설명 부분이 남은 공간을 채우도록 설정 */
+    white-space: nowrap; /* 한 줄로 표시 */
+    overflow: hidden; /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 "..." 표시 */
+}
+
+
+
+
+
+
 
 .hotplace-list {
   display: flex;
@@ -441,6 +608,7 @@ tfamous h2 {
 .hotplace-section {
   margin-bottom: 50px;
   background-color: white;
+  background-color: white;
 }
 
 .hotplace-section h2 {
@@ -449,6 +617,7 @@ tfamous h2 {
 
 .hotplace-item {
   width: 100%;
+  max-width: 220px;
   max-width: 220px;
   height: 350px;
   margin: 10px auto; /* 마진 0, auto로 가운데 정렬(좌우여백 자동 설정) */
@@ -494,10 +663,12 @@ tfamous h2 {
 .event-section {
   margin-bottom: 50px;
   background-color: white;
+  background-color: white;
 }
 
 .event-section h2 {
   margin-left: 20px;
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
 }
 
 .event-list {
@@ -530,3 +701,507 @@ tfamous h2 {
   background-color: #333;
   color: white;
 }
+
+
+/* 배경을 덮는 wrapper */
+.background-wrapper {
+  background: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/main/bg-theme.jpg') no-repeat center;
+  background-size: cover; /* 이미지를 화면에 꽉 차게 설정 */
+  width: 100%; /* 너비를 전체 화면으로 설정 */
+  min-height: 100vh; /* 화면 높이에 맞춤 */
+  position: relative; /* 내부 요소가 배치되도록 설정 */
+}
+
+/* 전체 섹션 스타일 */
+newhotplace-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+
+/* 헤더 부분 */
+newhotplace-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  flex-direction: column;
+  color: white;
+}
+
+.hp01 {
+	font-size: 16px;
+	line-height: 24px;
+	font-family: 'SUIT-Regular', sans-serif;
+}
+
+.hp02 {
+	font-size: 62px;
+	font-family: 'PartialSansKR-Regular', sans-serif;
+	
+}
+
+newhotplace-header img {
+	width: 13px;
+	height: 13px;
+	
+}
+
+/* 탭 네비게이션 */
+.newhotplace_theme-tabs {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  font-family: 'SBAggroB', sans-serif;
+  font-weight: bold;
+  color: white;
+  margin: 0; /* ul 요소의 기본 마진 제거 */
+  padding: 0; /* ul 요소의 기본 패딩 제거 */
+  
+}
+
+.newhotplace_theme-tabs li {
+  display: inline-block;
+  padding: 35px 30px;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'SBAggroB', sans-serif;
+  font-weight: bold;
+  position: relative; /* 화살표 위치를 위한 상대적 위치 설정 */
+  margin: 0;
+  
+  
+}
+
+.panel-tabs {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	margin: 0; /* 추가적인 마진 제거 */
+    padding-bottom: 100px; /* 아래쪽에 추가 여백을 주어 배경을 더 길게 보이게 설정 */
+    
+	
+}
+
+
+
+/*02~!
+ 각각의 li 배경 및 텍스트 색상 변경 */
+.newhotplace_theme-tabs li:nth-child(1) {
+  background-color: #fa6050; /* 첫 번째 탭의 배경색 (Tomato) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(2) {
+  background-color: #f88e38; /* 두 번째 탭의 배경색 (SteelBlue) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(3) {
+  background-color: #5b3e4a; /* 세 번째 탭의 배경색 (LimeGreen) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(4) {
+  background-color: #2e79a7; /* 네 번째 탭의 배경색 (Gold) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(5) {
+  background-color: #767b41; /* 다섯 번째 탭의 배경색 (OrangeRed) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(6) {
+  background-color: #10453f; /* 여섯 번째 탭의 배경색 (Purple) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(7) {
+  background-color: #cd4227; /* 일곱 번째 탭의 배경색 (DodgerBlue) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(8) {
+  background-color: #a56f53; /* 여덟 번째 탭의 배경색 (DeepPink) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(9) {
+  background-color: #cdbd26; /* 아홉 번째 탭의 배경색 (ForestGreen) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(10) {
+  background-color: #812c1f; /* 열 번째 탭의 배경색 (Gold) */
+  color: #ffffff80;
+}
+
+.newhotplace_theme-tabs li:nth-child(11) {
+  background-color: #125677; /* 열한 번째 탭의 배경색 (Tomato) */
+  color: #ffffff80;
+}
+
+
+/* a 태그 기본 스타일 수정 */
+.newhotplace_theme-tabs li a {
+  color: inherit; /* 하이퍼링크 글자 색을 흰색으로 설정 */
+  text-decoration: none; /* 하이퍼링크 밑줄 제거 */
+  font-weight: bold; /* 글자 굵게 설정 */
+}
+
+
+.newhotplace_theme-tabs li.active {
+  background-color: #333;
+}
+
+/* 선택된 탭에 주황색 화살표 추가 */
+.newhotplace_theme-tabs li.active::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;  /* 왼쪽 투명 화살표 */
+  border-right: 15px solid transparent; /* 오른쪽 투명 화살표 */
+  border-bottom: 25px solid #ff5a5a;    /* 주황색 화살표 */
+  position: absolute;
+  top: -15px; /* 화살표 위치 */
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg); /* 화살표를 180도 회전시켜 뒤집기 */
+  z-index: 10; /* 다른 요소들 위에 배치 */
+}
+
+/* 선택된 탭 스타일 (active 클래스) */
+.newhotplace_theme-tabs li.active {
+  background-color: #ffffff; /* 선택된 탭의 배경색 */
+  color: #ff5a5a; /* 선택된 탭의 텍스트 색상 */
+  position: relative; /* 화살표 배치용 상대적 위치 */
+  z-index: 5; /* 다른 탭들과의 레이어 구분 */
+}
+
+
+.newhotplace_theme-tabs li:nth-child(1).active {
+  background-color: #ffffff;
+  color: #fa6050;
+}
+
+/* 두 번째 탭이 선택되었을 때 (2번째 탭) */
+.newhotplace_theme-tabs li:nth-child(2).active {
+  background-color: #ffffff;
+  color: #f88e38; /* 두 번째 탭의 텍스트 색상 */
+}
+
+.newhotplace_theme-tabs li:nth-child(3).active {
+  background-color: #ffffff;
+  color: #5b3e4a;
+}
+
+.newhotplace_theme-tabs li:nth-child(4).active {
+  background-color: #ffffff;
+  color: #2e79a7;
+}
+
+
+.newhotplace_theme-tabs li:nth-child(5).active {
+  background-color: #ffffff;
+  color: #767b41; 
+}
+
+.newhotplace_theme-tabs li:nth-child(6).active {
+  background-color: #ffffff;
+  color: #10453f; 
+}
+
+.newhotplace_theme-tabs li:nth-child(7).active {
+  background-color: #ffffff;
+  color: #cd4227; 
+}
+
+.newhotplace_theme-tabs li:nth-child(8).active {
+  background-color: #ffffff;
+  color: #a56f53; 
+}
+
+.newhotplace_theme-tabs li:nth-child(9).active {
+  background-color: #ffffff;
+  color: #cdbd26; 
+}
+
+.newhotplace_theme-tabs li:nth-child(10).active {
+  background-color: #ffffff;
+  color: #812c1f; 
+}
+
+.newhotplace_theme-tabs li:nth-child(11).active {
+  background-color: #ffffff;
+  color: #125677; 
+}
+
+
+
+/* article 패널 스타일 */
+.newhotplace_theme-panel {
+  display: none;
+  padding: 20px;
+  width: 1080px;
+  height: 500px;
+  background-color: white;
+}
+
+.newhotplace_theme-panel.active {
+  display: block;
+}
+
+/* article 내부 헤더 스타일 */
+.newhotplace_theme-panel header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* 세로 구분선 스타일 추가 */
+.newhotplace_theme-panel header span {
+  padding: 0 20px; /* 텍스트와 구분선 사이의 여백 */
+  line-height: 1.5; /* 선 크기 */
+}
+
+/* 구분선 스타일 */
+.newhotplace_theme-panel header span:first-child {
+  border-right: 2px solid #ccc; /* 첫 번째 span 요소에 오른쪽에 구분선 추가 */
+}
+
+.newhotplace_theme-panel header span:last-child {
+  padding-left: 20px; /* 두 번째 span의 왼쪽에 여백 추가 */
+}
+
+.newhotplace_theme-panel p {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.themeintro1 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #fa6050;
+  padding: 10px;
+}
+
+.themeintro2 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #f88e38;
+  padding: 10px;
+	
+}
+
+.themeintro3 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #5b3e4a;
+  padding: 10px;
+	
+}
+
+.themeintro4 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #2e79a7;
+  padding: 10px;
+	
+}
+
+.themeintro5 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #767b41;
+  padding: 10px;
+	
+}
+
+.themeintro6 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #10453f;
+  padding: 10px;
+	
+}
+
+.themeintro7 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #cd4227;
+  padding: 10px;
+	
+}
+
+.themeintro8 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #a56f53;
+  padding: 10px;
+	
+}
+
+.themeintro9 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #cdbd26;
+  padding: 10px;
+	
+}
+
+.themeintro10 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #812c1f;
+  padding: 10px;
+	
+}
+
+.themeintro11 {
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  font-size: 36px;
+  color: #125677;
+  padding: 10px;
+	
+}
+
+.themedescription {
+	font-family: 'SUIT-Regular', sans-serif;
+	font-size: 24px;
+	color: black;
+	font-weight: 600;
+	
+}
+
+.themeimage {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px; /* 이미지 박스 간의 간격 */
+  margin-top: 5vh; /* 위쪽 여백 */
+}
+
+/* 각각의 이미지 박스 */
+.image-box {
+  width: 30%; /* 한 줄에 3개씩 배치 */
+  text-align: left; /* 이미지 설명 가운데 정렬 */
+  margin: 10px auto;
+}
+
+/* 이미지 스타일 */
+.image-box img {
+  width: 100%;
+  height: 250px;
+  border-radius: 10px; /* 모서리를 둥글게 처리 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  object-fit: inherit;
+}
+
+.image-box a {
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 링크의 텍스트 색상을 상속받아 유지 */
+}
+
+/* 이미지 설명 텍스트 */
+.image-box p {
+  margin-top: 5px;
+  font-size: 20px;
+  color: black;
+  font-family: 'SUIT-Regular', sans-serif;
+  
+}
+
+.image-box-1 {
+	color: #fa6050;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-2 {
+	color: #f88e38;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-3 {
+	color: #5b3e4a;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-4 {
+	color: #2e79a7;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-5 {
+	color: #767b41;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-6 {
+	color: #10453f;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-7 {
+	color: #cd4227;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-8 {
+	color: #a56f53;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-9 {
+	color: #cdbd26;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-10 {
+	color: #812c1f;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.image-box-11 {
+	color: #125677;
+	font-size: 15px;
+	font-family: 'SUIT-Regular', sans-serif;
+	display: inline-block;
+	margin-top: 10px;
+}
+

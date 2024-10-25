@@ -393,11 +393,3 @@ function createPagination(totalPages, currentPage) {
     return paginationHtml;
 }
 
-
-
-
-
-
-
-
-

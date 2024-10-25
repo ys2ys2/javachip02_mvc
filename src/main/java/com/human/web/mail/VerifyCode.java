@@ -13,16 +13,25 @@ import javax.servlet.http.HttpSession;
 public class VerifyCode extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String inputCode = request.getParameter("authCode"); // 사용자가 입력한 인증번호
-        HttpSession session = request.getSession();
-        String sessionCode = (String) session.getAttribute("authCode"); // 세션에 저장된 인증번호
-
-        if (inputCode != null && inputCode.equals(sessionCode)) {
-            response.getWriter().write("success"); // 인증번호 일치
-        } else {
-            response.getWriter().write("fail"); // 인증번호 불일치
-        }
-    }
+    
+	  @Override 
+	  protected void service(HttpServletRequest request,
+	  HttpServletResponse response) throws ServletException, IOException { 
+		  String inputCode = request.getParameter("authCode"); // 사용자가 입력한 인증번호 
+		  HttpSession session = request.getSession(); 
+		  String sessionCode = (String) session.getAttribute("authCode"); // 세션에 저장된 인증번호
+				  
+		  if (inputCode != null && inputCode.equals(sessionCode)) {
+		  String m_email = (String) session.getAttribute("m_email");  // 세션에서 이메일 가져오기
+          System.out.println("세션에 저장된 이메일: " + m_email);
+		  response.getWriter().write("success"); // 인증번호 일치 
+		  } else {
+		  response.getWriter().write("fail"); // 인증번호 불일치 
+		  } 
+		  
+	  }
+	  
 }
+	 
+	 
+

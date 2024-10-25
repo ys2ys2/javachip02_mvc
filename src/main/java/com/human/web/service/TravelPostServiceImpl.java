@@ -49,19 +49,19 @@ public class TravelPostServiceImpl implements TravelPostService {
 
     // 모든 게시물을 가져오는 메서드
     @Override
-    public List<TravelPostVO> getAllPosts() { 
-        return travelPostDAO.getAllPosts(); 
+    public List<TravelPostVO> getAllPosts() {
+        return travelPostDAO.getAllPosts();
     }
 
     // 특정 여행기 게시물을 조회하는 메서드
     @Override
     public TravelPostVO getTravelPost(int tp_idx) {
         TravelPostVO post = travelPostDAO.getTravelPost(tp_idx);
-        
+
         // 태그 추가
         List<String> tags = travelPostDAO.getTagsForPost(tp_idx);
         post.setTags(tags);
-        
+
         return post;
     }
 

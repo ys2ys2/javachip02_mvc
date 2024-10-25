@@ -19,6 +19,8 @@
     
     <typeAlias alias="tagInsertVO" type="com.human.web.vo.TagInsertVO"/>
     
+    <typeAlias alias="MypageVO" type="com.human.web.vo.MypageVO"/>
+
   </typeAliases>
   
   <!-- <typeHandlers>

@@ -9,6 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.human.web.vo.CommentVO;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.human.web.vo.CommentVO;
+import com.human.web.vo.MypageVO;
 import com.human.web.vo.PostVO;
 
 @Repository
@@ -26,6 +34,21 @@ public class PostDAO {
     }
 
     // 특정 게시글 조회
+
+    @Autowired
+    private SqlSession sqlSession;
+
+    private static final String POST_NAMESPACE = "com.human.web.mapper.PostMapper";
+    private static final String COMMENT_NAMESPACE = "com.human.web.mapper.CommentMapper";
+
+    private static final String MYPAGE_NAMESPACE = "com.human.web.mapper.MypageMapper";
+
+    // 모든 게시글 조회
+    public List<PostVO> getAllPosts() {
+        return sqlSession.selectList(POST_NAMESPACE + ".getAllPosts");
+    }
+
+    // 특정 게시글 조회
     public PostVO getPostById(int postId) {
         return sqlSession.selectOne(POST_NAMESPACE + ".getPostById", postId);
     }
@@ -33,6 +56,21 @@ public class PostDAO {
     // 게시글 생성
     public int createPost(PostVO post) {
         return sqlSession.insert(POST_NAMESPACE + ".createPost", post);
+        return sqlSession.selectOne(POST_NAMESPACE + ".getPostById", postId);
+    }
+
+    // 예슬: m_mypage 테이블에 데이터 삽입
+    public int createPostAndMypage(PostVO post) {
+        int result = sqlSession.insert(POST_NAMESPACE + ".createPost", post);
+
+        if (result > 0) {
+            MypageVO mypage = new MypageVO();
+            mypage.setM_idx(post.getM_idx()); // m_idx 값 설정
+
+            sqlSession.insert(MYPAGE_NAMESPACE + ".insertMypage", mypage);
+        }
+
+        return result;
     }
 
     // 특정 게시글의 댓글 목록 조회
@@ -52,10 +90,10 @@ public class PostDAO {
 
     // 댓글 수 업데이트
     public void updateCommentCount(int postId) {
-    	System.out.println("댓글 수 업데이트 - postId: " + postId); 
+        System.out.println("댓글 수 업데이트 - postId: " + postId);
         sqlSession.update(POST_NAMESPACE + ".updateCommentCount", postId);
     }
-    
+
     public boolean isLikedByUser(int postId, String userId) {
         Map<String, Object> params = new HashMap<>();
         params.put("postId", postId);
@@ -63,5 +101,17 @@ public class PostDAO {
         return sqlSession.selectOne(POST_NAMESPACE + ".isLikedByUser", params);
     }
 
-    
+    // 예슬: m_mypage 테이블에 데이터 삽입
+    public int createPostAndMypage(PostVO post) {
+        int result = sqlSession.insert(POST_NAMESPACE + ".createPost", post);
+
+        if (result > 0) {
+            MypageVO mypage = new MypageVO();
+            mypage.setM_idx(post.getM_idx()); // m_idx 값 설정
+
+            sqlSession.insert(MYPAGE_NAMESPACE + ".insertMypage", mypage);
+        }
+
+        return result;
+    }
 }

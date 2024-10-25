@@ -1,4 +1,5 @@
 package com.human.web.controller;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,13 +29,14 @@ public class CommentController {
     private CommentService commentService;
     @Autowired
     private PostService postService;
+
     // 특정 게시글의 댓글 목록 조회
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CommentVO>> getComments(@PathVariable("postId") int postId) {
         List<CommentVO> comments = commentService.getComments(postId);
         if (comments == null || comments.isEmpty()) {
             System.out.println("댓글이 존재하지 않습니다.");
-            return ResponseEntity.ok(new ArrayList<>());  // 빈 배열 반환
+            return ResponseEntity.ok(new ArrayList<>()); // 빈 배열 반환
         }
         return ResponseEntity.ok(comments);
     }
@@ -44,10 +46,10 @@ public class CommentController {
     public ResponseEntity<Map<String, String>> addComment(@PathVariable int postId, @RequestBody CommentVO comment) {
         try {
             System.out.println("댓글 작성 시도 - postId: " + postId + ", 내용: " + comment.getCommentContent());
-            
+
             comment.setPostId(postId);
             commentService.addComment(comment);
-            
+
             // 댓글 수 업데이트
             postService.updateCommentCount(postId);
 
@@ -55,7 +57,7 @@ public class CommentController {
             response.put("message", "댓글이 작성되었습니다.");
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
-            e.printStackTrace();  // 로그로 오류를 확인하세요
+            e.printStackTrace(); // 로그로 오류를 확인하세요
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", "댓글 작성 중 오류가 발생했습니다.");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);

@@ -33,11 +33,22 @@ public class TalkDAO {
         return sqlSession.insert(MAPPER + ".insertTalk", vo);
     }
 
+
+
     // 댓글 삭제
     public int deleteTalk(int talkIdx) {
         return sqlSession.delete(MAPPER + ".deleteTalk", talkIdx);
     }
 
+    
+    // 핫플레이스 아이템 리스트 가져오기 (매개변수 있는 버전)
+/*    public List<Map<String, String>> getItemList(int offset, int limit) {
+        Map<String, Integer> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        return sqlSession.selectList(MAPPER + ".getItemListWithPagination", params);
+    }
+*/
     
     // 핫플레이스 아이템 리스트 가져오기 (매개변수 있는 버전)
     public List<Map<String, String>> getItemList(int offset, int limit) {
@@ -46,6 +57,8 @@ public class TalkDAO {
         params.put("limit", limit);
         return sqlSession.selectList(MAPPER + ".getItemListWithPagination", params);
     }
+
+
 
     // 댓글 수정
     public int updateTalk(int talkIdx, String updatedText) {
@@ -58,7 +71,12 @@ public class TalkDAO {
         return sqlSession.update(MAPPER + ".updateTalk", params);
     }
 
-
-
+	/*
+	 * // 파라미터를 Map에 담기 Map<String, Object> params = new HashMap<>();
+	 * params.put("talkIdx", talkIdx); params.put("updatedText", updatedText);
+	 * 
+	 * // Map을 전달하여 업데이트 수행 return sqlSession.update(MAPPER + ".updateTalk",
+	 * params); }
+	 */
 
 }

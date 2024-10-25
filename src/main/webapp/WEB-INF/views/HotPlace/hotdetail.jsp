@@ -12,6 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hotplace.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
@@ -25,6 +26,8 @@
   <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/br.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- 차트 -->
+  
   <title>함께 떠나는 핫플 여행! ${hotplace.title}</title>
 </head>
 
@@ -84,9 +87,14 @@
 		<button class="h_button" id="likeButton">
 		  <img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="likes" id="likeImage">
 		</button>
-      <button class="f_button">
-        <img src="${pageContext.request.contextPath}/resources/images/favorite.png" alt="favorite">
-      </button>
+		<!-- 저장하기 버튼 -->
+		<form id="saveForm" action="${pageContext.request.contextPath}/hotplace/save" method="post">
+		    <!-- contentid가 JSP에서 제대로 전달되는지 확인 -->
+		    <input type="hidden" name="contentid" value="${hotplace.contentid}">
+		    <button type="submit" class="f_button">
+		        <img src="${pageContext.request.contextPath}/resources/images/favorite.png" alt="favorite">
+		    </button>
+		</form>
       <button class="s_button" onclick="toggleSharePopup()">
         <img src="${pageContext.request.contextPath}/resources/images/share.png" alt="share">
       </button>
@@ -130,8 +138,9 @@
       <ul class="h_navbar">
         <li class="h_nav-item"><a href="#" data-target="section-photos">사진보기</a></li>
         <li class="h_nav-item"><a href="#" data-target="section-details">상세정보</a></li>
+        <li class="h_nav-item"><a href="#" data-target="section-weather">날씨정보</a></li>
         <li class="h_nav-item"><a href="#" data-target="section-talk">여행톡</a></li>
-        <li class="h_nav-item"><a href="#" data-target="section-recommend">추천여행</a></li>
+        
       </ul>
     </div>
 
@@ -169,7 +178,7 @@
 
     <!-- 상세정보 -->
     <div id="section-details" class="h_details_title">
-      <span>상세정보</span>
+      <span>상세 정보</span>
     </div>
     <div class="h_details">
         <p id="description-text">${hotplace.overview}</p>
@@ -179,6 +188,29 @@
     <div id="map" class="h_map">
       <div class="google_map"></div>
     </div>
+    
+    
+    <!-- 날씨정보 -->
+    <div id="section-weather" class="h_details_title">
+      <span>날씨정보</span>
+    </div>
+    
+	<div class="weather_area">
+		<div class="weather_info">
+    	<button id="prevButton" class="slide-button">
+	      <img src="${pageContext.request.contextPath}/resources/images/hot_left_button.png" alt="Prev">
+	    </button>
+	    <div class="temperature-container" >
+      		<canvas id="weatherCanvas" width="4000" height="300" style="position:absolute; top:0; left:0; z-index:10;"></canvas>
+	      	<ul class="temperature-list" style="position:relative; z-index:2; width: 4000px; display: flex;"></ul>
+ 	  	</div>
+        <button id="nextButton" class="slide-button">
+          <img src="${pageContext.request.contextPath}/resources/images/hot_right_button.png" alt="Prev">
+        </button>
+		</div>
+	</div>
+	    
+    
 
     <!-- 여행톡 부분 -->
     <div id="section-talk" class="h_talk">
@@ -295,6 +327,9 @@
       </div>
     </footer>
 
+
+
+
     <!-- 이미지 슬라이드 JS -->
     <script>
       var swiper = new Swiper(".mySwiper", {
@@ -352,7 +387,202 @@
 	    }
 	  });
 	</script>    
+	
+	<script type="text/javascript">
+    // 세션에 저장된 로그인 정보가 있는지 확인하여 JavaScript 변수에 저장
+    var isLoggedIn = <c:out value="${not empty sessionScope.member ? 'true' : 'false'}" />;
+
+    // 로그인 여부에 따른 경고 메시지와 폼 제출 처리
+    document.getElementById('saveForm').addEventListener('submit', function(event) {
+        if (!isLoggedIn) {
+            // 로그인되지 않은 경우 경고 메시지와 로그인 페이지로 리다이렉트
+            event.preventDefault();  // 폼 제출을 막음
+            alert('로그인이 필요합니다!');
+            window.location.href = '${pageContext.request.contextPath}/Member/login';  // 로그인 페이지로 이동
+        } else {
+            // 로그인된 경우에만 저장 작업 진행
+            alert('저장 목록에 추가되었습니다!');
+        }
+    });
+	</script>
+	
+	
+
+<!-- 5일 3시간 간격 -->
+<script>
+window.onload = function() {
+    var lat = parseFloat('${hotplace.mapy}');
+    var lon = parseFloat('${hotplace.mapx}');
+    var apiKey = '3e865753bd8625e5661275515b2f320c';
+    var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=metric&lang=kr';
+
+    $.getJSON(url, function(data) {
+        console.log("API 응답 데이터:", data);
+
+        var forecastList = data.list;
+        var baseTemp = Math.round(forecastList[0].main.temp); // 첫 번째 항목의 온도를 기준으로 설정
+        var points = []; // 점 좌표를 저장할 배열
+
+        forecastList.slice(0, 40).forEach(function(forecast, index) {
+            var dateTime = forecast.dt_txt;
+            var temp = Math.round(forecast.main.temp);
+            var icon = forecast.weather[0].icon;
+
+            // 시간별로 낮과 밤 구분
+            var hour = parseInt(dateTime.slice(11, 13));
+            if (hour >= 18 || hour < 7) {
+                icon = icon.replace('d', 'n');
+            } else {
+                icon = icon.replace('n', 'd');
+            }
+
+            // 사용자 정의 아이콘 경로 설정
+            var customIconUrl = getCustomIconUrl(icon);
+
+            // 온도 차이에 따라 점의 위치 계산 (1도당 2px 이동)
+            var tempDifference = temp - baseTemp; // 기준 온도와의 차이
+            var topOffset = -tempDifference * 2; // 1도당 2px 위로 이동 (기준 온도보다 높으면 위로, 낮으면 아래로)
+
+            // 리스트 항목 생성
+            var li = document.createElement('li');
+            li.innerHTML =
+                '<div class="temp">' + temp + '°</div>' +
+                '<span class="dot" style="top: ' + (40 + topOffset) + 'px;"></span>' + // 점의 위치 조정
+                '<div class="icon"><img src="' + customIconUrl + '" alt="weather-icon"></div>' +
+                '<div class="time">' + dateTime.slice(11, 16) + '</div>' +
+                '<div class="date">' + dateTime.slice(5, 10) + '</div>' +
+                '<div class="day">' + getDayOfWeek(dateTime) + '</div>'; // 요일 표시
+
+            // 리스트에 추가
+            document.querySelector('.temperature-list').appendChild(li);
+        });
+
+        // dot이 그려진 후, 좌표를 찾아 선을 그리는 작업 실행
+        setTimeout(function() {
+	    var dots = document.querySelectorAll('.temperature-list .dot');
+	    var points = [];
+	
+	    // 각 dot 요소의 위치를 계산
+	    dots.forEach(function(dot, index) {
+	        var rect = dot.getBoundingClientRect();  // 요소의 좌표 정보 얻기
+	        //var xPos = rect.left + (rect.width / 2); // 중앙 x 좌표 계산
+	        //var yPos = rect.top + (rect.height / 2); // 중앙 y 좌표 계산 (window.scrollY 제거)
+	        
+	        var xPos = rect.x;
+	        var yPos = rect.y;
+	       
+	        
+	        // 좌표 저장
+	        points.push({ x: xPos, y: yPos });
+	        //points.push({ x: rect.x, y: rect.y });
+	 		
+	        //쌤이 알려주신 console.log
+	        //console.log("x:"+rect.x+",y:"+rect.y);
+	        //console.log(`Dot ${index + 1}: X = ${rect.x}, Y = ${rect.y}`);
+	        
+	    });
+	
+	    // 점들을 이음
+	    drawLines(points);
+	    
+	}, 0); // 1초 후에 좌표 계산 시작 (렌더링 후 지연 시간)
+    });
     
+    // 선 그리는 함수
+    function drawLines(points) {
+        var canvas = document.getElementById('weatherCanvas');
+        var ctx = canvas.getContext('2d');
+        
+        //Canvas 크기, 위치 가져오기
+    	var canvasRect = canvas.getBoundingClientRect(); // canvas의 화면 내 위치 가져오기
+        
+        //캔버스 크기 console
+        //console.log("Canvas width: " + canvas.width + ", height: " + canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // 기존 선을 지움
+        ctx.translate(0, 2); // 전체 Y 좌표를 1px 아래로 이동
+
+
+        // 선 그리기
+        if (points.length > 0) {
+            ctx.beginPath();
+            
+            // 첫 번째 점으로 이동 (캔버스 좌표계로 변환 + 1px 아래로 이동)
+            ctx.moveTo(points[0].x - canvasRect.left, points[0].y - canvasRect.top);
+
+            // 각 점으로 선을 그림
+            for (var i = 1; i < points.length; i++) {
+            	//어디서부터 선 그렸는지 console.log
+                //console.log(`Drawing line to Point ${i + 1}: X = ${points[i].x}, Y = ${points[i].y}`);
+                ctx.lineTo(points[i].x - canvasRect.left, points[i].y - canvasRect.top);
+            }
+            
+            ctx.strokeStyle = '#D5D5D5'; // 선 색상
+            ctx.lineWidth = 2;	//선 굵기
+            ctx.stroke();
+        }
+    }
+};
+
+    // 요일 계산 함수
+    function getDayOfWeek(dateTime) {
+        var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+        var dateObj = new Date(dateTime);
+        return daysOfWeek[dateObj.getDay()];
+    }
+
+    // 아이콘 커스텀 함수
+    function getCustomIconUrl(iconCode) {
+        var iconMap = {
+            '01d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt1.svg',
+            '01n': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt2.svg',
+            '02d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt3.svg',
+            '02n': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt6.svg',
+            '03d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt5.svg',
+            '03n': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt6.svg',
+            '04d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt7.svg',
+            '04n': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt6.svg',
+            '09d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt9.svg',
+            '10d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt22.svg',
+            '11d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt18.svg',
+            '13d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt11.svg',
+            '50d': 'https://ssl.pstatic.net/sstatic/keypage/outside/scui/weather_new_new/img/weather_svg_v2/icon_flat_wt17.svg'
+        };
+
+        return iconMap[iconCode] || 'https://example.com/icons/default-icon.png';
+    }
+    
+    
+
+</script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    var prevButton = document.getElementById('prevButton');
+    var nextButton = document.getElementById('nextButton');
+    var container = document.querySelector('.temperature-container');  // 스크롤할 컨테이너
+
+    prevButton.addEventListener('click', function() {
+        console.log("Prev Button Clicked");
+        if (container) {
+            container.scrollBy({ left: -300, behavior: 'smooth' });  // 왼쪽으로 300px 스크롤
+        }
+    });
+
+    nextButton.addEventListener('click', function() {
+        console.log("Next Button Clicked");
+        if (container) {
+            container.scrollBy({ left: 300, behavior: 'smooth' });  // 오른쪽으로 300px 스크롤
+        }
+    });
+});
+
+
+</script>
+
+
+
+
 
 
 </body>

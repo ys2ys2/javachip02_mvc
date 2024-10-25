@@ -15,9 +15,17 @@
 
     <!-- contentid로 배너 정보 가져오기 -->
     <select id="getBannerById" resultType="map">
-    	SELECT contentid, title, firstimage, addr1, overview, mapx, mapy
+    	SELECT contentid, title, firstimage, addr1, overview, mapx, mapy, areacode
         FROM bannerplace
         WHERE contentid = #{contentid}
+    </select>
+    
+	<select id="getBannerByAreaCode" resultType="map">
+    	SELECT contentid, title, firstimage, areacode
+    	FROM bannerplace
+    	WHERE areacode = #{areacode}
+    	ORDER BY RAND()
+    	LIMIT 9
     </select>
 
 

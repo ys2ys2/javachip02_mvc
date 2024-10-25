@@ -117,41 +117,32 @@
       <div class="logo" data-ko="BBOL BBOL BBOL" data-en="BBOL BBOL BBOL">BBOL BBOL BBOL</div>
       <nav>
         <ul>
-          <li><a href="#" data-ko="홈" data-en="Home">홈</a></li>
-          <li><a href="${pageContext.request.contextPath}/Community/c_main" data-ko="커뮤니티" data-en="Community">커뮤니티</a></li>
-          <li><a href="#" data-ko="여행지" data-en="RecoHotPlace">여행지</a></li>
-          <li><a href="#" data-ko="여행뽈뽈" data-en="BBOL BBOL BBOL">여행뽈뽈</a></li>
-          <button class="search-btn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-          <button class="user-btn" onclick="location.href='${pageContext.request.contextPath}/Login/login'">
-            <i class="fa-solid fa-user"></i>
-		  </button>          
-          <button class="earth-btn">
-            <i class="fa-solid fa-earth-americas"></i>
-          </button>
-          <button class="korean" id="lang-btn" data-lang="ko">English</button>
-          	<c:if test="${not empty sessionScope.memberNickname}">
-         		<div class="welcome-message">
-         			${sessionScope.memberNickname}님 환영합니다!
-              <form action="${pageContext.request.contextPath}/Login/logout.jsp" method="post">
-            	<button type="submit">로그아웃</button>
-			</form>         			
-         		</div>
-      		</c:if>
+          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
+          <li><a href="#">커뮤니티</a></li>
+          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
+          <li><a href="#">여행뽈뽈</a></li>
+          <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
         </ul>
       </nav>
-      
-
-      
-      
-    </div>
-    <!-- 검색 바 -->
-    <div class="search-bar-container">
-      <div class="search-bar-content">
-        <input type="text" placeholder="도시나 키워드를 검색해보세요..." data-ko="도시나 키워드를 검색해보세요..."
-          data-en="Search cities or keywords...">
-        <button class="close-btn"><i class="fa-solid fa-times"></i></button>
+      <div class="member">
+        <c:choose>
+          <c:when test="${not empty member}">
+            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
+            <div class="welcome">
+            	<span class="userprofile"><img src="${member.m_profile}" alt="user-profile"></span>
+            	${member.m_nickname}님 환영합니다!
+            </div>
+            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
+            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
+              <button type="submit">로그아웃</button>
+            </form>
+          </c:when>
+          <c:otherwise>
+            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
+            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
+          </c:otherwise>
+        </c:choose>
       </div>
     </div>
   </header>
@@ -187,102 +178,371 @@
             </div>
         </div>
 
-        <!-- 슬라이드 이미지 -->
-        <div class="swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_01.jpg" alt="배너1">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_02.jpg" alt="배너2">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_03.jfif" alt="배너3">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_04.jpg" alt="배너4">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_05.jpg" alt="배너5">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_06.jpg" alt="배너6">
-            </div>
-            <div class="swiper-slide">
-              <img src="${pageContext.request.contextPath}/resources/images/banner_07.jpg" alt="배너7">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+		 <!-- 슬라이드 이미지 -->
+		    <div class="swiper">
+		      <div class="swiper-wrapper">
+		        <c:forEach var="banner" items="${bannerPlaces}">
+		          <div class="swiper-slide">
+		            <a href="${pageContext.request.contextPath}/BannerPlace/${banner.contentid}">
+		            <img src="${banner.firstimage}" alt="${banner.title}">
+		          	</a>
+		          </div>
+		        </c:forEach>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		
+	<div class="background-wrapper">
+		
+	<newhotplace-section>
+  <!-- 헤더 부분 -->
+	  <newhotplace-header>
+	    <span class="hp01">
+	    <img src="${pageContext.request.contextPath}/resources/images/hotplacemapleicon.png" alt="단풍잎 이미지">
+	    11가지 매력에 빠져보세요.</span>
+	    <span class="hp02">Fall in 로컬</span>
+	  </newhotplace-header>
 
-    <!-- 인기 여행지 섹션 -->
-    <div class="famous">
-      <h2>인기 여행지</h2>
-      <div class="famous-list">
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>도쿄</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>부산</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>서울</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>오사카</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>타이베이</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>강원도</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>제주도</p>
-        </div>
-        <div class="famous-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>태국</p>
-        </div>
-      </div>
-    </div>
+    <!-- 11개의 탭을 담고 있는 ul 리스트 -->
+    <ul class="newhotplace_theme-tabs">
+      <li><a href="#newhot-theme-1">L</a></li>
+      <li><a href="#newhot-theme-2">O</a></li>
+      <li><a href="#newhot-theme-3">C</a></li>
+      <li><a href="#newhot-theme-4">A</a></li>
+      <li><a href="#newhot-theme-5">L</a></li>
+      <li><a href="#newhot-theme-6">T</a></li>
+      <li><a href="#newhot-theme-7">R</a></li>
+      <li><a href="#newhot-theme-8">A</a></li>
+      <li><a href="#newhot-theme-9">V</a></li>
+      <li><a href="#newhot-theme-10">E</a></li>
+      <li><a href="#newhot-theme-11">L</a></li>
+    </ul>
+	
+	<div class="panel-tabs">
+    <!-- 각 탭에 해당하는 콘텐츠 패널 -->
+    <article id="newhot-theme-1" class="newhotplace_theme-panel" style="display: block;">
+      <header>
+        <span class="themeintro1">Let's go! 로컬 스토리 여행</span>
+        <span class="themedescription">그 지역이 아니면 느낄 수 없는 역사 스토리 콘텐츠</span>
+      </header>
+		<div class="themeimage">
+		<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+			<c:if test="${status.index >= 0 && status.index < 3}">
+			<div class="image-box">
+				<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+				<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+				<span class="image-box-1">
+				로컬 스토리 여행
+				</span>
+			 	<p>${hotplace.title}</p>
+			 	</a>
+			</div>
+			</c:if>
+		</c:forEach>
+		</div>
+    </article>
+
+    <article id="newhot-theme-2" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+	      <span class="themeintro2">One & Only 나홀로 여행</span>
+        	<span class="themedescription">어디에도 없는 나만의 커스터마이징 여행</span>
+      </header>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 3 && status.index < 6}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-2">
+	      		나홀로 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
+    </article>
+
+    <article id="newhot-theme-3" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span class="themeintro3">Carnival 로컬 축제</span>
+        <span class="themedescription">오직 가을에만 열리는 지역축제</span>
+      </header>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 6 && status.index < 9}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-3">
+	      		로컬 축제
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
+    </article>
+
+    <article id="newhot-theme-4" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span class="themeintro4">Adventure 여행</span>
+        <span class="themedescription">모험 같은 여행을 떠날 계절</span>
+      </header>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 9 && status.index < 12}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-4">
+	      		모험 같은 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
+    </article>
+
+    <article id="newhot-theme-5" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span class="themeintro5">Leisure 가을 레저&액티비티</span>
+        <span class="themedescription">높고 깨끗한 가을 하늘 아래 즐기는 여가생활</span>
+      </header>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 12 && status.index < 15}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-5">
+	      		가을 레저&액티비티
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
+    </article>
+
+    <article id="newhot-theme-6" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span class="themeintro6">Taste 맛을 찾아 떠나는 여행</span>
+        <span class="themedescription">미식의 계절, 제철음식이 반기는 가을여행</span>
+      </header>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 15 && status.index < 18}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-6">
+	      		맛을 찾아 떠나는 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
+    </article>
+
+    <article id="newhot-theme-7" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span class="themeintro7">Relax 휴식을 찾아 떠나는 여행</span>
+        <span class="themedescription">도시를 벗어나 떠나는 여유로운 가을 여행</span>
+      </header>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 18 && status.index < 21}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-7">
+	      		휴식을 찾아 떠나는 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
+    </article>
+
+    <article id="newhot-theme-8" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span class="themeintro8">All-new 새로운 여행</span>
+        <span class="themedescription">모든게 새롭고 색다른 로컬 여행</span>
+      </header>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 21 && status.index < 24}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-8">
+	      		새로운 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
+    </article>
+
+    <article id="newhot-theme-9" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span class="themeintro9">Vacance 문화 바캉스</span>
+        <span class="themedescription">그 지역만의 문화를 체감하는 문화 바캉스</span>
+      </header>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 24 && status.index < 27}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-9">
+	      		문화 바캉스 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
+    </article>
+
+    <article id="newhot-theme-10" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span class="themeintro10">Eco 친환경 여행</span>
+        <span class="themedescription">여행도 챙기고, 환경도 챙기는 친환경 여행</span>
+      </header>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 27 && status.index < 30}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-10">
+	      		친환경 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
+    </article>
+
+    <article id="newhot-theme-11" class="newhotplace_theme-panel" style="display: none;">
+      <header>
+        <span class="themeintro11">Limitless 모두의 여행</span>
+        <span class="themedescription">어디에도 구애받지 않고 떠날 수 있는 가을 명소</span>
+      </header>
+		<div class="themeimage">
+   	 	<c:forEach var="hotplace" items="${hotplaceDetails}" varStatus="status">
+	      	<c:if test="${status.index >= 30 && status.index < 33}">
+	      	<div class="image-box">
+	      		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	      		<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	      		<span class="image-box-11">
+	      		모두의 여행
+	      		</span>
+	      	 	<p>${hotplace.title}</p>
+	      	 	</a>
+	      	</div>
+	      	</c:if>
+      	</c:forEach>
+     	</div>
+    </article>
+   </div>
+</newhotplace-section>	
+		
+	<!-- background img -->
+	<div class="hotplaceback" style="background: url(&quot;https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&amp;id=7e0aefba-db64-46d3-ad9d-62332fc470c4&quot;) no-repeat rgb(255, 255, 255);">
+		<div class="hotratio">
+			<span class="hot-left">
+				<h2>가을은 여행의 계절</h2>
+				<p>청명한 하늘과 선선한 바람 따라 떠나기 좋은 여행지와<br>
+				정부에서 준비한 다양한 혜택과 이벤트를 소개합니다.</p>
+			</span>
+			
+			<span class="hot-right">
+				<img src="${pageContext.request.contextPath}/resources/images/hotplacebackground02.png" alt="여행 이미지">
+			</span>
+		</div>
+		<div class="tfamous">
+				<img src="${pageContext.request.contextPath}/resources/images/famous-title.png" alt="여행 이미지">
+		  <div class="famous-list">
+		    <!-- Model에서 전달된 hotplaceTitles 출력 -->
+		    <c:forEach var="dataplace" items="${dataplaceDetails}">
+		      <div class="famous-item" onmouseover="expandImage(this)">
+        		<a href="${pageContext.request.contextPath}/DataPlace/${dataplace.contentid}">
+		          <div class="image-container">
+		            <img src="${dataplace.firstimage}" alt="${dataplace.title}" class="timage-placeholder" />
+		          </div>
+		          <p>${dataplace.title}</p>
+		        </a>
+		      </div>
+		    </c:forEach>
+		  </div>
+		</div>
+	</div>
+  </div>
+
+	<div class="mainratio">
+	
+	<%-- <!-- 인기 여행지 섹션 -->
+	<div class="famous">
+	  <h2>인기 여행지</h2>
+	  <div class="famous-list">
+	    <!-- Model에서 전달된 hotplaceTitles 출력 -->
+	    <c:forEach var="hotplace" items="${hotplaceDetails}">
+	      <div class="famous-item" onmouseover="expandImage(this)">
+	        <a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
+	          <div class="image-container">
+	            <img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
+	          </div>
+	          <p>${hotplace.title}</p>
+	        </a>
+	      </div>
+	    </c:forEach>
+	  </div>
+	</div> --%>
+
 
     <!-- 인기 커뮤니티 섹션 -->
     <div class="Community">
       <h2>인기 커뮤니티</h2>
       <div class="community-list">
         <div class="community-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>커뮤니티 1</p>
-        </div>
-        <div class="community-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>커뮤니티 2</p>
-        </div>
-        <div class="community-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>커뮤니티 3</p>
-        </div>
-        <div class="community-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>커뮤니티 4</p>
-        </div>
-        <div class="community-item">
-          <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-          <p>커뮤니티 5</p>
+        	<div class="c_img">
+        		<img src="${pageContext.request.contextPath}/resources/images/c_board.png" alt="여행 이미지">
+        	</div>
+        	<div class="c_board">
+        	  <span class="c_intro">오늘의 인기 커뮤니티</span>
+        	  
+        	  <!-- travelPost 데이터를 반복하면서 출력 -->
+        	  <c:forEach var="post" items="${travelPost}">
+			    <div class="board-item">
+            		<div class="board-title">${post.tag_name} 여행기</div> <!-- 매칭된 tag_name 출력 -->
+			    	<a href="#"><span class="board-desc">${post.content}</span></a> <!-- content 출력 -->
+			    </div>
+			  </c:forEach>
+        	</div>
         </div>
       </div>
     </div>
 
-    <!-- 핫플 섹션 -->
+<%--     <!-- 핫플 섹션 -->
     <div class="hotplace-section">
       <h2>함께 떠나는 핫플 여행</h2>
     <div class="hotplace-list">
@@ -313,7 +573,7 @@
     </div>
   </div>
 </div>
-      
+    --%>
       
   <!-- 이벤트 섹션 -->
   <div class="event-section">
@@ -386,11 +646,116 @@
     </div>
 </footer>
 
-   <!-- 메인 스크립트 -->
-   <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/js/bannerslider.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+<script type="text/javascript">
+  // JSP에서 전달받은 데이터를 JSON 형식으로 변환하여 자바스크립트로 전달
+  var descriptions = 
+    <%= new org.json.JSONArray((List<?>) request.getAttribute("bannerPlaces")).toString() %>;
+  var contextPath = "${pageContext.request.contextPath}";
+</script>
+
+
+<!-- 스크립트 -->
+<script>
+  let currentExpanded = null; // 현재 확장된 이미지 저장
+
+  function resetImages() {
+    const allItems = document.querySelectorAll('.famous-item');
+    allItems.forEach(item => {
+      item.style.flexGrow = '1'; // 모든 이미지를 원래 크기로 복귀
+    });
+    currentExpanded = null; // 확장 상태 초기화
+  }
+
+  function expandImage(element) {
+    const allItems = document.querySelectorAll('.famous-item');
+    
+    // 모든 아이템의 기본 크기를 1로 설정
+    allItems.forEach(item => {
+      item.style.flexGrow = '1';
+    });
+
+    // 클릭한 이미지를 60%로 확장
+    element.style.flexGrow = '5'; // 60%로 확장
+    currentExpanded = element; // 현재 확장된 이미지 저장
+
+    // 나머지 이미지들은 각 20%로 작게 설정
+    allItems.forEach(item => {
+      if (item !== element) {
+        item.style.flexGrow = '2'; // 나머지 아이템은 20%로 설정
+      }
+    });
+  }
+
+  document.querySelectorAll('.famous-item').forEach(item => {
+    // 마우스가 아이템 위로 들어왔을 때 확장
+    item.addEventListener('mouseenter', function() {
+      if (currentExpanded === null) {
+        expandImage(item); // 처음 마우스 올릴 때 이미지 확장
+      }
+    });
+
+    // 마우스가 떠나도 이미지는 그대로 유지 (mouseleave 이벤트 삭제)
+    // 현재 확장된 상태를 유지하기 위해 추가 작업 없음
+  });
+
+  // 이미지 클릭 시 초기화
+  document.querySelector('.reset-button').addEventListener('click', resetImages);
+</script>
+
+<!-- 스크립트: 탭 클릭 시 콘텐츠 전환 -->
+<script>
+
+//페이지가 로드되면 첫 번째 탭과 패널을 기본으로 표시
+  window.addEventListener('DOMContentLoaded', function() {
+	  const firstTab = document.querySelector('.newhotplace_theme-tabs li:first-child');
+	  const firstPanel = document.querySelector('.newhotplace_theme-panel:first-child');
+  
+  // 첫 번째 탭에 active 클래스 추가
+  firstTab.classList.add('active');
+  
+  // 첫 번째 패널을 표시
+  firstPanel.style.display = 'block';
+  });
+
+
+  // 탭을 클릭할 때 해당 article을 보여주고 나머지는 숨김
+  document.querySelectorAll('.newhotplace_theme-tabs li a').forEach(function(tab) {
+    tab.addEventListener('click', function(event) {
+      event.preventDefault();
+      
+      // 모든 article을 숨김
+      document.querySelectorAll('.newhotplace_theme-panel').forEach(function(panel) {
+        panel.style.display = 'none';
+      });
+      
+      // 클릭한 탭에 해당하는 article만 표시
+      var target = this.getAttribute('href');
+      document.querySelector(target).style.display = 'block';
+    });
+  });
+  
+  //탭 누르면 주황색 화살표
+  document.querySelectorAll('.newhotplace_theme-tabs li').forEach(tab => {
+  tab.addEventListener('click', function () {
+    // 모든 탭에서 active 클래스 제거
+    document.querySelectorAll('.newhotplace_theme-tabs li').forEach(t => t.classList.remove('active'));
+    // 클릭한 탭에 active 클래스 추가
+    this.classList.add('active');
+
+    // 모든 패널 숨기기
+    document.querySelectorAll('.newhotplace_theme-panel').forEach(panel => panel.style.display = 'none');
+
+    // 클릭한 탭과 연결된 패널 표시
+    const target = this.querySelector('a').getAttribute('href');
+    document.querySelector(target).style.display = 'block';
+  });
+});
+</script>
+
+
+   
    
 </body>
 

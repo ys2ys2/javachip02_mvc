@@ -116,6 +116,5 @@ public class TravelPostDAO {
     public void updateCommentCount(int tpIdx) {
         sqlSession.update(NAMESPACE + ".updateCommentCount", tpIdx);
     }
-    
-    
+
 }

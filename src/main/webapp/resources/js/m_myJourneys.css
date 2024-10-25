@@ -1,0 +1,148 @@
+/* 네비게이션 고정 */
+.navigation {
+    position: absolute;
+    top: 130px; /* 뷰포트 기준으로 상단에서 120px */
+    left: 340px; /* 뷰포트 기준으로 왼쪽에서 250px */
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    z-index: 1000; /* 다른 요소보다 위에 배치 */
+    background-color: white; /* 배경색 설정 (필요에 따라 조정) */
+}
+
+
+.navigation a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.navigation a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    display: flex;
+    width: 90%;
+    margin-top: 130px; /* 네비게이션 아래로 여유 공간 추가 */
+}
+
+.profile-section {
+    width: 20%;
+    padding: 20px;
+    position: relative; 
+}
+
+.profile-section h4 {
+	position: relative;
+    top: -50px; /* h3 요소를 위로 15px 이동 */
+    margin-bottom: 20px; /* 프로필 카드와의 간격 추가 */
+    text-align:left; /* 중앙 정렬 */
+}
+
+.profile-card {
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: -60px;
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.content-section {
+    width: 75%;
+    margin-left: 5%;
+}
+
+
+/* 게시글 목록을 담는 div */
+.saved-post-list {
+    width: 100%;
+    max-width: 600px;
+    padding: 13px;
+    margin-top: 30px; /* 상단으로 올리기 위해 margin-top을 조정 */
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 카드 모양을 위한 그림자 */
+    border-radius: 10px;
+}
+
+
+.content-section h3 {
+    background-color: black; /* 검정색 배경 */
+    color: white; /* 흰색 글씨 */
+    padding: 12px; /* 내부 여백으로 네모난 박스 형태 */
+    border-radius: 10px; /* 모서리를 살짝 둥글게 만듦 */
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    width: fit-content; /* 텍스트 크기에 맞게 박스 너비 조정 */
+    margin: 15px auto; /* 상하 여백 10px, 기본 가로 중앙 정렬 */
+    margin-left: 10px; /* 좌측으로 250px 이동 */
+}
+
+/* 각 게시글 항목의 스타일 */
+.post-item {
+    border-bottom: 1px solid #e6e6e6;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+}
+
+/* 게시글 hover 시 배경색 변경 */
+.post-item:hover {
+    background-color: #f5f8fa;
+}
+
+/* 작성자와 날짜를 담는 header 스타일 */
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.post-writer {
+    font-weight: bold;
+    color: #1da1f2;
+    font-size: 14px;
+}
+
+.post-date {
+    color: #8899a6;
+    font-size: 12px;
+}
+
+/* 게시글 내용 스타일 */
+.post-content {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #14171a;
+}
+
+/* 좋아요와 댓글 수를 보여주는 footer */
+.post-footer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    color: #657786;
+    font-size: 13px;
+}
+
+.post-footer span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.post-footer i {
+    font-size: 14px;
+}

@@ -43,11 +43,10 @@ public interface TravelPostService {
     // 전체 게시물 수 조회
     int getTotalPostCount();
 
-	List<TravelPostVO> getAllPosts();
-	
-	List<TravelPostVO> getPostsByFilterAndQuery(String filter, int page, int pageSize, String query); 
-	
-	int countPostsByFilterAndQuery(String filter, String query);  
-	
-	
+    List<TravelPostVO> getAllPosts();
+
+    List<TravelPostVO> getPostsByFilterAndQuery(String filter, int page, int pageSize, String query);
+
+    int countPostsByFilterAndQuery(String filter, String query);
+
 }
