@@ -1,13 +1,14 @@
 package com.human.web.repository;
 
-import com.human.web.vo.TravelCommentVO;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.human.web.vo.TravelCommentVO;
 
 @Repository
 public class TravelCommentDAO {

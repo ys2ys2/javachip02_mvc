@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.DaejeonMatzipApiMapper">
+
+   <!-- 모든 대전 행사 가져오기 -->
+<select id="getAllDaejeonMatzip" resultType="Damat">
+    SELECT 
+            t_dm_idx, 
+            t_category AS 구분, 
+            t_name AS 상호, 
+            t_address AS 소재지, 
+            t_menu AS 메뉴, 
+            t_phone_number AS 전화번호, 
+            t_notes AS 비고
+        FROM 
+            t_DaejeonMatzip
+        ORDER BY 
+            t_dm_idx ASC
+    </select>
+
+    <!-- 대전 맛집 데이터 삽입 -->
+    <insert id="insertDaejeonMatzip">
+        INSERT INTO t_DaejeonMatzip 
+            (t_category, t_name, t_address, t_menu, t_phone_number, t_notes)
+        VALUES
+            <foreach item="item" collection="list" separator=",">
+                (#{item.구분}, #{item.상호}, #{item.소재지},
+                 #{item.메뉴}, #{item.전화번호}, #{item.비고})
+            </foreach>
+    </insert>
+    
+
+</mapper>
+
+

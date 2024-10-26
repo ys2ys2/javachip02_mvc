@@ -20,7 +20,7 @@ public class TripSchedController {
     private TripSchedService tripSchedService;
 
     // 여행 일정 저장을 처리하는 메서드
-    @PostMapping("/saveTripSchedule1")
+    @PostMapping("/saveTripSchedule")
     public String saveTripSchedule(HttpSession session,
             @RequestParam("title") String title, // 제목
             @RequestParam("period_start") String period_start, // 시작일

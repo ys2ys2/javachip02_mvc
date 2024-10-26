@@ -4,6 +4,25 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../resources/css/journal.css">
+<!-- jQuery를 사용하기 위한 API 추가 -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+
+<script>
+
+	//맛집을 클릭했을 때 famous.jsp를 호출할 수 있도록 함
+	$(".image-item3").on("click", function(){
+		
+		//famous.jsp를 호출하는 url: /aaa
+		location.href = "${pageContext.request.contextPath}/Matzip/famous";
+		
+	});
+
+
+</script>
+
+
+
+
 </head>
 <body>
 
@@ -14,7 +33,7 @@
 <div class="image-container">
     <!-- 이미지 1 -->
     <div class="image-item">
-        <img src="../resources/images/Travel/1.png" alt="Seoul Trip 1">
+        <img src="${pageContext.request.contextPath}/resources/images/T_1.png" alt="Seoul Trip 1">
         <div class="image-description">
             <span class="category">TRAVEL</span>
             <span class="date">2024.08.05~2024.08.08</span>
@@ -31,7 +50,7 @@
 
     <!-- 이미지 2 -->
     <div class="image-item">
-        <img src="../resources/images/Travel/1.png" alt="Seoul Trip 2">
+        <img src="${pageContext.request.contextPath}/resources/images/T_1.png" alt="Seoul Trip 2">
         <div class="image-description">
             <span class="category">TRAVEL</span>
             <span class="date">2024.08.05~2024.08.08</span>
@@ -48,7 +67,7 @@
 
     <!-- 이미지 3 -->
     <div class="image-item">
-        <img src="../resources/images/Travel/1.png" alt="Seoul Trip 3">
+        <img src="${pageContext.request.contextPath}/resources/images/T_1.png" alt="Seoul Trip 3">
         <div class="image-description">
             <span class="category">TRAVEL</span>
             <span class="date">2024.08.05~2024.08.08</span>
@@ -65,7 +84,7 @@
 
     <!-- 이미지 4 -->
     <div class="image-item">
-        <img src="../resources/images/Travel/1.png" alt="Seoul Trip 4">
+        <img src="${pageContext.request.contextPath}/resources/images/T_1.png" alt="Seoul Trip 4">
         <div class="image-description">
             <span class="category">TRAVEL</span>
             <span class="date">2024.08.05~2024.08.08</span>
@@ -79,6 +98,7 @@
             <i class="fa-solid fa-eye"></i><span class="icon-text">0</span>
         </div>
     </div>
+    </div>
 </div>
 
 
@@ -90,7 +110,7 @@
     <!-- 일정 3개 가로로 배치 -->
     <div class="schedule-container">
         <div class="schedule-item">
-            <img src="../resources/images/Travel/2.png" alt="Seoul Map 1">
+            <img src="${pageContext.request.contextPath}/resources/images/T_2.png" alt="Seoul Map 1">
             <div class="image-description">
                 <span class="category">TRAVEL</span>
                 <span class="date">2024.08.05~2024.08.08</span>
@@ -105,7 +125,7 @@
         </div>
 
         <div class="schedule-item">
-            <img src="../resources/images/Travel/2.png" alt="Seoul Map 1">
+            <img src="${pageContext.request.contextPath}/resources/images/T_2.png" alt="Seoul Map 1">
             <div class="image-description">
                 <span class="category">TRAVEL</span>
                 <span class="date">2024.08.05~2024.08.08</span>
@@ -119,7 +139,7 @@
             </div>
         </div>
                 <div class="schedule-item">
-            <img src="../resources/images/Travel/2.png" alt="Seoul Map 1">
+            <img src="${pageContext.request.contextPath}/resources/images/T_2.png" alt="Seoul Map 1">
             <div class="image-description">
                 <span class="category">TRAVEL</span>
                 <span class="date">2024.08.05~2024.08.08</span>
@@ -134,7 +154,7 @@
         </div>
 
         <div class="schedule-item">
-            <img src="../resources/images/Travel/2.png" alt="Seoul Map 1">
+            <img src="${pageContext.request.contextPath}/resources/images/T_2.png" alt="Seoul Map 1">
             <div class="image-description">
                 <span class="category">TRAVEL</span>
                 <span class="date">2024.08.05~2024.08.08</span>
@@ -157,28 +177,28 @@
     <!-- 뜨고 있는 장소 4개 가로로 배치 -->
     <div class="image-container">
         <div class="image-item1">
-            <img src="../resources/images/Travel/3.png" alt="등대해수욕장">
+            <img src="${pageContext.request.contextPath}/resources/images/T_3.png" alt="등대해수욕장">
             <div class="image-description">
                 <div class="image-title">등대해수욕장</div>
             </div>
         </div>
 
         <div class="image-item1">
-            <img src="../resources/images/Travel/3.png" alt="해수욕장 2">
+            <img src="${pageContext.request.contextPath}/resources/images/T_3.png" alt="해수욕장 2">
             <div class="image-description">
                 <div class="image-title">등대해수욕장</div>
             </div>
         </div>
 
         <div class="image-item1">
-            <img src="../resources/images/Travel/3.png" alt="해수욕장 3">
+            <img src="${pageContext.request.contextPath}/resources/images/T_3.png" alt="해수욕장 3">
             <div class="image-description">
                 <div class="image-title">등대해수욕장</div>
             </div>
         </div>
 
         <div class="image-item1">
-            <img src="../resources/images/Travel/3.png" alt="해수욕장 4">
+            <img src="${pageContext.request.contextPath}/resources/images/T_3.png" alt="해수욕장 4">
             <div class="image-description">
                 <div class="image-title">등대해수욕장</div>
             </div>
@@ -194,7 +214,7 @@
     <!-- 뜨고 있는 장소 4개 가로로 배치 -->
     <div class="image-container">
         <div class="image-item2">
-        <img src="../resources/images/Travel/4.png" alt="서울 악령시장 4">
+        <img src="${pageContext.request.contextPath}/resources/images/T_4.png" alt="서울 악령시장 4">
             <div class="image-description">
                 <div class="image-title">서울 악령시장</div>
                 <div class="location">서울특별시 송파구</div>
@@ -202,7 +222,7 @@
         </div>
 
         <div class="image-item2">
-            <img src="../resources/images/Travel/4.png" alt="서울 악령시장 4">
+            <img src="${pageContext.request.contextPath}/resources/images/T_4.png" alt="서울 악령시장 4">
             <div class="image-description">
                 <div class="image-title">서울 악령시장 2</div>
                 <div class="location">서울특별시 송파구</div>
@@ -210,7 +230,7 @@
         </div>
 
         <div class="image-item2">
-            <img src="../resources/images/Travel/4.png" alt="서울 악령시장 4">
+            <img src="${pageContext.request.contextPath}/resources/images/T_4.png" alt="서울 악령시장 4">
             <div class="image-description">
                 <div class="image-title">서울 악령시장 3</div>
                 <div class="location">서울특별시 송파구</div>
@@ -218,7 +238,7 @@
         </div>
 
         <div class="image-item2">
-            <img src="../resources/images/Travel/4.png" alt="서울 악령시장 4">
+            <img src="${pageContext.request.contextPath}/resources/images/T_4.png" alt="서울 악령시장 4">
             <div class="image-description">
                 <div class="image-title">서울 악령시장 4</div>
                 <div class="location">서울특별시 송파구</div>
@@ -234,15 +254,17 @@
 
     <div class="image-container">
         <div class="image-item3">
-            <img src="../resources/images/Travel/5.png" alt="중화일상">
+             <a href="${pageContext.request.contextPath}/Matzip/seoulFamous" class="image-item3">
+            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
             <div class="image-description">
                 <div class="image-title">중화일상</div>
                 <div class="location">서울특별시 송파구</div>
             </div>
+          </a>
         </div>
 
         <div class="image-item3">
-            <img src="../resources/images/Travel/5.png" alt="중화일상">
+            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
             <div class="image-description">
                 <div class="image-title">중화일상 2</div>
                 <div class="location">서울특별시 송파구</div>
@@ -250,7 +272,7 @@
         </div>
 
         <div class="image-item3">
-            <img src="../resources/images/Travel/5.png" alt="중화일상">
+            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
             <div class="image-description">
                 <div class="image-title">중화일상 3</div>
                 <div class="location">서울특별시 송파구</div>
@@ -258,7 +280,7 @@
         </div>
 
         <div class="image-item3">
-            <img src="../resources/images/Travel/5.png" alt="중화일상">
+            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
             <div class="image-description">
                 <div class="image-title">중화일상 4</div>
                 <div class="location">서울특별시 송파구</div>
