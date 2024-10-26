@@ -24,12 +24,11 @@ public class PostServiceImpl implements PostService {
         return postDAO.getPostById(postId);
     }
 
-    
-	/*
-	 * @Override public int createPost(PostVO post) { return
-	 * postDAO.createPost(post); }
-	 */
-   
+    /*
+     * @Override public int createPost(PostVO post) { return
+     * postDAO.createPost(post); }
+     */
+
     @Override
     public void updateCommentCount(int postId) {
         postDAO.updateCommentCount(postId);

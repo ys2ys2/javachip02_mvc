@@ -532,7 +532,7 @@
       <h4>고객지원</h4>
       <ul>
         <li><a href="#">공지사항</a></li>
-        <li><a href="#">자주묻는 질문</a></li>
+        <li><a href="${pageContext.request.contextPath}/MyPage/FAQ" target="_blank">자주묻는 질문</a></li>
         <li><a href="#">문의하기</a></li>
       </ul>
     </div>

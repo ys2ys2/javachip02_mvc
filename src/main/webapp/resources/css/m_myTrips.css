@@ -120,6 +120,7 @@
     padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+ margin-left: 15px;
 }
 
 .profile-edit-link i {
@@ -134,12 +135,11 @@
 
 
 .nickname-header {
-    font-size: 20px; /* 글자 크기 */
+    font-size: 18px; /* 글자 크기 */
     color: black; /* 글자 색상 */
     margin: 15px 0; /* 상하 10px 여백, 좌우 0 */
     text-align: center; /* 가운데 정렬 */
-    font-family: 'Pretendard-Regular';
-    font-weight: 800;
+    font-family: 'FlightSans-Bold';
 }
 
 /*여기 위에까지는 고정적인 영역으로 수정x  */
@@ -158,6 +158,8 @@
     margin-top: 100px; /* 섹션을 아래로 100px 내림 */
     margin-bottom: 150px; /* 하단과 푸터 사이에 50px 여백 */
     margin-left: 160px; /* 섹션을 오른쪽으로 50px 이동 */
+    position: relative;
+    left:-62px;
 }
 
 
@@ -183,12 +185,14 @@
 
 /* 여행 정보 카드 */
 .trip-card {
-    background-color: #f9f9f9;
     padding: 15px;
-    margin-top: -30px;
-    margin-bottom: 10px;
+    margin-top: -10px;
+    margin-bottom: 55px;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 223, 0.1, 0.2); /* 투명한 노란색 배경 */
+     box-shadow: 
+        0px 4px 8px rgba(255, 223, 0.3, 0.3),   /* 첫 번째 그림자: 가까운 밝은 그림자 */
+        0px 8px 16px rgba(0.10, 0.10, 0.10, 0.10);     /* 두 번째 그림자: 멀리 있는 더 어두운 그림자 */
 }
 
 .trip-card h4 {
@@ -258,4 +262,14 @@
     font-family: 'FlightSans-Bold';
     font-weight: 600;
     font-size: 12px;
+}
+
+
+.m_days-remaining{
+	font-family: 'GangwonEduPowerExtraBoldA';
+    font-weight: 500;
+    position: relative; /* 상대적 위치 설정 */
+    top: -5px;
+	left: 10px;
+	color: navy;
 }

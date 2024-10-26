@@ -1,6 +1,8 @@
 package com.human.web.controller;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,21 +61,27 @@ public class MypageController {
 	 
 	 // 다가오는 여행 중 최신 일정 한 개만 불러오기
 	    MypageSchedVO latestUpcomingTrip = mypageService.getLatestUpcomingTripByMidx(m_idx);
+	    if(latestUpcomingTrip != null && latestUpcomingTrip.getPeriod_start() !=null) {
+	    LocalDate today = LocalDate.now();
+	    LocalDate periodStart = latestUpcomingTrip.getPeriod_start().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	    long daysRemaining = ChronoUnit.DAYS.between(today, periodStart);
+	    latestUpcomingTrip.setDaysRemaining(daysRemaining  > 0 ? "D-" + daysRemaining  : "오늘");
+	    	
+	    }
+	    
 	    model.addAttribute("latestUpcomingTrip", latestUpcomingTrip);
 	    System.out.println("Model에 전달된 가장 가까운 다가오는 일정: " + latestUpcomingTrip);
-	    
 	    
 	 // 지난 여행 중 최신 일정 한 개만 불러오기
 	    MypageSchedVO latestPastTrip = mypageService.getLatestPastTrip(m_idx); // 최신의 지난 일정 한 개만 불러오기
 	    model.addAttribute("latestPastTrip", latestPastTrip); // 모델에 추가
 	    System.out.println("Model에 전달된 최신 지난 일정: " + latestPastTrip);
-	    
-	    
 
 	    return "MyPage/myPageMain";
 	}
 
 
+	
 	//저장목록
 	@RequestMapping("/m_savedList")
 	public String getSavedList(HttpSession session, Model model) {
@@ -153,6 +161,15 @@ public class MypageController {
 	    System.out.println("다가오는 일정 (배열): " + Arrays.toString(upcomingTrips));
 	    System.out.println("지난 일정 (배열): " + Arrays.toString(pastTrips));
 
+	    //다가오는 일정의 남은 일수 계산
+	    LocalDate today = LocalDate.now();
+	    for(MypageSchedVO trip : upcomingTripsList) {
+	    	 LocalDate periodStart = trip.getPeriod_start().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	    	long daysRemaining = ChronoUnit.DAYS.between(today, periodStart);
+	    	trip.setDaysRemaining(daysRemaining > 0 ? "D-" + daysRemaining : "오늘");
+	    }
+	    
+	    
 	    // model에 다가오는 일정과 지난 일정을 추가하여 jsp에 전달
 	    model.addAttribute("upcomingTrips", upcomingTrips);
 	    model.addAttribute("pastTrips", pastTrips);

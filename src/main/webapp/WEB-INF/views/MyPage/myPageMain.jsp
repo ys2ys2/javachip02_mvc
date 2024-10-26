@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
- 
+ <fmt:setTimeZone value="UTC" />
     
 <!DOCTYPE html>
 <html>
@@ -60,7 +60,7 @@
      <a href="${pageContext.request.contextPath}/MyPage/m_myTrips">내 여행</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 게시글</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_savedList">저장목록</a>
-</div>
+  </div>
 
 
      <!-- 왼쪽 프로필 영역 -->
@@ -94,7 +94,10 @@
                     <p class="upcoming-trip-item-date"> 
                         <fmt:formatDate value="${latestUpcomingTrip.period_start}" pattern="yyyy-MM-dd" /> - 
                         <fmt:formatDate value="${latestUpcomingTrip.period_end}" pattern="yyyy-MM-dd" />
-                    </p>
+                   		    <span class="days-remaining">
+						        ${latestUpcomingTrip.daysRemaining}
+						    </span>
+                   			</p>
                 </div>
             </c:if>
             <c:if test="${empty latestUpcomingTrip}">
@@ -179,7 +182,12 @@
         </div>
     </div>
 </div>
-
+<!-- 오른쪽 하단에 고정된 이미지 버튼 -->
+<div class="floating-button">
+    <a href="${pageContext.request.contextPath}/MyPage/FAQ">
+        <img src="${pageContext.request.contextPath}/resources/images/chatbot.png" alt="챗봇 이미지">
+    </a>
+</div>
  <!-- 푸터 부분 --> 
 <footer>
   <div class="footer-container">

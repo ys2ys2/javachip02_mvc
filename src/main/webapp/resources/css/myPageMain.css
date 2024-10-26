@@ -117,6 +117,7 @@
     padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+     margin-left: 15px;
 }
 
 .profile-edit-link i {
@@ -193,7 +194,10 @@
     padding: 5px;
     width: 70%; /* 게시물 너비를 100%로 설정 */
     height:45%; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);	
+    background-color: rgba(255, 223, 0.1, 0.2); /* 투명한 노란색 배경 */
+    box-shadow: 
+        0px 4px 8px rgba(255, 223, 0.3, 0.3),   /* 첫 번째 그림자: 가까운 밝은 그림자 */
+        0px 8px 16px rgba(0.10, 0.10, 0.10, 0.10);     /* 두 번째 그림자: 멀리 있는 더 어두운 그림자 */
     position: relative; /* 상대적 위치 설정 */
     top: 15px;
 }
@@ -220,15 +224,15 @@
 	
 }
 
-.latest-past-trip-date::before {
-    content: "◾"; /* 불릿 대신 ◾ 사용 */
-    color: #c96e42; /* 불릿 색상 */
-    font-size: 15px; /* 불릿 크기 */
-    position: absolute; /* 불릿의 위치를 절대적으로 조정 */
-    left: -16px; /* 불릿의 위치 조정 */
+/* .latest-past-trip-date::before {
+    content: "◾"; 불릿 대신 ◾ 사용
+    color: #c96e42; 불릿 색상
+    font-size: 15px; 불릿 크기
+    position: absolute; 불릿의 위치를 절대적으로 조정
+    left: -16px; 불릿의 위치 조정
     top: 50%;
-    transform: translateY(-50%); /* 불릿을 세로로 중앙 정렬 */
-}
+    transform: translateY(-50%); 불릿을 세로로 중앙 정렬
+} */
 
 
 
@@ -238,11 +242,23 @@
     padding: 5px;
     width: 70%; /* 게시물 너비를 100%로 설정 */
     height:45%; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);	
+    background-color: rgba(255, 223, 0.1, 0.2); /* 투명한 노란색 배경 */
+     box-shadow: 
+        0px 4px 8px rgba(255, 223, 0.3, 0.3),   /* 첫 번째 그림자: 가까운 밝은 그림자 */
+        0px 8px 16px rgba(0.10, 0.10, 0.10, 0.10);     /* 두 번째 그림자: 멀리 있는 더 어두운 그림자 */
     position: relative; /* 상대적 위치 설정 */
     top: 15px;
 }
 
+
+.days-remaining{
+	font-family: 'GangwonEduPowerExtraBoldA';
+    font-weight: 500;
+    position: relative; /* 상대적 위치 설정 */
+    top: -35px;
+	left: 45px;
+	color: navy;
+}
 
 
 .upcoming-trip-item-title{
@@ -266,15 +282,15 @@
 }
 
 
-.upcoming-trip-item-date::before {
-    content: "◾"; /* 불릿 대신 ◾ 사용 */
-    color: #c96e42; /* 불릿 색상 */
-    font-size: 15px; /* 불릿 크기 */
-    position: absolute; /* 불릿의 위치를 절대적으로 조정 */
-    left: -16px; /* 불릿의 위치 조정 */
+/* .upcoming-trip-item-date::before {
+    content: "◾"; 불릿 대신 ◾ 사용
+    color: #c96e42; 불릿 색상
+    font-size: 15px; 불릿 크기
+    position: absolute; 불릿의 위치를 절대적으로 조정
+    left: -16px; 불릿의 위치 조정
     top: 50%;
-    transform: translateY(-50%); /* 불릿을 세로로 중앙 정렬 */
-}
+    transform: translateY(-50%); 불릿을 세로로 중앙 정렬
+} */
 
 .add-trip-btn {
     background-color: black; /* 버튼 배경색 */
@@ -533,3 +549,23 @@ hr {
     border: none; /* 테두리를 없앰 */
     margin: 0; /* 모든 여백을 없앰 */
 }
+
+
+/* 오른쪽 하단에 고정된 이미지 버튼 스타일 */
+.floating-button {
+    position: fixed;  /* 화면에 고정 */
+    bottom: 30px;     /* 하단에서 20px 띄움 */
+    right: 20px;      /* 오른쪽에서 20px 띄움 */
+    width: 50px;      /* 버튼 이미지 크기 */
+    height: 50px;
+    z-index: 1000;    /* 다른 요소 위에 표시되도록 설정 */
+    cursor: pointer;
+}
+
+.floating-button img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10%;  /* 이미지가 원형으로 보이도록 설정 */
+   
+}
+

@@ -108,6 +108,9 @@
                                     <!-- 새 카드 시작 -->
                                     <div class="trip-card">
                                         <h4>${trip.t_title}</h4>
+                                        		  <span class="m_days-remaining">
+								                  		  ${trip.daysRemaining}
+								                	</span>
                                         <p><strong>여행 기간:</strong> 
                                             <fmt:formatDate value="${trip.period_start}" pattern="yyyy-MM-dd" /> - 
                                             <fmt:formatDate value="${trip.period_end}" pattern="yyyy-MM-dd" />

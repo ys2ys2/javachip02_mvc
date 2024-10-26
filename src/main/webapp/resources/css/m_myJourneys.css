@@ -13,7 +13,6 @@
     font-weight: 400;
     font-style: normal;
 }
-
 /*강원 교육 튼튼체 */
 @font-face {
     font-family: 'GangwonEduPowerExtraBoldA';
@@ -21,8 +20,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
-
 /*플라이트 산스  */
 @font-face {
     font-family: 'FlightSans-Bold';
@@ -120,6 +117,7 @@
     padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+     margin-left: 15px;
 }
 
 .profile-edit-link i {
@@ -134,15 +132,15 @@
 
 
 .nickname-header {
-    font-size: 20px; /* 글자 크기 */
+    font-size: 18px; /* 글자 크기 */
     color: black; /* 글자 색상 */
     margin: 15px 0; /* 상하 10px 여백, 좌우 0 */
     text-align: center; /* 가운데 정렬 */
-    font-family: 'Pretendard-Regular';
-    font-weight: 800;
+    font-family: 'FlightSans-Bold';
 }
 
 /*여기 위에까지는 고정적인 영역으로 수정x  */
+
 
 
 
