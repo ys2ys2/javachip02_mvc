@@ -16,7 +16,7 @@ public class AjaxController {
 	//필드 정의
 	private final M_MemberService m_memberServiceImpl;
 	
-
+	
 	// 아이디 중복검사
 	@PostMapping("/Member/checkId")
 	public String checkId(@RequestParam("m_email") String m_email) {

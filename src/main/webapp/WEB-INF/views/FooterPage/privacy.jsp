@@ -6,58 +6,57 @@
 <html lang="ko">
 <head>
 
-	<link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
-  	<link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet" type="text/css">
-  	<link href="${pageContext.request.contextPath}/resources/css/clause.css" rel="stylesheet" type="text/css">
-	<link href="${pageContext.request.contextPath}/resources/css/privacy.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/clause.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/privacy.css" rel="stylesheet" type="text/css">
 
 <meta charset="UTF-8">
 <title>이용약관</title>
 </head>
 <body>
-
-   <header>
-    <div class="header-container">
-      <div class="logo">
-        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-          <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
-          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
-          <li><a href="${pageCOntext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
-          <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
-        </ul>
-      </nav>
-      <div class="member">
-        <c:choose>
-          <c:when test="${not empty member}">
-            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <div class="welcome">
-            	<span class="userprofile"><img src="${member.m_profile}" alt="user-profile"></span>
-            	${member.m_nickname}님 환영합니다!
-            </div>
-            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
-            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
-              <button type="submit">로그아웃</button>
-            </form>
-          </c:when>
-          <c:otherwise>
-            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
-            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
-          </c:otherwise>
-        </c:choose>
-      </div>
+<header>
+  <div class="header-container">
+    <div class="logo">
+      <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
     </div>
-  </header>
+    <nav>
+      <ul>
+        <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
+        <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
+        <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
+        <li><a href="${pageCOntext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
+        <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
+      </ul>
+    </nav>
+	<div class="member">
+      <c:choose>
+        <c:when test="${not empty member}">
+          <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
+          <div class="welcome">
+              <span class="userprofile"><img src="${pageContext.request.contextPath}${member.m_profile}" alt="user-profile"></span>
+              ${member.m_nickname}님 환영합니다!
+          </div>
+          <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
+          <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
+            <button type="submit">로그아웃</button>
+          </form>
+        </c:when>
+        <c:otherwise>
+          <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
+          <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
+          <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
+        </c:otherwise>
+      </c:choose>
+
+    </div>
+  </div>
+</header>
   
   
-  <div class="clause">
-  
-  	<div class="introimg"
-		style="background-image:url('${pageContext.request.contextPath}/resources/images/clausemain.jpg');">
+ <div class="clause">
+ 
+	<div class="introimg" style="background-image:url('${pageContext.request.contextPath}/resources/images/clausemain.jpg');">
 		<h2>뽈뽈뽈 약관</h2>
 		<h1>개인정보 처리방침</h1>
 	</div>
