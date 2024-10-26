@@ -40,5 +40,16 @@
         SET t_comment_likes = t_comment_likes + 1
         WHERE t_ec_idx = #{t_ec_idx}
     </update>
+    
+    <!-- t_evnets 테이블에서 img,title 가져오기 -->
+    <select id="getRandomEventImages" resultType="map">
+    	SELECT t_main_img, t_title
+    	FROM t_events
+    	ORDER BY RAND()
+    	LIMIT 9
+    </select>
+    
+    
+    
 
 </mapper>

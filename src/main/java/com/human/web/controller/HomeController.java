@@ -25,8 +25,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class HomeController {
 	
-	
-	 // 필드 정의 - 주입받을 서비스에 final 추가
+	// 필드 정의 - 주입받을 서비스에 final 추가
     private SeoulEventApiService seoulEventApiServiceImpl;
     private SeoulMatzipApiService seoulMatzipApiServiceImpl;
     private EventsService eventsServiceImpl ;
@@ -34,17 +33,20 @@ public class HomeController {
     private DaejeonEventApiService daejeonEventApiServiceImpl;
     private DaejeonMatzipApiService daejeonMatzipApiServiceImpl;
 
-
 	// 메인페이지
 	@GetMapping("/")
 	public String home() {
 		return "redirect:/HomePage/mainpage";
 		
 	}
+	
+	
+	
 	@GetMapping("/index.do")
 	public String index() {
-		return "HomePage/mainpage";
+		return "redirect:/HomePage/mainpage";
 	}
+	
 	
 	// 403에러
 	@GetMapping("/error/errorPage")
@@ -57,7 +59,6 @@ public class HomeController {
 	public String error403() {
 		return "error/error403";
 	}
-
 
 	// 404에러
 	@GetMapping("/error/error404.do")
@@ -109,6 +110,7 @@ public class HomeController {
 		return "FooterPage/marketing";
 	}
 
+	
 	/*
 	 * // 예슬 로그인 페이지
 	 * 
@@ -121,12 +123,14 @@ public class HomeController {
 	 * "Login/loginProcess"; }
 	 */
 
+	
 	// 영준 여행기 작성 페이지
 	@GetMapping("/Community/c_board/travelWrite")
 	public String showTravelWritePage() {
 		return "Community/c_board/travelWrite";
 	}
 
+	
 	// 영준 커뮤니티 메인
 	@GetMapping("/Community/c_main")
 	public String c_main() {
@@ -140,7 +144,6 @@ public class HomeController {
 		return "TripSched/tripSched";
 	}
 
-	
 	// 여행일정작성 페이지
     @GetMapping("/TripSchedule/TripSchedule")
     public String tripSchedule() {
@@ -153,13 +156,11 @@ public class HomeController {
 	    return "TripSchedule/TripList";
 	}
 	    
-	    
 	// 여행일정 상세 페이지
 	@GetMapping("TripSchedule/TripDetail")
 	public String TripDetail() {
 	    return "TripSchedule/TripPage";
 	}
-	
 	
 	// 여행뽈볼 페이지
 	@GetMapping("/TravelSpot/TravelSpot")
@@ -349,4 +350,17 @@ public class HomeController {
 		return "RecoSpot/journal_Daejeon";
 	}
 	
+	//자주묻는 질문
+    @GetMapping("/MyPage/FAQ")
+    public String FAQ() {
+        return "MyPage/FAQ";
+    }
+	
 }
+
+
+
+
+
+
+

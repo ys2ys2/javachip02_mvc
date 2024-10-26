@@ -42,6 +42,12 @@ public class EventsDAO {
         params.put("newComment", newComment); // 수정할 댓글 내용
         return sqlSession.update(MAPPER + ".updateCommentById", params);
     }
+    
+    // t_events에서 t_main_img 가져오기
+    public List<Map<String, Object>> getRandomEventImages() {
+    	return sqlSession.selectList(MAPPER + ".getRandomEventImages");
+    	
+    }
 
 
   

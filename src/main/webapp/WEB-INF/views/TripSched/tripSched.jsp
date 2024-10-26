@@ -1006,8 +1006,6 @@ function loadDayPlaces(dayId) {
 
 
 
-
-
 </body>
 
 </html>
