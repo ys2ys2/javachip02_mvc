@@ -39,6 +39,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home() {
 		return "redirect:/HomePage/mainpage";
+		
 	}
 	@GetMapping("/index.do")
 	public String index() {
@@ -57,7 +58,6 @@ public class HomeController {
 		return "error/error403";
 	}
 
-	// 404에러
 
 	// 404에러
 	@GetMapping("/error/error404.do")
@@ -65,15 +65,12 @@ public class HomeController {
 		return "error/error404";
 	}
 
-	// 405에러
 
 	// 405에러
 	@GetMapping("/error/error405.do")
 	public String error405() {
 		return "error/error405";
 	}
-
-	// 500에러
 
 	// 500에러
 	@GetMapping("/error/error500.do")
