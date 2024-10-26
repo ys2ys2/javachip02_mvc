@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.SeoulMatzipApiMapper">
+
+    <!-- 모든 맛집 정보 가져오기 -->
+    <select id="getAllSeoulMatzip" resultType="SeoulMatzip"> 
+        SELECT 
+        	t_sm_idx,
+            t_MAIN_KEY AS MAIN_KEY, 
+            t_CATE1_NAME AS CATE1_NAME,
+            t_NAME_KOR AS NAME_KOR,
+            t_ADD_KOR_ROAD AS ADD_KOR_ROAD,
+            t_RES_CONTACT AS RES_CONTACT,
+            t_CATE2_NAME AS CATE2_NAME,
+            t_CATE3_NAME AS CATE3_NAME
+        FROM 
+            t_SeoulMatzip
+        ORDER BY 
+            t_sm_idx ASC
+    </select>
+
+    <!-- 서울 맛집 정보 삽입 -->
+    <insert id="insertSeoulMatzip">
+        INSERT INTO t_SeoulMatzip (
+            t_MAIN_KEY, t_CATE1_NAME, t_NAME_KOR, t_ADD_KOR_ROAD, t_RES_CONTACT, 
+            t_CATE2_NAME, t_CATE3_NAME)
+        <trim prefix="VALUES" suffixOverrides=",">
+            <foreach item="row" collection="array">
+                (#{row.MAIN_KEY}, #{row.CATE1_NAME}, #{row.NAME_KOR}, #{row.ADD_KOR_ROAD}, 
+                 #{row.RES_CONTACT}, #{row.CATE2_NAME}, #{row.CATE3_NAME}),
+            </foreach>
+        </trim>
+    </insert>
+
+</mapper>
+
+

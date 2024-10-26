@@ -15,37 +15,37 @@
     </head>
 
     <body>
-    <!-- 어두운 배경 -->
+<!-- 어두운 배경 -->
   <div class="overlay"></div>
-
   <header>
     <div class="header-container">
-      <div class="logo" data-ko="BBOL BBOL BBOL" data-en="BBOL BBOL BBOL">BBOL BBOL BBOL</div>
+      <div class="logo">
+        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
+      </div>
       <nav>
         <ul>
-          <li><a href="#" data-ko="홈" data-en="Home">홈홈</a></li>
-          <li><a href="#" data-ko="커뮤니티" data-en="Community">커뮤니티</a></li>
-          <li><a href="#" data-ko="여행지" data-en="RecoHotPlace">여행지</a></li>
-          <li><a href="#" data-ko="여행뽈뽈" data-en="BBOL BBOL BBOL">여행뽈뽈</a></li>
-          <button class="search-btn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-          <button class="user-btn">
-            <i class="fa-solid fa-user"></i>
-          </button>
-          <button class="earth-btn">
-            <i class="fa-solid fa-earth-americas"></i>
-          </button>
-          <button class="korean" id="lang-btn" data-lang="ko">English</button>
+          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
+          <li><a href="#">커뮤니티</a></li>
+   		<li><a href="RecoSpot/travel_Seoul" data-ko="여행지" data-en="RecoHotPlace">여행지</a></li>
+          <li><a href="#">여행뽈뽈</a></li>
         </ul>
       </nav>
-    </div>
-    <!-- 검색 바 -->
-    <div class="search-bar-container">
-      <div class="search-bar-content">
-        <input type="text" placeholder="도시나 키워드를 검색해보세요..." data-ko="도시나 키워드를 검색해보세요..."
-          data-en="Search cities or keywords...">
-        <button class="close-btn"><i class="fa-solid fa-times"></i></button>
+      <div class="member">
+        <c:choose>
+          <c:when test="${not empty sessionScope.member}">
+            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
+            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
+            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
+            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
+              <button type="submit">로그아웃</button>
+            </form>
+          </c:when>
+          <c:otherwise>
+            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
+            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
+          </c:otherwise>
+        </c:choose>
       </div>
     </div>
   </header>
@@ -58,22 +58,22 @@
             <div class="swiper-wrapper">
                 <!-- 이미지와 지역 이름 -->
                 <div class="swiper-slide">
-                <a href="${pageContext.request.contextPath}/RecoSpot/travel_Seoul.jsp">
+                <a href="${pageContext.request.contextPath}/RecoSpot/travel_Seoul">
                     <img src="${pageContext.request.contextPath}/resources/images/서울.jpg" alt="서울" class="circle-image">
                     <div class="region-name">서울</div>
                     </a>
                 </div>
                 <div class="swiper-slide">
-                <a href="${pageContext.request.contextPath}/RecoSpot/travel_Incheon.jsp">
-                    <img src="${pageContext.request.contextPath}/resources/images/인천.jpg" alt="인천" class="circle-image">
-                    <div class="region-name">인천</div>
-                </a>    
-                </div>
-                <div class="swiper-slide">
-                 <a href="${pageContext.request.contextPath}/RecoSpot/travel_Daejeon.jsp">
+                 <a href="${pageContext.request.contextPath}/RecoSpot/travel_Daejeon">
                     <img src="${pageContext.request.contextPath}/resources/images/대전.jpg" alt="대전" class="circle-image">
                     <div class="region-name">대전</div>
                     </a>
+                </div>
+                 <div class="swiper-slide">
+                <a href="${pageContext.request.contextPath}/RecoSpot/travel_Incheon">
+                    <img src="${pageContext.request.contextPath}/resources/images/인천.jpg" alt="인천" class="circle-image">
+                    <div class="region-name">인천</div>
+                </a>    
                 </div>
                 <div class="swiper-slide">
                     <img src="${pageContext.request.contextPath}/resources/images/대구.jpg" alt="대구" class="circle-image">

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.SeoulMatzipCommentsMapper">
+
+
+    <!-- 댓글 추가 -->
+    <insert id="insertComment" parameterType="smcVO">
+        INSERT INTO t_SeoulMatzip_comments
+        	(t_smc_content, t_smc_author_id, t_sm_idx)
+        	VALUES 
+        	(#{t_smc_content}, #{t_smc_author_id}, #{t_sm_idx})
+    </insert>
+
+    <!-- 모든 댓글 가져오기 -->
+    <select id="getAllComments" resultType="smcVO">
+        SELECT *
+        	FROM t_SeoulMatzip_comments
+        	ORDER BY t_smc_created_at DESC  <!-- 장렬기준: 작성일 작성시간(내림차순) -->
+    </select>
+
+  <!-- 댓글 삭제 -->
+    <delete id="deleteCommentById" parameterType="_int">
+        DELETE FROM t_SeoulMatzip_comments
+        WHERE t_smc_idx = #{t_smc_idx}
+    </delete>
+    
+<!-- 댓글 수정 -->
+<update id="updateCommentById" parameterType="map">
+    UPDATE t_SeoulMatzip_comments
+    SET t_smc_content = #{newComment}, t_smc_updated_at = NOW()
+    WHERE t_smc_idx = #{t_smc_idx}
+</update>
+
+
+
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.DaejeonEventApiMapper">
+
+   <!-- 모든 대전 행사 가져오기 -->
+<select id="getAllDaejeonEvents" resultType="DaeEvent">
+    SELECT 
+    	t_dae_idx,
+        t_festvNm AS festvNm, 
+        t_festvSumm AS festvSumm, 
+        t_festvTpic AS festvTpic, 
+        t_festvPrid AS festvPrid, 
+        t_festvPlcNm AS festvPlcNm, 
+        t_festvHostNm AS festvHostNm, 
+        t_festvZip AS festvZip, 
+        t_festvAddr AS festvAddr, 
+        t_festvDtlAddr AS festvDtlAddr, 
+        t_refadNo AS refadNo, 
+        t_hmpgAddr AS hmpgAddr
+    FROM 
+        t_events_daejeon
+    ORDER BY 
+        t_dae_idx ASC
+</select>
+
+<!-- 대전 행사 데이터 삽입 -->
+<insert id="insertDaejeonEvent">
+    INSERT INTO t_events_daejeon 
+        (t_festvNm, t_festvSumm, t_festvTpic, t_festvPrid, t_festvPlcNm, t_festvHostNm, t_festvZip, t_festvAddr, t_festvDtlAddr, t_refadNo, t_hmpgAddr)
+    <trim prefix="VALUES" suffixOverrides=",">
+        <foreach item="item" collection="list">
+            ( #{item.festvNm}, #{item.festvSumm}, #{item.festvTpic}, #{item.festvPrid}, #{item.festvPlcNm}, #{item.festvHostNm}, #{item.festvZip}, #{item.festvAddr}, #{item.festvDtlAddr}, #{item.refadNo}, #{item.hmpgAddr} ),
+        </foreach>
+    </trim>
+</insert>
+
+
+</mapper>
+
+
