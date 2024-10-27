@@ -68,6 +68,23 @@ public class inputApiController {
 	public String inputDB() {
 	    return "HotPlace/inputDB";
 	}
+	
+	@GetMapping("/Matzip/MatzipApi")
+	public String MatzipApi() {
+		return "Matzip/MatzipApi";
+	}
+	
+	@PostMapping("/Matzip/processMatzipCodeApi")
+	public String processMatzipCodeApi() {
+		return "Matzip/processMatzipCodeApi";
+	}
+	
+	//processDetailApi.jsp
+	@PostMapping("/Matzip/processMatzipDetailApi")
+	public String processMatzipDetailApi() {
+		return "Matzip/processMatzipDetailApi";
+	}
+
 
 	
 

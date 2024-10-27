@@ -40,8 +40,6 @@ public class HomeController {
 		
 	}
 	
-	
-	
 	@GetMapping("/index.do")
 	public String index() {
 		return "redirect:/HomePage/mainpage";
