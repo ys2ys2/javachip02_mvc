@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.MatzipMapper">
+
+    <insert id="insertMatzip" parameterType="com.human.web.vo.MatzipVO">
+		INSERT INTO s_matzip (title, addr1, overview, mapx, mapy, tel)
+		VALUES (#{title}, #{addr1}, #{overview}, #{mapx}, #{mapy}, #{tel})
+	</insert>
+
+    
+</mapper>

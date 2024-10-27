@@ -601,9 +601,9 @@
 	    </a>
 	</div>
   
-  
  </div> <!-- end of main-container  -->
  
+ </div> <!-- end of mainratio -->
  
  
  
