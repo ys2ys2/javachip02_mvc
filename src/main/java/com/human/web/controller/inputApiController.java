@@ -102,8 +102,6 @@ public class inputApiController {
 	public String inputMatzipDB(@RequestParam("selectedContentIds") String selectedContentIds,
 						HttpSession session, RedirectAttributes redirectAttributes) {
 	    
-		 System.out.println("Selected IDs: " + selectedContentIds);  // 확인용 출력
-
 		    List<MatzipVO> restaurantList = (List<MatzipVO>) session.getAttribute("restaurantList");
 		
 		if (selectedContentIds == null || selectedContentIds.isEmpty()) {

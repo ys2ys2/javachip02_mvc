@@ -28,4 +28,16 @@ public class MatzipServiceImpl implements MatzipService {
             return "음식점 정보 저장 중 오류가 발생했습니다: " + e.getMessage();
         }
     }
+
+
+    @Override
+    public List<MatzipVO> getMatzipList() {
+        return matzipDAO.getMatzipList();
+    }
+
+
+	@Override
+	public MatzipVO getMatzipDetailById(int contentid) {
+        return matzipDAO.getMatzipDetailById(contentid);
+	}
 }

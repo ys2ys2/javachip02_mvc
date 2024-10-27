@@ -10,5 +10,17 @@
 		VALUES (#{title}, #{addr1}, #{overview}, #{mapx}, #{mapy}, #{tel})
 	</insert>
 
+	<!-- 맛집 리스트 가져오기 -->
+    <select id="getMatzipList" resultType="com.human.web.vo.MatzipVO">
+        SELECT contentid, title, firstimage, addr1
+        FROM s_matzip
+    </select>
+    
+    <!-- MatzipMapper.xml -->
+    <select id="getMatzipDetailById" parameterType="int" resultType="com.human.web.vo.MatzipVO">
+	    SELECT contentid, title, firstimage, addr1, overview, mapx, mapy, tel
+	    FROM s_matzip
+	    WHERE contentid = #{contentid}
+	</select>
     
 </mapper>

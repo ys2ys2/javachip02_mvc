@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.human.web.repository.TalkDAO;
+import com.human.web.vo.MatzipVO;
 import com.human.web.vo.TalkVO;
 
 @Service
@@ -59,5 +60,10 @@ public class TalkServiceImpl implements TalkService {
     public List<Map<String, String>> getItemList(int offset, int limit) {
         return talkDAO.getItemList(offset, limit);
     }
+
+	@Override
+    public MatzipVO getmatzipDetailById(int contentid) {
+	    return talkDAO.getmatzipDetailById(contentid);
+	}
 
 }

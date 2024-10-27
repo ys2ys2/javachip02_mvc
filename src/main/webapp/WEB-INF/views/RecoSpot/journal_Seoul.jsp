@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -253,39 +255,21 @@
     <div class="restaurant-main-title">서울 맛집</div>
 
     <div class="image-container">
-        <div class="image-item3">
-             <a href="${pageContext.request.contextPath}/Matzip/seoulFamous" class="image-item3">
-            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
-            <div class="image-description">
-                <div class="image-title">중화일상</div>
-                <div class="location">서울특별시 송파구</div>
+        <!-- matzipList를 반복하면서 각 맛집의 정보를 출력 -->
+        <c:forEach var="matzip" items="${matzipList}">
+            <div class="image-item3">
+                <!-- 각 맛집을 클릭하면 해당 contentid를 가진 상세 페이지로 이동 -->
+                <a href="${pageContext.request.contextPath}/matzip/${matzip.contentid}" class="image-item3">
+                    <!-- firstimage에 저장된 첫 번째 URL을 이미지 src로 설정 -->
+                    <img src="${matzip.firstimage}" alt="${matzip.title}">
+                    <div class="image-title">${matzip.title}</div>
+                    <div class="image-description">
+                        <!-- 맛집 제목과 주소를 출력 -->
+                        <%-- <div class="location">${matzip.addr1}</div> --%>
+                    </div>
+                </a>
             </div>
-          </a>
-        </div>
-
-        <div class="image-item3">
-            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
-            <div class="image-description">
-                <div class="image-title">중화일상 2</div>
-                <div class="location">서울특별시 송파구</div>
-            </div>
-        </div>
-
-        <div class="image-item3">
-            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
-            <div class="image-description">
-                <div class="image-title">중화일상 3</div>
-                <div class="location">서울특별시 송파구</div>
-            </div>
-        </div>
-
-        <div class="image-item3">
-            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
-            <div class="image-description">
-                <div class="image-title">중화일상 4</div>
-                <div class="location">서울특별시 송파구</div>
-            </div>
-        </div>
+        </c:forEach>
     </div>
 </div>
 
