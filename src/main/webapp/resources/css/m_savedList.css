@@ -1,3 +1,33 @@
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Pretendard */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+/*강원 교육 튼튼체 */
+@font-face {
+    font-family: 'GangwonEduPowerExtraBoldA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/*플라이트 산스  */
+@font-face {
+    font-family: 'FlightSans-Bold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/FlightSans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
 .navigation {
     position: absolute;
     top: 130px; /* 뷰포트 기준으로 상단에서 120px */
@@ -13,81 +43,209 @@
 .navigation a {
     color: black;
     text-decoration: none;
-    font-weight: bold;
+    font-family: 'Pretendard-Regular';
+    font-weight: 800;
     font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* 배경색과 크기 변화에 대한 애니메이션 */
 }
 
 .navigation a:hover {
-    text-decoration: underline;
+    transform: translateY(-4px); /* 호버 시 살짝 위로 이동하는 효과 */
+    color: #483D8B;
 }
 
+/* 선택된 탭에 색상 주기 */
+.navigation a.selected {
+      background-color: #007BFF; /* 선택된 탭의 배경색 */
+    color: white; /* 선택된 탭의 글자색 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 선택된 탭에 그림자 추가 */
+    border: 2px solid #0056b3; /* 선택된 탭의 테두리 추가 */
+    /* 추가적인 스타일로, 선택된 탭을 더 돋보이게 할 수 있습니다. */
+}
 .container {
-    display: flex;
-    width: 90%;
-    margin-top: 130px; /* 네비게이션 아래로 여유 공간 추가 */
+	display: flex;
+	width: 90%;
+	margin-top: 130px; /* 네비게이션 아래로 여유 공간 추가 */
 }
-
 
 .profile-section {
-    width: 20%;
+    width: 16%;
     padding: 20px;
-    position: relative; 
+    position: absolute;
+    left: 10px; /* 왼쪽에 고정 */
+    top: 150px; /* 상단에서 150px 아래로 */
 }
 
 .profile-section h4 {
 	position: relative;
-    top: -50px; /* h3 요소를 위로 15px 이동 */
-    margin-bottom: 20px; /* 프로필 카드와의 간격 추가 */
-    text-align:left; /* 중앙 정렬 */
+	font-family: 'yg-jalnan';
+	top: -50px; /* h3 요소를 위로 15px 이동 */
+	margin-bottom: 20px; /* 프로필 카드와의 간격 추가 */
+	text-align: left; /* 중앙 정렬 */
 }
 
 .profile-card {
-    background-color: #ffffff;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: -60px;
+	background-color: #ffffff;
+	padding: 20px;
+	text-align: center;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	margin-top: -60px;
 }
+
 
 .profile-image {
-    width: 100px;
-    height: 100px;
+	width: 110px;
+    height: 110px;
     border-radius: 50%;
-    margin-bottom: 10px;
+    object-fit: cover;
+	margin-bottom: 10px;
 }
 
-.content-section {
-    width: 75%;
-    margin-left: 5%;
+
+/* 프로필 편집 아이콘과 텍스트 컨테이너 스타일 */
+.profile-edit-container {
+    display: flex; /* 아이콘과 텍스트를 나란히 배치 */
+    align-items: center; /* 수직 가운데 정렬 */
+    color: #808080; /* 텍스트와 아이콘 색상 */
+    font-size: 13px; /* 텍스트 크기 */
+    font-family: 'Pretendard-Regular';
+    font-weight: 800;
+    margin-left: 30px;
+    margin-top:30px;
+    cursor: pointer; /* 마우스 오버 시 포인터 변경 */
 }
-/* 콘텐츠 섹션 헤더 스타일 */
-.s_content-section-header {
-    background-color: black;
-    width: 130px;
+
+/* 프로필 편집 링크 스타일 */
+.profile-edit-link {
+    text-decoration: none; /* 하이퍼링크 밑줄 제거 */
+    color: gray; /* 텍스트 및 아이콘 색상을 검정색으로 변경 */
+    display: flex; /* 아이콘과 텍스트를 나란히 배치 */
+    align-items: center; /* 아이콘과 텍스트 수직 가운데 정렬 */
+    font-size: 12px; /* 텍스트 크기 */
+    cursor: pointer; /* 마우스 오버 시 포인터 변경 */
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+     margin-left: 7px;
+}
+
+.profile-edit-link i {
+    margin-right: 8px; /* 아이콘과 텍스트 사이 간격 */
+    font-size: 10px; /* 아이콘 크기 */
+}
+
+.profile-edit-link:hover {
+    transform: translateY(-4px); /* 호버 시 살짝 위로 이동하는 효과 */
+    color: #483D8B;
+}
+
+
+
+.nickname-header {
+    font-size: 18px; /* 글자 크기 */
+    color: black; /* 글자 색상 */
+    margin: 15px 0; /* 상하 10px 여백, 좌우 0 */
+    text-align: center; /* 가운데 정렬 */
+    font-family: 'FlightSans-Bold';
+}
+
+
+
+/* 오른쪽 하단에 고정된 이미지 버튼 스타일 */
+.floating-button {
+    position: fixed;  /* 화면에 고정 */
+    bottom: 30px;     /* 하단에서 20px 띄움 */
+    right: 20px;      /* 오른쪽에서 20px 띄움 */
+    width: 50px;      /* 버튼 이미지 크기 */
     height: 50px;
-    font-size: 15px;
-    color: white;
-    display: flex;        /* 플렉스 박스를 사용하여 정렬 */
-    justify-content: center; /* 가로 중앙 정렬 */
-    align-items: center;  /* 세로 중앙 정렬 */
-    border-radius: 10px;
-    margin-bottom: 10px;
+    z-index: 1000;    /* 다른 요소 위에 표시되도록 설정 */
+    cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.floating-button img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10%;  /* 이미지가 원형으로 보이도록 설정 */
+   
+}
+
+
+/* 호버 효과 추가 */
+.floating-button:hover {
+    animation: sparkle 0.5s infinite; /* 반짝이는 애니메이션 추가 */
+}
+
+/* 반짝이는 효과를 위한 애니메이션 정의 */
+@keyframes sparkle {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* 시작 시 약한 그림자 */
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 1); /* 중간에 더 강한 그림자 */
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* 끝날 때 다시 약해짐 */
+    }
+}
+
+
+/*여기 위에까지는 고정적인 영역으로 수정x  */
+
+
+
+
+
+
+
+
+
+/* 콘텐츠 섹션 스타일 */
+.s_content-section {
+    width: 100%;
+    max-width: 700px; /* 콘텐츠 최대 너비를 설정 */
+    margin: 0 auto; /* 가로 중앙 정렬 */
+    margin-top: 100px;
+    padding: 20px; /* 콘텐츠 여백 추가 */
+    position: relative;
+    left: -68px;
+}
+
+/* 콘텐츠 섹션 헤더 스타일 */
+.s_content-section-header h2 {
+    background-color: black; /* 검정색 배경 */
+    color: white; /* 흰색 글씨 */
+    font-family: 'FlightSans-Bold';
+    font-size: 19px;
+    padding: 10px; /* 내부 여백으로 네모난 박스 형태 */
+    border-radius: 10px; /* 모서리를 살짝 둥글게 만듦 */
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    width: fit-content; /* 텍스트 크기에 맞게 박스 너비 조정 */
+    margin: 0 auto 10px; /* 하단에만 10px 여백 추가 */
+    position:relative;
+    right: 225px;
+}
+
 /* 저장 목록 리스트 스타일 */
 .s_saved-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 3px;
+    max-width: 80%; /* 너비를 100%로 설정 */
+    margin: 0 auto; /* 리스트를 화면 중앙으로 정렬 */
+    margin-top: 20px;
 }
 
 .s_saved-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
     background-color: #f4f4f4;
     border-radius: 10px;
+    position:relative;
+    left: 8px;
 }
 
 .s_saved-image {
@@ -100,16 +258,21 @@
 .s_saved-info {
     flex-grow: 1;
     margin-left: 20px;
+    position:relative;
+    top: -7px;
 }
 
 .s_saved-info h4 {
     font-size: 18px;
+    font-family: 'FlightSans-Bold';
     margin-bottom: 5px;
 }
 
 .s_saved-info p {
     font-size: 14px;
     margin-bottom: 10px;
+    font-weight: 400;
+    font-family: 'Pretendard-Regular';
 }
 
 .s_saved-meta {
@@ -132,6 +295,4 @@
 /* 구분선 */
 hr {
     border: none;
-    border-top: 1px solid #ddd;
-    margin: 10px 0;
 }

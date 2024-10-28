@@ -121,20 +121,6 @@ public class HomeController {
 		return "FooterPage/marketing";
 	}
 
-	
-	/*
-	 * // 예슬 로그인 페이지
-	 * 
-	 * @GetMapping("/Login/login") public String login() { return "Login/login"; }
-	 */
-
-	// 예슬 로그인Process = PostMapping → login.jsp에서 <form method="post">로 쓰고 있음
-	/*
-	 * @PostMapping("/Login/loginProcess") public String loginProcess() { return
-	 * "Login/loginProcess"; }
-	 */
-
-	
 	// 영준 여행기 작성 페이지
 	@GetMapping("/Community/c_board/travelWrite")
 	public String showTravelWritePage() {

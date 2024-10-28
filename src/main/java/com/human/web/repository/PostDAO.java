@@ -57,8 +57,8 @@ public class PostDAO {
         params.put("m_idx", m_idx);
         return sqlSession.selectOne(POST_NAMESPACE + ".isLikedByUser", params);
     }
-    
- // 예슬: m_mypage 테이블에 데이터 삽입
+
+    // 예슬: m_mypage 테이블에 데이터 삽입
     public int createPostAndMypage(PostVO post) {
         int result = sqlSession.insert(POST_NAMESPACE + ".createPost", post);
 
@@ -71,5 +71,5 @@ public class PostDAO {
 
         return result;
     }
-    
+
 }

@@ -106,6 +106,12 @@ public class GoogleServiceImpl implements GoogleService {
             throw new Exception("구글 계정으로 회원가입이 필요합니다."); // 가입되지 않은 경우 예외 처리
         }
 
+		/*
+		 * //m_profile이 null인 경우 기본 프로필 이미지 경로 설정 if(memberVO.getM_profile() == null ||
+		 * memberVO.getM_profile().isEmpty()) {
+		 * memberVO.setM_profile("/resources/images/defaultprofile.png"); }
+		 */
+        
         return memberVO;  // 로그인 처리 후 리턴
     }
 
@@ -158,3 +164,6 @@ public class GoogleServiceImpl implements GoogleService {
         }
     }
 }
+
+
+

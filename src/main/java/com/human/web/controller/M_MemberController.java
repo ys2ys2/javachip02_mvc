@@ -102,10 +102,16 @@ public class M_MemberController {
 
 		// 로그인 성공 여부 판단 (vo가 null이 아닐 경우 성공)
 		if (vo != null) {
-			// 세션 객체를 가져와서 세션에 회원 정보를 저장
-			HttpSession session = request.getSession();
-			session.setAttribute("member", vo);
-
+			
+			if("deleted".equals(vo.getM_status())) {
+				//탈퇴한 회원인 경우 로그인 실패 처리
+				model.addAttribute("msg_del", "탈퇴한 회원입니다. 다시 가입해주세요.");
+			}else {
+				//탈퇴하지 않은 회원인 경우 로그인 성공 처리
+				// 세션 객체를 가져와서 세션에 회원 정보를 저장
+				HttpSession session = request.getSession();
+				session.setAttribute("member", vo);
+			
 			// 세션에 회원 정보가 제대로 저장되었는지 확인하기 위한 로그 추가
 			M_MemberVO sessionMember = (M_MemberVO) session.getAttribute("member");
 			if (sessionMember != null) {
@@ -119,7 +125,9 @@ public class M_MemberController {
 
 			// 로그인 성공 시 메인 페이지로 리다이렉트
 			viewName = "redirect:/HomePage/mainpage";
-		} else {
+			}
+			
+			}else {
 			// 로그인 실패 시 메시지와 함께 다시 로그인 페이지로 이동
 			model.addAttribute("msg", "아이디나 비밀번호가 일치하지 않습니다.");
 		}

@@ -55,7 +55,7 @@
 		 <!-- 다가오는 여행 일정 조회 -->
     <select id="getUpcomingTrips" parameterType="int" resultType="com.human.web.vo.MypageSchedVO">
         <![CDATA[
-        SELECT
+        SELECT DISTINCT
             ts.period_start,
             ts.period_end,
             ts.title AS t_title,
@@ -78,7 +78,7 @@
     <!-- 지난 여행 일정 조회 -->
     <select id="getPastTrips" parameterType="int" resultType="com.human.web.vo.MypageSchedVO">
         <![CDATA[
-        SELECT
+        SELECT DISTINCT
             ts.period_start,
             ts.period_end,
             ts.title AS t_title,

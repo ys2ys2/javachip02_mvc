@@ -18,4 +18,10 @@ public class MypageSchedVO {
 	    private String place_name;    // 여행 장소
 	    private String place_address; // 여행 장소 주소
 	    private int m_idx;  
+	    
+	    //남은 일수 필드 추가
+	    private String daysRemaining;
+	    
+	    
+	    
 }

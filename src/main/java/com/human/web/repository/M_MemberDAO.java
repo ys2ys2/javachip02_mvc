@@ -60,7 +60,7 @@ public class M_MemberDAO {
 		}
 
 
-
+	//아이디 중복검사
 	public int checkId(String m_email) {
 		int result= 0;
 		 try {
@@ -76,7 +76,7 @@ public class M_MemberDAO {
 		 
 	}
 
-
+	//닉네임 중복검사
 	public int checkNickname(String m_nickname) {
 		int result =0;
 	
@@ -91,7 +91,7 @@ public class M_MemberDAO {
 	}
 
 
-	 
+	 //이메일 찾기
 	    public M_MemberVO findByEmail(String email) {
 	        return sqlSession.selectOne(MAPPER + ".findByEmail", email);
 	    }
@@ -120,6 +120,8 @@ public class M_MemberDAO {
 	        return memberVO;
 	    }
 
+	    
+	    
 	    //회원정보 변경
 	    public int updateMember(M_MemberVO vo) {
 	        int result = 0;

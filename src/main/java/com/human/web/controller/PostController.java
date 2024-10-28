@@ -21,8 +21,8 @@ import com.human.web.service.PostService;
 import com.human.web.vo.M_MemberVO;
 import com.human.web.vo.PostVO;
 
-@RestController  // JSON 응답용 컨트롤러
-@RequestMapping("/post")  // 경로 매핑
+@RestController // JSON 응답용 컨트롤러
+@RequestMapping("/post") // 경로 매핑
 public class PostController {
 
     @Autowired
