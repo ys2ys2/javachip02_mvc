@@ -50,5 +50,6 @@ public interface TravelPostService {
     int countPostsByFilterAndQuery(String filter, String query);
 
 	List<Map<String, Object>> getRandomTravelPost(int limit);
-
+	 
+	
 }

@@ -8,6 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -34,7 +35,6 @@
 
 <body>
 
-
   <header>
     <div class="header-container">
       <div class="logo">
@@ -44,7 +44,7 @@
         <ul>
           <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
           <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
-          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
+          <li><a href="${pageContext.request.contextPath}/RecoSpot/travel_Seoul">여행지</a></li>
           <li><a href="${pageCOntext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
           <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
         </ul>
@@ -54,8 +54,8 @@
           <c:when test="${not empty member}">
             <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
             <div class="welcome">
-            	<span class="userprofile"><img src="${pageContext.request.contextPath}${member.m_profile}" alt="user-profile"></span>
-            	${member.m_nickname}님 환영합니다!
+                <span class="userprofile"><img src="${pageContext.request.contextPath}${member.m_profile}" alt="user-profile"></span>
+                ${member.m_nickname}님 환영합니다!
             </div>
             <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
             <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
@@ -452,7 +452,6 @@
 
     <!-- 인기 커뮤니티 섹션 -->
     <div class="Community">
-      <h2>인기 커뮤니티</h2>
       <div class="community-list">
         <div class="community-item">
         	<div class="c_img">
@@ -491,77 +490,129 @@
       
       
   <!-- 축제 섹션 -->
-  <div class="event-section">
-    <h2>축제</h2>
-    <div class="event-list">
-      <div class="event-item">
-        <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>축제 1</p>
-      </div>
-      <div class="event-item">
-        <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>축제 2</p>
-      </div>
-      <div class="event-item">
-        <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>축제 3</p>
-      </div>
-      <div class="event-item">
-        <div class="image-placeholder"></div> <!-- 이미지 대신 이미지 박스 -->
-        <p>축제 4</p>
-      </div>
-    </div>
+  
+ <div class="event-section">
+    <div class="event-header">
+  		<span class="header_white">여행가는 가을 <span class="header_brown">특별 축제</span></span>
+  		<a href="${pageContext.request.contextPath}/RecoSpot/travel_Seoul">축제 바로가기
+  			<img alt="바로가기 화살표" src="${pageContext.request.contextPath}/resources/images/header_arrow.png"></a>
+  	</div>
+  
+	<div class="event-list mySwiper">
+	    <div class="event-list-wrapper swiper-wrapper">
+	        <c:forEach var="event" items="${eventImages}">
+	            <div class="event_swiper-slide swiper-slide">
+	                <img alt="축제 이미지" src="${event.t_main_img}">
+	              	<span class="event_span">${event.t_title}</span>
+	            </div>
+	        </c:forEach>
+	    </div>
+	</div>
    </div>
-  </div> <!--  end of mainratio -->
+   
+   <div class="endtitle">
+   		<p>'뽈뽈뽈' 추천 여행지 참여 기관</p>
+   		<div class="organization-container">
+   			<ul class="organization-list">
+            <li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-1-1.png');"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-2-1.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-3-2.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-1.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-28.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-2.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-3.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-23.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-24.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-5.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-25.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-6.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-32.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-27.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-7.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-8.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-9.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-10.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-29.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-11.png')"><li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-12.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-13.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-14.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-30.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-15.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-26.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-16.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-17.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-31.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-19.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-21.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-22.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-1.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-2.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-26.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-4.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-25.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-5.png')"></li>
+            <li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-1-1.png');"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-2-1.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-3-2.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-1.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-28.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-2.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-3.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-23.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-24.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-5.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-25.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-6.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-32.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-27.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-7.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-8.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-9.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-10.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-29.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-11.png')"><li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-12.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-13.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-14.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-30.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-15.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-26.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-16.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-17.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-31.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-19.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-21.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-4-22.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-1.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-2.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-26.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-4.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-25.png')"></li>
+   			<li style="background-image: url('https://korean.visitkorea.or.kr/travelmonth/assets/images/organization/img-organization-5-5.png')"></li>
+  			
+  			</ul>
+  		</div>
+  
+  <!-- 오른쪽 하단에 고정된 이미지 버튼 -->
+	<div class="floating-button">
+	    <a href="${pageContext.request.contextPath}/MyPage/FAQ">
+	        <img src="${pageContext.request.contextPath}/resources/images/chatbot.png" alt="챗봇 이미지">
+	    </a>
+	</div>
   
  </div> <!-- end of main-container  -->
+ 
+ </div> <!-- end of mainratio -->
+ 
+ 
+ 
 
 <!-- 푸터 부분 -->
 <footer>
-  <div class="footer-container">
-    <div class="footer-section">
-      <h4>회사소개</h4>
-      <ul>
-        <li><a href="${pageContext.request.contextPath}/FooterPage/introduce" target="_blank">회사소개</a></li>
-        <li><a href="${pageContext.request.contextPath}/HotPlace/inputApi"target="_blank">공공데이터 API</a></li>
-      </ul>
-    </div>
 
-    <!-- 고객지원 -->
-    <div class="footer-section">
-      <h4>고객지원</h4>
-      <ul>
-        <li><a href="#">공지사항</a></li>
-        <li><a href="${pageContext.request.contextPath}/HomePage/FAQ" target="_blank">자주묻는 질문</a></li>
-        <li><a href="#">문의하기</a></li>
-      </ul>
-    </div>
+<jsp:include page="/WEB-INF/views/Components/footer.jsp" />
 
-    <!-- 이용약관 -->
-    <div class="footer-section">
-      <h4>이용약관</h4>
-      <ul>
-        <li><a href="${pageContext.request.contextPath}/FooterPage/clause" target="_blank">이용약관</a></li>
-        <li><a href="${pageContext.request.contextPath}/FooterPage/privacy" target="_blank">개인정보처리방침</a></li>
-        <li><a href="${pageContext.request.contextPath}/FooterPage/marketing" target="_blank">광고성 정보 수신동의</a></li>
-      </ul>
-    </div>
-
-    <!-- 회사 정보 -->
-    <div class="footer-company-info">
-      <p>상호: (주)BBOL | 대표: 박예슬 | 사업자등록번호: 123-45-67890 | 통신판매업 신고번호: 2024-충남천안-00000 | 개인정보관리 책임자: 수수옥</p>
-      <p>주소: 충청남도 천안시 동남구 123 | 이메일: support@BBOL3.com | 대표전화: 02-1234-5678</p>
-      <p>© 2024 BBOLBBOLBBOL. All Rights Reserved.</p>
-    </div>
-
-    <!-- 소셜 미디어 -->
-    <div class="footer-social">
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-    </div>
-    
-  </div>
 </footer>
 
 
@@ -670,6 +721,23 @@
     document.querySelector(target).style.display = 'block';
   });
 });
+</script>
+
+<script>
+  const swiper = new Swiper('.mySwiper', {
+    slidesPerView: 3, // 한 번에 보이는 슬라이드 개수
+    slidesPerGroup: 3, // 한 번에 넘길 슬라이드 개수
+    spaceBetween: 30, // 슬라이드 간 간격
+    loop: true, // 루프 설정
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
 </script>
 
 

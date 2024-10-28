@@ -16,27 +16,27 @@
         SELECT COUNT(*) 
         FROM post_like 
         WHERE post_id = #{postId} 
-        AND user_id = #{userId}
+        AND m_idx = #{m_idx}
     </select>
 
     <!-- 좋아요 추가 -->
     <insert id="insertLike" parameterType="map">
-        INSERT INTO post_like (post_id, user_id) 
-        VALUES (#{postId}, #{userId})
+        INSERT INTO post_like (post_id, m_idx)
+        VALUES (#{postId}, #{m_idx})
     </insert>
 
     <!-- 좋아요 삭제 -->
     <delete id="deleteLike" parameterType="map">
         DELETE FROM post_like 
         WHERE post_id = #{postId} 
-        AND user_id = #{userId}
+        AND m_idx = #{m_idx}
     </delete>
 
     <!-- 좋아요 개수 업데이트 -->
     <update id="updateLikeCount">
         UPDATE post 
         SET like_count = (SELECT COUNT(*) FROM post_like WHERE post_id = #{postId}) 
-        WHERE post_id = #{postId};
+        WHERE post_id = #{postId}
     </update>
 
 </mapper>

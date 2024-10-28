@@ -5,11 +5,13 @@
 
 <mapper namespace="com.human.web.mapper.CommentMapper">
 
+   
     <!-- 특정 게시글의 댓글 목록 조회 -->
-    <select id="getCommentsByPostId" parameterType="int" resultType="com.human.web.vo.CommentVO">
+<select id="getCommentsByPostId" parameterType="int" resultType="com.human.web.vo.CommentVO">
     SELECT 
         comment_id AS commentId,
         post_id AS postId,
+        m_idx AS m_idx,                <!-- m_idx 추가 -->
         comment_writer AS commentWriter,
         comment_content AS commentContent,
         comment_date AS commentDate
@@ -17,12 +19,17 @@
     WHERE post_id = #{postId}
 </select>
     
+    
+<!-- 댓글 추가 -->
+<insert id="insertComment" parameterType="com.human.web.vo.CommentVO">
+    INSERT INTO comment (post_id, m_idx, comment_writer, comment_content, comment_date)
+    VALUES (#{postId}, #{m_idx}, #{commentWriter}, #{commentContent}, NOW())
+</insert>
 
-    <!-- 댓글 추가 -->
-    <insert id="insertComment" parameterType="com.human.web.vo.CommentVO">
-        INSERT INTO comment (post_id, comment_writer, comment_content, comment_date)
-        VALUES (#{postId}, #{commentWriter}, #{commentContent}, NOW())
-    </insert>
+
+    <select id="getCommentAuthor" parameterType="int" resultType="int">
+    SELECT m_idx FROM comment WHERE comment_id = #{commentId}
+	</select>
 
     <!-- 댓글 삭제 -->
     <delete id="deleteComment" parameterType="int">

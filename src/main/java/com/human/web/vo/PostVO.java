@@ -1,85 +1,27 @@
 package com.human.web.vo;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
+import lombok.Data;
+
+@Data
 public class PostVO {
-
-    private int m_idx; // 예슬 추가
-    private int id; // 게시글 ID
-    private String writer; // 작성자
-    private String content; // 내용
-    private LocalDateTime postDate; // 작성 날짜
-    private int commentCount;
-    private int likeCount;
-    private boolean isLiked;
-
-    // 생성자에서 기본 값 설정
+    private int id;                  // 게시글 ID
+    private int m_idx;               // 작성자 ID (회원 ID)
+    private String content;          // 게시글 내용
+    private String postDate; // 문자열로 저장  // 작성 날짜
+    private int commentCount;        // 댓글 수
+    private int likeCount;           // 좋아요 수
+    private boolean isLiked;         // 좋아요 여부
+    private String post_writer;
+   
+    // 기본 생성자
     public PostVO() {
-        this.postDate = LocalDateTime.now(); // 현재 시간으로 초기화
+        // 한국 표준시 (KST)로 포맷된 날짜 설정
+        this.postDate = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+                          .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public LocalDateTime getPostDate() {
-        return postDate;
-    }
-
-    public void setPostDate(LocalDateTime postDate) {
-        this.postDate = postDate;
-    }
-
-    public int getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public int getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public boolean isLiked() {
-        return isLiked;
-    }
-
-    public void setLiked(boolean isLiked) {
-        this.isLiked = isLiked;
-    }
-
-    // 예슬 추가 -m_idx에 대한 getter와 setter 추가
-    public int getM_idx() {
-        return m_idx;
-    }
-
-    public void setM_idx(int m_idx) {
-        this.m_idx = m_idx;
-    }
+    	
 }

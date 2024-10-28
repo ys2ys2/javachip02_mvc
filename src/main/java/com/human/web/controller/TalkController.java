@@ -16,7 +16,7 @@ import com.human.web.vo.M_MemberVO;
 import com.human.web.vo.TalkVO;
 
 @Controller
-@RequestMapping({ "/HotPlace", "/DataPlace" }) // hotplace랑 DataPlace 포함
+@RequestMapping({ "/HotPlace", "/DataPlace", "/Matzip" }) // hotplace랑 DataPlace, Matzip 포함
 public class TalkController {
 
     @Autowired

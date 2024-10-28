@@ -3,6 +3,7 @@ package com.human.web.service;
 import java.util.List;
 import java.util.Map;
 
+import com.human.web.vo.MatzipVO;
 import com.human.web.vo.TalkVO;
 
 public interface TalkService {
@@ -21,5 +22,7 @@ public interface TalkService {
     int deleteTalk(int talkIdx); // 댓글 삭제
 
     int updateTalk(int talkIdx, String updatedText); // 댓글 수정
+
+	MatzipVO getmatzipDetailById(int contentid);
 
 }

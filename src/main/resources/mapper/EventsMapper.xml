@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.EventsMapper">
+
+
+    <!-- 댓글 추가 -->
+    <insert id="insertComment" parameterType="ecVO">
+        INSERT INTO t_events_comments 
+        	(t_comment_content, t_comment_author_id, t_idx)
+        	VALUES 
+        	(#{t_comment_content}, #{t_comment_author_id}, 1)
+    </insert>
+
+    <!-- 모든 댓글 가져오기 -->
+    <select id="getAllComments" resultType="ecVO">
+        SELECT *
+        	FROM t_events_comments
+        	ORDER BY t_comment_author_id DESC
+    </select>
+
+  <!-- 댓글 삭제 -->
+    <delete id="deleteCommentById" parameterType="_int">
+        DELETE FROM t_events_comments
+        WHERE t_ec_idx = #{t_ec_idx}
+    </delete>
+    
+<!-- 댓글 수정 -->
+<update id="updateCommentById" parameterType="map">
+    UPDATE t_events_comments
+    SET t_comment_content = #{newComment}, t_comment_updated_at = NOW()
+    WHERE t_ec_idx = #{t_ec_idx}
+</update>
+
+    <!-- 좋아요 증가 -->
+    <update id="incrementLikeCount" parameterType="int">
+        UPDATE t_events_comments
+        SET t_comment_likes = t_comment_likes + 1
+        WHERE t_ec_idx = #{t_ec_idx}
+    </update>
+    
+    <!-- t_evnets 테이블에서 img,title 가져오기 -->
+    <select id="getRandomEventImages" resultType="map">
+    	SELECT t_main_img, t_title
+    	FROM t_events
+    	ORDER BY RAND()
+    	LIMIT 9
+    </select>
+    
+    
+    
+
+</mapper>

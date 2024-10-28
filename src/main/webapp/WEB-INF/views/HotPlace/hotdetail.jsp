@@ -14,8 +14,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hotplace.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBGXfM-W2P67M4VmuJdGHedKT73_rMEWQ&callback=initMap" async defer></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -23,8 +21,6 @@
   <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/googlemap.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/section.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/br.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- 차트 -->
   
@@ -33,44 +29,8 @@
 
 <body>
 
-<header>
-  <div class="header-container">
-    <div class="logo">
-      <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-        <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
-        <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
-        <li><a href="${pageCOntext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
-        <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
-      </ul>
-    </nav>
-<div class="member">
-      <c:choose>
-        <c:when test="${not empty member}">
-          <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-          <div class="welcome">
-              <span class="userprofile"><img src="${pageContext.request.contextPath}${member.m_profile}" alt="user-profile"></span>
-              ${member.m_nickname}님 환영합니다!
-          </div>
-          <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
-          <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
-            <button type="submit">로그아웃</button>
-          </form>
-        </c:when>
-        <c:otherwise>
-          <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
-          <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-          <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
-        </c:otherwise>
-      </c:choose>
-
-    </div>
-  </div>
-</header>
-  
+<!-- header -->
+<jsp:include page="/WEB-INF/views/Components/header.jsp" />
 
   <div class="h_minibody">
     <!-- 타이틀 -->
@@ -204,8 +164,8 @@
 	      <img src="${pageContext.request.contextPath}/resources/images/hot_left_button.png" alt="Prev">
 	    </button>
 	    <div class="temperature-container" >
-      		<canvas id="weatherCanvas" width="4000" height="300" style="position:absolute; top:0; left:0; z-index:10;"></canvas>
-	      	<ul class="temperature-list" style="position:relative; z-index:2; width: 4000px; display: flex;"></ul>
+      		<canvas id="weatherCanvas" width="9999" height="300" style="position:absolute; top:0; left:0; z-index:10;"></canvas>
+	      	<ul class="temperature-list" style="position:relative; z-index:2; width: 9999px; display: flex;"></ul>
  	  	</div>
         <button id="nextButton" class="slide-button">
           <img src="${pageContext.request.contextPath}/resources/images/hot_right_button.png" alt="Prev">
@@ -248,7 +208,7 @@
         <div class="comment" data-talk-id="${talk.talkIdx}">
           <div class="user-info">
             <!-- DB에 저장된 프로필 사진 가져오기 -->
-            <img src="${talk.talkProfile}" alt="user-profile">
+			<img src="${pageContext.request.contextPath}${talk.talkProfile}" alt="user-profile">
             <span class="username">${talk.talkNickname}</span>
             <span class="date">
               <!-- 수정일이 없으면 생성일을 표시 -->
@@ -288,128 +248,89 @@
     </div>
     </div>
 
-    <!-- 푸터 부분 -->
-    <footer>
-      <div class="footer-container">
-        <div class="footer-section">
-          <h4>회사소개</h4>
-          <ul>
-        	<li><a href="${pageContext.request.contextPath}/FooterPage/introduce" target="_blank">회사소개</a></li>
-        	<li><a href="${pageContext.request.contextPath}/HotPlace/inputApi"target="_blank">공공데이터 API</a></li>
-            <li><a href="#">채용공고</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h4>고객지원</h4>
-          <ul>
-            <li><a href="#">공지사항</a></li>
-            <li><a href="#">자주묻는 질문</a></li>
-            <li><a href="#">문의하기</a></li>
-          </ul>
-        </div>
-	    <!-- 이용약관 -->
-	    <div class="footer-section">
-	      <h4>이용약관</h4>
-	      <ul>
-	        <li><a href="${pageContext.request.contextPath}/FooterPage/clause" target="_blank">이용약관</a></li>
-	        <li><a href="${pageContext.request.contextPath}/FooterPage/privacy" target="_blank">개인정보처리방침</a></li>
-	        <li><a href="${pageContext.request.contextPath}/FooterPage/marketing" target="_blank">광고성 정보 수신동의</a></li>
-	      </ul>
-	    </div>
-        
-        <div class="footer-company-info">
-          <p>상호: (주)BBOL | 대표: 박예슬 | 사업자등록번호: 123-45-67890 | 개인정보관리 책임자: 수수옥</p>
-          <p>주소: 충청남도 천안시 동남구 123 | 이메일: support@BBOL3.com | 대표전화: 02-1234-5678</p>
-          <p>© 2024 BBOLBBOLBBOL. All Rights Reserved.</p>
-        </div>
-        <div class="footer-social">
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
-      </div>
-    </footer>
+<!-- footer -->
+<jsp:include page="/WEB-INF/views/Components/footer.jsp" />
 
 
 
+<!-- 스크립트 부분 -->
+   <!-- 이미지 슬라이드 JS -->
+   <script>
+     var swiper = new Swiper(".mySwiper", {
+       loop: true,
+       spaceBetween: 10,
+       slidesPerView: 4,
+       freeMode: true,
+       watchSlidesProgress: true,
+     });
+     var swiper2 = new Swiper(".mySwiper2", {
+       loop: true,
+       spaceBetween: 10,
+       navigation: {
+         nextEl: ".custom-next-button", 
+         prevEl: ".custom-prev-button", 
+       },
+       thumbs: {
+         swiper: swiper,
+       },
+     });
+   </script>
+ 
+   <script type="text/javascript">
+   	var memberEmail = "${sessionScope.member.m_email}";
+       var memberNickname = "${sessionScope.memberNickname}";
+       var memberId = "${sessionScope.memberId}";
+       var contentid = "${hotplace.contentid}"; // contentid를 JSP에서 전달받아 정의
 
-    <!-- 이미지 슬라이드 JS -->
-    <script>
-      var swiper = new Swiper(".mySwiper", {
-        loop: true,
-        spaceBetween: 10,
-        slidesPerView: 4,
-        freeMode: true,
-        watchSlidesProgress: true,
-      });
-      var swiper2 = new Swiper(".mySwiper2", {
-        loop: true,
-        spaceBetween: 10,
-        navigation: {
-          nextEl: ".custom-next-button", 
-          prevEl: ".custom-prev-button", 
-        },
-        thumbs: {
-          swiper: swiper,
-        },
-      });
-    </script>
-  
-    <script type="text/javascript">
-    	var memberEmail = "${sessionScope.member.m_email}";
-        var memberNickname = "${sessionScope.memberNickname}";
-        var memberId = "${sessionScope.memberId}";
-        var contentid = "${hotplace.contentid}"; // contentid를 JSP에서 전달받아 정의
+   </script>
+   
+   <c:if test="${not empty message}">
+     <script>
+         alert("${message}");
+     </script>
+   </c:if>
+   
+   
+   <!-- 좋아요 버튼 함수 -->
+<script>
+  // likeButton이라는 id를 가진 버튼을 선택
+  const likeButton = document.getElementById('likeButton');
 
-    </script>
+  // 버튼이 클릭되었을 때 실행할 함수
+  likeButton.addEventListener('click', function () {
+    // 현재 이미지 요소를 선택
+    const likeImage = document.getElementById('likeImage');
     
-    <c:if test="${not empty message}">
-      <script>
-          alert("${message}");
-      </script>
-    </c:if>
-    
-    
-    <!-- 좋아요 버튼 함수 -->
-	<script>
-	  // likeButton이라는 id를 가진 버튼을 선택
-	  const likeButton = document.getElementById('likeButton');
-	
-	  // 버튼이 클릭되었을 때 실행할 함수
-	  likeButton.addEventListener('click', function () {
-	    // 현재 이미지 요소를 선택
-	    const likeImage = document.getElementById('likeImage');
-	    
-	    // 이미지 경로를 확인하고, 이미지를 교체하는 로직
-	    if (likeImage.src.includes('heart.png')) {
-	      likeImage.src = '${pageContext.request.contextPath}/resources/images/heart_color.png'; // 하트가 눌렸을 때 이미지 변경
-	      alert("'좋아요'를 누르셨습니다.");
-	    } else {
-	      likeImage.src = '${pageContext.request.contextPath}/resources/images/heart.png'; // 다시 원래 하트로
-	      alert("'좋아요'가 취소되었습니다.");
-	    }
-	  });
-	</script>    
-	
-	<script type="text/javascript">
-    // 세션에 저장된 로그인 정보가 있는지 확인하여 JavaScript 변수에 저장
-    var isLoggedIn = <c:out value="${not empty sessionScope.member ? 'true' : 'false'}" />;
+    // 이미지 경로를 확인하고, 이미지를 교체하는 로직
+    if (likeImage.src.includes('heart.png')) {
+      likeImage.src = '${pageContext.request.contextPath}/resources/images/heart_color.png'; // 하트가 눌렸을 때 이미지 변경
+      alert("'좋아요'를 누르셨습니다.");
+    } else {
+      likeImage.src = '${pageContext.request.contextPath}/resources/images/heart.png'; // 다시 원래 하트로
+      alert("'좋아요'가 취소되었습니다.");
+    }
+  });
+</script>    
 
-    // 로그인 여부에 따른 경고 메시지와 폼 제출 처리
-    document.getElementById('saveForm').addEventListener('submit', function(event) {
-        if (!isLoggedIn) {
-            // 로그인되지 않은 경우 경고 메시지와 로그인 페이지로 리다이렉트
-            event.preventDefault();  // 폼 제출을 막음
-            alert('로그인이 필요합니다!');
-            window.location.href = '${pageContext.request.contextPath}/Member/login';  // 로그인 페이지로 이동
-        } else {
-            // 로그인된 경우에만 저장 작업 진행
-            alert('저장 목록에 추가되었습니다!');
-        }
-    });
-	</script>
-	
-	
+<script type="text/javascript">
+   // 세션에 저장된 로그인 정보가 있는지 확인하여 JavaScript 변수에 저장
+   var isLoggedIn = <c:out value="${not empty sessionScope.member ? 'true' : 'false'}" />;
+
+   // 로그인 여부에 따른 경고 메시지와 폼 제출 처리
+   document.getElementById('saveForm').addEventListener('submit', function(event) {
+       if (!isLoggedIn) {
+           // 로그인되지 않은 경우 경고 메시지와 로그인 페이지로 리다이렉트
+           event.preventDefault();  // 폼 제출을 막음
+           alert('로그인이 필요합니다!');
+           window.location.href = '${pageContext.request.contextPath}/Member/login';  // 로그인 페이지로 이동
+       } else {
+           // 로그인된 경우에만 저장 작업 진행
+           alert('저장 목록에 추가되었습니다!');
+       }
+   });
+</script>
+
+
 
 <!-- 5일 3시간 간격 -->
 <script>

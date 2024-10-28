@@ -19,27 +19,44 @@ import lombok.AllArgsConstructor;
 public class TravelPostServiceImpl implements TravelPostService {
 
     private final TravelPostDAO travelPostDAO;
-    
+
     // 여행기 포스트를 작성하고, 태그를 추가하는 메서드
     @Override
     @Transactional
     public int insertTravelPost(TravelPostVO vo, HttpServletRequest request) {
+        // 게시글을 먼저 삽입하고 tp_idx를 가져옵니다.
         int result = travelPostDAO.insertTravelPost(vo);
 
-        // 태그가 있을 경우 태그 저장 로직
-        if (vo.getTags() != null && !vo.getTags().isEmpty()) {
-            for (String tag : vo.getTags()) {
-                Map<String, Object> params = Map.of("tp_idx", vo.getTp_idx(), "tag", tag);
-                // 중복 태그가 아니면 저장
-                int count = travelPostDAO.checkDuplicateTag(params);
-                if (count == 0) {
-                    travelPostDAO.insertTag(params);
-                }
-            }
+        // 게시글 삽입이 성공적으로 완료된 경우에만 태그를 추가합니다.
+        Integer tp_idx = vo.getTp_idx(); // 새로 생성된 tp_idx를 가져옵니다.
+        if (result > 0 && tp_idx != null) {
+            // 태그 추가 로직 수행
+            insertTagsForPost(tp_idx, vo.getTags());
+        } else {
+            throw new IllegalStateException("게시글 삽입 실패 또는 tp_idx 누락");
         }
 
         return result;
     }
+
+
+    // 게시글에 태그 삽입 및 중복 확인 로직을 캡슐화한 메서드
+    private void insertTagsForPost(int tp_idx, List<String> tags) {
+        if (tags == null || tags.isEmpty()) {
+            return;
+        }
+
+        for (String tag : tags) {
+            Map<String, Object> params = Map.of("tp_idx", tp_idx, "tag", tag);
+            if (travelPostDAO.checkDuplicateTag(params) == 0) {
+                travelPostDAO.insertTag(params);
+            } else {
+                System.out.println("중복된 태그: " + tag);
+            }
+        }
+    }
+
+
 
     // 태그 삽입 메서드
     @Override
@@ -127,7 +144,7 @@ public class TravelPostServiceImpl implements TravelPostService {
     }
 
     @Override
-	public List<Map<String, Object>> getRandomTravelPost(int limit) {
-		return travelPostDAO.getRandomTravelPost(limit);
-	}
+    public List<Map<String, Object>> getRandomTravelPost(int limit) {
+        return travelPostDAO.getRandomTravelPost(limit);
+    }
 }

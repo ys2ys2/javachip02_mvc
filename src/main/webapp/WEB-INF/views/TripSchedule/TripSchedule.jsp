@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.human.web.vo.M_MemberVO" %>
 
 
 
@@ -26,10 +25,7 @@
 
 </head>
 <body>
-<% 
-    M_MemberVO member = (M_MemberVO) session.getAttribute("member");
-    System.out.println("프로필 이미지 경로: " + member.getM_profile());
-%>
+
  <!-- 어두운 배경 -->
  <div class="overlay"></div>
  <header>
@@ -48,26 +44,25 @@
        </ul>
      </nav>
      <div class="member">
-        <c:choose>
-          <c:when test="${not empty member}">
-            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <div class="welcome">
-                <span class="userprofile"><img src="${pageContext.request.contextPath}${member.m_profile}" alt="user-profile"></span>
-                ${member.m_nickname}님 환영합니다!
-            </div>
-            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
-            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
-              <button type="submit">로그아웃</button>
-            </form>
-          </c:when>
-          <c:otherwise>
-            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
-            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
-          </c:otherwise>
-        </c:choose>
-
-      </div>
+       <c:choose>
+         <c:when test="${not empty sessionScope.member}">
+           <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
+           <div class="welcome">
+           	<span class="userprofile"><img src="${sessionScope.member.m_profile}" alt="user-profile"></span>
+           	${sessionScope.member.m_nickname}님 환영합니다!
+           </div>
+           <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
+           <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
+             <button type="submit">로그아웃</button>
+           </form>
+         </c:when>
+         <c:otherwise>
+           <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
+           <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
+           <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
+         </c:otherwise>
+       </c:choose>
+     </div>
    </div>
 </header>
 

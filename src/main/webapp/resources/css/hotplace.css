@@ -402,6 +402,7 @@ html {
   font-weight: bold;
   display: flex;
   align-items: center;
+  margin-top: 50px;
 }
 
 .h_talk h2 span {
@@ -870,7 +871,6 @@ html {
 /* 전체 영역 */
 .weather_area {
   width: 100%;
-  padding: 20px;
   box-sizing: border-box;
   font-family: 'SUIT-Regular', sans-serif;
 }

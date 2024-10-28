@@ -4,7 +4,6 @@
 <%@ page import="org.json.JSONObject, org.json.JSONArray" %>
 <%@ page import="java.io.IOException, java.util.ArrayList, java.util.HashMap, java.util.List, java.util.Map" %>
 <%@ page import="java.util.Random" %>
-<%@ page import="java.util.Random" %>
 
 <%
             // 사용자 입력값 가져오기
@@ -124,7 +123,6 @@
         <!-- 콘텐츠 ID로 상세정보 검색하기 입력 폼 추가 -->
         <div class="search-detail-container">
             <h2>콘텐츠 ID로 상세정보 검색하기</h2>
-            <form action="${pageContext.request.contextPath}/HotPlace/processDetailApi" method="post">
             <form action="${pageContext.request.contextPath}/HotPlace/processDetailApi" method="post">
                 <label class="searchContentId" for="contentIds">콘텐츠 ID:</label>
                 <input type="text" id="contentIds" name="contentIds" placeholder="체크된 컨텐츠 ID가 여기에 표시됩니다." required>

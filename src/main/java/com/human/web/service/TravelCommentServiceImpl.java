@@ -42,4 +42,9 @@ public class TravelCommentServiceImpl implements TravelCommentService {
     public void updateTravelComment(int commentId, String commentContent) {
         travelCommentDAO.updateTravelComment(commentId, commentContent);
     }
+
+	@Override
+	public int getCommentAuthorId(int commentId) {
+		return travelCommentDAO.getCommentAuthorId(commentId);
+	}
 }

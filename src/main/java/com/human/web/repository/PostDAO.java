@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.human.web.vo.CommentVO;
-import com.human.web.vo.MypageVO;
 import com.human.web.vo.PostVO;
 
 @Repository
@@ -34,7 +33,6 @@ public class PostDAO {
         return sqlSession.selectList(POST_MAPPER + ".getAllPosts");
     }
 
-    // 특정 게시글 조회
     public PostVO getPostById(int postId) {
         return sqlSession.selectOne(POST_MAPPER + ".getPostById", postId);
     }
@@ -64,28 +62,23 @@ public class PostDAO {
         return sqlSession.selectList(COMMENT_MAPPER + ".getCommentsByPostId", postId);
     }
 
-    // 댓글 추가
     public void insertComment(CommentVO comment) {
         sqlSession.insert(COMMENT_MAPPER + ".insertComment", comment);
     }
 
-    // 댓글 삭제
     public void deleteComment(int commentId) {
         sqlSession.delete(COMMENT_MAPPER + ".deleteComment", commentId);
     }
 
-    // 댓글 수 업데이트
     public void updateCommentCount(int postId) {
         System.out.println("댓글 수 업데이트 - postId: " + postId);
-        sqlSession.update(POST_MAPPER + ".updateCommentCount", postId);
+        sqlSession.update(POST_NAMESPACE + ".updateCommentCount", postId);
     }
 
-    public boolean isLikedByUser(int postId, String userId) {
+    public boolean isLikedByUser(int postId, int m_idx) {
         Map<String, Object> params = new HashMap<>();
         params.put("postId", postId);
-        params.put("userId", userId);
-        return sqlSession.selectOne(POST_MAPPER + ".isLikedByUser", params);
+        params.put("m_idx", m_idx);
+        return sqlSession.selectOne(POST_NAMESPACE + ".isLikedByUser", params);
     }
-
-    
 }

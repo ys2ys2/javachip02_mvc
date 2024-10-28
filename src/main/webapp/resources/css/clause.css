@@ -58,10 +58,60 @@
   font-style: normal;
 }
 
+/* 파셜산스체 */
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
 body {
   background-color: white;;
   align-items: center;
-  font-family: 'NanumSquareRoundR', sans-serif;
+  font-family: 'SUIT-Regular', sans-serif;
   width: 100%; 
   margin: 0 auto; /* 가로 방향으로 가운데 정렬 */
 }
@@ -75,6 +125,7 @@ body {
   justify-content: center; /* 가로 방향 중앙 정렬 */
   align-items: center; /* 세로 방향 중앙 정렬 */
   text-align: center; /* 텍스트 중앙 정렬 */
+  font-family: 'SUIT-Regular', sans-serif;
   
 }
 
@@ -145,6 +196,7 @@ body {
 .introimg h2 {
   color: black;
   margin: 0; /* 상하 여백 제거 */
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
   
 
 }
@@ -152,6 +204,7 @@ body {
 .introimg h1 {
 	color: black;
 	font-size: 48px;
+	font-family: 'Paperlogy-8ExtraBold', sans-serif;
 	
 }
 
@@ -166,6 +219,7 @@ body {
   margin: 20px auto; /* 상하 여백을 추가하고, 좌우는 자동으로 정렬 */
   line-height: 1.5; /* 줄 간격 조정 */
   max-width:100%;
+  font-family: 'SUIT-Regular', sans-serif;
   
 }
 

@@ -61,5 +61,12 @@
         FROM hotplace
         LIMIT #{limit} OFFSET #{offset}
     </select>
+    
+    <select id="getmatzipDetailById" resultType="Map">
+        SELECT contentid, title, firstimage, addr1, overview, menu, tel
+        FROM s_matzip
+        WHERE contentid = #{contentid}
+    </select>
+    
 
 </mapper>

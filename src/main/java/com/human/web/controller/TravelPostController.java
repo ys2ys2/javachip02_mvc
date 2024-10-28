@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import com.human.web.service.TravelCommentService;
 import com.human.web.service.TravelLikeService;
 import com.human.web.service.TravelPostService;
 import com.human.web.util.FileManager;
+import com.human.web.vo.M_MemberVO;
 import com.human.web.vo.TravelMediaVO;
 import com.human.web.vo.TravelPostVO;
 
@@ -41,32 +43,47 @@ public class TravelPostController {
         return "Community/c_board/travelWrite"; // JSP 파일 경로 (views 폴더 내)
     }
 
-    // 여행기 작성 처리 메서드
     @PostMapping("/travel/writeProcess")
-    public String writeProcess(TravelPostVO vo, @RequestParam String tags, @RequestParam MultipartFile[] uploadFiles,
-                               HttpServletRequest request) {
+    public String writeProcess(
+            TravelPostVO vo, 
+            @RequestParam String tags, 
+            @RequestParam MultipartFile[] uploadFiles,
+            HttpServletRequest request) {
+
+        // 세션에서 member 객체를 가져옴
+        M_MemberVO member = (M_MemberVO) request.getSession().getAttribute("member");
+
+        if (member == null) {
+            // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
+        // member 객체에서 m_idx와 m_nickname을 추출하여 설정
+        vo.setM_idx(member.getM_idx());
+        vo.setWriter(member.getM_nickname());
+
+        // 여행기 포스트 작성
         int result = travelPostService.insertTravelPost(vo, request);
 
         if (result == 1) {
-            // 태그 저장 로직 (태그 문자열을 ',' 기준으로 나누어 각 태그를 DB에 저장)
+            // 태그 처리 로직
             String[] tagList = tags.split(",");
             for (String tag : tagList) {
-                tag = tag.trim(); // 태그 공백 제거
+                tag = tag.trim();
                 Map<String, Object> params = new HashMap<>();
                 params.put("tp_idx", vo.getTp_idx());
                 params.put("tag", tag);
 
-                // 중복 확인 후, 태그 삽입
-                int count = travelPostService.checkDuplicateTag(params);
-                if (count == 0) {
-                    travelPostService.insertTag(params); // 중복이 없을 경우에만 태그 저장
+                // 중복 확인 후 태그 삽입
+                if (travelPostService.checkDuplicateTag(params) == 0) {
+                    travelPostService.insertTag(params);
                 }
             }
 
-            // 첨부파일 처리 (업로드된 파일이 있을 경우 처리)
+            // 첨부파일 처리 로직
             for (MultipartFile file : uploadFiles) {
                 if (!file.isEmpty()) {
-                    TravelMediaVO mediaVO = fileManager.handleFile(file, request); // 파일 처리
+                    TravelMediaVO mediaVO = fileManager.handleFile(file, request);
                     mediaVO.setTp_idx(vo.getTp_idx()); // 여행기 ID 설정
                     travelPostService.insertTravelMedia(mediaVO); // DB에 파일 정보 저장
                 }
@@ -75,6 +92,8 @@ public class TravelPostController {
 
         return "redirect:/Community/c_main"; // 작성 후 커뮤니티 메인 페이지로 이동
     }
+
+
     
     @GetMapping("/travelPostList")
     public String showTravelPostListPage(Model model) {
@@ -120,22 +139,36 @@ public class TravelPostController {
         return response;
     }
 
- // 여행기 상세 페이지로 이동하는 메서드
+  
+    // 여행기 상세 페이지로 이동하는 메서드
     @GetMapping("/travelPostDetail/{tp_idx}")
-    public String travelPostDetail(@PathVariable("tp_idx") int tp_idx, Model model) {
-        TravelPostVO post = travelPostService.getTravelPost(tp_idx);
-        
-        String currentUserId = "guest_user";  // 현재 로그인된 사용자의 ID를 가져오는 로직 필요
-        boolean isLiked = travelLikeService.likeExists(tp_idx, currentUserId);
+    public String travelPostDetail(@PathVariable("tp_idx") int tp_idx, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        M_MemberVO member = (M_MemberVO) session.getAttribute("member");
 
+        if (member == null) {
+            return "redirect:/login"; // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
+        }
+
+        // 로그인한 사용자 정보를 모델에 추가
+        model.addAttribute("member", member);
+
+        // 여행기 정보 및 좋아요 상태 추가
+        TravelPostVO post = travelPostService.getTravelPost(tp_idx);
+
+        // 좋아요 상태 및 개수 추가
+        boolean isLiked = travelLikeService.likeExists(tp_idx, member.getM_idx());
         int likeCount = travelLikeService.getLikeCount(tp_idx);
-        post.setLiked(isLiked);  // 사용자가 좋아요를 눌렀는지 여부 설정
+
+        post.setLiked(isLiked);
         model.addAttribute("post", post);
-        model.addAttribute("likeCount", likeCount);  // likeCount를 모델에 추가
-       
-        
-        return "Community/c_board/travelPostDetail";
+        model.addAttribute("likeCount", likeCount);
+
+        return "Community/c_board/travelPostDetail"; // 여행기 상세 페이지로 이동
     }
+
+
+
 
     // 파일 다운로드 기능
     @GetMapping("/download")

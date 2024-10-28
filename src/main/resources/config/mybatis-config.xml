@@ -22,6 +22,14 @@
     <typeAlias alias="travelmediaVO" type="com.human.web.vo.TravelMediaVO"/>
     
     <typeAlias alias="tagInsertVO" type="com.human.web.vo.TagInsertVO"/>
+    
+    <!-- 희진 -->
+    <typeAlias alias="ecVO" type="com.human.web.vo.EventsCommentsVO"/>
+  	<typeAlias alias="eventRow" type="com.human.web.vo.SeoulEventApiVO$Row"/>
+  	<typeAlias alias="SeoulMatzip" type="com.human.web.vo.SeoulMatzipApiVO$Row"/>
+    <typeAlias alias="DaeEvent" type="com.human.web.vo.DaejeonEventApiVO$Item"/>
+    <typeAlias alias="Damat" type="com.human.web.vo.DaejeonMatzipApiVO$Damat"/>
+  	<typeAlias alias="smcVO" type="com.human.web.vo.SeoulMatzipCommentsVO" />
   	    
   	
   	

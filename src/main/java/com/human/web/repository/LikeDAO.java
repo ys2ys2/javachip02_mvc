@@ -15,17 +15,17 @@ public class LikeDAO {
 
     private static final String MAPPER = "com.human.web.mapper.LikeMapper";
 
-    public void insertLike(int postId, String userId) {
+    public void insertLike(int postId, Integer m_idx) {
         Map<String, Object> params = new HashMap<>();
         params.put("postId", postId);
-        params.put("userId", userId);
+        params.put("m_idx", m_idx);
         sqlSession.insert(MAPPER + ".insertLike", params);
     }
 
-    public void deleteLike(int postId, String userId) {
+    public void deleteLike(int postId, Integer m_idx) {
         Map<String, Object> params = new HashMap<>();
         params.put("postId", postId);
-        params.put("userId", userId);
+        params.put("m_idx", m_idx);
         sqlSession.delete(MAPPER + ".deleteLike", params);
     }
 
@@ -33,17 +33,15 @@ public class LikeDAO {
         sqlSession.update(MAPPER + ".updateLikeCount", postId);
     }
 
-    public boolean likeExists(int postId, String userId) {
+    public boolean likeExists(int postId, Integer m_idx) {
         Map<String, Object> params = new HashMap<>();
         params.put("postId", postId);
-        params.put("userId", userId);
+        params.put("m_idx", m_idx);
         Integer result = sqlSession.selectOne(MAPPER + ".likeExists", params);
-        return result != null && result > 0; // 좋아요가 존재하면 true 반환
+        return result != null && result > 0;
     }
 
-    // 좋아요 개수를 가져오는 메소드 구현
     public int getLikeCount(int postId) {
         return sqlSession.selectOne(MAPPER + ".getLikeCount", postId);
     }
 }
-

@@ -1,6 +1,7 @@
 package com.human.web.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -45,7 +46,12 @@ public class EventsServiceImpl implements EventsService {
 	        return false; // 실패 시 false 반환
 	    }
 	}
-	
+
+	//t_main_img url 가져오기
+	@Override
+	public List<Map<String, Object>> getRandomEventImages() {
+		return dao.getRandomEventImages();
+	}
 
 	
 

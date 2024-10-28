@@ -78,7 +78,6 @@
 /* 바깥 배너 컨테이너: 고정된 크기와 위치 설정 */
 body {
   background-color: white;
-  background-color: white;
   align-items: center;
   font-family: 'NanumSquareRoundR', sans-serif;
   width: 100%; 
@@ -96,7 +95,6 @@ body {
 .main-container {
   width: 100%;
   max-width: 100%;
-  background-color: white;
   background-color: white;
 }
 
@@ -127,19 +125,15 @@ body {
   width: 190%;
   height: 100%;
   overflow: hidden;
-  overflow: hidden;
 }
 
 .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: white;
-  background: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  background-color:transparent;
   width: 100%;
   background-color:transparent;
 }
@@ -149,7 +143,6 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 15px;
   border-radius: 15px;
 }
 
@@ -176,7 +169,6 @@ body {
 .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
-  background-color: white;
   background-color: white;
   opacity: 0.5;
   margin: 0 5px;
@@ -239,7 +231,6 @@ body {
 .description-box {
   max-width: 24vh;
   /* padding: 20px; */
-  background-color: white;
   background-color: white;
   position: relative;
   display: flex;
@@ -465,7 +456,7 @@ tfamous h2 {
 .Community {
   margin-bottom: 10vh;
   background-color: white;
-  margin-top: 20vh;
+  margin-top: 23vh;
   width: 100%;
   justify-content: center;
   font-family: 'Paperlogy-8ExtraBold', sans-serif;
@@ -494,6 +485,7 @@ tfamous h2 {
   justify-content: center;
   align-items: center;
   width: 100%;
+  marg
 }
 
 .community-item {
@@ -559,8 +551,9 @@ tfamous h2 {
 .c_intro {
 	margin-bottom: 2vh;
 	color: black;
-	font-size: 22px;
+	font-size: 25px;
 	font-weight: bold;
+	font-family: 'Paperlogy-8ExtraBold', sans-serif;
 	
 }
 
@@ -662,37 +655,112 @@ tfamous h2 {
 /* 이벤트 섹션 스타일 */
 .event-section {
   margin-bottom: 50px;
-  background-color: white;
-  background-color: white;
+  background-color: #f88e38a6;
+  width: 100%;
+  height: 800px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  font-family: 'Paperlogy-8ExtraBold', sans-serif;
+  flex-direction: column;
+  
+  
 }
+
 
 .event-section h2 {
   margin-left: 20px;
   font-family: 'Paperlogy-8ExtraBold', sans-serif;
 }
 
+
+.event-header {
+	display:flex;
+	justify-content: center;
+	flex-direction: column;
+	margin: 10px auto;
+	padding: 50px;
+	align-items: center;
+}
+
+.header_white {
+	color: white;
+	font-family: 'Paperlogy-8ExtraBold', sans-serif;
+	font-size: 45px;
+}
+
+.header_brown {
+	color: #4f3a39;
+	font-family: 'Paperlogy-8ExtraBold', sans-serif;
+	font-size: 45px;
+}
+
+.event-header a {
+	color: black;
+	font-family: 'SUIT-Regular', sans-serif;
+	font-size: 15px;
+	margin-top: 10px;
+	text-decoration: none;
+	width: auto;
+	height: auto;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	
+	
+}
+
+.event-header img {
+	width: 14px;
+	height: 14px;
+	margin-left: 3px;
+}
+
+
+
 .event-list {
   display: flex;
-  gap: 20px;
   overflow-x: auto; /* 가로 스크롤 가능하게 설정 */
-  padding: 20px;
   justify-content: space-between;
+  width: 100%; /* Swiper 전체 너비 */
+  overflow: hidden;
 
 }
 
-/* 이미지 대신 사용할 플레이스홀더 */
-.event-list .image-placeholder {
-  width: 400px;
-  height: 200px; /* 고정된 높이 */
-  background-color: #04BF20; /* 이미지가 없는 동안의 배경 색상 */
-  border-radius: 10px; /* 테두리 둥글게 */
+.event-list-wrapper {
+  display: flex;
+  width: auto;
+  height: 300px;
+  padding: 20px 0; /* 위아래 여백 추가 */
+  
 }
 
-/* 텍스트 스타일 */
-.event-item p {
+/* Swiper 슬라이드 스타일 */
+.event_swiper-slide {
   text-align: center;
-  font-size: 18px;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 50px;
+  margin-top: 10px;
+  
 }
+
+.event_swiper-slide img {
+  width: 100%;
+  height: 350px;
+  object-fit: contain;
+  
+}
+
+.event_span {
+    margin-top: 10px !important;
+	font-size: 15px; !important;
+	text-align: center;
+}
+
 
 /* 푸터 스타일 */
 .footer {
@@ -1204,4 +1272,81 @@ newhotplace-header img {
 	display: inline-block;
 	margin-top: 10px;
 }
+
+/* 오른쪽 하단에 고정된 이미지 버튼 스타일 */
+.floating-button {
+    position: fixed;  /* 화면에 고정 */
+    bottom: 30px;     /* 하단에서 20px 띄움 */
+    right: 20px;      /* 오른쪽에서 20px 띄움 */
+    width: 50px;      /* 버튼 이미지 크기 */
+    height: 50px;
+    z-index: 1000;    /* 다른 요소 위에 표시되도록 설정 */
+    cursor: pointer;
+}
+
+.floating-button img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10%;  /* 이미지가 원형으로 보이도록 설정 */
+   
+}
+
+/* endtitle 스타일 */
+.endtitle {
+    text-align: center;
+    margin: 60px 0;
+}
+
+.endtitle p {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: 'Paperlogy-8ExtraBold', sans-serif;
+	color: #4f3a39;
+    
+}
+
+/* organization-container 및 리스트 스타일 */
+.organization-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 50px 0;
+}
+
+.organization-list {
+    display: flex;
+    animation: scroll 500s linear infinite;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap; /* 한 줄로 표시 */
+    width: max-content;
+    
+}
+
+.organization-list li {
+    list-style-type: none;
+    width: 200px;
+    height: 200px;
+    background-size: contain; /* 이미지 크기 조정 */
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+/* 스크롤 애니메이션 */
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-100%); }
+}
+
+
+
 

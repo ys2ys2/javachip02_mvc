@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.human.web.service.BannerPlaceService;
 import com.human.web.service.DataPlaceService;
+import com.human.web.service.EventsService;
 import com.human.web.service.HotPlaceService;
 import com.human.web.service.TalkService;
 import com.human.web.service.TravelPostService;
@@ -39,6 +40,9 @@ public class MainPageController {
 
 	@Autowired
 	private TravelPostService travelPostService;
+	
+	@Autowired
+	private EventsService eventsService;
 
 	// 핫플 테이블의 상세 정보를 랜덤으로 가져오기
 	@GetMapping("/HomePage/mainpage")
@@ -49,6 +53,12 @@ public class MainPageController {
 		List<Map<String, Object>> dataplaceDetails = dataPlaceService.getRandomDataPlace(4); // 빅데이터 부분
 		// 랜덤 travelpost 가져오기
 		List<Map<String, Object>> travelPost = travelPostService.getRandomTravelPost(4);
+		
+		// 랜덤 travelpost 가져와서 누르면 해당 포스트에 link하기
+		
+		
+		// 이벤트 이미지 가져오기 (9개)
+		List<Map<String, Object>> eventImages = eventsService.getRandomEventImages();
 
 		// JSP로 데이터 전달
 		model.addAttribute("hotplaceDetails", hotplaceDetails);
@@ -56,6 +66,8 @@ public class MainPageController {
 		model.addAttribute("dataplaceDetails", dataplaceDetails);
 		// 랜덤 travelpost
 		model.addAttribute("travelPost", travelPost);
+		//이벤트 이미지
+		model.addAttribute("eventImages", eventImages);
 
 		return "HomePage/mainpage"; // mainpage.jsp로 이동
 

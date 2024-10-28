@@ -169,3 +169,8 @@ button:hover {
 .inputApi {
     font-family: 'SUIT-Regular', sans-serif;
 }
+
+.inputApi1 {
+	font-family: 'SUIT-Regular', sans-serif;
+	margin-top: 10px;
+}

@@ -23,11 +23,43 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("/Member") // 공통으로 적용되는 URL 정의
 // lombok을 적용해서 생성자를 이용한 의존 자동주입
+@RequestMapping("/Member") // 공통으로 적용되는 URL 정의
+// lombok을 적용해서 생성자를 이용한 의존 자동주입
 @RequiredArgsConstructor
 public class M_MemberController {
 
+
 	private final M_MemberService m_memberServiceImpl;
 
+	// 회원가입 페이지
+	@GetMapping("/joinmain")
+	public String joinmain() {
+		return "Member/joinmain"; // 회원가입 폼으로 이동
+	}
+
+	// 이메일 회원가입 페이지
+	@GetMapping("/join")
+	public String join() {
+		return "Member/join"; // 회원가입 폼으로 이동
+	}
+
+	// 프로필 변경
+	@GetMapping("/m_updateProfile")
+	public String m_updateProfile() {
+		return "Member/m_updateProfile"; // 프로필 변경
+	}
+
+	// 회원정보찾기
+	@GetMapping("/m_findId")
+	public String m_findId() {
+		return "Member/m_findId"; // 회원정보찾기
+	}
+
+	// 회원가입 처리 요청
+	@PostMapping("/joinProcess")
+	public String joinProcess(@ModelAttribute M_MemberVO memberVO, Model model) {
+		// 회원가입 결과를 처리할 뷰 이름 초기화
+		String viewName = "Member/join"; // 회원가입 실패 시 반환할 뷰
 	// 회원가입 페이지
 	@GetMapping("/joinmain")
 	public String joinmain() {
@@ -61,7 +93,24 @@ public class M_MemberController {
 		// MemberServiceImpl 클래스를 통해 회원가입 요청 처리
 		int result = m_memberServiceImpl.insertM_Member(memberVO);
 		System.out.println("insertM_Member 반환값: " + result); // 반환값 확인
+		// MemberServiceImpl 클래스를 통해 회원가입 요청 처리
+		int result = m_memberServiceImpl.insertM_Member(memberVO);
+		System.out.println("insertM_Member 반환값: " + result); // 반환값 확인
 
+		// 회원가입 성공 여부 확인 (m_idx가 0보다 크면 성공)
+		if (result > 0) {
+			viewName = "redirect:/"; // 성공 시 메인 페이지로 리다이렉트
+		} else {
+			// 회원가입 실패 시 오류 메시지를 모델에 저장
+			model.addAttribute("msg", "회원가입이 정상적으로 이루어지지 않았습니다.");
+		}
+		// 회원가입 성공 여부 확인 (m_idx가 0보다 크면 성공)
+		if (result > 0) {
+			viewName = "redirect:/"; // 성공 시 메인 페이지로 리다이렉트
+		} else {
+			// 회원가입 실패 시 오류 메시지를 모델에 저장
+			model.addAttribute("msg", "회원가입이 정상적으로 이루어지지 않았습니다.");
+		}
 		// 회원가입 성공 여부 확인 (m_idx가 0보다 크면 성공)
 		if (result > 0) {
 			viewName = "redirect:/"; // 성공 시 메인 페이지로 리다이렉트

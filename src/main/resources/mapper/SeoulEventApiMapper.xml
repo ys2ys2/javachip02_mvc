@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.web.mapper.SeoulEventApiMapper">
+
+    <!-- 모든 이벤트 가져오기 -->
+     <select id="getAllEvents" resultType="eventRow">
+          SELECT 
+            t_codename AS CODENAME, 
+            t_guname AS GUNAME,
+            t_title AS TITLE,
+            t_date AS DATE,
+            t_place AS PLACE,
+            t_use_trgt AS USE_TRGT,
+            t_use_fee AS USE_FEE,
+            t_org_link AS ORG_LINK,
+            t_main_img AS MAIN_IMG,
+            t_rgstdate AS RGSTDATE
+        FROM 
+            t_events
+        ORDER BY 
+            t_idx ASC
+    </select>
+
+    <!-- 서울 공공데이터 삽입 -->
+    <insert id="insertSeoul">
+	
+		insert into t_events (t_codename, t_guname, t_title, t_date, t_place, t_use_trgt, t_use_fee, t_org_link, t_main_img, t_rgstdate)
+			<trim prefix="values" suffixOverrides=",">
+				<foreach item="row" collection="array">
+					( #{row.CODENAME}, #{row.GUNAME}, #{row.TITLE}, #{row.DATE}, #{row.PLACE}, #{row.USE_TRGT}, #{row.USE_FEE}, #{row.ORG_LINK}, #{row.MAIN_IMG}, #{row.RGSTDATE} ),
+				</foreach>
+			</trim>
+	</insert>
+
+</mapper>
+
+

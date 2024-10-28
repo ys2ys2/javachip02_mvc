@@ -16,20 +16,20 @@
         SELECT COUNT(*) 
         FROM travel_post_like 
         WHERE tp_idx = #{tp_idx} 
-        AND user_id = #{userId}
+        AND m_idx = #{m_idx} <!-- user_id를 m_idx로 변경 -->
     </select>
 
     <!-- 좋아요 추가 -->
     <insert id="insertLike" parameterType="map">
-        INSERT INTO travel_post_like (tp_idx, user_id) 
-        VALUES (#{tp_idx}, #{userId})
+        INSERT INTO travel_post_like (tp_idx, m_idx) <!-- user_id를 m_idx로 변경 -->
+        VALUES (#{tp_idx}, #{m_idx})
     </insert>
 
     <!-- 좋아요 삭제 -->
     <delete id="deleteLike" parameterType="map">
         DELETE FROM travel_post_like 
         WHERE tp_idx = #{tp_idx} 
-        AND user_id = #{userId}
+        AND m_idx = #{m_idx} <!-- user_id를 m_idx로 변경 -->
     </delete>
 
     <!-- 좋아요 개수 업데이트 -->

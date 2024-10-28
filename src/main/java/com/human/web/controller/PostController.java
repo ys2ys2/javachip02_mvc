@@ -2,6 +2,7 @@ package com.human.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.human.web.service.LikeService;
 import com.human.web.service.PostService;
 import com.human.web.vo.M_MemberVO;
 import com.human.web.vo.PostVO;
@@ -25,65 +27,59 @@ public class PostController {
 
     @Autowired
     private PostService postService;
-
+    private LikeService likeService;
     // 게시글 목록 조회 (JSON 응답)
-    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
+ 
+    @GetMapping("/list")
     public ResponseEntity<List<PostVO>> getPostList() {
         List<PostVO> posts = postService.getAllPosts();
-        return ResponseEntity.ok(posts); // 상태 코드와 함께 반환
+        // posts에 post_writer 값이 제대로 채워져 있는지 확인하기 위해 로그 출력
+        posts.forEach(post -> System.out.println("Post Writer: " + post.getPost_writer()));
+        return ResponseEntity.ok(posts);
     }
 
+    
     // 특정 게시글 조회 (상세 보기)
     @GetMapping("/detail/{postId}")
     public ResponseEntity<PostVO> getPostDetail(@PathVariable int postId) {
-        System.out.println("요청된 게시글 ID: " + postId); // 로그 추가
+        System.out.println("요청된 게시글 ID: " + postId);
         PostVO post = postService.getPostById(postId);
-        if (post != null) {
-            System.out.println("게시글 조회 성공: " + post);
-            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(post);
-        } else {
+        
+        if (post == null) {
             System.out.println("게시글을 찾을 수 없습니다.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+        
+        System.out.println("게시글 조회 성공: " + post);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(post);
     }
 
-    // 예슬 추가: 게시글 작성 처리 (JSON 응답)
+
+
+    // 게시글 작성 처리 (JSON 응답)
     @PostMapping("/create")
-    public ResponseEntity<String> createPost(HttpSession session, @RequestBody PostVO post) {
-        // 세션에서 로그인한 사용자 정보 가져오기
+    public ResponseEntity<String> createPost(@RequestBody PostVO post, HttpSession session) {
         M_MemberVO member = (M_MemberVO) session.getAttribute("member");
 
-        // 세션에 저장된 m_idx 값을 PostVO 객체에 설정
-        if (member != null) {
-            int m_idx = member.getM_idx(); // 세션에서 m_idx 가져오기
-            post.setM_idx(m_idx); // PostVO에 m_idx 설정
-        } else {
-            // 세션에 member 정보가 없으면 에러 처리
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 된 유저가 없음");
+        if (member == null) {
+            System.out.println("로그인된 사용자 정보가 없습니다. 작성 불가.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
 
-        // 서비스 계층에 게시글 생성 요청
-        int result = postService.createPost(post);
+        // 세션에서 가져온 사용자 정보로 게시글 작성자 정보 설정
+        post.setM_idx(member.getM_idx());  // m_idx 설정
+        post.setPost_writer(member.getM_nickname());  // post_writer에 닉네임 설정
+        System.out.println("게시글 작성 요청 - m_idx: " + post.getM_idx() + ", 작성자: " + post.getPost_writer());
 
-        // 성공 시 201 응답, 실패 시 500 응답 반환
+        int result = postService.createPost(post);
         if (result == 1) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("SUCCESS"); // 성공 시 201 응답
+            return ResponseEntity.status(HttpStatus.CREATED).body("SUCCESS");
         } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ERROR"); // 실패 시 500 응답
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ERROR");
         }
     }
 
-    /*
-     * 영준이 코드
-     * 
-     * // 게시글 작성 처리 (JSON 응답)
-     * 
-     * @PostMapping("/create") public ResponseEntity<String> createPost(@RequestBody
-     * PostVO post) { int result = postService.createPost(post); if (result == 1) {
-     * return ResponseEntity.status(HttpStatus.CREATED).body("SUCCESS"); // 성공 시 201
-     * 응답 } else { return
-     * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ERROR"); // 실패
-     * 시 500 응답 } }
-     */
+
+
 
 }
