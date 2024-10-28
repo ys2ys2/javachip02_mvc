@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <h1>뽈뽈뽈</h1>
-        <h1>서울 맛집 API DB 조회, 저장</h1>
+        <h1>맛집 API DB 조회, 저장</h1>
         <form action="${pageContext.request.contextPath}/Matzip/processMatzipCodeApi" method="post">
             <label for="regionCode">음식점 ID :</label>
             <input type="text" id="restaurantIds" name="restaurantIds" placeholder="예: 1583, 1917, 5216" required>
@@ -22,6 +22,9 @@
             <input type="text" id="restaurantNames" name="restaurantNames" placeholder="예: 원조한치, 미성옥, 삼호복집" required>
             <button class="inputApi" type="submit">API 데이터 조회하기</button>
         </form>
+        <a href="https://www.data.go.kr/data/15097008/fileData.do" target="_blank">
+           	<button class="inputApi1">음식점 정보 .csv 다운받기</button>
+        </a>
     </div>
 </body>
 
