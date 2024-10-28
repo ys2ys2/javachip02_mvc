@@ -57,23 +57,27 @@ $(document).ready(function () {
             return;
         }
 
-        let postData = { m_idx: m_idx, content: postContent };
-        $.ajax({
-            type: 'POST',
-            url: `${contextPath}/post/create`,
-            contentType: 'application/json',
-            data: JSON.stringify(postData),
-            success: function () {
-                alert('게시글이 작성되었습니다.');
-                $('#postWriteModal').fadeOut();
-                loadPosts();
-            },
-            error: function (xhr) {
+let postData = { m_idx: m_idx, content: postContent };
+    $.ajax({
+        type: 'POST',
+        url: `${contextPath}/post/create`,
+        contentType: 'application/json',
+        data: JSON.stringify(postData),
+        success: function () {
+            alert('게시글이 작성되었습니다.');
+            $('#postWriteModal').fadeOut();
+            loadPosts();
+        },
+        error: function (xhr) {
+            if (xhr.status === 401) {
+                alert('로그인이 필요합니다.');
+            } else {
                 console.error("게시글 작성 중 오류 발생:", xhr.responseText);
                 alert('게시글 작성 중 오류가 발생했습니다.');
             }
-        });
+        }
     });
+});
 
     $('#postList').on('click', '.post', function () {
         const post_id = this.dataset.postId;

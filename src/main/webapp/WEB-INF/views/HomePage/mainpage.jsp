@@ -431,24 +431,6 @@
 
 	<div class="mainratio">
 	
-	<%-- <!-- 인기 여행지 섹션 -->
-	<div class="famous">
-	  <h2>인기 여행지</h2>
-	  <div class="famous-list">
-	    <!-- Model에서 전달된 hotplaceTitles 출력 -->
-	    <c:forEach var="hotplace" items="${hotplaceDetails}">
-	      <div class="famous-item" onmouseover="expandImage(this)">
-	        <a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
-	          <div class="image-container">
-	            <img src="${hotplace.firstimage}" alt="${hotplace.title}" class="timage-placeholder" />
-	          </div>
-	          <p>${hotplace.title}</p>
-	        </a>
-	      </div>
-	    </c:forEach>
-	  </div>
-	</div> --%>
-
 
     <!-- 인기 커뮤니티 섹션 -->
     <div class="Community">
@@ -464,7 +446,8 @@
         	  <c:forEach var="post" items="${travelPost}">
 			    <div class="board-item">
             		<div class="board-title">${post.tag_name} 여행기</div> <!-- 매칭된 tag_name 출력 -->
-			    	<a href="#"><span class="board-desc">${post.content}</span></a> <!-- content 출력 -->
+			    	<a href="${pageContext.request.contextPath}/Community/travelPostDetail/${post.tp_idx}">
+			    	<span class="board-desc">${post.content}</span></a> <!-- content 출력 -->
 			    </div>
 			  </c:forEach>
         	</div>

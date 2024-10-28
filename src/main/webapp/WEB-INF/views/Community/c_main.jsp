@@ -20,6 +20,25 @@
     <script type="text/javascript">
         var contextPath = "${pageContext.request.contextPath}";
     </script>
+    
+	<script type="text/javascript">
+	// 로그인 체크 함수
+	function checkLoginAndRedirect(targetUrl) {
+	    // 로그인 사용자 정보를 hidden input으로 확인
+	    const m_idx = document.getElementById('loggedUserIdx').value;
+	
+	    if (!m_idx) { // m_idx가 없으면 로그인 상태가 아님
+	        alert("로그인이 필요합니다.");
+	        window.location.href = `\${contextPath}/Member/login`; // 로그인 페이지로 리다이렉트
+	        return false;
+	    } else {
+	        // 로그인 상태이면 지정된 URL로 이동
+	        window.location.href = targetUrl;
+	        return true;
+	    }
+	}
+	</script>
+    
 </head>
 <body>
 		<!-- 로그인한 사용자 정보 hidden input으로 전달 -->
@@ -49,7 +68,7 @@
         <div class="travel-header">
         	<h3>여행기 게시글 목록</h3>
         	<div class="travel-buttons">
-            	<button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/Community/travelWrite'">여행기 작성하기</button>
+            	<button class="write-btn" onclick="checkLoginAndRedirect('${pageContext.request.contextPath}/Community/travelWrite')">여행기 작성하기</button>
             	<button class="view-all-btn" onclick="location.href='${pageContext.request.contextPath}/Community/travelPostList'">여행기 전체보기</button>
         	</div>
     	</div>

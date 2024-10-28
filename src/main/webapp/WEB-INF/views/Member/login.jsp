@@ -16,6 +16,14 @@
     <title>로그인</title>
 </head>
 <body>
+
+<!-- 로그인 필요 메시지 알림 -->
+  <c:if test="${not empty loginMessage}">
+      <script>
+          alert("${loginMessage}");
+      </script>
+  </c:if>
+
   <!-- 어두운 배경 -->
   <div class="overlay"></div>
   <header>

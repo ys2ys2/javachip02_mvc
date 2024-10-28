@@ -117,6 +117,7 @@ public class TravelPostDAO {
         sqlSession.update(MAPPER + ".updateCommentCount", tpIdx);
     }
 
+    //랜덤으로 게시글 가져오기
 	public List<Map<String, Object>> getRandomTravelPost(int limit) {
 		return sqlSession.selectList(MAPPER + ".getRandomTravelPost", limit);
 	}
