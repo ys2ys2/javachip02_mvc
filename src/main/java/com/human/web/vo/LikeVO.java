@@ -5,17 +5,17 @@ import java.time.LocalDateTime;
 public class LikeVO {
     private int likeId;           // 좋아요 ID
     private int postId;           // 게시글 ID
-    private String userId;        // 좋아요를 누른 사용자 ID
+    private int m_idx;            // 좋아요를 누른 사용자의 회원 ID
     private LocalDateTime likeDate; // 좋아요 누른 날짜
 
     // 기본 생성자
     public LikeVO() {}
 
     // 매개변수 생성자
-    public LikeVO(int likeId, int postId, String userId, LocalDateTime likeDate) {
+    public LikeVO(int likeId, int postId, int m_idx, LocalDateTime likeDate) {
         this.likeId = likeId;
         this.postId = postId;
-        this.userId = userId;
+        this.m_idx = m_idx;
         this.likeDate = likeDate;
     }
 
@@ -36,12 +36,12 @@ public class LikeVO {
         this.postId = postId;
     }
 
-    public String getUserId() {
-        return userId;
+    public int getM_idx() {
+        return m_idx;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setM_idx(int m_idx) {
+        this.m_idx = m_idx;
     }
 
     public LocalDateTime getLikeDate() {
@@ -57,7 +57,7 @@ public class LikeVO {
         return "LikeVO{" +
                 "likeId=" + likeId +
                 ", postId=" + postId +
-                ", userId='" + userId + '\'' +
+                ", m_idx=" + m_idx +
                 ", likeDate=" + likeDate +
                 '}';
     }

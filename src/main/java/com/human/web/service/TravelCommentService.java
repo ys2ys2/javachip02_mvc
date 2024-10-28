@@ -8,4 +8,5 @@ public interface TravelCommentService {
     void addCommentToTravelPost(TravelCommentVO comment);        // 댓글 추가
     void deleteTravelComment(int commentId);                     // 댓글 삭제
     void updateTravelComment(int commentId, String commentContent);  // 댓글 수정
+	int getCommentAuthorId(int commentId);
 }

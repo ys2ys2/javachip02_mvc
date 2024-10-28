@@ -1,14 +1,13 @@
 package com.human.web.repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.human.web.vo.TravelCommentVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.human.web.vo.TravelCommentVO;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class TravelCommentDAO {
@@ -40,4 +39,8 @@ public class TravelCommentDAO {
         paramMap.put("commentContent", commentContent);
         sqlSession.update(MAPPER + ".updateTravelComment", paramMap);
     }
+
+	public int getCommentAuthorId(int commentId) {
+		 return sqlSession.selectOne(MAPPER + ".getCommentAuthorId", commentId);
+	}
 }

@@ -28,4 +28,8 @@ public class CommentDAO {
     public void deleteComment(int commentId) {
         sqlSession.delete(MAPPER + ".deleteComment", commentId);
     }
+    // 댓글 작성자 확인 메서드
+	public Integer getCommentAuthor(int commentId) {
+		return sqlSession.selectOne(MAPPER + ".getCommentAuthor", commentId);
+	}
 }

@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 
 public class TravelLikeVO {
     private int likeId;
-    private int tpIdx;
-    private String userId;
-    private LocalDateTime likeDate;
+    private int tp_idx;               // 여행기 ID
+    private Integer m_idx;            // 사용자 ID (m_idx로 변경)
+    private LocalDateTime likeDate;   // 좋아요 누른 날짜
 
     public TravelLikeVO() {}
 
-    public TravelLikeVO(int likeId, int tpIdx, String userId, LocalDateTime likeDate) {
+    public TravelLikeVO(int likeId, int tp_idx, Integer m_idx, LocalDateTime likeDate) {
         this.likeId = likeId;
-        this.tpIdx = tpIdx;
-        this.userId = userId;
+        this.tp_idx = tp_idx;
+        this.m_idx = m_idx;
         this.likeDate = likeDate;
     }
 
@@ -25,20 +25,20 @@ public class TravelLikeVO {
         this.likeId = likeId;
     }
 
-    public int getTpIdx() {
-        return tpIdx;
+    public int getTp_idx() {
+        return tp_idx;
     }
 
-    public void setTpIdx(int tpIdx) {
-        this.tpIdx = tpIdx;
+    public void setTp_idx(int tp_idx) {
+        this.tp_idx = tp_idx;
     }
 
-    public String getUserId() {
-        return userId;
+    public Integer getM_idx() {
+        return m_idx;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setM_idx(Integer m_idx) {
+        this.m_idx = m_idx;
     }
 
     public LocalDateTime getLikeDate() {
@@ -53,8 +53,8 @@ public class TravelLikeVO {
     public String toString() {
         return "TravelLikeVO{" +
                 "likeId=" + likeId +
-                ", tpIdx=" + tpIdx +
-                ", userId='" + userId + '\'' +
+                ", tp_idx=" + tp_idx +
+                ", m_idx=" + m_idx +
                 ", likeDate=" + likeDate +
                 '}';
     }

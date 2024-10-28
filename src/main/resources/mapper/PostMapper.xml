@@ -5,62 +5,63 @@
 
 <mapper namespace="com.human.web.mapper.PostMapper">
 
-   <!-- 모든 게시글 조회 및 좋아요 개수 포함 -->
-	<select id="getAllPosts" resultType="com.human.web.vo.PostVO">
-    	SELECT 
-       		p.post_id AS id,
-        	p.post_writer AS writer,
-        	p.post_content AS content,
-        	p.post_date AS postDate,
-        	(SELECT COUNT(*) FROM comment c WHERE c.post_id = p.post_id) AS commentCount,
-        	(SELECT COUNT(*) FROM post_like l WHERE l.post_id = p.post_id) AS likeCount
-    	FROM post p
-    	ORDER BY p.post_date DESC;
-	</select>
+    <!-- 모든 게시글 조회 및 좋아요 개수 포함 -->
+    
+<select id="getAllPosts" resultType="com.human.web.vo.PostVO">
+    SELECT 
+        p.post_id AS id,
+        p.m_idx AS m_idx,
+        p.post_writer AS post_writer, <!-- post_writer 필드 추가 -->
+        p.post_content AS content,
+        p.post_date AS postDate,
+        (SELECT COUNT(*) FROM comment c WHERE c.post_id = p.post_id) AS commentCount,
+        (SELECT COUNT(*) FROM post_like l WHERE l.post_id = p.post_id) AS likeCount
+    FROM post p
+    ORDER BY p.post_date DESC;
+</select>
+    
+
    
+<insert id="createPost" parameterType="com.human.web.vo.PostVO">
+    INSERT INTO post (m_idx, post_writer, post_content)
+    VALUES (#{m_idx}, #{post_writer}, #{content});
+</insert>
+
     
-     <!-- 게시글 생성 -->
-   <!--  <insert id="createPost" parameterType="com.human.web.vo.PostVO">
-        INSERT INTO post (post_writer, post_content)
-        VALUES (#{writer}, #{content});
-    </insert>  -->
-	
-	 <!-- 게시글 생성 --> <!--예슬 추가: #{m_idx}  -->
-    <insert id="createPost" parameterType="com.human.web.vo.PostVO">
-        INSERT INTO post (post_writer, post_content, m_idx)
-        VALUES (#{writer}, #{content}, #{m_idx});
-    </insert>
     
-	
-	<update id="updateCommentCount">
+
+    <!-- 댓글 수 업데이트 -->
+   
+<update id="updateCommentCount">
     UPDATE post
     SET comment_count = (SELECT COUNT(*) FROM comment WHERE post_id = #{postId})
     WHERE post_id = #{postId};
-	</update>
-	
-	<!-- 특정 사용자가 게시글에 좋아요를 눌렀는지 여부 확인 -->
-	<select id="isLikedByUser" parameterType="map" resultType="boolean">
-    	SELECT COUNT(*) > 0
-    	FROM post_like
-    	WHERE post_id = #{postId} AND user_id = #{userId};
-	</select>
-	
-	
-	<!-- 특정 게시글 조회 및 좋아요 개수, 사용자의 좋아요 여부 포함 -->
-<select id="getPostById" parameterType="map" resultType="com.human.web.vo.PostVO">
+</update>
+
+    
+
+    <!-- 특정 사용자가 게시글에 좋아요를 눌렀는지 여부 확인 -->
+    <select id="isLikedByUser" parameterType="map" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM post_like
+        WHERE post_id = #{postId} AND m_idx = #{mIdx};  <!-- 변경: user_id -> m_idx -->
+    </select>
+
+    <!-- 특정 게시글 조회 및 좋아요 개수, 사용자의 좋아요 여부 포함 -->
+    <select id="getPostById" parameterType="int" resultType="com.human.web.vo.PostVO">
     SELECT 
         p.post_id AS id, 
-        p.post_writer AS writer, 
-        p.post_content AS content, 
+        p.m_idx AS m_idx,
+        p.post_writer AS post_writer,  <!-- 여기에 post_writer 추가 -->
+        p.post_content AS content,
         p.post_date AS postDate,
         (SELECT COUNT(*) FROM comment c WHERE c.post_id = p.post_id) AS commentCount,
         (SELECT COUNT(*) FROM post_like l WHERE l.post_id = p.post_id) AS likeCount,
-        (SELECT COUNT(*) > 0 FROM post_like l WHERE l.post_id = #{postId} AND l.user_id = #{userId}) AS isLiked
+        (SELECT COUNT(*) > 0 FROM post_like l WHERE l.post_id = #{postId} AND l.m_idx = #{m_idx}) AS isLiked
     FROM post p 
     WHERE p.post_id = #{postId};
 </select>
-	
-	
-	
-	
+    
+    
+
 </mapper>

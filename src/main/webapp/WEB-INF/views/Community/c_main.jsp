@@ -22,21 +22,16 @@
     </script>
 </head>
 <body>
-    <div class="overlay"></div>
+		<!-- 로그인한 사용자 정보 hidden input으로 전달 -->
+<input type="hidden" id="loggedUserIdx" value="${member.m_idx}">
+<input type="hidden" id="loggedUserNickname" value="${member.m_nickname}">
+<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}" />
+	
+	<!-- header -->
+    
+    <jsp:include page="/WEB-INF/views/Components/header.jsp" />
 
-    <header>
-        <div class="header-container">
-            <div class="logo">BBOL BBOL BBOL</div>
-            <nav>
-                <ul>
-                    <li><a href="#">홈</a></li>
-                    <li><a href="#">커뮤니티</a></li>
-                    <li><a href="#">여행지</a></li>
-                    <li><a href="#">여행뽈뽈</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+   
 
     <div class="container">
         <!-- 왼쪽 컨텐츠 (게시글 목록) -->
@@ -103,7 +98,9 @@
 
                 <!-- 좋아요 버튼 섹션 추가 -->
                 <div class="like-section">
-                    <button id="likeButton">좋아요</button>
+                    <button id="likeButton" data-liked="${post.liked}" data-like-count="${likeCount}">
+    						<span class="like-count">좋아요 (${likeCount})</span>
+					</button>
                 </div>
 
                 <!-- 댓글 섹션 -->
@@ -121,10 +118,13 @@
         </div>
     </div>
 
-   
+    <!-- footer -->
+    <jsp:include page="/WEB-INF/views/Components/footer.jsp" />
 
     <script src="${pageContext.request.contextPath}/resources/js/post.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/travelpost.js"></script>
+    
+  
     
 </body>
 </html>

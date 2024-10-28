@@ -53,6 +53,10 @@ public class MainPageController {
 		List<Map<String, Object>> dataplaceDetails = dataPlaceService.getRandomDataPlace(4); // 빅데이터 부분
 		// 랜덤 travelpost 가져오기
 		List<Map<String, Object>> travelPost = travelPostService.getRandomTravelPost(4);
+		
+		// 랜덤 travelpost 가져와서 누르면 해당 포스트에 link하기
+		
+		
 		// 이벤트 이미지 가져오기 (9개)
 		List<Map<String, Object>> eventImages = eventsService.getRandomEventImages();
 

@@ -1,10 +1,8 @@
 package com.human.web.service;
 
+import com.human.web.repository.LikeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.human.web.repository.LikeDAO;
-
 
 @Service
 public class LikeServiceImpl implements LikeService {
@@ -13,31 +11,30 @@ public class LikeServiceImpl implements LikeService {
     private LikeDAO likeDAO;
 
     @Override
-    public void addLike(int postId, String userId) {
-        if (likeExists(postId, userId)) {
+    public void addLike(int postId, Integer m_idx) {
+        if (likeExists(postId, m_idx)) {
             throw new IllegalArgumentException("이미 좋아요를 누른 게시글입니다.");
         }
-        likeDAO.insertLike(postId, userId);
-        likeDAO.updateLikeCount(postId); // 좋아요 개수 업데이트
+        likeDAO.insertLike(postId, m_idx);
+        likeDAO.updateLikeCount(postId);
     }
 
     @Override
-    public void removeLike(int postId, String userId) {
-        if (!likeExists(postId, userId)) {
+    public void removeLike(int postId, Integer m_idx) {
+        if (!likeExists(postId, m_idx)) {
             throw new IllegalArgumentException("좋아요가 존재하지 않습니다.");
         }
-        likeDAO.deleteLike(postId, userId);
-        likeDAO.updateLikeCount(postId); // 좋아요 개수 업데이트
+        likeDAO.deleteLike(postId, m_idx);
+        likeDAO.updateLikeCount(postId);
     }
 
     @Override
-    public boolean likeExists(int postId, String userId) {
-        return likeDAO.likeExists(postId, userId);
+    public boolean likeExists(int postId, Integer m_idx) {
+        return likeDAO.likeExists(postId, m_idx);
     }
 
     @Override
     public int getLikeCount(int postId) {
-        return likeDAO.getLikeCount(postId); // LikeDAO에서 좋아요 개수를 가져옴
+        return likeDAO.getLikeCount(postId);
     }
 }
-

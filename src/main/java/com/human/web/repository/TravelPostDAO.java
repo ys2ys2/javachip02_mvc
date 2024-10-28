@@ -121,4 +121,8 @@ public class TravelPostDAO {
 		return sqlSession.selectList(MAPPER + ".getRandomTravelPost", limit);
 	}
 
+	public String findNicknameByIdx(int m_idx) {
+		return sqlSession.selectOne(MAPPER + ".findNicknameByIdx", m_idx);
+	}
+
 }

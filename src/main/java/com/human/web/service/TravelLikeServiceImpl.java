@@ -11,26 +11,26 @@ public class TravelLikeServiceImpl implements TravelLikeService {
     private TravelLikeDAO travelLikeDAO;
 
     @Override
-    public void addLike(int tp_idx, String userId) {
-        if (likeExists(tp_idx, userId)) {
+    public void addLike(int tp_idx, Integer m_idx) {
+        if (likeExists(tp_idx, m_idx)) {
             throw new IllegalArgumentException("이미 좋아요를 누른 여행기입니다.");
         }
-        travelLikeDAO.insertLike(tp_idx, userId);
+        travelLikeDAO.insertLike(tp_idx, m_idx);
         travelLikeDAO.updateLikeCount(tp_idx);
     }
 
     @Override
-    public void removeLike(int tp_idx, String userId) {
-        if (!likeExists(tp_idx, userId)) {
+    public void removeLike(int tp_idx, Integer m_idx) {
+        if (!likeExists(tp_idx, m_idx)) {
             throw new IllegalArgumentException("좋아요가 존재하지 않습니다.");
         }
-        travelLikeDAO.deleteLike(tp_idx, userId);
+        travelLikeDAO.deleteLike(tp_idx, m_idx);
         travelLikeDAO.updateLikeCount(tp_idx);
     }
 
     @Override
-    public boolean likeExists(int tp_idx, String userId) {
-        return travelLikeDAO.likeExists(tp_idx, userId);
+    public boolean likeExists(int tp_idx, Integer m_idx) {
+        return travelLikeDAO.likeExists(tp_idx, m_idx);
     }
 
     @Override
