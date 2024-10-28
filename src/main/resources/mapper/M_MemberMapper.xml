@@ -45,7 +45,7 @@
     
        <!-- Google ID로 회원 정보를 조회하는 쿼리 -->
     <select id="getMemberByGoogleId" parameterType="string" resultType="com.human.web.vo.M_MemberVO">
-        SELECT m_idx, m_email, m_password, m_nickname, m_status, m_registration_type
+        SELECT m_idx, m_email, m_password, m_nickname, m_status, m_registration_type,  m_profile
         FROM m_member
         WHERE m_email = #{googleId}
     </select>

@@ -32,10 +32,19 @@ public class M_MemberServiceImpl implements M_MemberService {
 		Map<String, String> map = new HashMap<>();
 		map.put("m_email", m_email);
 		map.put("m_password", m_password);
+		//DAO에서 로그인 정보로 회원 조회
+		M_MemberVO member = dao.login(map);
 		
-		return dao.login(map);
-	}
+		//조회된 회원이 탈퇴 상태인지 확인
+		if(member != null && " deleted".equals(member.getM_status())) {
+			return null;
+		}
+		
+		return member; //탈퇴하지 않은 회원의 경우 member 반환
+		}
 
+	
+	
 	//이메일 중복체크 
 	@Override
 	public int checkId(String m_email) {

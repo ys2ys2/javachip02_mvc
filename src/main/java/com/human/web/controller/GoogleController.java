@@ -43,6 +43,7 @@ public class GoogleController {
             M_MemberVO memberVO = googleService.handleGoogleLoginCallback(code); // 로그인 처리
 
             if (memberVO != null) {
+            	
                 session.setAttribute("member", memberVO); // 로그인 정보 세션에 저장
                 return "redirect:/"; // 로그인 성공 시 메인 페이지로 이동
             }

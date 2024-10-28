@@ -155,9 +155,9 @@ public class HomeController {
 	}
 	
 	//자주묻는 질문
-	@GetMapping("/MyPage/FAQ")
+	@GetMapping("/HomePage/FAQ")
 	public String FAQ() {
-		return "MyPage/FAQ";
+		return "HomePage/FAQ";
 	}
 	
 	/*
