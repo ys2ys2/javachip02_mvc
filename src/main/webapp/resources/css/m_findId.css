@@ -12,7 +12,9 @@
     font-weight: 400;
     font-style: normal;
 }
-
+body {
+    margin: 0 auto;
+}
 /* 아이디/비밀번호 찾기 폼 전체 컨테이너 */
 #idForm, #passwordForm {
   display: flex;

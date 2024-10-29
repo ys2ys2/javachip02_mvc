@@ -28,6 +28,11 @@
     font-style: normal;
 }
 
+
+body {
+    margin: 0 auto;
+}
+
 .navigation {
     position: absolute;
     top: 130px; /* 뷰포트 기준으로 상단에서 120px */
@@ -323,5 +328,5 @@
     position: relative; /* 상대적 위치 설정 */
     top: -5px;
 	left: 10px;
-	color: navy;
+	color: darkkhaki;
 }
