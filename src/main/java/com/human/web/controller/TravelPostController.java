@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.human.web.service.TravelCommentService;
 import com.human.web.service.TravelLikeService;
 import com.human.web.service.TravelPostService;
 import com.human.web.util.FileManager;
@@ -36,7 +36,6 @@ public class TravelPostController {
     private final TravelPostService travelPostService;
     private final FileManager fileManager;
     private final TravelLikeService travelLikeService;
-    private final TravelCommentService travelCommentService;
     // 여행기 작성 페이지로 이동하는 메서드
     @GetMapping("/travelWrite")
     public String showTravelWritePage() {
@@ -139,15 +138,15 @@ public class TravelPostController {
         return response;
     }
 
-  
-    // 여행기 상세 페이지로 이동하는 메서드
+    // tp_idx로 상세페이지 만들기
     @GetMapping("/travelPostDetail/{tp_idx}")
-    public String travelPostDetail(@PathVariable("tp_idx") int tp_idx, Model model, HttpServletRequest request) {
+    public String travelPostDetail(@PathVariable("tp_idx") int tp_idx, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
         M_MemberVO member = (M_MemberVO) session.getAttribute("member");
 
         if (member == null) {
-            return "redirect:/login"; // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
+            redirectAttributes.addFlashAttribute("loginMessage", "로그인이 필요합니다.");
+            return "redirect:/Member/login";
         }
 
         // 로그인한 사용자 정보를 모델에 추가

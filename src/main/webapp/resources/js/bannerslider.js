@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
 
   // 전체 슬라이드 수 구하기
-  var totalSlides = document.querySelectorAll('.swiper-wrapper .swiper-slide:not(.swiper-slide-duplicate)').length;
+  var totalSlides = document.querySelectorAll('.swiper-wrapper .swiper-slide:not(.swiper-slide-duplicate)').length - 9;
   document.querySelector('.total-slides').textContent = String(totalSlides).padStart(2, '0');
   document.querySelector('.current-slide').textContent = String(swiper.realIndex + 1).padStart(2, '0');
 

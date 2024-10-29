@@ -166,8 +166,10 @@
         SELECT m_nickname FROM m_member WHERE m_idx = #{m_idx}
     </select>
     
+     <!-- 메인페이지에 랜덤게시글 가져오기 -->
      <select id ="getRandomTravelPost" parameterType="int" resultType="com.human.web.vo.TravelPostVO">
         SELECT
+        	t.tp_idx,
             t.content,  
             tg.tag_name        
         FROM

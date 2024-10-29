@@ -143,6 +143,7 @@ public class TravelPostServiceImpl implements TravelPostService {
         return travelPostDAO.countPostsByFilterAndQuery(filter, query);
     }
 
+    //랜덤으로 커뮤니티 가져오기
     @Override
     public List<Map<String, Object>> getRandomTravelPost(int limit) {
         return travelPostDAO.getRandomTravelPost(limit);

@@ -374,9 +374,7 @@ public class HomeController {
         return "HomePage/FAQ";
     }
     
-        
     
-        
         
     // matzipDetail.jsp
     @Autowired

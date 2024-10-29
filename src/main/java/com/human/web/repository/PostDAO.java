@@ -21,9 +21,7 @@ public class PostDAO {
     private static final String POST_NAMESPACE = "com.human.web.mapper.PostMapper";
     private static final String COMMENT_NAMESPACE = "com.human.web.mapper.CommentMapper";
     private static final String MYPAGE_MAPPER = "com.human.web.mapper.MypageMapper";
-    
-    
-    
+
     public List<PostVO> getAllPosts() {
         return sqlSession.selectList(POST_NAMESPACE + ".getAllPosts");
     }
@@ -60,20 +58,18 @@ public class PostDAO {
         return sqlSession.selectOne(POST_NAMESPACE + ".isLikedByUser", params);
     }
 
+    // 예슬: m_mypage 테이블에 데이터 삽입
+    public int createPostAndMypage(PostVO post) {
+        int result = sqlSession.insert(POST_NAMESPACE + ".createPost", post);
 
+        if (result > 0) {
+            MypageVO mypage = new MypageVO();
+            mypage.setM_idx(post.getM_idx()); // m_idx 값 설정
 
-//예슬: m_mypage 테이블에 데이터 삽입
-public int createPostAndMypage(PostVO post) {
-    int result = sqlSession.insert(POST_NAMESPACE + ".createPost", post);
+            sqlSession.insert(MYPAGE_MAPPER + ".insertMypage", mypage);
+        }
 
-    if (result > 0) {
-        MypageVO mypage = new MypageVO();
-        mypage.setM_idx(post.getM_idx()); // m_idx 값 설정
-
-        sqlSession.insert(MYPAGE_MAPPER + ".insertMypage", mypage);
+        return result;
     }
-
-    return result;
-}
 
 }

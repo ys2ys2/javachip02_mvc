@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../resources/css/journal.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/journal.css?v=1.0">
 <!-- jQuery를 사용하기 위한 API 추가 -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
 
@@ -28,86 +26,19 @@
 </head>
 <body>
 
-<div class="journal-section">
-    <!-- 제목 -->
-    <div class="section-title1">서울 여행기</div>
-
-<div class="image-container">
-    <!-- 이미지 1 -->
-    <div class="image-item">
-        <img src="${pageContext.request.contextPath}/resources/images/T_1.png" alt="Seoul Trip 1">
-        <div class="image-description">
-            <span class="category">TRAVEL</span>
-            <span class="date">2024.08.05~2024.08.08</span>
-            <div class="image-title">언제가도 다채로운 서울 여행</div>
-            <div class="author">보리공주님</div>
-        </div>
-        <!-- 아이콘 영역 -->
-        <div class="icon-container">
-            <i class="fa-solid fa-comment-dots"></i><span class="icon-text">${commentCount}</span>
-            <i class="fa-solid fa-heart"></i><span class="icon-text">${commentCount}</span>
-            <i class="fa-solid fa-eye"></i><span class="icon-text">${commentCount}</span>
-        </div>
-    </div>
-
-    <!-- 이미지 2 -->
-    <div class="image-item">
-        <img src="${pageContext.request.contextPath}/resources/images/T_1.png" alt="Seoul Trip 2">
-        <div class="image-description">
-            <span class="category">TRAVEL</span>
-            <span class="date">2024.08.05~2024.08.08</span>
-            <div class="image-title">언제가도 다채로운 서울 여행</div>
-            <div class="author">보리공주님</div>
-        </div>
-        <!-- 아이콘 영역 -->
-        <div class="icon-container">
-            <i class="fa-solid fa-comment-dots"></i><span class="icon-text">${commentCount}</span>
-            <i class="fa-solid fa-heart"></i><span class="icon-text">${commentCount}</span>
-            <i class="fa-solid fa-eye"></i><span class="icon-text">${commentCount}</span>
-        </div>
-    </div>
-
-    <!-- 이미지 3 -->
-    <div class="image-item">
-        <img src="${pageContext.request.contextPath}/resources/images/T_1.png" alt="Seoul Trip 3">
-        <div class="image-description">
-            <span class="category">TRAVEL</span>
-            <span class="date">2024.08.05~2024.08.08</span>
-            <div class="image-title">언제가도 다채로운 서울 여행</div>
-            <div class="author">보리공주님</div>
-        </div>
-        <!-- 아이콘 영역 -->
-        <div class="icon-container">
-            <i class="fa-solid fa-comment-dots"></i><span class="icon-text">0</span>
-            <i class="fa-solid fa-heart"></i><span class="icon-text">0</span>
-            <i class="fa-solid fa-eye"></i><span class="icon-text">0</span>
-        </div>
-    </div>
-
-    <!-- 이미지 4 -->
-    <div class="image-item">
-        <img src="${pageContext.request.contextPath}/resources/images/T_1.png" alt="Seoul Trip 4">
-        <div class="image-description">
-            <span class="category">TRAVEL</span>
-            <span class="date">2024.08.05~2024.08.08</span>
-            <div class="image-title">언제가도 다채로운 서울 여행</div>
-            <div class="author">보리공주님</div>
-        </div>
-        <!-- 아이콘 영역 -->
-        <div class="icon-container">
-            <i class="fa-solid fa-comment-dots"></i><span class="icon-text">0</span>
-            <i class="fa-solid fa-heart"></i><span class="icon-text">0</span>
-            <i class="fa-solid fa-eye"></i><span class="icon-text">0</span>
-        </div>
-    </div>
-    </div>
-</div>
-
 
 <!-- 여행 일정 -->
 <div class="schedule-section">
-    <div class="section-title">지금 여행일정 고민중이라고요?</div>
-    <div class="schedule-main-title">서울 여행일정</div>
+    <!-- 네모 박스에 차는 제목 -->
+    
+    
+      <div class="section-title">지금 여행일정 고민중이라고요?</div>
+    
+
+    <!-- 서울 여행일정 제목 -->
+    <div class="schedule-main-title-box">
+        <div class="schedule-main-title">서울 여행일정</div>
+    </div>
 
     <!-- 일정 3개 가로로 배치 -->
     <div class="schedule-container">
@@ -172,46 +103,14 @@
     </div>
  </div>
 
-<div class="hot-spot-section">
-    <div class="section-title">테마가 있는 여행을 즐겨보세요!</div>
-    <div class="hot-spot-main-title">서울 여행뽈뽈</div>
 
-    <!-- 뜨고 있는 장소 4개 가로로 배치 -->
-    <div class="image-container">
-        <div class="image-item1">
-            <img src="${pageContext.request.contextPath}/resources/images/T_3.png" alt="등대해수욕장">
-            <div class="image-description">
-                <div class="image-title">등대해수욕장</div>
-            </div>
-        </div>
-
-        <div class="image-item1">
-            <img src="${pageContext.request.contextPath}/resources/images/T_3.png" alt="해수욕장 2">
-            <div class="image-description">
-                <div class="image-title">등대해수욕장</div>
-            </div>
-        </div>
-
-        <div class="image-item1">
-            <img src="${pageContext.request.contextPath}/resources/images/T_3.png" alt="해수욕장 3">
-            <div class="image-description">
-                <div class="image-title">등대해수욕장</div>
-            </div>
-        </div>
-
-        <div class="image-item1">
-            <img src="${pageContext.request.contextPath}/resources/images/T_3.png" alt="해수욕장 4">
-            <div class="image-description">
-                <div class="image-title">등대해수욕장</div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- 뜨고 있는 장소 섹션 -->
 <div class="hot-spot-section">
-    <div class="section-title2">지금 서울 뜨고있는 장소가 궁금해?</div>
+    <div class="section2-title">지금 서울 뜨고있는 장소가 궁금해?</div>
+       <div class="schedule2-main-title-box">
     <div class="hot-spot-main-title1">서울 핫플</div>
+    </div>
 
     <!-- 뜨고 있는 장소 4개 가로로 배치 -->
     <div class="image-container">
@@ -251,25 +150,45 @@
 
 <!-- 핫플 섹션 -->
 <div class="restaurant-section">
-    <div class="section-title3">우리 동네 맛집이 궁금해?</div>
+    <div class="section3-title">우리 동네 맛집이 궁금해?</div>
+       <div class="schedule3-main-title-box">
     <div class="restaurant-main-title">서울 맛집</div>
+    </div>
 
     <div class="image-container">
-        <!-- matzipList를 반복하면서 각 맛집의 정보를 출력 -->
-        <c:forEach var="matzip" items="${matzipList}">
-            <div class="image-item3">
-                <!-- 각 맛집을 클릭하면 해당 contentid를 가진 상세 페이지로 이동 -->
-                <a href="${pageContext.request.contextPath}/matzip/${matzip.contentid}" class="image-item3">
-                    <!-- firstimage에 저장된 첫 번째 URL을 이미지 src로 설정 -->
-                    <img src="${matzip.firstimage}" alt="${matzip.title}">
-                    <div class="image-title">${matzip.title}</div>
-                    <div class="image-description">
-                        <!-- 맛집 제목과 주소를 출력 -->
-                        <%-- <div class="location">${matzip.addr1}</div> --%>
-                    </div>
-                </a>
+        <div class="image-item3">
+             <a href="${pageContext.request.contextPath}/Matzip/seoulFamous" class="image-item3">
+            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
+          <div class="image-description">
+                <div class="image-title">중화일상</div>
+                <div class="location">서울특별시 송파구</div>
             </div>
-        </c:forEach>
+          </a>
+        </div>
+
+        <div class="image-item3">
+            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
+            <div class="image-description">
+                <div class="image-title">중화일상 2</div>
+                <div class="location">서울특별시 송파구</div>
+            </div>
+        </div>
+
+        <div class="image-item3">
+            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
+            <div class="image-description">
+                <div class="image-title">중화일상 3</div>
+                <div class="location">서울특별시 송파구</div>
+            </div>
+        </div>
+
+        <div class="image-item3">
+            <img src="${pageContext.request.contextPath}/resources/images/T_5.png" alt="중화일상">
+            <div class="image-description">
+                <div class="image-title">중화일상 4</div>
+                <div class="location">서울특별시 송파구</div>
+            </div>
+        </div>
     </div>
 </div>
 

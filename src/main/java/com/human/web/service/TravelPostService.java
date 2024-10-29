@@ -49,6 +49,7 @@ public interface TravelPostService {
 
     int countPostsByFilterAndQuery(String filter, String query);
 
+    // 랜덤으로 메인페이지에 TravelPost 가져오기
 	List<Map<String, Object>> getRandomTravelPost(int limit);
 	 
 	
