@@ -22,7 +22,7 @@
   
   <!-- 상단 네비게이션 -->
   <div class="navigation">
-   	<a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지 홈</a>
+   	 <a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지 홈</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_myTrips">내 여행</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_myJourneys">내 게시글</a>
      <a href="${pageContext.request.contextPath}/MyPage/m_savedList">저장목록</a>

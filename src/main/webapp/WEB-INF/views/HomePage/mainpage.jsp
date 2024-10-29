@@ -720,6 +720,10 @@
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
+    autoplay: {
+    	delay: 3000,
+    	disableOnInteraction: false,	//사용자 상호작용 후에도 자동 슬라이드 유지
+    },
   });
 </script>
 

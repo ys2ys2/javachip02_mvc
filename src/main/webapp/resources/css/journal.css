@@ -1,362 +1,367 @@
-/* 여행기 섹션 */
+
+/* 전체 섹션의 마진과 패딩을 초기화 */
 .journal-section {
-    padding: 150px 30px 30px 30px;
-    background-color: #ffffff;
-    margin-bottom: 30px;
+    padding: 0; /* 기본 패딩을 제거 */
+    margin: 0; /* 기본 마진을 제거 */
+    position: relative;
 }
 
-/* 여행기 제목 스타일 */
-.journal-section .section-title1 {
-    margin-top: -50px; /* 위쪽 여백  */
-   padding-right: 955px; /* 오른쪽에서 떨어지게 설정 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    font-size: 28px; /* 제목 폰트 크기 28px */
-    font-weight: bold; /* 제목 굵게 설정 */
-    margin-bottom: 20px; /* 제목과 다음 요소 간의 간격 20px */
-    top: 30px; /* 상단에서 30px 떨어진 위치에 고정 */
-    z-index: 10; /* 다른 요소 위로 올리기 위해 z-index 설정 */
+/* 제목 네모 박스 스타일 */
+.section-title-box {
+    background-color: #125677; /* 네모 박스 배경색 */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: -210px; /* 제목 박스를 위로 올림 */
+    width: calc(100% - 20%); /* 양쪽 10%씩 여백을 줌 */
+    z-index: 1;
+    position: absolute; /* 절대 위치로 배경에 꽉 차게 */
+    left: 10%; /* 왼쪽 여백 10% */
+    right: 10%; /* 오른쪽 여백 10% */
+    box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
+     margin-bottom: 0; /* 이미지 컨테이너와의 간격을 없앰 */
 }
 
-/* 이미지 컨테이너 - 중앙 정렬 */
-.journal-section .image-container {
-    display: flex;
-    justify-content: center; /* 중앙 정렬 */
-    flex-direction: row; /* 가로 정렬 */
-    gap: 20px; /* 아이템 간 간격 */
-    flex-wrap: nowrap; /* 아이템이 넘치더라도 줄 바꿈 없음 */
- 
-}
-
-.journal-section .image-item {
-    width: 260px; /* 아이템 너비 */
-    height: 170px; /* 아이템 높이 */
-    margin: 30px 0; /* 위아래 여백만 주고 좌우는 0 */
-    text-align: center; 
-}
-
-.journal-section .image-item img {
-    width: 100%; 
-    height: 100%; /* 부모 요소에 맞게 높이 조정 */
-    object-fit: cover; 
-    border-radius: 10px; 
-}
-
-.journal-section .image-description {
-    text-align: left;
-    margin-top: 10px;
-}
-
-.journal-section .category {
+/* 제목 텍스트 스타일 */
+.section-title1 {
+    font-size: 20px;
     font-weight: bold;
-    color: #7FFF00; /* 연두색 */
-    margin-right: 10px; /* 날짜와의 간격 */
+    margin: 0; /* 텍스트 자체의 여백을 없앰 */
 }
 
-.journal-section .date {
-    font-weight: normal; /* 기본 글꼴 굵기 */
+/* 이미지 컨테이너 */
+.image-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+    margin-top: 0; /* 제목과의 간격을 없앰 */
+    padding: 0;
 }
 
-.journal-section .category, .date {
-    display: inline-block;
-    vertical-align: middle; /* 한 줄로 정렬 */
+.image-item {
+    width: 260px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    margin-top: -100px; /* 위로 350px 이동 */
+    margin-bottom: 0; /* 아래쪽 여백 제거 */
+    margin-left: 0;
+    margin-right: 0;
+}
+/* "1박2일" 배지 스타일 */
+.badge {
+    background-color: #125677; /* 배지 배경색 */
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 8px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 4px;
+    z-index: 2; /* 이미지 위로 배치 */
 }
 
-.journal-section .image-title {
-    text-align: left; 
+/* 이미지 */
+.image-item img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0; /* 상단 모서리만 둥글게 */
+}
+
+/* 이미지 설명 */
+.image-description {
+    text-align: left;
+    padding: 10px;
+}
+
+.category {
+    font-weight: bold;
+    color: #125677;
+    margin-right: 10px;
+}
+
+.date {
+    font-weight: normal;
+}
+
+.image-title {
     font-size: 18px;
     font-weight: bold;
-    margin: 10px 0; /* 상하 여백 */
+    margin: 10px 0;
 }
 
-.journal-section .author {
-    text-align: left; /* 작성자 왼쪽 정렬 */
+.author {
     font-size: 14px;
     color: #555;
 }
 
-/* 아이콘 영역 스타일 */
-.journal-section .icon-container {
+/* 아이콘 영역 */
+.icon-container {
     display: flex;
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    gap: 5px; /* 아이콘들 간의 간격을 1px로 설정 */
-    margin-top: 10px;
+    justify-content: flex-start;
+    gap: 5px;
+    margin: 10px;
 }
 
-.journal-section .icon-container i {
+.icon-container i {
     font-size: 14px;
     color: #555;
 }
 
-.journal-section .icon-container .icon-text {
+.icon-text {
     font-size: 12px;
     margin-left: 3px;
     color: #555;
 }
 
-/* 여행일정 섹션 */
+
+/* 여행 일정 섹션 */
 .schedule-section {
-    padding: 30px;
-    background-color: #ffffff;
+    padding: 50px 20px;
+    text-align: center;
     margin-bottom: 30px;
 }
 
-/* 여행일정 제목 스타일 */
-.schedule-section .section-title {
-    margin-top: 150px; /* 위쪽 여백  */
-    padding-right: 750px; /* 오른쪽에서 떨어지게 설정 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    font-size: 28px;
-    margin-bottom: 3px;
+.section-title {
+    color: #888888; /* 글자 색상을 회색(#888888)으로 설정 */
+    text-align: center;
+    padding: 15px 0;
+    width: 100%;
+    margin: 0 auto 20px auto;
+    box-sizing: border-box;
+    font-size: 18px;
+    background-color: transparent; /* 배경 제거 */
+    margin: -20px auto 50px auto; /* 위로 10px 올림 */
 }
 
-.schedule-section .schedule-main-title {
-    padding-right: 950px; /* 오른쪽에서 떨어지게 설정 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    font-size: 28px; /* 작은 제목 폰트 크기 */
-    font-weight: bold; /* 작은 제목의 굵기 */
-    margin-bottom: 15px; /* 제목과 다음 요소 사이의 간격 */
-    color: #333; /* 텍스트 색상 */
+/* 서울 여행일정 메인 제목 박스 */
+.schedule-main-title-box {
+    background-color: #125677; /* 네모 박스 배경색 */
+    color: white;
+    text-align: center;
+    padding: 10px 50px; /* 상하 패딩 10px, 좌우 패딩 50px */
+    margin-top: -50px; /* 제목 박스를 위로 100px 올림 */
+    width: calc(100% - 20%); /* 양쪽 10%씩 여백을 줌 */
+    z-index: 1;
+    position: absolute; /* 절대 위치로 배경에 꽉 차게 */
+    left: 10%; /* 왼쪽 여백 10% */
+    right: 10%; /* 오른쪽 여백 10% */
+    box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
 }
 
-/* 이미지 컨테이너 - 중앙 정렬 */
-.schedule-section .schedule-container {
+/* 메인 제목 스타일 */
+.schedule-main-title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* 일정 컨테이너 */
+.schedule-container {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
     gap: 20px;
-    flex-wrap: nowrap; /* 한 줄로 정렬 */
+    justify-content: center;
+    margin-top: 90px;
 }
 
-/* 일정 이미지 아이템 */
-.schedule-section .schedule-item {
-     width: 260px; /* 아이템 너비 */
-    height: 170px; /* 아이템 높이 */
-    margin: 30px 0; /* 위아래 여백만 주고 좌우는 0 */
-    text-align: center; 
+/* 일정 아이템 */
+.schedule-item {
+    position: relative;
+    width: 250px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    padding-bottom: 20px;
+    text-align: left;
 }
 
-.schedule-section .schedule-item img {
-    width: 100%; /* 이미지 너비를 부모에 맞춤 */
-    height: 100%; /* 이미지 높이를 부모에 맞춤 */
-    border-radius: 15px; /* 거의 네모나게 모서리 둥글게 설정 */
+.schedule-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
 }
 
-/* 이미지 아래 텍스트 스타일 */
-.schedule-section .image-description .image-title {
-    font-size: 20px;
+/* 일정 아이템 설명 */
+.image-description {
+    padding: 15px;
+}
+
+.category {
     font-weight: bold;
-    margin-top: 5px;
+    color: #2E79A7;
+    margin-right: 10px;
 }
 
-.schedule-section .image-description .author {
-    font-size: 16px;
-    font-style: italic;
-    margin-top: 3px;
+.date {
+    color: #999;
 }
 
-/* 지도 아이콘 및 장소 공유 아이콘 스타일 */
-.schedule-section .map-icons-container {
-    display: flex;
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    gap: 5px; /* 아이콘들 사이의 간격을 5px로 설정 */
-    margin-top: 10px;
+.image-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
 }
 
-.schedule-section .map-icons-container i {
-    font-size: 16px;
-    color: #555;
-}
-
-.schedule-section .map-icons-container .icon-text {
+.author {
     font-size: 14px;
-    margin-left: 3px;
     color: #555;
 }
 
-/* 여행뽈뽈 섹션 */
-.hot-spot-section {
-    padding: 30px;
-    background-color: #ffffff;
-    margin-bottom: 30px;
-}
-
-/* 여행뽈뽈 제목 스타일 */
-.hot-spot-section .section-title {
-   padding-right: 750px; /* 오른쪽에서 떨어지게 설정 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    font-size: 28px; /* 폰트 크기 */
-    margin-top: 120px; /* 위쪽 여백 추가 */
-    margin-bottom: 3px; /* 아래 여백 */
-    white-space: nowrap; /* 텍스트가 한 줄로 보이도록 설정 */
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-}
-
-/* 여행뽈뽈 작은 제목 스타일 */
-.hot-spot-section .hot-spot-main-title {
-    padding-right: 950px; /* 오른쪽에서 떨어지게 설정 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-/* 여행뽈뽈 이미지 컨테이너 */
-.hot-spot-section .image-container {
+/* 지도 아이콘 및 장소 공유 컨테이너 */
+.map-icons-container {
     display: flex;
-    justify-content: center;
-    gap: 20px; /* 이미지 간의 여백 5px */
-    flex-wrap: nowrap; /* 한 줄로 정렬 */
+    gap: 10px;
+    padding-left: 15px;
+    margin-top: 10px;
+    color: #555;
 }
 
-/* 여행뽈뽈 이미지 아이템 */
-.hot-spot-section .image-item1 {
-    width: 260px; /* 아이템 너비 */
-    height: 170px; /* 아이템 높이 */
-    margin: 30px 0; /* 위아래 여백만 주고 좌우는 0 */
-    text-align: center; 
+.map-icons-container i {
+    font-size: 14px;
 }
 
-/* 여행뽈뽈 이미지 스타일 */
-.hot-spot-section .image-item1 img {
+.icon-text {
+    font-size: 12px;
+    margin-left: 3px;
+}
+
+
+/* 뜨고 있는 장소 메인 제목 박스 */
+/* 뜨고 있는 장소 메인 제목 박스 */
+.section2-title {
+    color: #888888; /* 글자 색상을 회색(#888888)으로 설정 */
+    text-align: center;
+    padding: 35px 0 5px 0; /* 상단에 20px 추가 */
     width: 100%;
-    height: 100%;
+    margin: 30px auto 80px auto; /* 위쪽 여백을 50px로 변경 */
+    box-sizing: border-box;
+    font-size: 18px;
+    background-color: transparent; /* 배경 제거 */
+}
+
+/* 뜨고 있는 장소 메인 제목 박스 */
+.schedule2-main-title-box {
+  background-color: #125677;
+    color: white;
+    text-align: center;
+    padding: 10px 50px;
+    margin-top: -70px; /* 기존 -100px에서 20px 내려서 -80px로 설정 */
+     margin-bottom: -150px ; /* 아래쪽 여백 50px 줄이기 */
+    width: calc(100% - 20%);
+    z-index: 1;
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    box-sizing: border-box;
+}
+
+
+
+/* 뜨고 있는 장소 메인 제목 스타일 */
+.hot-spot-main-title1 {
+    font-size: 22px;
+    font-weight: bold;
+    
+}
+
+/* 뜨고 있는 장소 이미지 아이템 */
+.image-item2 {
+    position: relative;
+    width: 250px !important; /* 이미지 아이템의 너비를 250px로 설정 */
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    overflow: hidden;
+    padding-bottom: 20px;
+    text-align: left;
+    margin-top: 50px !important; ; /* 이미지 아이템 위쪽 여백 20px 추가 */
 }
 
-/* 여행뽈뽈 이미지 설명 텍스트 스타일 */
-.hot-spot-section .image-description .image-title {
-    font-size: 28px;
-    font-weight: bold;
-    margin-top: 5px;
-    text-align: center; /* 텍스트 중앙 정렬 */
-}
-
-/* 위치 스타일 */
-.hot-spot-section .image-description .location {
-    font-size: 14px; /* 위치 폰트 크기 */
-    color: #555; /* 위치 색상 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-}
-
-/* 핫플 섹션 */
-.hot-spot-section .section-title2 {
-   padding-right: 700px; /* 오른쪽에서 떨어지게 설정 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    font-size: 28px; /* 폰트 크기 */
-    margin-top: 50px; /* 위쪽 여백 추가 */
-    margin-bottom: 3px; /* 아래 여백 */
-    white-space: nowrap; /* 텍스트가 한 줄로 보이도록 설정 */
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-}
-
-/* 핫플 작은 제목 스타일 */
-.hot-spot-section .hot-spot-main-title1 {
-     padding-right: 990px; /* 오른쪽에서 떨어지게 설정 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-/* 핫플 이미지 컨테이너 */
-.hot-spot-section .image-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* 이미지 간의 여백 */
-    flex-wrap: nowrap; /* 한 줄로 정렬 */
-}
-
-/* 핫플 이미지 아이템 */
-.hot-spot-section .image-item2 {
-     width: 260px; /* 아이템 너비 */
-    height: 170px; /* 아이템 높이 */
-    margin: 30px 0; /* 위아래 여백만 주고 좌우는 0 */
-    text-align: center; 
-}
-
-/* 핫플 이미지 스타일 */
-.hot-spot-section .image-item2 img {
+.image-item2 img {
     width: 100%;
-    height: 100%;
+    height: 180px !important;; /* 이미지의 높이를 150px로 설정 */
+    object-fit: cover;
+}
+
+
+.image-description .location {
+    color: #999;
+}
+
+/* 맛집 메인 제목 박스 */
+.section3-title {
+    color: #888888; /* 글자 색상을 회색(#888888)으로 설정 */
+    text-align: center;
+    padding: 35px 0 5px 0; /* 상단에 20px 추가 */
+    width: 100%;
+    margin: -120px auto 120px auto; /* 위쪽 여백을 50px로 변경 */
+    box-sizing: border-box;
+    font-size: 18px;
+    background-color: transparent; /* 배경 제거 */
+}
+
+.schedule3-main-title-box {
+    background-color: #125677;
+    color: white;
+    text-align: center;
+    padding: 10px 50px;
+    margin-top: -100px;
+    width: calc(100% - 20%);
+    z-index: 1;
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    box-sizing: border-box;
+}
+
+/* 맛집 메인 제목 스타일 */
+.restaurant-main-title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* 맛집 이미지 아이템 */
+.image-item3 {
+    position: relative;
+    width: 250px;
+    background-color: #fff;
+   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
     border-radius: 10px;
+    overflow: hidden;
+    padding-bottom: 20px;
+    text-align: left;
+       margin-top: 30px !important; ; /* 이미지 아이템 위쪽 여백 20px 추가 */
 }
 
-/* 핫플 이미지 설명 텍스트 스타일 */
-.hot-spot-section .image-description .image-title {
-    font-size: 16px;
+
+.image-item3 img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* 공통 설명 스타일 */
+.image-description {
+    padding: 15px;
+}
+
+.image-description .image-title {
+    font-size: 18px;
     font-weight: bold;
+    color: #333;
+    margin: 10px 0;
 }
 
-.restaurant-section .image-description .location {
-   font-size: 14px;
-   color: #555;
-   margin-top: 3px;
-}
-.restaurant-section {
-    padding: 150px 30px 30px 30px;
-    background-color: #ffffff;
-    margin-bottom: 30px;
-}
-
-/* 맛집 제목 스타일 */
-.restaurant-section .section-title3 {
-     padding-right: 800px; /* 오른쪽에서 떨어지게 설정 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    font-size: 28px; /* 폰트 크기 */
-    margin-top: -50px; /* 위쪽 여백 추가 */
-    margin-bottom: 3px; /* 아래 여백 */
-    white-space: nowrap; /* 텍스트가 한 줄로 보이도록 설정 */
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-}
-
-.restaurant-section .restaurant-main-title {
-     padding-right: 1000px; /* 오른쪽에서 떨어지게 설정 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 40px;
-}
-
-
-/* 이미지 컨테이너 - 중앙 정렬 */
-.restaurant-section .image-container {
-    display: flex;
-    justify-content: center; /* 중앙 정렬 */
-    gap: 20px; /* 아이템 간 간격 */
-    flex-wrap: nowrap; /* 아이템이 넘쳐도 줄 바꿈 없음 */
-    overflow-x: auto; /* 가로 스크롤 가능 */
-}
-
-.restaurant-section .image-item3 {
-    width: 260px; /* 아이템 너비 */
-    height: auto; /* 높이를 auto로 설정하여 비율 유지 */
-    margin: 30px 0; /* 위아래 여백만 주고 좌우는 0 */
-    text-align: center; 
-    display: flex; /* Flexbox 사용 */
-    flex-direction: column; /* 세로 방향 정렬 */
-    align-items: center; /* 중앙 정렬 */
-}
-
-.restaurant-section .image-item3 img {
-    width: 100%; 
-    height: auto; /* 부모 요소에 맞게 높이 조정 */
-    object-fit: cover; 
-    border-radius: 10px; 
-}
-
-.restaurant-section .image-description {
-    padding: 10px 0; /* 설명 텍스트의 위 아래 여백 */
-    text-align: center; /* 설명 텍스트 중앙 정렬 */
-}
-
-.restaurant-section .image-title {
-    font-size: 18px; /* 제목 크기 */
-    font-weight: bold; 
-}
-
-.restaurant-section .location {
-    font-size: 14px; /* 위치 텍스트 크기 */
-    color: #666; /* 약간 흐린 색상 */
-    text-align: center; /* 위치 텍스트 중앙 정렬 */
+.location {
+    color: #555;
+    font-size: 14px;
 }

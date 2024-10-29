@@ -366,15 +366,13 @@ public class HomeController {
 		return "RecoSpot/journal_Daejeon";
 	}
 	
-	//자주묻는 질문
-    @GetMapping("/MyPage/FAQ")
+	//FAQ
+    @GetMapping("/HomePage/FAQ")
     public String FAQ() {
-        return "MyPage/FAQ";
+        return "HomePage/FAQ";
     }
     
     
-        
-        
         
     // matzipDetail.jsp
     @Autowired
