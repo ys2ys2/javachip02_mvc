@@ -170,7 +170,8 @@
      <select id ="getRandomTravelPost" parameterType="int" resultType="com.human.web.vo.TravelPostVO">
         SELECT
         	t.tp_idx,
-            t.content,  
+            t.content,
+			t.writer,           
             tg.tag_name        
         FROM
             tb_travel_post t

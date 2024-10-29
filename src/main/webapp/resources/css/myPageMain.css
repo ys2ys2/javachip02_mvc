@@ -28,6 +28,11 @@
     font-style: normal;
 }
 
+body {
+	margin: 0 auto;
+}
+
+
 .navigation {
     position: absolute;
     top: 130px; /* 뷰포트 기준으로 상단에서 120px */
@@ -156,7 +161,7 @@
 .floating-button {
     position: fixed;  /* 화면에 고정 */
     bottom: 30px;     /* 하단에서 20px 띄움 */
-    right: 20px;      /* 오른쪽에서 20px 띄움 */
+    right: 50px;      /* 오른쪽에서 20px 띄움 */
     width: 50px;      /* 버튼 이미지 크기 */
     height: 50px;
     z-index: 1000;    /* 다른 요소 위에 표시되도록 설정 */

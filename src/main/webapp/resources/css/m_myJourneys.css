@@ -28,6 +28,10 @@
     font-style: normal;
 }
 
+body {
+	margin: 0 auto;
+}
+
 .navigation {
     position: absolute;
     top: 130px; /* 뷰포트 기준으로 상단에서 120px */

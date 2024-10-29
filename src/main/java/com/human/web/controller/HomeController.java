@@ -291,27 +291,26 @@ public class HomeController {
 		}
 	//--------------- 여행지 --------------------
 
-    //서울: travel_Seoul
-    @Autowired
-    private MatzipService matzipService; // MatzipService 인스턴스를 주입받음
-	//서울: travel_Seoul
-    @GetMapping("/RecoSpot/travel_Seoul")
-    public String getTravelSeoulList(Model model) {
-        List<MatzipVO> matzipList = matzipService.getMatzipList(); // DB에서 모든 맛집 리스트를 가져옴
-        // 각 맛집의 firstimage에서 쉼표로 구분된 첫 번째 URL만 가져오도록 처리
-        matzipList.forEach(matzip -> {
-            String firstimage = matzip.getFirstimage(); // MatzipVO에서 firstimage 필드 가져오기
-            if (firstimage != null && firstimage.contains(",")) {
-                // 쉼표로 구분된 이미지 중 첫 번째만 추출
-                firstimage = firstimage.split(",")[0].trim();
-            }
-            matzip.setFirstimage(firstimage); // 첫 번째 URL로 설정
-        });
-        
-        System.out.println("Controller matzipList: " + matzipList); // Controller에서 로그 확인
-        model.addAttribute("matzipList", matzipList); // JSP에 데이터 전달
-        return "RecoSpot/journal_Seoul"; // journal_Seoul.jsp로 이동
-    }
+	
+	  @Autowired private MatzipService matzipService; // MatzipService 인스턴스를 주입받음
+	  //서울: travel_Seoul
+	  
+		/*
+		 * @GetMapping("/RecoSpot/travel_Seoul") public String getTravelSeoulList(Model
+		 * model) { List<MatzipVO> matzipList = matzipService.getMatzipList(); // DB에서
+		 * 모든 맛집 리스트를 가져옴
+		 * 
+		 * // 각 맛집의 firstimage에서 쉼표로 구분된 첫 번째 URL만 가져오도록 처리 matzipList.forEach(matzip ->
+		 * { String firstimage = matzip.getFirstimage(); // MatzipVO에서 firstimage 필드
+		 * 가져오기 if (firstimage != null && firstimage.contains(",")) { // 쉼표로 구분된 이미지 중 첫
+		 * 번째만 추출 firstimage = firstimage.split(",")[0].trim(); }
+		 * matzip.setFirstimage(firstimage); // 첫 번째 URL로 설정 });
+		 * 
+		 * model.addAttribute("matzipList", matzipList); // JSP에 데이터 전달 return
+		 * "RecoSpot/journal_Seoul"; // journal_Seoul.jsp로 이동 } }
+		 */
+	  
+	 
     
     
     
@@ -350,11 +349,12 @@ public class HomeController {
 	
 	//--------------- journal --------------------
 	
-	//희진 journal_Seoul
-	@GetMapping("/RecoSpot/journal_Seoul")
-	public String journal_Seoul() {
-		return "RecoSpot/journal_Seoul";
-	}
+	/*
+	 * //희진 journal_Seoul
+	 * 
+	 * @GetMapping("/RecoSpot/journal_Seoul") public String journal_Seoul() { return
+	 * "RecoSpot/journal_Seoul"; }
+	 */
 	
 	//인천: journal_Incheon
 	@GetMapping("/RecoSpot/journal_Incheon")
@@ -375,8 +375,27 @@ public class HomeController {
     }
     
     
+    //희진 Event1
+    @GetMapping("/Festival/Event1")
+    public String Event1() {
+    	return "Festival/Event1";
+    }
+    
+    //희진 Event2
+    @GetMapping("/Festival/Event2")
+    public String Event2() {
+    	return "Festival/Event2";
+    }
+    
+    //희진 Event3
+    @GetMapping("/Festival/Event3")
+    public String Event3() {
+    	return "Festival/Event3";
+    }
+    
+    
         
-    // matzipDetail.jsp
+ // matzipDetail.jsp
     @Autowired
     private TalkService talkService;
 
@@ -450,14 +469,8 @@ public class HomeController {
 
         return response;
     }
+	 
     
-    
-    	
-        
-        
-        
-        
-        
 	
 }
 

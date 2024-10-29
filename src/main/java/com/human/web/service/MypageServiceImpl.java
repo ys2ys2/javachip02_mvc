@@ -1,6 +1,7 @@
 package com.human.web.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,18 @@ public class MypageServiceImpl implements MypageService {
       public List<MypageVO> getSavedList(int m_idx) {
           List<MypageVO> savedList = mypageDao.getSavedList(m_idx);
           System.out.println("가져온 저장 데이터 목록: " +savedList);
-	    // DAO를 호출하여 데이터를 가져옴
-          return savedList;
-    }
+  	    // firstimage 필드에서 첫 번째 이미지 URL만 남기기
+  	    return savedList.stream().map(mypage -> {
+  	        String firstimage = mypage.getFirstimage();  // firstimage 필드 가져오기
+  	        if (firstimage != null && firstimage.contains(",")) {
+  	            // 쉼표로 나눈 후 첫 번째 이미지 URL만 남김
+  	            firstimage = firstimage.split(",")[0].trim();
+  	        }
+  	        mypage.setFirstimage(firstimage);  // 필드 값 수정
+  	        return mypage;
+  	    }).collect(Collectors.toList());
+  	}
+    
 
     //게시글 불러오기
     @Override
@@ -53,7 +63,19 @@ public class MypageServiceImpl implements MypageService {
 	//마이페이지 홈에 저장목록 불러오기
 	@Override
 	public List<MypageVO> getSavedListByMidx(Integer m_idx) {
-		return mypageDao.getSavedListByMidx(m_idx);
+	    // DB에서 저장 목록 가져오기
+	    List<MypageVO> savedList = mypageDao.getSavedListByMidx(m_idx);
+	    
+	    // firstimage 필드에서 첫 번째 이미지 URL만 남기기
+	    return savedList.stream().map(mypage -> {
+	        String firstimage = mypage.getFirstimage();  // firstimage 필드 가져오기
+	        if (firstimage != null && firstimage.contains(",")) {
+	            // 쉼표로 나눈 후 첫 번째 이미지 URL만 남김
+	            firstimage = firstimage.split(",")[0].trim();
+	        }
+	        mypage.setFirstimage(firstimage);  // 필드 값 수정
+	        return mypage;
+	    }).collect(Collectors.toList());
 	}
 
 	//여행 일정에 다가오는 일정 불러오기

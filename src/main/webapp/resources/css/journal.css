@@ -1,367 +1,152 @@
-
-/* 전체 섹션의 마진과 패딩을 초기화 */
-.journal-section {
-    padding: 0; /* 기본 패딩을 제거 */
-    margin: 0; /* 기본 마진을 제거 */
-    position: relative;
-}
-
-/* 제목 네모 박스 스타일 */
-.section-title-box {
-    background-color: #125677; /* 네모 박스 배경색 */
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: -210px; /* 제목 박스를 위로 올림 */
-    width: calc(100% - 20%); /* 양쪽 10%씩 여백을 줌 */
-    z-index: 1;
-    position: absolute; /* 절대 위치로 배경에 꽉 차게 */
-    left: 10%; /* 왼쪽 여백 10% */
-    right: 10%; /* 오른쪽 여백 10% */
-    box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
-     margin-bottom: 0; /* 이미지 컨테이너와의 간격을 없앰 */
-}
-
-/* 제목 텍스트 스타일 */
-.section-title1 {
-    font-size: 20px;
+@font-face {
+    font-family: 'NanumSquareRoundB';
+    src: url('../fonts/NanumSquareRoundB.ttf') format('truetype'),
+         url('../fonts/NanumSquareRoundOTFB.otf') format('opentype');
     font-weight: bold;
-    margin: 0; /* 텍스트 자체의 여백을 없앰 */
+    font-style: normal;
 }
 
-/* 이미지 컨테이너 */
-.image-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: nowrap;
-    margin-top: 0; /* 제목과의 간격을 없앰 */
-    padding: 0;
-}
-
-.image-item {
-    width: 260px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    text-align: center;
-    overflow: hidden;
-    margin-top: -100px; /* 위로 350px 이동 */
-    margin-bottom: 0; /* 아래쪽 여백 제거 */
-    margin-left: 0;
-    margin-right: 0;
-}
-/* "1박2일" 배지 스타일 */
-.badge {
-    background-color: #125677; /* 배지 배경색 */
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 3px 8px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    border-radius: 4px;
-    z-index: 2; /* 이미지 위로 배치 */
-}
-
-/* 이미지 */
-.image-item img {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-    border-radius: 10px 10px 0 0; /* 상단 모서리만 둥글게 */
-}
-
-/* 이미지 설명 */
-.image-description {
-    text-align: left;
-    padding: 10px;
-}
-
-.category {
-    font-weight: bold;
-    color: #125677;
-    margin-right: 10px;
-}
-
-.date {
+/* 파셜산스체 */
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
     font-weight: normal;
+    font-style: normal;
 }
 
-.image-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 10px 0;
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
-.author {
-    font-size: 14px;
-    color: #555;
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
-/* 아이콘 영역 */
-.icon-container {
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+	margin: 0 auto;
+	font-family: 'SUIT-Regular', sans-serif;
+	
+}
+
+/* 메인 컨테이너를 Flexbox로 설정하여 좌우 배치 */
+.main-container {
     display: flex;
-    justify-content: flex-start;
-    gap: 5px;
-    margin: 10px;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 30px;
+    padding: 20px;
+    gap: 20px;
 }
 
-.icon-container i {
-    font-size: 14px;
-    color: #555;
+/* 각 섹션의 컨테이너 스타일 */
+.hot-spot-section, .restaurant-section {
+    width: 48%; /* 좌우로 균등하게 배치 */
 }
 
-.icon-text {
-    font-size: 12px;
-    margin-left: 3px;
-    color: #555;
-}
-
-
-/* 여행 일정 섹션 */
-.schedule-section {
-    padding: 50px 20px;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.section-title {
-    color: #888888; /* 글자 색상을 회색(#888888)으로 설정 */
-    text-align: center;
-    padding: 15px 0;
-    width: 100%;
-    margin: 0 auto 20px auto;
-    box-sizing: border-box;
-    font-size: 18px;
-    background-color: transparent; /* 배경 제거 */
-    margin: -20px auto 50px auto; /* 위로 10px 올림 */
-}
-
-/* 서울 여행일정 메인 제목 박스 */
-.schedule-main-title-box {
-    background-color: #125677; /* 네모 박스 배경색 */
-    color: white;
-    text-align: center;
-    padding: 10px 50px; /* 상하 패딩 10px, 좌우 패딩 50px */
-    margin-top: -50px; /* 제목 박스를 위로 100px 올림 */
-    width: calc(100% - 20%); /* 양쪽 10%씩 여백을 줌 */
-    z-index: 1;
-    position: absolute; /* 절대 위치로 배경에 꽉 차게 */
-    left: 10%; /* 왼쪽 여백 10% */
-    right: 10%; /* 오른쪽 여백 10% */
-    box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
-}
-
-/* 메인 제목 스타일 */
-.schedule-main-title {
-    font-size: 22px;
+/* 제목 스타일 */
+.section2-title, .section3-title {
+    font-family: 'Paperlogy-8ExtraBold', sans-serif;
+    font-size: 1.8em;
     font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    line-height: 1.2;
+    margin: 10px auto;
 }
 
-/* 일정 컨테이너 */
-.schedule-container {
+.section2-title::after, .section3-title::after {
+    content: " ";
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: #333;
+    margin-top: 5px;
+}
+
+/* 이미지 카드 컨테이너 스타일 */
+.image-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
-    margin-top: 90px;
+    justify-content: space-between;
 }
 
-/* 일정 아이템 */
-.schedule-item {
-    position: relative;
-    width: 250px;
+/* 이미지 카드 스타일 */
+.image-item2, .image-item3 {
+    width: 48%; /* 각 카드가 화면의 절반을 차지하도록 설정 */
+    height: 230px; /* 각 카드의 높이를 동일하게 설정 */
     background-color: #fff;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
     overflow: hidden;
-    padding-bottom: 20px;
-    text-align: left;
-}
-
-.schedule-item img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-}
-
-/* 일정 아이템 설명 */
-.image-description {
-    padding: 15px;
-}
-
-.category {
-    font-weight: bold;
-    color: #2E79A7;
-    margin-right: 10px;
-}
-
-.date {
-    color: #999;
-}
-
-.image-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin: 10px 0;
-}
-
-.author {
-    font-size: 14px;
-    color: #555;
-}
-
-/* 지도 아이콘 및 장소 공유 컨테이너 */
-.map-icons-container {
+    transition: transform 0.2s ease;
     display: flex;
-    gap: 10px;
-    padding-left: 15px;
-    margin-top: 10px;
-    color: #555;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
-.map-icons-container i {
-    font-size: 14px;
-}
-
-.icon-text {
-    font-size: 12px;
-    margin-left: 3px;
-}
-
-
-/* 뜨고 있는 장소 메인 제목 박스 */
-/* 뜨고 있는 장소 메인 제목 박스 */
-.section2-title {
-    color: #888888; /* 글자 색상을 회색(#888888)으로 설정 */
-    text-align: center;
-    padding: 35px 0 5px 0; /* 상단에 20px 추가 */
+/* 이미지 스타일 */
+.image-item2 img, .image-item3 img {
     width: 100%;
-    margin: 30px auto 80px auto; /* 위쪽 여백을 50px로 변경 */
-    box-sizing: border-box;
-    font-size: 18px;
-    background-color: transparent; /* 배경 제거 */
-}
-
-/* 뜨고 있는 장소 메인 제목 박스 */
-.schedule2-main-title-box {
-  background-color: #125677;
-    color: white;
-    text-align: center;
-    padding: 10px 50px;
-    margin-top: -70px; /* 기존 -100px에서 20px 내려서 -80px로 설정 */
-     margin-bottom: -150px ; /* 아래쪽 여백 50px 줄이기 */
-    width: calc(100% - 20%);
-    z-index: 1;
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    box-sizing: border-box;
-}
-
-
-
-/* 뜨고 있는 장소 메인 제목 스타일 */
-.hot-spot-main-title1 {
-    font-size: 22px;
-    font-weight: bold;
-    
-}
-
-/* 뜨고 있는 장소 이미지 아이템 */
-.image-item2 {
-    position: relative;
-    width: 250px !important; /* 이미지 아이템의 너비를 250px로 설정 */
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    padding-bottom: 20px;
-    text-align: left;
-    margin-top: 50px !important; ; /* 이미지 아이템 위쪽 여백 20px 추가 */
-}
-
-.image-item2 img {
-    width: 100%;
-    height: 180px !important;; /* 이미지의 높이를 150px로 설정 */
+    height: 150px; /* 이미지의 높이를 고정하여 카드 높이 일관성 유지 */
     object-fit: cover;
 }
 
-
-.image-description .location {
-    color: #999;
-}
-
-/* 맛집 메인 제목 박스 */
-.section3-title {
-    color: #888888; /* 글자 색상을 회색(#888888)으로 설정 */
-    text-align: center;
-    padding: 35px 0 5px 0; /* 상단에 20px 추가 */
-    width: 100%;
-    margin: -120px auto 120px auto; /* 위쪽 여백을 50px로 변경 */
-    box-sizing: border-box;
-    font-size: 18px;
-    background-color: transparent; /* 배경 제거 */
-}
-
-.schedule3-main-title-box {
-    background-color: #125677;
-    color: white;
-    text-align: center;
-    padding: 10px 50px;
-    margin-top: -100px;
-    width: calc(100% - 20%);
-    z-index: 1;
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    box-sizing: border-box;
-}
-
-/* 맛집 메인 제목 스타일 */
-.restaurant-main-title {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-/* 맛집 이미지 아이템 */
-.image-item3 {
-    position: relative;
-    width: 250px;
-    background-color: #fff;
-   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
-    border-radius: 10px;
-    overflow: hidden;
-    padding-bottom: 20px;
-    text-align: left;
-       margin-top: 30px !important; ; /* 이미지 아이템 위쪽 여백 20px 추가 */
-}
-
-
-.image-item3 img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-}
-
-/* 공통 설명 스타일 */
+/* 이미지 설명 스타일 */
 .image-description {
-    padding: 15px;
+    font-family: 'SUIT-Regular', sans-serif;
+    padding: 10px;
+    text-align: center;
+    flex: 1;
 }
 
-.image-description .image-title {
-    font-size: 18px;
+/* 제목 및 위치 정보 스타일 */
+.image-title {
     font-weight: bold;
+    font-size: 1em;
     color: #333;
-    margin: 10px 0;
+ 	margin-bottom: 10px; /* .image-title과 .location 사이에 1px 간격 추가 */
 }
 
 .location {
-    color: #555;
-    font-size: 14px;
+    color: #777;
+    font-size: 0.9em;
+}
+
+/* Hover 효과 */
+.image-item2:hover, .image-item3:hover {
+    transform: scale(1.05);
 }

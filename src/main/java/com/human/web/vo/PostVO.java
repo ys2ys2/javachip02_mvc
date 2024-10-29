@@ -15,7 +15,7 @@ public class PostVO {
     private int commentCount;        // 댓글 수
     private int likeCount;           // 좋아요 수
     private boolean isLiked;         // 좋아요 여부
-    private String post_writer;
+    private String post_writer;		 // 글 작성자
    
     // 기본 생성자
     public PostVO() {

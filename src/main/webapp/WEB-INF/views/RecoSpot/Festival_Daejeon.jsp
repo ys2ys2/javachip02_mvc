@@ -4,12 +4,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Festival.css"> <!-- CSS 링크 -->
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Festival.css?v=1.0"> <!-- CSS 링크 -->
+<!-- jQuery를 사용하기 위한 API 추가 -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
 
 <script>
 
-	//축제을 클릭했을 때 famous.jsp를 호출할 수 있도록 함
+	//맛집을 클릭했을 때 famous.jsp를 호출할 수 있도록 함
 	$(".image-item2").on("click", function(){
 		
 		//famous.jsp를 호출하는 url: /aaa
@@ -19,81 +20,130 @@
 
 
 </script>
+    
+    
 </head>
 <body>
 
 <!-- 제목 섹션 -->
 <div class="festival-header">
    <div class="section-title1">축제 어디까지 가봤니?</div>
-   <div class="schedule-main-title1">진행 중인 축제 일정</div>
 </div>
 
-<div class="calendar-section">
-    <div class="date-box">
-        2024.11
+
+<!-- 축제 이미지 슬라이더 섹션 -->
+<div class="festival-slider">
+
+    <div class="festival-slide">
+        <a href="${pageContext.request.contextPath}/Festival/Event">
+            <img src="${pageContext.request.contextPath}/resources/images/Festival_Seoul1.png" alt="Festival Image 1">
+        </a>
+    <div class="festival-info">
+    <h3>서울일러스트레이션페어 V.18</h3>
+   <p class="event-district">강남구</p>
+    <div class="event-info">
+        <p class="event-period">기간<br> 2024-12-22<br>~2024-12-22</p>
+        <p class="event-location">장소(홀)<br> 예술의전당 콘서트홀</p>
     </div>
+    <button class="action-button">바로가기</button>
 </div>
-
-<!-- 달력 슬라이더 섹션 -->
-<div class="calendar-container">
-    <span class="arrow" onclick="scrollCalendar(-1)">&lt;</span> <!-- 왼쪽 화살표 -->
-    <div class="calendar-scroll">
-        <div class="calendar-line">
-            <!-- 날짜와 요일 목록 -->
-            <span class="calendar-item" data-day="금" onclick="showPopup(1)">1</span>
-            <span class="calendar-item" data-day="토" style="color: blue;" onclick="showPopup(2)">2</span>
-            <span class="calendar-item" data-day="일" style="color: red;" onclick="showPopup(3)">3</span>
-            <span class="calendar-item" data-day="월" onclick="showPopup(4)">4</span>
-            <span class="calendar-item" data-day="화" onclick="showPopup(5)">5</span>
-            <span class="calendar-item" data-day="수" onclick="showPopup(6)">6</span>
-            <span class="calendar-item" data-day="목" onclick="showPopup(7)">7</span>
-            <span class="calendar-item" data-day="금" onclick="showPopup(8)">8</span>
-            <span class="calendar-item" data-day="토" style="color: blue;" onclick="showPopup(9)">9</span>
-            <span class="calendar-item" data-day="일" style="color: red;" onclick="showPopup(10)">10</span>
-            <span class="calendar-item" data-day="월" onclick="showPopup(11)">11</span>
-            <span class="calendar-item" data-day="화" onclick="showPopup(12)">12</span>
-            <span class="calendar-item" data-day="수" onclick="showPopup(13)">13</span>
-            <span class="calendar-item" data-day="목" onclick="showPopup(14)">14</span>
-            <span class="calendar-item" data-day="금" onclick="showPopup(15)">15</span>
-            <span class="calendar-item hidden" data-day="토">16</span>
-            <span class="calendar-item hidden" data-day="일">17</span>
-            <span class="calendar-item hidden" data-day="월">18</span>
-            <span class="calendar-item hidden" data-day="화">19</span>
-            <span class="calendar-item hidden" data-day="수">20</span>
-            <span class="calendar-item hidden" data-day="목">21</span>
-            <span class="calendar-item hidden" data-day="금">22</span>
-            <span class="calendar-item hidden" data-day="토">23</span>
-            <span class="calendar-item hidden" data-day="일">24</span>
-            <span class="calendar-item hidden" data-day="월">25</span>
-            <span class="calendar-item hidden" data-day="화">26</span>
-            <span class="calendar-item hidden" data-day="수">27</span>
-            <span class="calendar-item hidden" data-day="목">28</span>
-            <span class="calendar-item hidden" data-day="금">29</span>
-            <span class="calendar-item hidden" data-day="토">30</span>
+    </div>
+    
+    
+    <div class="festival-slide">
+      <a href="${pageContext.request.contextPath}/Festival/Event2">
+        <img src="${pageContext.request.contextPath}/resources/images/Festival_Seoul2.jpg" alt="Festival Image 2">
+         </a>
+          <div class="festival-info">
+            <h3>2024 파리나무십자가 소년<br>합창단 특별초청공연</h3>
+           <p class="event-district">강남구</p>
+              <div class="event-info">
+             <p class="event-period">기간<br> 2024-12-22<br>~2024-12-22</p>
+             <p class="event-location">장소(홀)<br> 예술의전당 콘서트홀</p>
+                 </div>
+            <button class="action-button">바로가기</button>
         </div>
     </div>
-    <span class="arrow" onclick="scrollCalendar(1)">&gt;</span> <!-- 오른쪽 화살표 -->
-    <i class="fa-solid fa-calendar" style="margin-left: 10px; cursor: pointer;"></i> <!-- 달력 아이콘 -->
-</div>
-
-
-
-<!-- 축제 이미지 섹션 -->
-<div class="festival-images">
-    <div class="image-item2">
-     <a href="${pageContext.request.contextPath}/Festival/DaejeonEvent" class="image-item2">
-        <img src="${pageContext.request.contextPath}/resources/images/T_6.png" alt="Festival Image 1">
-        </a>
+    
+    
+        <div class="festival-slide">
+          <a href="${pageContext.request.contextPath}/Festival/Event3">
+        <img src="${pageContext.request.contextPath}/resources/images/Festival_Seoul3.png" alt="Festival Image 2">
+          </a>
+  <div class="festival-info">
+    <h3>[종로문화재단] 음악동화 <br>행복의 파랑새</h3>
+    <p class="event-district">종로구</p>
+    <div class="event-info">
+        <p class="event-period">기간<br>2024-12-12<br>~2024-12-13</p>
+        <p class="event-location">장소(홀)<br>종로 아이들극장</p>
     </div>
-    <div class="image-item2">
-        <img src="${pageContext.request.contextPath}/resources/images/T_6.png" alt="Festival Image 2">
+    <button class="action-button">바로가기</button>
+</div> 
     </div>
-    <div class="image-item2">
-        <img src="${pageContext.request.contextPath}/resources/images/T_6.png" alt="Festival Image 3">
     </div>
-</div>
 
-<script src="${pageContext.request.contextPath}/resources/js/festival.js"></script>
+
+<script>
+const slider = document.querySelector('.festival-slider');
+const slides = Array.from(document.querySelectorAll('.festival-slide'));
+
+let isDragging = false;
+let startX;
+let scrollLeft;
+
+// 활성화 상태 업데이트
+function activateSlide() {
+    const sliderCenter = slider.scrollLeft + slider.offsetWidth / 2;
+
+    slides.forEach(slide => {
+        const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+
+        // 슬라이드가 중앙에 위치하면 active 클래스를 추가
+        if (Math.abs(sliderCenter - slideCenter) < slide.offsetWidth / 2) {
+            slide.classList.add('active');
+        } else {
+            slide.classList.remove('active');
+        }
+    });
+}
+
+// 마우스 드래그로 슬라이드를 이동하는 기능
+slider.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+    slider.classList.add('dragging');
+});
+
+slider.addEventListener('mouseleave', () => {
+    isDragging = false;
+    slider.classList.remove('dragging');
+});
+
+slider.addEventListener('mouseup', () => {
+    isDragging = false;
+    slider.classList.remove('dragging');
+    activateSlide(); // 드래그 후 활성화된 슬라이드 업데이트
+});
+
+slider.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 1.5; // 드래그 이동 속도 조절
+    slider.scrollLeft = scrollLeft - walk;
+});
+
+// 초기 첫 번째 슬라이드를 중앙에 위치시키기 위해 설정
+slider.scrollLeft = slides[0].offsetLeft - (slider.offsetWidth / 2 - slides[0].offsetWidth / 2);
+
+// 초기 활성화 상태 설정
+activateSlide();
+
+</script>
+
+
+<!-- <script src="${pageContext.request.contextPath}/resources/js/festival.js?v=1.0"></script> -->
 
 </body>
 </html>

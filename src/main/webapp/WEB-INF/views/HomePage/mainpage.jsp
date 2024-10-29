@@ -454,26 +454,9 @@
         </div>
       </div>
     </div>
-
-<%--     <!-- 핫플 섹션 -->
-    <div class="hotplace-section">
-      <h2>함께 떠나는 핫플 여행</h2>
-    <div class="hotplace-list">
-   		<c:forEach var="hotplace" items="${hotplaceDetails}">
-    <div class="hotplace-item">
-		<a href="${pageContext.request.contextPath}/HotPlace/${hotplace.contentid}">
-	    	<img src="${hotplace.firstimage}" alt="${hotplace.title}" class="image-placeholder" />
-	    	<p>${hotplace.title}</p>
-      </a>
-    </div>
-    	</c:forEach>
-  </div>
-</div>
-    --%>
       
       
-  <!-- 축제 섹션 -->
-  
+ <!-- 축제 섹션 -->
  <div class="event-section">
     <div class="event-header">
   		<span class="header_white">여행가는 가을 <span class="header_brown">특별 축제</span></span>

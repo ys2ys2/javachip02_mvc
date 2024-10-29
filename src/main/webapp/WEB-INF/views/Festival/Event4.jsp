@@ -80,8 +80,8 @@
     <div class="t_minibody">
         <div class="t_title-container">
          <%-- <c:forEach var="event" items="${events}" varStatus="vs"> 행사 데이터를 여러개 가겨올 때 사용하는 반복문--%>
-	      <h2>제목 : ${events[0].TITLE}</h2> <!-- EL로 제목 표시 -->
-	      <h3>장소 : ${events[0].GUNAME}</h3> <!--  EL로 장소 표시 -->
+	      <h2>제목 : ${events[3].TITLE}</h2> <!-- EL로 제목 표시 -->
+	      <h3>장소 : ${events[3].GUNAME}</h3> <!--  EL로 장소 표시 -->
 	      <h4>소제목 : 일러스트레이션페어</h4>
 	        </div>
 	
@@ -111,7 +111,7 @@
 </div>
 
 <!-- 공유 팝업 -->
-<div id="sharePopup">
+<div id="sharePopup" style="display: none; position: absolute; top: 50px; right: 50px; padding: 10px; background-color: #fff; border: 1px solid #ddd;">
     <p>공유할 플랫폼을 선택하세요:</p>
     <button onclick="shareToPlatform('facebook')">Facebook</button>
     <button onclick="shareToPlatform('twitter')">Twitter</button>
@@ -166,7 +166,7 @@
 
         <div id="photos" class="slider-container">
             <div class="slider">
-               <img src="${events[0].MAIN_IMG}" alt="이미지" class="slide">
+               <img src="${events[3].MAIN_IMG}" alt="이미지" class="slide">
             </div>
         </div>
 
@@ -178,19 +178,19 @@
     <div class="details-left">
          <p class="two-line-link">
           <span class="bullet">•</span><strong>예약 사이트 주소:</strong>
-          <a href="${events[0].ORG_LINK}" target="_blank" class="link-wrap">
+          <a href="${events[3].ORG_LINK}" target="_blank" class="link-wrap">
             https://booking.naver.com<br>
             <span class="indented-link">/booking/5/bizes/16695</span>
           </a>
     </p>
-    <p><span class="bullet">•</span> <strong>전시 종류:</strong> ${events[0].CODENAME}</p>
-        <p><span class="bullet">•</span> <strong>예약 시작:</strong> ${events[0].RGSTDATE}</p>
+    <p><span class="bullet">•</span> <strong>전시 종류:</strong> ${events[3].CODENAME}</p>
+        <p><span class="bullet">•</span> <strong>예약 시작:</strong> ${events[3].RGSTDATE}</p>
     </div>
     <div class="details-right">
-        <p><span class="bullet">•</span> <strong>날짜:</strong> ${events[0].DATE}</p>
-        <p><span class="bullet">•</span> <strong>연령:</strong> ${events[0].USE_TRGT}</p>
-        <p><span class="bullet">•</span> <strong>가격:</strong> ${events[0].USE_FEE}</p>
-        <p><span class="bullet">•</span> <strong>장소(홀):</strong> ${events[0].PLACE}</p>
+        <p><span class="bullet">•</span> <strong>날짜:</strong> ${events[3].DATE}</p>
+        <p><span class="bullet">•</span> <strong>연령:</strong> ${events[3].USE_TRGT}</p>
+        <p><span class="bullet">•</span> <strong>가격:</strong> ${events[3].USE_FEE}</p>
+        <p><span class="bullet">•</span> <strong>장소(홀):</strong> ${events[3].PLACE}</p>
     </div>
 </div>
    
@@ -335,11 +335,11 @@
     <div class="festival-slider">
         <!-- 첫 번째 행사 -->
         <div class="festival-slide">
-            <a href="${pageContext.request.contextPath}/Festival/Event4">
-                <img src="${pageContext.request.contextPath}/resources/images/Festival_Seoul4.png" alt="Festival Image 1">
+            <a href="${pageContext.request.contextPath}/Festival/Event">
+                <img src="${pageContext.request.contextPath}/resources/images/Festival_Seoul1.png" alt="Festival Image 1">
             </a>
             <div class="festival-info">
-                <h3>오페라 갈라</h3>
+                <h3>서울일러스트레이션페어 V.18</h3>
                 <button class="action-button">바로가기</button>
             </div>
         </div>
