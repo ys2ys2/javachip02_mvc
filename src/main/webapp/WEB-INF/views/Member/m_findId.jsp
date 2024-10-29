@@ -129,9 +129,7 @@
 		    <form action="${pageContext.request.contextPath}/Member/resetPassword" method="post">
 		        <div>
 		            <input type="password" name="newPassword" placeholder="새로운 비밀번호를 입력하세요" required>
-		            <c:if test="${not empty passwordValidationError}">
-		                <p class="error-message">${passwordValidationError}</p> <!-- 에러 메시지 표시 -->
-		            </c:if>
+		            
 		        </div>
 		        <div>
 		            <input type="password" name="confirmPassword" placeholder="비밀번호 확인" required>
@@ -141,19 +139,20 @@
 		    </form>
 		</div>
     </div>
-
-<c:if test="${passwordResetSuccess eq true}">
-    <script type="text/javascript">
-        alert("비밀번호 재설정이 완료되었습니다. 다시 로그인해주세요!");
+<!-- 에러 메시지 표시 -->
+<c:if test="${not empty errorMessage}">
+    <script>
+        alert("${errorMessage}");
     </script>
 </c:if>
-
-
-
-    <!-- 에러 메시지가 있을 경우 팝업으로 출력 -->
-<c:if test="${not empty errorMessage}">
-    <script type="text/javascript">
-        alert("${errorMessage}");
+<c:if test="${not empty passwordValidationError}">
+    <script>
+        alert("${passwordValidationError}");
+    </script>
+</c:if>
+<c:if test="${passwordResetSuccess == true}">
+    <script>
+        alert("비밀번호가 성공적으로 변경되었습니다.");
     </script>
 </c:if>
 

@@ -74,6 +74,8 @@
     position: absolute;
     left: 10px; /* 왼쪽에 고정 */
     top: 150px; /* 상단에서 150px 아래로 */
+   
+    
 }
 
 .profile-section h4 {
@@ -209,7 +211,10 @@
     margin-top: 100px;
     padding: 20px; /* 콘텐츠 여백 추가 */
     position: relative;
-    left: -68px;
+    left: 1px;
+    margin-bottom: 10px;
+    
+    
 }
 
 /* 콘텐츠 섹션 헤더 스타일 */
@@ -235,6 +240,7 @@
     max-width: 80%; /* 너비를 100%로 설정 */
     margin: 0 auto; /* 리스트를 화면 중앙으로 정렬 */
     margin-top: 20px;
+    margin-bottom: 150px;
 }
 
 .s_saved-item {

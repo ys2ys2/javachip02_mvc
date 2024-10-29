@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.human.web.service.M_MemberService;
 import com.human.web.vo.M_MemberVO;
@@ -290,7 +291,7 @@ public class M_MemberController {
 	@PostMapping("/resetPassword")
 	public String resetPassword(@RequestParam("newPassword") String newPassword,
 			@RequestParam("confirmPassword") String confirmPassword,
-			HttpSession session, Model model) {
+			HttpSession session, RedirectAttributes redirectAttributes /*Model model*/) {
 
 		// 세션에서 이메일 가져오기 전에 로그 출력
 		System.out.println("세션에서 이메일 가져오기 시도...");
@@ -300,20 +301,31 @@ public class M_MemberController {
 		System.out.println("세션에 저장된 이메일: " + m_email);
 
 		if (m_email == null) {
-			model.addAttribute("errorMessage", "인증 정보가 만료되었습니다. 다시 시도해주세요");
+			  redirectAttributes.addFlashAttribute("errorMessage", "인증 정보가 만료되었습니다. 다시 시도해주세요");
+//			model.addAttribute("errorMessage", "인증 정보가 만료되었습니다. 다시 시도해주세요");
 			return "redirect:/Member/m_findId";
 		}
 
 		// 1. 비밀번호 일치 여부확인
 		if (!newPassword.equals(confirmPassword)) {
-			model.addAttribute("errorMessage", "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-			return "Member/m_findId";
+			 redirectAttributes.addFlashAttribute("errorMessage", "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+		      return "redirect:/Member/m_findId";
+			
+			/*
+			 * model.addAttribute("errorMessage", "비밀번호와 비밀번호 확인이 일치하지 않습니다."); return
+			 * "Member/m_findId";
+			 */
 		}
 
 		// 2. 비밀번호 유효성 검사
 		if (!m_memberServiceImpl.isValidPassword(newPassword)) {
-			model.addAttribute("passwordValidationError", "비밀번호는 최소 8자 이상이어야 하며 숫자와 특수문자를 포함해야 합니다.");
-			return "Member/m_findId";
+			
+			 redirectAttributes.addFlashAttribute("passwordValidationError", "비밀번호는 최소 8자 이상이어야 하며 숫자와 특수문자를 포함해야 합니다.");
+		        return "redirect:/Member/m_findId";
+			/*
+			 * model.addAttribute("passwordValidationError",
+			 * "비밀번호는 최소 8자 이상이어야 하며 숫자와 특수문자를 포함해야 합니다."); return "Member/m_findId";
+			 */
 		}
 
 		// 3. 비밀번호 업데이트 로직
@@ -322,17 +334,29 @@ public class M_MemberController {
 			boolean isUpdated = m_memberServiceImpl.updatePassword(m_email, newPassword);
 
 			if (isUpdated) {
-				model.addAttribute("passwordResetSuccess", true); // 성공 여부 전달
-				return "Member/m_findId"; // 재설정 페이지로 돌아감
-			} else {
-				model.addAttribute("errorMessage", "비밀번호 변경에 실패했습니다. 다시 시도해 주세요.");
-				return "Member/m_findId"; // 업데이트 실패 시 재설정 페이지로 이동
-			}
+				
+				  redirectAttributes.addFlashAttribute("passwordResetSuccess", true);
+		            return "redirect:/Member/m_findId";
+				/*
+				 * model.addAttribute("passwordResetSuccess", true); // 성공 여부 전달 return
+				 * "Member/m_findId"; // 재설정 페이지로 돌아감
+				 */			} else {
+				
+					 redirectAttributes.addFlashAttribute("errorMessage", "비밀번호 변경에 실패했습니다. 다시 시도해 주세요.");
+			            return "redirect:/Member/m_findId";
+					 /*
+				 * model.addAttribute("errorMessage", "비밀번호 변경에 실패했습니다. 다시 시도해 주세요."); return
+				 * "Member/m_findId"; // 업데이트 실패 시 재설정 페이지로 이동
+				 */			}
 		} catch (Exception e) {
 			e.printStackTrace(); // 에러 로그 출력
-			model.addAttribute("errorMessage", "비밀번호 변경 중 오류가 발생했습니다.");
-			return "Member/m_findId"; // 예외 발생 시 비밀번호 재설정 페이지로 이동
-		}
+			
+			 redirectAttributes.addFlashAttribute("errorMessage", "비밀번호 변경 중 오류가 발생했습니다.");
+		        return "redirect:/Member/m_findId";
+			/*
+			 * model.addAttribute("errorMessage", "비밀번호 변경 중 오류가 발생했습니다."); return
+			 * "Member/m_findId"; // 예외 발생 시 비밀번호 재설정 페이지로 이동
+			 */		}
 	}
 
 }

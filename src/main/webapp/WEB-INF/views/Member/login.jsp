@@ -70,6 +70,12 @@
         alert('${msg}');  // 서버에서 전달된 메시지를 alert으로 표시
     </script>
 </c:if>
+<!-- 로그인 필요 메시지 알림 -->
+  <c:if test="${not empty loginMessage}">
+      <script>
+          alert("${loginMessage}");
+      </script>
+  </c:if>
 
     <!-- footer -->
     <jsp:include page="/WEB-INF/views/Components/footer.jsp" />

@@ -276,16 +276,6 @@
 	
 }
 
-/* .latest-past-trip-date::before {
-    content: "◾"; 불릿 대신 ◾ 사용
-    color: #c96e42; 불릿 색상
-    font-size: 15px; 불릿 크기
-    position: absolute; 불릿의 위치를 절대적으로 조정
-    left: -16px; 불릿의 위치 조정
-    top: 50%;
-    transform: translateY(-50%); 불릿을 세로로 중앙 정렬
-} */
-
 
 
 .upcoming-trip-item{
@@ -308,8 +298,8 @@
     font-weight: 500;
     position: relative; /* 상대적 위치 설정 */
     top: -35px;
-	left: 45px;
-	color: navy;
+	left: 10px;
+	color: darkkhaki;
 }
 
 
