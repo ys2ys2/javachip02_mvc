@@ -31,7 +31,7 @@
     <h4>고객지원</h4>
     <ul>
       <!-- <li><a href="#">공지사항</a></li> -->
-      <li><a href="${pageContext.request.contextPath}/MyPage/FAQ" target="_blank">자주묻는 질문</a></li>
+      <li><a href="${pageContext.request.contextPath}/HomePage/FAQ" target="_blank">자주묻는 질문</a></li>
       <li><a href="${pageContext.request.contextPath}/Matzip/MatzipApi"target="_blank">맛집 공공데이터 API</a></li>
       <li><a href="${pageContext.request.contextPath}/HotPlace/inputApi"target="_blank">여행지 공공데이터 API</a></li>
       <!-- <li><a href="#">문의하기</a></li> -->
