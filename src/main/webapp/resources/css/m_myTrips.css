@@ -28,8 +28,9 @@
     font-style: normal;
 }
 
+
 body {
-	margin: 0 auto;
+    margin: 0 auto;
 }
 
 .navigation {
@@ -327,5 +328,5 @@ body {
     position: relative; /* 상대적 위치 설정 */
     top: -5px;
 	left: 10px;
-	color: navy;
+	color: darkkhaki;
 }
