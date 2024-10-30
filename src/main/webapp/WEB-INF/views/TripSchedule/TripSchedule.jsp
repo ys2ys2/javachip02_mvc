@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>뽈뽈뽈 / 여행 일정 작성</title>
+<title> 여행 일정 작성</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
@@ -29,42 +29,42 @@
  <!-- 어두운 배경 -->
  <div class="overlay"></div>
  <header>
-   <div class="header-container">
-     <div class="logo">
-       <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
-     </div>
-     <nav>
-       <ul>
-         <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-         <li><a href="#">커뮤니티</a></li>
-         <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
-         <li><a href="#">여행뽈뽈</a></li>
-         <li><a href="#">여행일정</a></li>
-         
-       </ul>
-     </nav>
-     <div class="member">
-       <c:choose>
-         <c:when test="${not empty sessionScope.member}">
-           <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-           <div class="welcome">
-           	<span class="userprofile"><img src="${sessionScope.member.m_profile}" alt="user-profile"></span>
-           	${sessionScope.member.m_nickname}님 환영합니다!
-           </div>
-           <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
-           <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
-             <button type="submit">로그아웃</button>
-           </form>
-         </c:when>
-         <c:otherwise>
-           <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
-           <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-           <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
-         </c:otherwise>
-       </c:choose>
-     </div>
-   </div>
-</header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
+          <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
+          <li><a href="${pageContext.request.contextPath}/HotPlace/hotplace2">여행지</a></li>
+          <li><a href="${pageCOntext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
+          <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
+        </ul>
+      </nav>
+		<div class="member">
+        <c:choose>
+          <c:when test="${not empty member}">
+            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
+            <div class="welcome">
+                <span class="userprofile"><img src="${pageContext.request.contextPath}${member.m_profile}" alt="user-profile"></span>
+                ${member.m_nickname}님 환영합니다!
+            </div>
+            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
+            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
+              <button type="submit">로그아웃</button>
+            </form>
+          </c:when>
+          <c:otherwise>
+            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
+            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
+            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
+          </c:otherwise>
+        </c:choose>
+
+      </div>
+    </div>
+  </header>
 
 
 <!-- 메인 시작 -->
@@ -192,12 +192,12 @@
       </ul>
     </div>
 
-    <!-- 고객지원 -->
+<!-- 고객지원 -->
     <div class="footer-section">
       <h4>고객지원</h4>
       <ul>
         <li><a href="#">공지사항</a></li>
-        <li><a href="#">자주묻는 질문</a></li>
+        <li><a href="${pageContext.request.contextPath}/MyPage/FAQ" target="_blank">자주묻는 질문</a></li>
         <li><a href="#">문의하기</a></li>
       </ul>
     </div>
@@ -909,21 +909,13 @@ function prepareScheduleData() {
         hiddenFieldsContainer.appendChild(cityNameInput);
     }
 
-    // selectedPlacesPerDay 객체에 있는 데이터를 hidden 필드로 추가
+ // selectedPlacesPerDay 객체에 있는 데이터를 hidden 필드로 추가
     Object.keys(selectedPlacesPerDay).forEach((day, index) => {
         const places = selectedPlacesPerDay[day];
 
         if (places && places.length > 0) {
             places.forEach((place, placeIndex) => {
                 const dayNumber = day.replace('day', '');  // 'day1' -> '1'로 변환
-
-            	
-                // 각 값들을 확인
-                console.log("Day:", day);
-                console.log("City Name:", currentCityName);
-                console.log("Place Name:", place.name);
-                console.log("Place Address:", place.vicinity);
-                console.log("Place Index:", placeIndex + 1);
 
                 // day 입력 필드 생성
                 const dayInput = document.createElement('input');
@@ -955,15 +947,30 @@ function prepareScheduleData() {
                 placeAddressInput.setAttribute('name', 'place_addresses[]');
                 placeAddressInput.setAttribute('value', place.vicinity);
 
+                // place_latitudes 입력 필드 생성
+                const placeLatitudeInput = document.createElement('input');
+                placeLatitudeInput.setAttribute('type', 'hidden');
+                placeLatitudeInput.setAttribute('name', 'place_latitudes[]');
+                placeLatitudeInput.setAttribute('value', place.lat);
+
+                // place_longitudes 입력 필드 생성
+                const placeLongitudeInput = document.createElement('input');
+                placeLongitudeInput.setAttribute('type', 'hidden');
+                placeLongitudeInput.setAttribute('name', 'place_longitudes[]');
+                placeLongitudeInput.setAttribute('value', place.lng);
+
                 // hiddenFieldsContainer에 추가
                 hiddenFieldsContainer.appendChild(dayInput);
                 hiddenFieldsContainer.appendChild(cityInput);
                 hiddenFieldsContainer.appendChild(labelInput);
                 hiddenFieldsContainer.appendChild(placeNameInput);
                 hiddenFieldsContainer.appendChild(placeAddressInput);
+                hiddenFieldsContainer.appendChild(placeLatitudeInput);
+                hiddenFieldsContainer.appendChild(placeLongitudeInput);
             });
         }
     });
+
 
     console.log(hiddenFieldsContainer.innerHTML); // 디버깅용으로 추가된 input 필드 확인
     console.log("Day Numbers: ", Object.keys(selectedPlacesPerDay));

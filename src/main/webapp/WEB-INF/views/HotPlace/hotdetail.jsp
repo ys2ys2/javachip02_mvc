@@ -31,7 +31,7 @@
 
 <!-- header -->
 <jsp:include page="/WEB-INF/views/Components/header.jsp" />
-
+  <div class="overlay"></div>
   <div class="h_minibody">
     <!-- 타이틀 -->
     <div class="h_title-container">

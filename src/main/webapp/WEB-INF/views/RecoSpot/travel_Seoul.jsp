@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Random" %>
+
+
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -187,19 +190,39 @@
 
 
 <div class="travel-post-container">
-	<h2>서울 여행기</h2>
-	<div class="travel-post-list">
-	    <c:forEach var="post" items="${travelPost}">
-				<div class="travel-post-content">
-					<div class="travel-post-img">
-					<a href="${pageContext.request.contextPath}/Community/travelPostDetail/${post.tp_idx}">
-					<img src="${pageContext.request.contextPath}/resources/images/jeju.jpg" alt="jeju.jpg"></a>
-					</div>
-					<div class="travel-post-title">${post.content}</div>
-					<div class="travel-post-writer">by ${post.writer}</div>
-				</div>
-		</c:forEach>
-	</div>
+    <h2>서울 여행기</h2>
+    <div class="travel-post-list">
+        <c:forEach var="post" items="${travelPost}">
+            <div class="travel-post-content">
+                <div class="travel-post-img">
+                    <a href="${pageContext.request.contextPath}/Community/travelPostDetail/${post.tp_idx}">
+                        <c:choose>
+                            <c:when test="${post.tp_idx == 1}">
+                                <img src="${pageContext.request.contextPath}/resources/images/t_idx_1.jpg" alt="image1">
+                            </c:when>
+                            <c:when test="${post.tp_idx == 2}">
+                                <img src="${pageContext.request.contextPath}/resources/images/t_idx_2.jfif" alt="image2">
+                            </c:when>
+                            <c:when test="${post.tp_idx == 3}">
+                                <img src="${pageContext.request.contextPath}/resources/images/t_idx_3.PNG" alt="image3">
+                            </c:when>
+                            <c:when test="${post.tp_idx == 4}">
+                                <img src="${pageContext.request.contextPath}/resources/images/t_idx_4.PNG" alt="image4">
+                            </c:when>
+                            <c:when test="${post.tp_idx == 5}">
+                                <img src="${pageContext.request.contextPath}/resources/images/t_idx_5.PNG" alt="image5">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${pageContext.request.contextPath}/resources/images/default.jpg" alt="default image">
+                            </c:otherwise>
+                        </c:choose>
+                    </a>
+                </div>
+                <div class="travel-post-title">${post.content}</div>
+                <div class="travel-post-writer">by ${post.writer}</div>
+            </div>
+        </c:forEach>
+    </div>
 </div>
 
               

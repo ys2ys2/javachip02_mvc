@@ -46,7 +46,7 @@
           <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
           <li><a href="${pageContext.request.contextPath}/RecoSpot/travel_Seoul">여행지</a></li>
           <li><a href="${pageCOntext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
-          <li><a href="${pageContext.request.contextPath}/TripSched/tripSched">여행일정</a></li>
+          <li><a href="${pageContext.request.contextPath}/TripSchedule/TripList">여행일정</a></li>
         </ul>
       </nav>
 		<div class="member">
@@ -454,13 +454,13 @@
         </div>
       </div>
     </div>
-      
+   </div>  
       
  <!-- 축제 섹션 -->
  <div class="event-section">
     <div class="event-header">
   		<span class="header_white">여행가는 가을 <span class="header_brown">특별 축제</span></span>
-  		<a href="${pageContext.request.contextPath}/RecoSpot/travel_Seoul">축제 바로가기
+  		<a href="${pageContext.request.contextPath}/RecoSpot/travel_Seoul">여행지 바로가기
   			<img alt="바로가기 화살표" src="${pageContext.request.contextPath}/resources/images/header_arrow.png"></a>
   	</div>
   
@@ -475,6 +475,8 @@
 	    </div>
 	</div>
    </div>
+   
+  <div class="mainratio">
    
    <div class="endtitle">
    		<p>'뽈뽈뽈' 추천 여행지 참여 기관</p>
@@ -559,6 +561,7 @@
   			
   			</ul>
   		</div>
+  	</div>
   
   <!-- 오른쪽 하단에 고정된 이미지 버튼 -->
 	<div class="floating-button">

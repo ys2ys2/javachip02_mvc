@@ -169,33 +169,122 @@ public class HomeController {
 	
     //////////////////////////////////  희진  /////////////////////////////////////////////////////
     
- 	//축제 페이지
-	@GetMapping("/Festival/Event")
-	public String Event(Model model) {
-		String viewName = "/RecoSpot/travel_Seoul";//입력 실패시 뷰이름
-		//서울 공공 데이터를 가져와서 Model에 저장하기
-		//int result = seoulEventApiServiceImpl.insertSeoul();
-		
-		//if(result==1) {
-			//System.out.println("서울 공공 데이터가 정상적으로 입력되었습니다.");
-			//행사 목록 가져오기
-			List<SeoulEventApiVO.Row>  events = seoulEventApiServiceImpl.getAllEvents();
+	//축제 페이지
+		@GetMapping("/Festival/Event")
+		public String Event(Model model) {
+			String viewName = "/RecoSpot/travel_Seoul";//입력 실패시 뷰이름
+			//서울 공공 데이터를 가져와서 Model에 저장하기
+			//int result = seoulEventApiServiceImpl.insertSeoul();
 			
-			//댓글 목록 가져오기
-			List<EventsCommentsVO> commentsList = eventsServiceImpl.getAllComments();
-			
-			if(events.size() > 0) {
-				//행사 목록 저장하기
-				model.addAttribute("events", events);
-				//댓글 목록 저장하기
-				model.addAttribute("commentsList", commentsList);
+			//if(result==1) {
+				//System.out.println("서울 공공 데이터가 정상적으로 입력되었습니다.");
+				//행사 목록 가져오기
+				List<SeoulEventApiVO.Row>  events = seoulEventApiServiceImpl.getAllEvents();
 				
-				viewName = "Festival/Event";//입력 성공시 뷰이름
-			}
-		//}
+				//댓글 목록 가져오기
+				List<EventsCommentsVO> commentsList = eventsServiceImpl.getAllComments();
+				
+				if(events.size() > 0) {
+					//행사 목록 저장하기
+					model.addAttribute("events", events);
+					//댓글 목록 저장하기
+					model.addAttribute("commentsList", commentsList);
+					
+					viewName = "Festival/Event";//입력 성공시 뷰이름
+				}
+			//}
+			
+		    return viewName;
+		}
 		
-	    return viewName;
-	}
+		
+		
+		//축제 페이지
+			@GetMapping("/Festival/Event2")
+			public String Event2(Model model) {
+				String viewName = "/RecoSpot/travel_Seoul";//입력 실패시 뷰이름
+				//서울 공공 데이터를 가져와서 Model에 저장하기
+				//int result = seoulEventApiServiceImpl.insertSeoul();
+				
+				//if(result==1) {
+					//System.out.println("서울 공공 데이터가 정상적으로 입력되었습니다.");
+					//행사 목록 가져오기
+					List<SeoulEventApiVO.Row>  events = seoulEventApiServiceImpl.getAllEvents();
+					
+					//댓글 목록 가져오기
+					List<EventsCommentsVO> commentsList = eventsServiceImpl.getAllComments();
+					
+					if(events.size() > 0) {
+						//행사 목록 저장하기
+						model.addAttribute("events", events);
+						//댓글 목록 저장하기
+						model.addAttribute("commentsList", commentsList);
+						
+						viewName = "Festival/Event2";//입력 성공시 뷰이름
+					}
+				//}
+				
+			    return viewName;
+			}
+		
+			//축제 페이지
+			@GetMapping("/Festival/Event3")
+			public String Event3(Model model) {
+				String viewName = "/RecoSpot/travel_Seoul";//입력 실패시 뷰이름
+				//서울 공공 데이터를 가져와서 Model에 저장하기
+				//int result = seoulEventApiServiceImpl.insertSeoul();
+				
+				//if(result==1) {
+					//System.out.println("서울 공공 데이터가 정상적으로 입력되었습니다.");
+					//행사 목록 가져오기
+					List<SeoulEventApiVO.Row>  events = seoulEventApiServiceImpl.getAllEvents();
+					
+					//댓글 목록 가져오기
+					List<EventsCommentsVO> commentsList = eventsServiceImpl.getAllComments();
+					
+					if(events.size() > 0) {
+						//행사 목록 저장하기
+						model.addAttribute("events", events);
+						//댓글 목록 저장하기
+						model.addAttribute("commentsList", commentsList);
+						
+						viewName = "Festival/Event3";//입력 성공시 뷰이름
+					}
+				//}
+				
+			    return viewName;
+			}
+		
+		
+			//축제 페이지
+			@GetMapping("/Festival/Event4")
+			public String Event4(Model model) {
+				String viewName = "/RecoSpot/travel_Seoul";//입력 실패시 뷰이름
+				//서울 공공 데이터를 가져와서 Model에 저장하기
+				//int result = seoulEventApiServiceImpl.insertSeoul();
+				
+				//if(result==1) {
+					//System.out.println("서울 공공 데이터가 정상적으로 입력되었습니다.");
+					//행사 목록 가져오기
+					List<SeoulEventApiVO.Row>  events = seoulEventApiServiceImpl.getAllEvents();
+					
+					//댓글 목록 가져오기
+					List<EventsCommentsVO> commentsList = eventsServiceImpl.getAllComments();
+					
+					if(events.size() > 0) {
+						//행사 목록 저장하기
+						model.addAttribute("events", events);
+						//댓글 목록 저장하기
+						model.addAttribute("commentsList", commentsList);
+						
+						viewName = "Festival/Event4";//입력 성공시 뷰이름
+					}
+				//}
+				
+			    return viewName;
+			}
+			
+	
 	
 	// 맛집 API
 	@GetMapping("/Matzip/seoulFamous")
@@ -375,26 +464,6 @@ public class HomeController {
     }
     
     
-    //희진 Event1
-    @GetMapping("/Festival/Event1")
-    public String Event1() {
-    	return "Festival/Event1";
-    }
-    
-    //희진 Event2
-    @GetMapping("/Festival/Event2")
-    public String Event2() {
-    	return "Festival/Event2";
-    }
-    
-    //희진 Event3
-    @GetMapping("/Festival/Event3")
-    public String Event3() {
-    	return "Festival/Event3";
-    }
-    
-    
-        
  // matzipDetail.jsp
     @Autowired
     private TalkService talkService;

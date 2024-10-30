@@ -6,9 +6,9 @@
     <!-- 여행 일정 추가 -->
     <insert id="insertTripSchedule" parameterType="com.human.web.vo.TripScheduleVO">
         INSERT INTO travel_schedule 
-        (m_idx, m_email, m_nickname, period_start, period_end, title)
+        (m_idx, post_id, m_email, m_nickname, period_start, period_end, title, day_number, city_name, label_number, place_name, place_address, place_latitude, place_longitude, thumbnail)
         VALUES 
-        (#{m_idx}, #{m_email}, #{m_nickname}, #{period_start}, #{period_end}, #{title})
+        (#{m_idx}, #{post_id}, #{m_email}, #{m_nickname}, #{period_start}, #{period_end}, #{title}, #{day_number}, #{city_name}, #{label_number}, #{place_name}, #{place_address}, #{place_latitude}, #{place_longitude}, #{thumbnail})
     </insert>
 
     <!-- 최대 Post ID 조회 -->
@@ -16,56 +16,26 @@
         SELECT MAX(post_id) FROM travel_schedule
     </select>
 
-    <!-- 스케줄 삽입 -->
-    <insert id="insertSchedule" parameterType="com.human.web.vo.ScheduleVO">
-        INSERT INTO schedule (post_id, day_number, city_name, label_number, place_name, place_address)
-        VALUES (#{post_id}, #{day_number}, #{city_name}, #{label_number}, #{place_name}, #{place_address})
-    </insert>
-
     <!-- 여행 일정 리스트 조회 -->
-    <select id="getDistinctTripScheduleList" resultType="com.human.web.vo.TripScheduleVO">
+    <select id="getTripScheduleList" resultType="com.human.web.vo.TripScheduleVO">
         SELECT 
-            ts.m_idx AS m_idx,  
-            ts.post_id AS post_id, 
-            ts.m_email AS m_email,
-            ts.m_nickname AS m_nickname,
-            ts.period_start AS period_start,
-            ts.period_end AS period_end,
-            ts.title AS title,
-            MAX(s.city_name) AS city_name,
-            MAX(s.place_name) AS place_name,
-            MAX(s.place_address) AS place_address
+            id, m_idx, post_id, m_email, m_nickname, period_start, period_end, title, day_number, city_name, label_number, place_name, place_address, place_latitude, place_longitude, thumbnail
         FROM 
-            travel_schedule ts
-        JOIN
-            schedule s ON ts.post_id = s.post_id
-        WHERE 
-            s.label_number = 1
-        GROUP BY 
-            ts.post_id
+            travel_schedule
+        ORDER BY 
+            post_id, day_number, label_number
     </select>
 
-    <!-- 여행 일정 단일 조회 -->
-    <select id="getTripScheduleById" parameterType="int" resultType="com.human.web.vo.TripScheduleVO">
+    <!-- 여행 일정 여러 개 조회 (post_id로 조회) -->
+    <select id="getTripSchedulesById" parameterType="int" resultType="com.human.web.vo.TripScheduleVO">
         SELECT 
-            ts.m_idx, ts.post_id, ts.m_email, ts.m_nickname, ts.period_start, ts.period_end, ts.title,
-            s.day_number, s.city_name, s.label_number, s.place_name, s.place_address
+            id, m_idx, post_id, m_email, m_nickname, period_start, period_end, title, day_number, city_name, label_number, place_name, place_address, place_latitude, place_longitude, thumbnail
         FROM 
-            travel_schedule ts
-        JOIN
-            schedule s ON ts.post_id = s.post_id
+            travel_schedule
         WHERE 
-            ts.post_id = #{post_id}
-    </select>
-
-    <!-- 스케줄 데이터를 post_id로 조회 -->
-    <select id="getScheduleByPostId" parameterType="int" resultType="com.human.web.vo.ScheduleVO">
-        SELECT 
-            s_idx, post_id, day_number, city_name, label_number, place_name, place_address
-        FROM 
-            schedule
-        WHERE 
-            post_id = #{post_id}
+            post_id = #{postId}
+        ORDER BY 
+            day_number, label_number
     </select>
 
 </mapper>

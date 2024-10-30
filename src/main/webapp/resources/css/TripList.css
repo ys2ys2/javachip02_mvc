@@ -1,13 +1,66 @@
+/* 파셜산스체 */
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
 /* 전체 페이지의 기본 설정 */
 body {
-    margin: 0;
-    font-family: 'NanumSquareRoundR', sans-serif;
+    margin: 0 auto;
+    font-family: 'SUIT-Regular', sans-serif;
     background-color: white;
 }
+
 
 .trip-list-container {
     width: 80%; /* 페이지 콘텐츠 너비를 화면의 80%로 설정 */
     margin: 0 auto; /* 페이지를 수평으로 중앙에 배치 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 검색창 영역 */
@@ -16,6 +69,9 @@ body {
     justify-content: flex-end;
     align-items: center;
     position: relative; /* 부모 요소에 상대적 위치 설정 */
+    margin-left: auto;
+    padding: 10px;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 검색창의 스타일 */
@@ -27,17 +83,18 @@ body {
     margin-left: 10px; /* 검색창이 필터와 떨어지도록 왼쪽 여백 추가 */
     border-bottom: 2px solid #ccc; /* 검색창 하단에만 밑줄 추가 */
     position: relative; /* 검색창 위치를 조정하기 위한 속성 */
-    top: 40px; /* 검색창을 아래로 내리기 */
+    /* top: 40px; /* 검색창을 아래로 내리기 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 검색창의 돋보기 아이콘 조정 */
 .search-container button {
-    position: absolute; /* 부모 요소를 기준으로 절대적 위치 설정 */
     top: 45px; /* 아이콘을 위에서 아래로 내립니다 */
     right: 10px; /* 아이콘을 오른쪽 끝에 배치 */
     background: none;
     border: none;
     cursor: pointer;
+    
 }
 
 .search-container img {
@@ -52,6 +109,8 @@ body {
     align-items: center; /* 필터 선택 박스와 검색창의 높이를 동일하게 맞춤 */
     margin-bottom: 20px; /* 필터 영역의 아래쪽에 20px의 여백 추가 */
     gap: 20px; /* 필터들 사이의 간격을 20px로 설정 */
+    justify-content: flex-start;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 필터 선택 박스 스타일 */
@@ -61,6 +120,7 @@ body {
     border: none; /* 필터 선택 박스의 기본 테두리를 제거 */
     border-bottom: 2px solid #ccc; /* 필터 선택 박스의 하단에만 회색 밑줄 추가 */
     margin-right: 10px; /* 각 필터 선택 박스 사이에 10px 간격을 추가 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 여행 일정 항목 스타일 */
@@ -69,11 +129,17 @@ body {
     justify-content: space-between; /* 여행 정보는 왼쪽, 썸네일은 오른쪽 끝으로 배치 */
     padding: 20px; /* 각 여행 일정 항목의 내부 여백을 20px로 설정 */
     border-bottom: 1px solid #eee; /* 각 항목 사이에 연한 회색 구분선 추가 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 여행 일정의 텍스트 정보 부분 */
 .trip-info {
     flex: 3; /* 정보 섹션의 공간 비율 설정: 여행 정보 부분이 썸네일보다 넓게 차지 */
+}
+
+.trip-info a {
+	text-decoration: none;
+	color: black;
 }
 
 /* 여행 일정의 썸네일 부분 */
@@ -100,22 +166,26 @@ body {
 /* 여행 일정의 제목 스타일 */
 h2 {
     margin: 5px 0; /* 제목의 위, 아래에 각각 5px 여백을 추가 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 여행 일정의 위치 정보 스타일 */
 .location {
     color: #888; /* 위치 정보의 텍스트 색상을 회색으로 설정 */
     margin-bottom: 10px; /* 위치 정보 아래에 10px 여백 추가 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 여행 일정의 부가 정보 스타일 */
 .info-wrap {
     color: #666; /* 부가 정보 텍스트 색상을 약간 어두운 회색으로 설정 */
     font-size: 13px; /* 부가 정보 텍스트 크기를 13px로 설정 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 작성자 닉네임 스타일 */
 .nickname {
     color: #000; /* 닉네임 텍스트 색상을 검정색으로 설정 */
     font-weight: bold; /* 닉네임 텍스트를 굵게 표시 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
