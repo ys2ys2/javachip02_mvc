@@ -565,7 +565,7 @@
   
   <!-- 오른쪽 하단에 고정된 이미지 버튼 -->
 	<div class="floating-button">
-	    <a href="${pageContext.request.contextPath}/MyPage/FAQ">
+	    <a href="${pageContext.request.contextPath}/HomePage/FAQ">
 	        <img src="${pageContext.request.contextPath}/resources/images/chatbot.png" alt="챗봇 이미지">
 	    </a>
 	</div>
