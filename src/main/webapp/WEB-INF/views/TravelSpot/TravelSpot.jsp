@@ -1,221 +1,219 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.net.URL, java.net.HttpURLConnection, java.io.BufferedReader, java.io.InputStreamReader" %>
+<%@ page import="org.json.JSONObject, org.json.JSONArray" %>
+<%@ page import="java.io.IOException, java.util.ArrayList, java.util.HashMap, java.util.List, java.util.Map" %>
+
+<%
+    // 전달받은 contentTypeId 값이 있으면 사용, 없으면 기본값으로 설정
+    String contentTypeId = request.getParameter("contentTypeId") != null ? request.getParameter("contentTypeId") : "12";
+    String apiKey = "rBOARBGR6WewzR+zYF+kQmTdL/uXaOHo8Xi8oSkMFzA/7fiYa80eViuXxb9mLDalaBCEyQPIIt3abBnIMVwU0Q==";
+    String apiUrl = "https://apis.data.go.kr/B551011/KorService1/areaBasedList1";
+    String regionCode = request.getParameter("regionCode") != null ? request.getParameter("regionCode") : "1";
+    
+    int randomPageNo = (int)(Math.random() * 20) + 1;
+
+    
+    String params = "?serviceKey=" + java.net.URLEncoder.encode(apiKey, "UTF-8")
+                  + "&MobileOS=ETC"
+                  + "&MobileApp=APP"
+                  + "&_type=json"
+                  + "&arrange=O"
+                  + "&contentTypeId=" + contentTypeId
+                  + "&areaCode=" + regionCode
+                  + "&numOfRows=10"
+                  + "&pageNo=" + randomPageNo; // 랜덤 페이지 번호 적용
+    
+    List<Map<String, String>> places = new ArrayList<>();
+    
+    try {
+        // API 요청 보내기
+        URL url = new URL(apiUrl + params);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-type", "application/json");
+
+        int responseCode = conn.getResponseCode();
+        BufferedReader rd;
+
+        if (responseCode >= 200 && responseCode <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));
+        }
+
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+
+        // JSON 파싱 및 리스트에 추가
+        String jsonResponse = sb.toString();
+        if (jsonResponse.startsWith("{")) {
+            JSONObject jsonObject = new JSONObject(jsonResponse);
+            JSONArray items = jsonObject.getJSONObject("response").getJSONObject("body")
+                                        .getJSONObject("items").getJSONArray("item");
+
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject item = items.getJSONObject(i);
+                Map<String, String> place = new HashMap<>();
+                place.put("title", item.optString("title", "정보 없음"));
+                place.put("addr1", item.optString("addr1", "정보 없음"));
+                place.put("firstimage", item.optString("firstimage", ""));
+                place.put("mapx", item.optString("mapx", "0"));
+                place.put("mapy", item.optString("mapy", "0"));
+                places.add(place);
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    request.setAttribute("places", places);
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>여 행 뽈 뽈</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- 공통 CSS -->
-    <link rel="stylesheet" href="<c:url value='/resources/css/header.css' />">  <!-- 공통 CSS -->
-    <link rel="stylesheet" href="<c:url value='/resources/css/footer.css' />">  <!-- 공통 CSS -->
-    <link rel="stylesheet" href="<c:url value='/resources/css/TravelSpot.css?v=1.1' />"> <!-- CSS 파일 단일화 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="${pageContext.request.contextPath}/resources/css/TravelSpot.css" rel="stylesheet" type="text/css">
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiIs-_C5RuOG0OQB9PNf2bTZPXgb4MMeo&callback=initMap"></script>
 </head>
 
 <body>
-  <header>
-    <div class="header-container">
-      <div class="logo" data-ko="BBOL BBOL BBOL" data-en="BBOL BBOL BBOL">BBOL BBOL BBOL</div>
-      <nav>
-        <ul>
-            <li><a href="#" data-ko="홈" data-en="Home">홈</a></li>
-            <li><a href="#" data-ko="커뮤니티" data-en="Community">커뮤니티</a></li>
-            <li><a href="#" data-ko="여행지" data-en="RecoHotPlace">여행지</a></li>
-            <li><a href="#" data-ko="여행뽈뽈" data-en="BBOL BBOL BBOL">여행뽈뽈</a></li>
-            <li><button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button></li>
-            <li><button class="user-btn"><i class="fa-solid fa-user"></i></button></li>
-            <li><button class="earth-btn"><i class="fa-solid fa-earth-americas"></i></button></li>
-            <li><button class="korean" id="lang-btn" data-lang="ko">English</button></li>
-        </ul>
-      </nav>
-    </div>
-</header>
+<jsp:include page="/WEB-INF/views/Components/header.jsp" />
 
 <main>
-    <section class="map-and-places">
-        <div class="map-container">
-            <div id="map"></div>
-        </div>
-        <div class="places-list">
-            <h3>#테마 #공연 #축제가 있는 여행을 즐겨보세요!</h3>
-            <ul id="places-list">
-                <c:forEach var="place" items="${placesList}">
-                    <li>
-                        <img src="${place.c_firstImage}" alt="${place.c_title}">
-                        <p>${place.c_title}</p>
-                        <p>${place.c_addr1 != null ? place.c_addr1 : '주소 정보 없음'}</p>
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
-    </section>
+    <div class="content-container">
+        <section class="map-and-places">
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+            <div class="places-list">
+			<h3>
+			    <!-- 각 링크 클릭 시 contentTypeId를 전달하여 새 페이지를 요청 -->
+			    <a href="javascript:void(0);" onclick="setCategory('nature')">#자연 관광지</a>
+			    <a href="javascript:void(0);" onclick="setCategory('culture')">#문화탐방</a>
+			    <a href="javascript:void(0);" onclick="setCategory('activity')">#액티비티</a>
+			</h3>
+                <ul id="places-list">
+                    <c:forEach var="place" items="${places}">
+                        <li>
+                            <img src="${place.firstimage}" alt="${place.title}">
+                            <p>${place.title}</p>
+                            <p>${place.addr1}</p>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </section>
+    </div>
 </main>
 
-<!-- 푸터 부분 -->
-<footer>
-  <div class="footer-container">
-    <div class="footer-section">
-      <h4>회사소개</h4>
-      <ul>
-        <li><a href="#">회사소개</a></li>
-        <li><a href="#">브랜드 이야기</a></li>
-        <li><a href="#">채용공고</a></li>
-      </ul>
-    </div>
+<!-- footer -->
+<jsp:include page="/WEB-INF/views/Components/footer.jsp" />
 
-    <div class="footer-section">
-      <h4>고객지원</h4>
-      <ul>
-        <li><a href="#">공지사항</a></li>
-        <li><a href="#">자주묻는 질문</a></li>
-        <li><a href="#">문의하기</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-section">
-      <h4>이용약관</h4>
-      <ul>
-        <li><a href="#">이용약관</a></li>
-        <li><a href="#">개인정보처리방침</a></li>
-        <li><a href="#">저작권 보호정책</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-company-info">
-      <p>상호: (주)BBOL | 대표: 박예슬 | 사업자등록번호: 123-45-67890 | 통신판매업 신고번호: 2024-충남천안-00000 | 개인정보관리 책임자: 수수옥</p>
-      <p>주소: 충청남도 천안시 동남구 123 | 이메일: support@BBOL3.com | 대표전화: 02-1234-5678</p>
-      <p>© 2024 BBOLBBOLBBOL. All Rights Reserved.</p>
-    </div>
-
-    <div class="footer-social">
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-    </div>
-</footer>
-
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_kDjiknfR2lOvFC9TGAQknSJQ1fNFePg&callback=initMap"></script>
+  <!-- Google Maps 및 JavaScript -->
 <script>
-    // 지도 초기화
-    function initMap() {
-        var mapOptions = {
-            center: new google.maps.LatLng(36.5, 127.5), // 대한민국 중앙 좌표
-            zoom: 7
-        };
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    let map;
+    let markers = [];
 
-        // API에서 관광지 데이터를 불러옵니다
-        fetchTouristPlaces(map);
+    function initMap() {
+        const mapOptions = {
+            center: new google.maps.LatLng(37.6, 127.2),
+            zoom: 8
+        };
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        // JSP에서 생성한 JSON 데이터를 JavaScript 객체로 변환
+        const places = JSON.parse('<%= new org.json.JSONArray(places).toString() %>');
+        displayPlacesOnMap(places);
     }
 
-    // 관광지 데이터를 불러오는 함수
-    function fetchTouristPlaces(map) {
-        const url = 'http://apis.data.go.kr/B551011/KorService1/areaBasedList1';
-        const serviceKey = 'BRHEr4BE8os3yCBNEaw7CUD1eGB4KxtoM1uvJkHTZIBl1HPepXIX55ULa7HVIQ8zqt48NpO8Ut6eGxqgAr9E4g%3D%3D';
-        const params = `?serviceKey=${serviceKey}&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json`;
+    function setCategory(category) {
+        // 각 카테고리에 대한 고정된 contentTypeId 값 지정
+        let contentTypeId;
+        if (category === 'nature') {
+            contentTypeId = 12; // 자연 관광지
+        } else if (category === 'culture') {
+            contentTypeId = 14; // 문화탐방
+        } else if (category === 'activity') {
+            contentTypeId = 28; // 액티비티
+        }
+        console.log("Selected contentTypeId:", contentTypeId);
+        
+        // 1부터 10 사이의 랜덤 페이지 번호 생성
+        const randomPageNo = Math.floor(Math.random() * 10) + 1;
 
-        fetch(url + params)
-            .then(response => response.json())
+        const apiUrl = "https://apis.data.go.kr/B551011/KorService1/areaBasedList1"
+	        + "?serviceKey=rBOARBGR6WewzR%2BzYF%2BkQmTdL%2FuXaOHo8Xi8oSkMFzA%2F7fiYa80eViuXxb9mLDalaBCEyQPIIt3abBnIMVwU0Q%3D%3D"
+	        + "&MobileOS=ETC"
+	        + "&MobileApp=APP"
+	        + "&_type=json"
+	        + "&arrange=O"
+	        + "&contentTypeId=" + contentTypeId
+	        + "&areaCode=1"
+	        + "&numOfRows=10"
+	        + "&pageNo=" + randomPageNo;
+        
+	    console.log("Requesting URL:", apiUrl);
+
+        // Fetch를 사용하여 API 호출
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok " + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
-                const places = data.response.body.items.item;
-                displayPlacesOnMap(places, map);
+                const places = data.response.body.items.item || [];
+                displayPlacesOnMap(places);
                 displayPlacesList(places);
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error fetching data:', error));
     }
 
-    // 지도에 관광지를 표시하는 함수 (이미지가 있는 경우 이미지 마커로 표시)
-    function displayPlacesOnMap(places, map) {
+    function displayPlacesOnMap(places) {
+        markers.forEach(marker => marker.setMap(null));
+        markers = [];
+
         places.forEach(place => {
-            if (!place.c_firstImage || place.c_firstImage.length === 0) {
-                return;  // 이미지가 없는 항목은 스킵
+            if (place.mapy && place.mapx) {
+                const marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(parseFloat(place.mapy), parseFloat(place.mapx)),
+                    map: map,
+                    title: place.title
+                });
+
+                markers.push(marker);
             }
-
-            // 마커를 위한 div 요소 생성
-            const markerDiv = document.createElement('div');
-            markerDiv.classList.add('map-marker');
-            markerDiv.innerHTML = `
-                <img src="${place.c_firstImage}" alt="${place.c_title}">
-                <div class="map-marker-arrow"></div>
-            `;
-
-            const marker = new google.maps.Marker({
-                position: new google.maps.LatLng(place.mapy, place.mapx),
-                map: map,
-                icon: {
-                    url: '',  // 마커의 기본 아이콘을 빈 값으로 설정하여 숨김
-                },
-                title: place.c_title
-            });
-
-            const infoWindow = new google.maps.InfoWindow({
-                content: `<div class="info-window-content"><h4>${place.c_title}</h4><p>${place.c_addr1}</p></div>`
-            });
-
-            marker.addListener('click', function() {
-                infoWindow.open(map, marker);
-            });
-
-            // 커스텀 마커를 위한 오버레이 설정
-            const overlay = new google.maps.OverlayView();
-            overlay.onAdd = function () {
-                const layer = this.getPanes().overlayLayer;
-                layer.appendChild(markerDiv);
-            };
-
-            overlay.draw = function () {
-                const projection = this.getProjection();
-                const position = projection.fromLatLngToDivPixel(marker.getPosition());
-
-                // 좌표가 정확히 계산되었는지 확인하고, 마커의 위치 보정
-                if (position) {
-                    markerDiv.style.left = (position.x - markerDiv.offsetWidth / 2) + 'px';
-                    markerDiv.style.top = (position.y - markerDiv.offsetHeight + 25) + 'px';  // 위치 보정 값 25px로 변경
-                }
-            };
-
-            overlay.setMap(map);
         });
     }
 
-    // 관광지 리스트를 화면에 표시하는 함수 (이미지가 없는 데이터는 제외)
     function displayPlacesList(places) {
-        const placesList = document.getElementById('places-list');
-        placesList.innerHTML = ''; // 기존 내용을 지웁니다
+        const placesList = document.getElementById("places-list");
+        placesList.innerHTML = '';
 
         places.forEach(place => {
-            // 이미지가 없는 데이터를 걸러냄
-            if (!place.c_firstImage || place.c_firstImage.length === 0) {
-                return;  // 이미지가 없는 항목은 스킵
-            }
-
             const listItem = document.createElement('li');
-
-            // 이미지 추가
-            const img = document.createElement('img');
-            img.src = place.c_firstImage; // 이미지가 있으면 사용
-            img.alt = place.c_title;
-
-            // 이름과 위치 추가
-            const name = document.createElement('p');
-            name.textContent = place.c_title;
-
-            const location = document.createElement('p');
-            location.textContent = place.c_addr1 || '주소 정보 없음';
-
-            // 리스트 항목에 추가
-            listItem.appendChild(img);
-            listItem.appendChild(name);
-            listItem.appendChild(location);
+            listItem.innerHTML = 
+                '<img src="' + (place.firstimage || '/path/to/default/image.jpg') + '" alt="' + place.title + '">' +
+                '<p>' + place.title + '</p>' +
+                '<p>' + place.addr1 + '</p>';
+                
             placesList.appendChild(listItem);
         });
     }
-
-    // 페이지가 로드되면 지도를 초기화
-    window.onload = function() {
-        initMap();
-    };
+    
+    
 </script>
 </body>
 </html>

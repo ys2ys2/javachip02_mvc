@@ -61,6 +61,7 @@ body {
     width: 80%; /* 페이지 콘텐츠 너비를 화면의 80%로 설정 */
     margin: 0 auto; /* 페이지를 수평으로 중앙에 배치 */
     font-family: 'SUIT-Regular', sans-serif;
+    height: 100%;
 }
 
 /* 검색창 영역 */
@@ -189,3 +190,14 @@ h2 {
     font-weight: bold; /* 닉네임 텍스트를 굵게 표시 */
     font-family: 'SUIT-Regular', sans-serif;
 }
+
+.day-header h3 {
+	pointer: cursor;
+	
+}
+
+.trip_List {
+	width: 100%;
+	height: auto;
+}
+

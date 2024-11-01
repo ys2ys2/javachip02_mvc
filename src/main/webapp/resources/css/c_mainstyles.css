@@ -1,116 +1,176 @@
+/* 파셜산스체 */
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
 /* Body 스타일 */
 body {
     background-color: #FFFFFF;
-    font-family: 'NanumSquareRoundR', sans-serif;
+    font-family: 'SUIT-Regular', sans-serif;
     width: 100%;
     margin: 0 auto;
     overflow-x: hidden;
 }
 
-/* 전체 컨테이너 */
+/* 전체 컨테이너 설정 */
 .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2개의 컬럼으로 분할 */
+    gap: 20px;
+    padding: 20px;
+}
+
+/* 왼쪽 게시글 목록 영역 스타일 */
+.left-content {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 950px;
+    overflow-y: auto;
+}
+
+.left-content .post-header {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    padding: 20px 10px;
-    height: 100vh; /* 전체 화면 높이에 맞춤 */
+    align-items: center;
+    margin-bottom: 10px;
+    font-family: 'Paperlogy-8ExtraBold', sans-serif; 
 }
 
-/* 왼쪽 컨텐츠 스타일 */
-.left-content {
-    width: 48%; /* 페이지 너비의 48% */
+.post-header h2 {
+	font-family: 'Paperlogy-8ExtraBold', sans-serif; 
+	
+}
+
+.left-content .post-list .post {
+    padding: 15px;
+    margin-bottom: 10px;
     background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto; /* 세로 스크롤 활성화 */
-    height: 90vh; /* 화면 높이의 90% */
-    max-height: 90vh; /* 스크롤 영역의 최대 높이 */
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
-/* 오른쪽 컨텐츠 스타일 */
+.left-content .post-list .post:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 오른쪽 여행기 목록 스타일 */
 .right-content {
-    width: 48%; /* 페이지 너비의 48% */
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto; /* 세로 스크롤 활성화 */
-    height: 90vh;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 950px;
+    overflow-y: auto; /* 높이를 초과하는 내용 스크롤 */
 }
 
-/* 게시글 목록 */
-#postList {
+.travel-header {
     display: flex;
-    flex-direction: column;
-    gap: 15px; /* 게시글 사이 간격 */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-family: 'Paperlogy-8ExtraBold'; 
 }
 
-.post-header {
-    font-weight: bold;
+.tag-section {
     margin-bottom: 20px;
 }
 
-/* 게시글 카드 */
-.post {
-    background-color: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.post-user {
+.tag-section h4 {
+    color: #333;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
-.post-content {
-    margin: 10px 0;
+/* 여행기 게시물을 한 줄에 3개씩 표시 */
+.tag-section .post-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 한 줄에 3개씩 */
+    gap: 15px; /* 게시물 간의 간격 */
+    padding-left: 0; /* 기본 패딩 제거 */
 }
 
-.post-footer {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-}
-
-/* 게시글 목록을 가로로 나열하기 위한 설정 */
-.post-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* 게시글 사이 간격 */
-}
-
-/* 게시글 항목 스타일 */
-.post-item {
-    display: flex;
-    flex-direction: column; /* 이미지가 상단, 제목이 하단에 위치하도록 설정 */
-    align-items: center;
-    border: 1px solid #ddd;
+.tag-section .post-list .post-item {
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
-    padding: 10px;
-    width: calc(33.33% - 20px); /* 3개의 게시글이 한 줄에 표시되도록 설정 */
-    box-sizing: border-box;
-    transition: transform 0.3s ease;
-    text-align: center; /* 텍스트를 가운데 정렬 */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center; /* 텍스트 가운데 정렬 */
 }
 
-.post-item:hover {
-    transform: translateY(-5px);
+.tag-section .post-list .post-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* 이미지 스타일 */
 .post-item img {
     width: 100%;
-    height: 100px;
+    height: 120px;
     object-fit: cover; /* 이미지 비율을 유지하면서 크기에 맞게 자르기 */
-    margin-bottom: 10px; /* 제목과 이미지 사이 여백 */
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
 
 /* 제목 스타일 */
 .post-item .post-title {
     font-size: 16px;
     font-weight: bold;
-    margin-top: 10px; /* 이미지와의 간격 설정 */
+    margin-top: 10px;
     color: #333;
     text-align: center;
 }
@@ -119,60 +179,340 @@ body {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
     padding: 20px;
-    border-radius: 10px;
-    width: 600px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    max-width: 600px;
+    width: 80%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease;
+    overflow-y: auto;
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover, .close:focus {
-    color: black;
+.modal .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2em;
     cursor: pointer;
+    color: #333;
 }
 
-/* 여행기 헤더 (제목과 버튼) */
-.travel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* 버튼을 오른쪽에 배치 */
-    margin-bottom: 20px;
+/* 애니메이션 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-/* 여행기 버튼 스타일 */
-.travel-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.write-btn, .view-all-btn {
-    padding: 10px 20px;
-    font-size: 14px;
-    background-color: #4CAF50;
-    color: white;
+/* 게시글 작성 버튼 */
+.modal-button {
+    padding: 10px 15px;
+    font-size: 0.9em;
+    background-color: #A7F25C; /* 연두색 */
+    color: green;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: 'SUIT-Regular', sans-serif; 
+}
+
+/* 내용 영역 스타일 조정 */
+#modal-post-content {
+    padding-bottom: 20px; /* 아래쪽에 추가 공간 확보 */
+    margin-bottom: 20px; /* 댓글 섹션과의 간격 추가 */
+    font-size: 1em; /* 글씨 크기 조정 */
+    line-height: 1.5; /* 줄 간격 조정 */
+}
+/* 작성 날짜 스타일을 댓글 날짜와 동일하게 */
+#modal-post-content .post-date {
+    font-size: 0.9em; /* 댓글 날짜와 동일한 크기 */
+    color: #777; /* 댓글 날짜와 동일한 색상 */
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+
+
+.modal-button:hover {
+    background-color: #8FC940; /* 진한 연두색 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 좋아요 버튼 스타일 */
+#likeButton {
+    padding: 8px 12px;
+    font-size: 0.85em;
+    color: green;
+    background: #A7F25C; /* 연두색 */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    display: inline-block;
+}
+
+#likeButton:hover {
+    background-color: #8FC940; /* 진한 연두색 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 댓글 섹션 스타일 */
+#commentSection {
+    margin-top: 20px;
+    overflow-y: visible;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    font-family: 'SUIT-Regular', sans-serif;
+}
+
+#commentSection h3 {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top:0px;
+    font-family: 'SUIT-Regular', sans-serif;
+    
+}
+
+/* 댓글 리스트 영역 3열 그리드 */
+#commentList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
+    gap: 8px; /* 각 댓글 간의 간격을 줄임 */
+}
+
+#commentList .comment {
+    padding: 6px 8px; /* 위아래 패딩을 줄임 */
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.85em;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 4px; /* 각 댓글 위아래 마진을 줄임 */
+    margin-bottom: 4px; /* 각 댓글 위아래 마진을 줄임 */
+    font-family: 'SUIT-Regular', sans-serif;
+}
+
+/* 댓글 작성자 정보와 삭제 버튼 */
+#commentList .comment .comment-writer {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+#commentList .comment .comment-date {
+    font-size: 0.8em;
+    color: #777;
+    margin-bottom: 3px; /* 작성 시간과 댓글 내용 간의 간격을 줄임 */
+}
+
+#commentList .comment p {
+    font-size: 1em;
+    margin: 2px 0; /* 댓글 텍스트 위아래 여백을 줄임 */
+}
+
+/* 댓글 작성 및 좋아요 버튼을 위한 컨테이너 */
+.comment-input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* 댓글 작성 입력 필드 */
+#commentInput {
+    width: 60%; /* 왼쪽에 위치 */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+    resize: none; /* 크기 조절 비활성화 */\
+    font-family: 'SUIT-Regular', sans-serif;
+}
+
+#commentInput:focus {
+    border-color: #007bff;
+    font-family: 'SUIT-Regular', sans-serif;
+}
+
+.delete-comment-button {
+    font-size: 0.75em;
+    color: #dc3545;
+    background: none;
+    border: none;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+/* 댓글 작성 버튼 */
+#submitComment {
+    padding: 8px 15px;
+    font-size: 0.85em;
+    background-color: #A7F25C; /* 연두색 */
+    color: green;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    width: auto; /* 전체 폭을 차지하지 않도록 */
+    margin-right: 5px; /* 오른쪽에 여백 추가 */
+}
+
+#submitComment:hover {
+    background-color: #8FC940; /* 진한 연두색 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+    .tag-section .post-list {
+        grid-template-columns: repeat(2, 1fr); /* 한 줄에 2개씩 */
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* 한 컬럼 레이아웃 */
+    }
+    .post-header, .travel-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .tag-section .post-list {
+        grid-template-columns: 1fr; /* 한 줄에 1개씩 */
+    }
+}
+
+/* 여행기 작성하기 및 전체보기 버튼 */
+.write-btn, .view-all-btn {
+    padding: 10px 15px;
+    font-size: 0.9em;
+    background-color: #A7F25C; /* 연두색 */
+    color: green;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: 'SUIT-Regular', sans-serif; 
 }
 
 .write-btn:hover, .view-all-btn:hover {
-    background-color: #45a049;
+    background-color: #8FC940; /* 진한 연두색 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: 'SUIT-Regular', sans-serif;
 }
+
+
+
+
+/* 게시글 작성 모달 */
+#postWriteModal {
+    display: none; /* 모달 초기 상태는 숨김 */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 배경을 어둡게 */
+    align-items: center;
+    justify-content: center;
+    display: flex; /* 중앙 정렬을 위한 Flexbox 설정 */
+}
+
+#postWriteModal .modal-content {
+    background-color: #fff;
+    padding: 30px; /* 안쪽 여백 */
+    border-radius: 8px;
+    max-width: 600px; /* 모달 최대 너비 */
+    width:80%; /* 모바일 화면에서 적절히 조정 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 그림자 */
+    text-align: center;
+    font-family: 'SUIT-Regular', sans-serif;
+}
+
+#postWriteModal h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    
+}
+
+/* 게시글 작성 닫기 버튼 */
+#postWriteModal .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #555;
+}
+
+/* 텍스트 입력 필드 */
+#modalPostContent {
+    width: 80%;
+    height: 100px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+    font-size: 1em;
+    font-family: 'SUIT-Regular', sans-serif;
+}
+
+#modalPostContent:focus {
+    border-color: #007bff;
+    outline: none;
+    font-family: 'SUIT-Regular', sans-serif;
+}
+
+/* 게시글 작성 완료 버튼 */
+#postWriteModal .modal-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #A7F25C; /* 연두색 */
+    color: green;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: 'SUIT-Regular', sans-serif;
+}
+
+#postWriteModal .modal-button:hover {
+    background-color: #8FC940; /* 진한 연두색 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: 'SUIT-Regular', sans-serif;
+}
+
+
+@font-face {
+    font-family: 'PretendardGOV';
+    src: url('../fonts/PretendardGOVVariable.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+

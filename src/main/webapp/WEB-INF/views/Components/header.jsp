@@ -26,7 +26,7 @@
           <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
           <li><a href="${pageContext.request.contextPath}/Community/c_main">커뮤니티</a></li>
           <li><a href="${pageContext.request.contextPath}/RecoSpot/travel_Seoul">여행지</a></li>
-          <li><a href="${pageCOntext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
+          <li><a href="${pageContext.request.contextPath}/TravelSpot/TravelSpot">여행뽈뽈</a></li>
           <li><a href="${pageContext.request.contextPath}/TripSchedule/TripList">여행일정</a></li>
         </ul>
       </nav>

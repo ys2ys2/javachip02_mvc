@@ -8,8 +8,6 @@
     <meta charset="UTF-8">
     <title>여행 일정 리스트</title>
     
-    <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
-    <link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/TripList.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
@@ -84,7 +82,7 @@
     </div>
     
     <!-- 여행 일정 리스트 -->
-    <div id="tripList">
+    <div class="trip_List" id="tripList">
         <c:forEach var="trip" items="${tripList}" varStatus="status">
             <c:if test="${status.first || tripList[status.index - 1].post_id != trip.post_id}">
                 <div class="trip-item" data-post-id="${trip.post_id}" data-period-start="${trip.period_start}" data-period-end="${trip.period_end}" data-title="${trip.title.toLowerCase()}" data-duration="${fn:length(trip.dayNumbers)}">
@@ -115,6 +113,9 @@
         </c:forEach>
     </div>
 </div>
+
+<!-- footer -->
+<jsp:include page="/WEB-INF/views/Components/footer.jsp" />
 
 <script>
     function filterTrips() {
@@ -157,8 +158,7 @@
     }
 </script>
 
-<!-- footer -->
-<jsp:include page="/WEB-INF/views/Components/footer.jsp" />
+
 
 </body>
 </html>

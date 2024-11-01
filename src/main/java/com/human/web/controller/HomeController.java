@@ -159,11 +159,12 @@ public class HomeController {
 	    return "TripSchedule/TripPage";
 	}
 	
-	// 여행뽈볼 페이지
+	// 여행뽈뽈 페이지
 	@GetMapping("/TravelSpot/TravelSpot")
 	public String TravelSpot() {
 	    return "TravelSpot/TravelSpot";
 	}
+
 	
 
 	

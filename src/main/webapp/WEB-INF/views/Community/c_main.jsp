@@ -20,25 +20,24 @@
     <script type="text/javascript">
         var contextPath = "${pageContext.request.contextPath}";
     </script>
-    
 	<script type="text/javascript">
-	// 로그인 체크 함수
-	function checkLoginAndRedirect(targetUrl) {
-	    // 로그인 사용자 정보를 hidden input으로 확인
-	    const m_idx = document.getElementById('loggedUserIdx').value;
-	
-	    if (!m_idx) { // m_idx가 없으면 로그인 상태가 아님
-	        alert("로그인이 필요합니다.");
-	        window.location.href = `\${contextPath}/Member/login`; // 로그인 페이지로 리다이렉트
-	        return false;
-	    } else {
-	        // 로그인 상태이면 지정된 URL로 이동
-	        window.location.href = targetUrl;
-	        return true;
-	    }
-	}
-	</script>
-    
+    // 로그인 체크 함수
+    function checkLoginAndRedirect(targetUrl) {
+        // 로그인 사용자 정보를 hidden input으로 확인
+        const m_idx = document.getElementById('loggedUserIdx').value;
+
+        if (!m_idx) { // m_idx가 없으면 로그인 상태가 아님
+            alert("로그인이 필요합니다.");
+            window.location.href = `\${contextPath}/Member/login`; // 로그인 페이지로 리다이렉트
+            return false;
+        } else {
+            // 로그인 상태이면 지정된 URL로 이동
+            window.location.href = targetUrl;
+            return true;
+        }
+    }
+</script>
+
 </head>
 <body>
 		<!-- 로그인한 사용자 정보 hidden input으로 전달 -->
@@ -47,7 +46,6 @@
 <input type="hidden" id="contextPath" value="${pageContext.request.contextPath}" />
 	
 	<!-- header -->
-    
     <jsp:include page="/WEB-INF/views/Components/header.jsp" />
 
    
@@ -107,30 +105,24 @@
             </div>
         </div>
 
-        <!-- 게시글 상세 모달 -->
+         <!-- 게시글 상세 모달 -->
         <div id="postDetailModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeDetailModal">&times;</span>
-
-                <!-- 게시글 내용이 동적으로 삽입되는 부분 -->
                 <div id="modal-post-content"></div>
-
-                <!-- 좋아요 버튼 섹션 추가 -->
-                <div class="like-section">
-                    <button id="likeButton" data-liked="${post.liked}" data-like-count="${likeCount}">
-    						<span class="like-count">좋아요 (${likeCount})</span>
-					</button>
-                </div>
-
+				
                 <!-- 댓글 섹션 -->
                 <div id="commentSection">
                     <h3>댓글</h3>
                     <div id="commentList"></div> <!-- 댓글 목록이 로드되는 부분 -->
-
-                    <!-- 댓글 입력 필드와 작성 버튼 -->
                     <form id="commentForm">
-                        <textarea id="commentInput" placeholder="댓글을 작성하세요" required></textarea>
-                        <button type="submit" id="submitComment">댓글 작성</button>
+                        <div class="comment-input-container">
+                            <textarea id="commentInput" placeholder="댓글을 작성하세요" required></textarea>
+                            <div class="button-group">
+                                <button type="submit" id="submitComment">댓글 작성</button>
+                                <button id="likeButton">좋아요 (${likeCount})</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

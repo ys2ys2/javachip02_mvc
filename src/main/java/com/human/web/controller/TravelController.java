@@ -58,6 +58,7 @@ public class TravelController {
         return "/RecoSpot/travel_Seoul";
     }
     
+    
    
    
    

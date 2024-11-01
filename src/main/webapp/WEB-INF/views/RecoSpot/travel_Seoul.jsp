@@ -154,7 +154,7 @@
 	      2024 파리나무 십자가<br>
 	      소년 합창단 특별초청공연에 여러분을 초대합니다.
 	    </div>
-	    <a href="#" class="more-info">자세히보기 &gt;</a>
+	    <a href="${pageContext.request.contextPath}/Festival/Event2" class="more-info">자세히보기 &gt;</a>
 	  </div>
 	</div>
 
@@ -162,12 +162,12 @@
 	<div class="footer-box">
 	  <div class="event-box">행사</div>
 	  <div class="event-content">
-	    <div class="event-title">종로문화재단 축제</div>
+	    <div class="event-title">서울일러스트레이션페어 V.18</div>
 	    <div class="event-description">
-	      [종로문화재단]<br>
-	      음악동화 행복의 파랑새. 함께 참여해 보세요!
+	      [레이션페어]<br>
+	      강남구 예술의 전당에서 열리는 서울일러스트레이션페어!
 	    </div>
-	    <a href="#" class="more-info">자세히보기 &gt;</a>
+	    <a href="${pageContext.request.contextPath}/Festival/Event" class="more-info">자세히보기 &gt;</a>
 	  </div>
 	</div>
     
@@ -175,12 +175,12 @@
 	  <div class="footer-box">
 	    <div class="event-box">행사</div>
 	    <div class="event-content">
-	      <div class="event-title">잠수교 뚜벅뚜벅 축제</div>
+	      <div class="event-title">행복의 파랑새</div>
 	      <div class="event-description">
-	        한강에서 힐링 어때요?<br>
-	        선선한 가을에 힐링 나들이 즐겨요
+	        [종로문화재단] 음악동화 [행복의 파랑새]<br>
+	        종로구에서 진행하는 축제입니다.
 	      </div>
-	      <a href="#" class="more-info">자세히보기 &gt;</a>
+	      <a href="${pageContext.request.contextPath}/Festival/Event3" class="more-info">자세히보기 &gt;</a>
 	    </div>
 	  </div>
 	</div>
@@ -197,19 +197,19 @@
                 <div class="travel-post-img">
                     <a href="${pageContext.request.contextPath}/Community/travelPostDetail/${post.tp_idx}">
                         <c:choose>
-                            <c:when test="${post.tp_idx == 1}">
+                            <c:when test="${post.tp_idx == 9}">
                                 <img src="${pageContext.request.contextPath}/resources/images/t_idx_1.jpg" alt="image1">
                             </c:when>
-                            <c:when test="${post.tp_idx == 2}">
+                            <c:when test="${post.tp_idx == 10}">
                                 <img src="${pageContext.request.contextPath}/resources/images/t_idx_2.jfif" alt="image2">
                             </c:when>
-                            <c:when test="${post.tp_idx == 3}">
+                            <c:when test="${post.tp_idx == 12}">
                                 <img src="${pageContext.request.contextPath}/resources/images/t_idx_3.PNG" alt="image3">
                             </c:when>
-                            <c:when test="${post.tp_idx == 4}">
+                            <c:when test="${post.tp_idx == 13}">
                                 <img src="${pageContext.request.contextPath}/resources/images/t_idx_4.PNG" alt="image4">
                             </c:when>
-                            <c:when test="${post.tp_idx == 5}">
+                            <c:when test="${post.tp_idx == 14}">
                                 <img src="${pageContext.request.contextPath}/resources/images/t_idx_5.PNG" alt="image5">
                             </c:when>
                             <c:otherwise>
@@ -239,6 +239,10 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 
+
 </body>
+
+
+
 
 </html>

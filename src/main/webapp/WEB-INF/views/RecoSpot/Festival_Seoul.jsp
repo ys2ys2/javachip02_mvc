@@ -47,7 +47,9 @@
                     <span class="label">장소 </span> 예술의전당
                 </p>
             </div>
+            <a href="${pageContext.request.contextPath}/Festival/Event">
             <button class="action-button">바로가기</button>
+            </a>
         </div>
     </div>
     
@@ -66,7 +68,9 @@
                     <span class="label">장소</span> 예술의전당
                 </p>
             </div>
+            <a href="${pageContext.request.contextPath}/Festival/Event2">
             <button class="action-button">바로가기</button>
+            </a>
         </div>
     </div>
     
@@ -85,7 +89,9 @@
                     <span class="label">장소</span> 아이들극장
                 </p>
             </div>
+            <a href="${pageContext.request.contextPath}/Festival/Event3">
             <button class="action-button">바로가기</button>
+        	</a>
         </div> 
     </div>
     
