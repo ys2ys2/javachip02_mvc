@@ -1,6 +1,48 @@
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
 /* 전체적인 스타일 */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'SUIT-Regular', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #ffffff;
@@ -19,10 +61,11 @@ body {
 
 /* 여행기 제목 스타일 */
 h2 {
-    font-size: 2em;
+    font-size: 3.5em;
     font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
+    font-family: 'Paperlogy-8ExtraBold', sans-serif;
 }
 
 /* 작성자 및 작성일과 좋아요/댓글을 한 줄로 배치 */
@@ -31,6 +74,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    
 }
 
 /* 작성자 및 작성일 */
@@ -49,6 +93,15 @@ h2 {
     color: #333;
 }
 
+.post-content p{
+	/* text-align: center;  */
+	font-family: 'SUIT-Regular', sans-serif;
+	margin-bottom: 40px; 
+	font-size: 20px;
+	margin-top: 20px;
+    margin-left: 70px; 
+    margin-right: 70px;
+}
 /* 첨부 이미지 스타일 */
 .post-images img {
     max-width: 100%;
@@ -179,8 +232,8 @@ h2 {
 
 /* 버튼 스타일 */
 .right-buttons .btn-back, .right-buttons .btn-write, .comment-btn {
-    background-color: #ffa500;
-    color: white;
+    background-color: #A7F25C;
+    color: green;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -191,7 +244,7 @@ h2 {
 }
 
 .right-buttons .btn-back:hover, .right-buttons .btn-write:hover, .comment-btn:hover {
-    background-color: #ff8700;
+    background-color: #8FC940;
 }
 
 /* 댓글 섹션 스타일 */
@@ -201,6 +254,7 @@ h2 {
     flex-direction: column;
     align-items: flex-start;
     margin-left: 80px; /* Aligns it with the input */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 댓글 제목 */
@@ -208,6 +262,7 @@ h2 {
     margin-bottom: 10px;
     font-size: 1.2em;
     color: #333;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 댓글 입력란 */
@@ -220,12 +275,13 @@ h2 {
     border-radius: 5px;
     margin-bottom: 10px;
     resize: none; /* 사용자가 크기 조정하지 못하도록 고정 */
+    font-family: 'SUIT-Regular', sans-serif !important;
 }
 
 /* 댓글 작성 버튼 */
 #submit-comment {
-    background-color: #ffa500;
-    color: white;
+    background-color: #A7F25C;
+    color: green;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -266,4 +322,40 @@ h2 {
 .comment-content {
     margin-top: 5px;
     color: #555;
+    font-family: 'NanumSquareRound', Arial, sans-serif;
 }
+
+.edit-comment, .delete-comment {
+    background-color: transparent; /* 배경 투명 */
+    border: none;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+.edit-comment {
+    color: blue;
+    margin-left:500px; /* 수정 버튼 텍스트 파랑 */
+}
+
+.delete-comment {
+    color: red; /* 삭제 버튼 텍스트 빨강 */
+}
+
+.edit-comment:hover {
+    text-decoration: underline; /* 호버 시 밑줄 */
+}
+
+.delete-comment:hover {
+    text-decoration: underline; /* 호버 시 밑줄 */
+}
+
+
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('../fonts/NanumSquareRoundEB.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+

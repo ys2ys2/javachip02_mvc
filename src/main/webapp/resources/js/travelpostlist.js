@@ -38,17 +38,24 @@ function loadPostsByFilter(filter, page = 1, query = '') {
         contextPath + '/resources/images/default-thumbnail.png';
 
     var postItem = `
-        <a href="${contextPath}/Community/travelPostDetail/${post.tp_idx}" class="post-item" style="display: block; text-decoration: none; color: inherit;">
-            <div>
-                <img src="${imageUrl}" alt="게시글 이미지" style="width: 100px; height: 100px; margin-right: 10px;">
-                <div class="post-content">
-                    <h5>${post.title}</h5>
-                    <p>${post.content}</p>
-                    <p>👍 좋아요: ${post.likeCount} 📝 댓글: ${post.commentCount}</p> <!-- 좋아요 수와 댓글 수 추가 -->
+    <a href="${contextPath}/Community/travelPostDetail/${post.tp_idx}" class="post-item">
+        <img src="${imageUrl}" alt="게시글 이미지" class="post-image">
+        <div class="post-content">
+            <h5 class="post-title">${post.title}</h5>
+            <div class="post-stats">
+                <div class="stat-item">
+                    👍 좋아요: ${post.likeCount}
+                </div>
+                <div class="stat-item">
+                    📝 댓글: ${post.commentCount}
                 </div>
             </div>
-        </a>
-    `;
+        </div>
+    </a>
+`;
+    
+    
+    
     postList.append(postItem);
 });
                 

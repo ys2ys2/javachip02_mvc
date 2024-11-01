@@ -2,7 +2,10 @@ $(document).ready(function () {
     // contextPath와 로그인한 사용자 ID를 숨겨진 input 필드에서 가져오기
     const contextPath = $('#contextPath').val();
     const m_idx = $('#loggedUserIdx').val();
-
+    
+	$('#postDetailModal').hide();
+	$('#postWriteModal').hide();
+	
     console.log(`Resolved context path: ${contextPath}`);
     loadPosts();
 
@@ -26,8 +29,8 @@ $(document).ready(function () {
                         </div>
                         <p class="post-content">${post.content}</p>
                         <div class="post-info">
-                            <span class="comment-count">댓글: ${(post.commentCount || 0)}</span>
-                            <span class="like-count">좋아요: ${(post.likeCount || 0)}</span>
+                            <span class="comment-count">📝댓글: ${(post.commentCount || 0)}</span>
+                            <span class="like-count">👍좋아요: ${(post.likeCount || 0)}</span>
                         </div>
                     </div>`;
                 });
@@ -78,7 +81,6 @@ let postData = { m_idx: m_idx, content: postContent };
         }
     });
 });
-
     $('#postList').on('click', '.post', function () {
         const post_id = this.dataset.postId;
         console.log("클릭된 게시글 ID:", post_id);
@@ -97,34 +99,35 @@ let postData = { m_idx: m_idx, content: postContent };
     });
 
     function openPostDetailModal(url) {
-        $.ajax({
-            type: 'GET',
-            url: url,
-            dataType: 'json',
-            success: function (post) {
-                const post_id = post.id;
-                const formattedDate = formatDate(post.postDate);
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        success: function (post) {
+            const post_id = post.id;
+            const formattedDate = formatDate(post.postDate);
 
-                $('#modal-post-content').html(`
-                   <h2>작성자: ${post.post_writer}</h2>
-                    <span> ${formattedDate}</span>
-                    <hr>
-                    <p>내용: ${post.content}</p>
-                `);
+            // HTML 구조를 수정하여 post-date 클래스를 추가
+            $('#modal-post-content').html(`
+                <h2>by: <span class="post-writer">${post.post_writer}</span></h2>
+                <span class="post-date">${formattedDate}</span> <!-- 여기에 클래스 추가 -->
+                <hr>
+                <p>${post.content}</p>
+            `);
 
-                $('#likeButton').data('liked', post.isLiked);
-                $('#likeButton').text(post.isLiked ? `좋아요 취소 (${post.likeCount})` : `좋아요 (${post.likeCount})`);
-                $('#likeButton').data('post-id', post_id);
+            $('#likeButton').data('liked', post.isLiked);
+            $('#likeButton').text(post.isLiked ? `좋아요 취소 (${post.likeCount})` : `좋아요 (${post.likeCount})`);
+            $('#likeButton').data('post-id', post_id);
 
-                loadComments(post_id);
-                $('#postDetailModal').fadeIn();
-            },
-            error: function (xhr) {
-                console.error("게시글 상세 로드 실패:", xhr.responseText);
-                alert('게시글을 불러오는 데 실패했습니다.');
-            }
-        });
-    }
+            loadComments(post_id);
+            $('#postDetailModal').fadeIn();
+        },
+        error: function (xhr) {
+            console.error("게시글 상세 로드 실패:", xhr.responseText);
+            alert('게시글을 불러오는 데 실패했습니다.');
+        }
+    });
+}
 
     $(document).on('click', '#likeButton', function () {
         const postId = $(this).data('post-id');

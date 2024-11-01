@@ -1,12 +1,63 @@
+/* 파셜산스체 */
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
 /* 기본 스타일 */
 body {
     background-color: #ffffff;
-    font-family: Arial, sans-serif;
+    font-family: 'PretendardGOV', Arial, sans-serif;
     width: 100%;
     margin: 0 auto;
     overflow-x: hidden;
     
 }
+
 
 /* 폼 컨테이너 스타일 */
 .write-container {
@@ -19,11 +70,12 @@ body {
 }
 
 /* 제목 스타일 */
-h1 {
+h2 {
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 24px;
+    margin-bottom: 40px;
+    font-size: 32px;
     color: #333;
+    margin-top:10px;
 }
 
 /* 폼 그룹 스타일 */
@@ -48,6 +100,7 @@ h1 {
     border-radius: 4px;
     box-sizing: border-box;
     transition: border-color 0.3s ease;  /* 포커스 효과 추가 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 포커스 시 입력 필드 테두리 색상 변경 */
@@ -55,14 +108,18 @@ h1 {
 .form-group select:focus,
 .form-group textarea:focus {
     border-color: #4CAF50;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* textarea 높이 유연하게 설정 */
-.form-group textarea {
+ .form-group textarea {
     min-height: 300px;  /* 최소 높이 */
-    max-height: 800px;  /* 최대 높이 */
+    max-height: 300px;  /* 최대 높이 */
     resize: vertical;
+    font-family: 'SUIT-Regular', sans-serif;
 }
+
+
 
 /* 태그 입력 필드 및 태그 컨테이너 */
 .tag-container {
@@ -72,6 +129,7 @@ h1 {
     border: 1px solid #ddd;
     padding: 5px;
     border-radius: 4px;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 .tag {
@@ -81,6 +139,7 @@ h1 {
     border-radius: 3px;
     display: inline-flex;
     align-items: center;
+    
 }
 
 .tag .close {
@@ -95,6 +154,7 @@ h1 {
     outline: none;
     padding: 5px;
     flex-grow: 1;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 /* 파일 업로드 스타일 */
@@ -104,8 +164,8 @@ h1 {
 }
 
 .file-upload-button {
-    background-color: #4CAF50;
-    color: white !important; /* 텍스트 색상을 흰색으로 강제 적용 */
+    background-color: #A7F25C;
+    color: green !important; /* 텍스트 색상을 흰색으로 강제 적용 */
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 4px;
@@ -116,7 +176,7 @@ h1 {
 
 /* 파일 업로드 버튼 hover 효과 */
 .file-upload-button:hover {
-    background-color: #45a049;
+    background-color: #8FC940;
 }
 
 #file-name {
@@ -138,36 +198,41 @@ h1 {
     margin-top: 20px;
 }
 
-.submit-button {
-    width: 50%;
-    padding: 12px;
-    background-color: #4CAF50;
-    color: white;
+.submit-button, .back-button{
+    width: 20%;
+    padding: 10px 20px;
+    background-color: #A7F25C;
+    color: green;
     font-size: 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     text-align: center;
     transition: background-color 0.3s ease;
+    margin-right: 20px;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 .submit-button:hover {
-    background-color: #45a049;
+    background-color: #8FC940;
 }
 
-/* 저장 버튼 스타일 */
-.save-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-left: 10px;
-    transition: background-color 0.3s ease;
+
+
+
+@font-face {
+    font-family: 'PretendardGOV';
+    src: url('../fonts/PretendardGOVVariable.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
-.save-button:hover {
-    background-color: #45a049;
+/* tag-remove 버튼 스타일링 */
+.tag-remove {
+    cursor: pointer;  /* 마우스를 올리면 클릭 가능한 손 모양으로 변경 */
+    color: red;       /* 제거 버튼 색상 */
+    font-weight: bold;/* 제거 버튼 강조 */
+    margin-left: 5px; /* 태그와 제거 버튼 사이 간격 */
 }
+
+

@@ -105,7 +105,7 @@
    				 <button class="edit-comment" data-comment-id="${comment.commentId}">수정</button>
     			 <button class="delete-comment" data-comment-id="${comment.commentId}">삭제</button>
 		 	</c:if>
-        </div>
+        </div> 
     </c:forEach>
 </div>
        

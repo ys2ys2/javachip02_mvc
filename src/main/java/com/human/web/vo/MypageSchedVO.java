@@ -1,6 +1,5 @@
 package com.human.web.vo;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
