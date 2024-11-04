@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>여행기 목록</title>
+    <title>BBOL BBOL BBOL</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/travelpostlist.css">
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
     <script>

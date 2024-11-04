@@ -190,7 +190,7 @@
 
 
 <div class="travel-post-container">
-    <h2>서울 여행기</h2>
+    <h2>여행기</h2>
     <div class="travel-post-list">
         <c:forEach var="post" items="${travelPost}">
             <div class="travel-post-content">

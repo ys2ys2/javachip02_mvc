@@ -39,40 +39,8 @@
 </head>
 
 <body>
- <!-- 어두운 배경 -->
-  <div class="overlay"></div>
-  <header>
-    <div class="header-container">
-      <div class="logo">
-        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-          <li><a href="#">커뮤니티</a></li>
-  		 <li><a href="RecoSpot/travel_Seoul" data-ko="여행지" data-en="RecoHotPlace">여행지</a></li>
-          <li><a href="#">여행뽈뽈</a></li>
-        </ul>
-      </nav>
-      <div class="member">
-        <c:choose>
-          <c:when test="${not empty sessionScope.member}">
-            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
-            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
-            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
-              <button type="submit">로그아웃</button>
-            </form>
-          </c:when>
-          <c:otherwise>
-            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
-            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
-          </c:otherwise>
-        </c:choose>
-      </div>
-    </div>
-  </header>
+	<!-- header -->
+    <jsp:include page="/WEB-INF/views/Components/header.jsp" />
 
 <!-- 공공데이터 가져와서 화면에 출력하는 부분: eventsList로 가져옴 -->
 
@@ -367,50 +335,8 @@
     </div>
 </div>
 
-    <!-- 푸터 부분 -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h4>회사소개</h4>
-                <ul>
-                    <li><a href="#">회사소개</a></li>
-                    <li><a href="#">브랜드 이야기</a></li>
-                    <li><a href="#">채용공고</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>고객지원</h4>
-                <ul>
-                    <li><a href="#">공지사항</a></li>
-                    <li><a href="#">자주묻는 질문</a></li>
-                    <li><a href="#">문의하기</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-            <h4>이용약관</h4>
-            <ul>
-                <li><a href="#">이용약관</a></li>
-                <li><a href="#">개인정보처리방침</a></li>
-                <li><a href="#">저작권 보호정책</a></li>
-            </ul>
-        </div>
-
-        <!-- 회사 정보 -->
-        <div class="footer-company-info">
-            <p>상호: (주)BBOL | 대표: 박예슬 | 사업자등록번호: 123-45-67890 | 통신판매업 신고번호: 2024-충남천안-00000 | 개인정보관리 책임자: 수수옥</p>
-            <p>주소: 충청남도 천안시 동남구 123 | 이메일: support@BBOL3.com | 대표전화: 02-1234-5678</p>
-            <p>© 2024 BBOLBBOLBBOL. All Rights Reserved.</p>
-        </div>
-        <!-- 소셜 미디어 -->
-        <div class="footer-social">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
-        </div>
-</footer>
+	<!-- header -->
+    <jsp:include page="/WEB-INF/views/Components/footer.jsp" />
 <!-- 메인 스크립트 -->
 <script src="${pageContext.request.contextPath}/resources/js/header.js"></script> <!-- header.js -->
 <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script> <!-- lang-toggle.js -->

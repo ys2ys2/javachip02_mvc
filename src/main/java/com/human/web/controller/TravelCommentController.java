@@ -25,6 +25,7 @@ import com.human.web.vo.TravelCommentVO;
 @RequestMapping("/Community/travelPost/{tp_idx}/comments")
 public class TravelCommentController {
 
+	
     @Autowired
     private TravelCommentService travelCommentService;
 
@@ -35,7 +36,7 @@ public class TravelCommentController {
         return ResponseEntity.ok(comments);
     }
 
- // 여행기 댓글 추가
+    // 여행기 댓글 추가
     @PostMapping("/add")
     public ResponseEntity<String> addComment(@PathVariable("tp_idx") int tpIdx, @RequestBody TravelCommentVO comment, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -60,7 +61,7 @@ public class TravelCommentController {
 
 
 
- // 댓글 수정
+    // 댓글 수정
     @PutMapping("/{commentId}/edit")
     public ResponseEntity<String> editComment(@PathVariable("commentId") int commentId, 
                                               @RequestBody TravelCommentVO comment,

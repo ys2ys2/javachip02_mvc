@@ -201,6 +201,7 @@ body {
     font-size: 18px;
     margin: 0;
     font-family: 'Paperlogy-8ExtraBold', sans-serif;
+    cursor: pointer;
 }
 
 /* Day 헤더 일정 기간 텍스트 */

@@ -164,6 +164,7 @@ h3.bbol-login-title span {
   padding-left: 40px;
   outline: none;
   box-sizing: border-box;
+  font-family: 'Pretendard-Regular', sans-serif;
 }
 
 .email-button:hover {
