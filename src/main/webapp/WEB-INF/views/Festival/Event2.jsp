@@ -39,40 +39,8 @@
 </head>
 
 <body>
- <!-- 어두운 배경 -->
-  <div class="overlay"></div>
-  <header>
-    <div class="header-container">
-      <div class="logo">
-        <a href="${pageContext.request.contextPath}/HomePage/mainpage">BBOL BBOL BBOL</a>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="${pageContext.request.contextPath}/HomePage/mainpage">홈</a></li>
-          <li><a href="#">커뮤니티</a></li>
-  		 <li><a href="RecoSpot/travel_Seoul" data-ko="여행지" data-en="RecoHotPlace">여행지</a></li>
-          <li><a href="#">여행뽈뽈</a></li>
-        </ul>
-      </nav>
-      <div class="member">
-        <c:choose>
-          <c:when test="${not empty sessionScope.member}">
-            <!-- 로그인 성공 시, 마이페이지와 로그아웃 표시 -->
-            <div class="welcome">${sessionScope.member.m_nickname}님 환영합니다!</div>
-            <span><a href="${pageContext.request.contextPath}/MyPage/myPageMain">마이페이지</a></span>
-            <form action="${pageContext.request.contextPath}/Member/logout" method="post" style="display:inline;">
-              <button type="submit">로그아웃</button>
-            </form>
-          </c:when>
-          <c:otherwise>
-            <!-- 로그인 실패 시, 로그인과 회원가입 표시 -->
-            <span><a href="${pageContext.request.contextPath}/Member/login">로그인</a></span>
-            <span><a href="${pageContext.request.contextPath}/Member/joinmain">회원가입</a></span>
-          </c:otherwise>
-        </c:choose>
-      </div>
-    </div>
-  </header>
+	<!-- header -->
+    <jsp:include page="/WEB-INF/views/Components/header.jsp" />
 
 <!-- 공공데이터 가져와서 화면에 출력하는 부분: eventsList로 가져옴 -->
 
@@ -81,7 +49,7 @@
          <%-- <c:forEach var="event" items="${events}" varStatus="vs"> 행사 데이터를 여러개 가겨올 때 사용하는 반복문--%>
 	      <h2>제목 : ${events[1].TITLE}</h2> <!-- EL로 제목 표시 -->
 	      <h3>장소 : ${events[1].GUNAME}</h3> <!--  EL로 장소 표시 -->
-	      <h4>소제목 : 일러스트레이션페어</h4>
+	      <h4>소제목 : 파리나무십자가 합창단</h4>
 	        </div>
 	
 <div class="h_icons">
@@ -258,9 +226,9 @@
                     <div class="user-info">
                         <!-- 프로필 이미지 경로를 동적으로 설정 -->
 					   <c:choose>
-					    <c:when test="${not empty comment.member.m_profile}">
-					        <img src="${pageContext.request.contextPath}/${comment.member.m_profile}" 
-					             alt="<c:out value='${comment.member.m_nickname}'/>" 
+					    <c:when test="${not empty member.m_profile}">
+					        <img src="${pageContext.request.contextPath}/${member.m_profile}" 
+					             alt="<c:out value='${member.m_nickname}'/>" 
 					             class="de">
 					    </c:when>
 					    <c:otherwise>
@@ -271,7 +239,7 @@
 					</c:choose>
 
                         <!-- 닉네임을 동적으로 설정 -->
-                        <span class="username"><c:out value="${comment.member.m_nickname}" /></span>
+                        <span class="username"><c:out value="${member.m_nickname}" /></span>
 
                         <span class="date">
                             <c:choose>
@@ -286,7 +254,7 @@
                     </div>
 
 
-                    <p><c:out value="${comment.t_comment_content}" /></p>
+     <p><c:out value="${comment.t_comment_content}" /></p>
 
                     <!-- 댓글 액션 버튼: 답글, 수정, 삭제 -->
                     <div class="comment-actions">
@@ -318,7 +286,6 @@
 </div>
 
 
-
 <!-- JavaScript 변수 설정을 위한 스크립트 블록 -->
 <script>
   var isLoggedIn = "${sessionScope.member != null}"; // 로그인 상태 확인
@@ -340,7 +307,7 @@
             </a>
             <div class="festival-info">
                 <h3>서울일러스트레이션페어 V.18</h3>
-                <button class="action-button">바로가기</button>
+                <button class="action-button" data-href="${pageContext.request.contextPath}/Festival/Event">바로가기</button>
             </div>
         </div>
 
@@ -351,7 +318,7 @@
             </a>
             <div class="festival-info">
                 <h3>오페라 갈라</h3>
-                <button class="action-button">바로가기</button>
+                <button class="action-button" data-href="${pageContext.request.contextPath}/Festival/Event4">바로가기</button>
             </div>
         </div>
 
@@ -362,56 +329,14 @@
             </a>
             <div class="festival-info">
                 <h3>행복의 파랑새</h3>
-                <button class="action-button">바로가기</button>
+                <button class="action-button" data-href="${pageContext.request.contextPath}/Festival/Event3">바로가기</button>
             </div>
         </div>
     </div>
 </div>
 
-    <!-- 푸터 부분 -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h4>회사소개</h4>
-                <ul>
-                    <li><a href="#">회사소개</a></li>
-                    <li><a href="#">브랜드 이야기</a></li>
-                    <li><a href="#">채용공고</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>고객지원</h4>
-                <ul>
-                    <li><a href="#">공지사항</a></li>
-                    <li><a href="#">자주묻는 질문</a></li>
-                    <li><a href="#">문의하기</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-            <h4>이용약관</h4>
-            <ul>
-                <li><a href="#">이용약관</a></li>
-                <li><a href="#">개인정보처리방침</a></li>
-                <li><a href="#">저작권 보호정책</a></li>
-            </ul>
-        </div>
-
-        <!-- 회사 정보 -->
-        <div class="footer-company-info">
-            <p>상호: (주)BBOL | 대표: 박예슬 | 사업자등록번호: 123-45-67890 | 통신판매업 신고번호: 2024-충남천안-00000 | 개인정보관리 책임자: 수수옥</p>
-            <p>주소: 충청남도 천안시 동남구 123 | 이메일: support@BBOL3.com | 대표전화: 02-1234-5678</p>
-            <p>© 2024 BBOLBBOLBBOL. All Rights Reserved.</p>
-        </div>
-        <!-- 소셜 미디어 -->
-        <div class="footer-social">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
-        </div>
-</footer>
+	<!-- header -->
+    <jsp:include page="/WEB-INF/views/Components/footer.jsp" />
 <!-- 메인 스크립트 -->
 <script src="${pageContext.request.contextPath}/resources/js/header.js"></script> <!-- header.js -->
 <script src="${pageContext.request.contextPath}/resources/js/lang-toggle.js"></script> <!-- lang-toggle.js -->
@@ -424,6 +349,18 @@
 
 //jQuery 이용
 
+
+
+ $(function(){
+	 
+	 //바로가기 버튼 클릭시 해당 JSP페이지로 이동하기
+	 $(".action-button").on("click", function(){
+		 const actionBtnHref = $(this).data("href");
+		 
+		 location.href = actionBtnHref;
+		 
+	 });
+	 
  $(function(){
 
 	$(".comment-submit").on("click", function(){

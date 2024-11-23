@@ -61,7 +61,7 @@ public class TripScheduleController {
 
         tripSchedService.saveTripSchedule(tripScheduleVO);
 
-        return "redirect:/MyPage/myPageMain";  
+        return "redirect:/TripSchedule/TripList";  
     }
 
     @GetMapping("/TripSchedule/TripList")

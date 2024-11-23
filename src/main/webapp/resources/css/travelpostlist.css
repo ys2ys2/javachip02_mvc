@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'NanumSquareRound', sans-serif;
+    font-family: 'PretendardGOV', Arial, sans-serif;
     background-color: #ffffff;
     height: 100vh;
 }
@@ -32,9 +32,22 @@ body {
 }
 
 .tag-section h4 {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+/* 지역 태그와 토픽 태그 섹션을 각각 나누기 */
+.location-tags, .topic-tags {
+    margin-bottom: 20px;
+}
+
+.location-tags h5, .topic-tags h5 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
 }
 
 .tag-section .tags {
@@ -115,36 +128,55 @@ body {
 .post-item {
     background-color: #fff;
     display: flex;
-    flex-direction: row-reverse; /* 이미지가 오른쪽에 오도록 수정 */
+    flex-direction: row; /* 텍스트가 왼쪽, 이미지가 오른쪽 */
     align-items: center;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     height: 150px;
+    color: #333; /* 검정색 또는 원하는 색상 코드 */
+    text-decoration: none; /* 밑줄 제거 */
+    gap: 20px; /* 텍스트와 이미지 사이 간격 */
 }
 
 .post-item img {
     width: 100px;
     height: 100px;
     object-fit: cover;
-    margin-left: 20px; /* 이미지와 콘텐츠 사이 간격을 왼쪽에 둠 */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* 텍스트 콘텐츠 영역 */
 .post-content {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .post-content h5 {
     font-size: 16px;
     font-weight: bold;
-    margin: 0 0 10px 0;
+    color: #333;
+    margin: 0;
 }
 
-.post-content p {
+/* 좋아요와 댓글을 세로로 배치 */
+.post-stats {
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+    gap: 5px; /* 각 항목 사이 간격 */
+}
+
+.stat-item {
     font-size: 14px;
-    color: #666;
+    color: #333;
+}
+
+/* a 태그에 마우스 올렸을 때 색상 유지 */
+a.post-item:hover {
+    color: #333; /* 색상 유지 */
 }
 
 /* 페이지네이션 스타일 */
@@ -209,4 +241,12 @@ body {
         flex-direction: row;
         gap: 5px;
     }
+}
+
+/* Pretendard 폰트 설정 */
+@font-face {
+    font-family: 'PretendardGOV';
+    src: url('../fonts/PretendardGOVVariable.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }

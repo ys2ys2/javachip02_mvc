@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.human.web.service.TravelCommentService;
 import com.human.web.service.TravelLikeService;
 import com.human.web.service.TravelPostService;
 import com.human.web.util.FileManager;
@@ -36,6 +37,7 @@ public class TravelPostController {
     private final TravelPostService travelPostService;
     private final FileManager fileManager;
     private final TravelLikeService travelLikeService;
+    private final TravelCommentService travelCommentService;
     // 여행기 작성 페이지로 이동하는 메서드
     @GetMapping("/travelWrite")
     public String showTravelWritePage() {
@@ -138,7 +140,8 @@ public class TravelPostController {
         return response;
     }
 
-    // tp_idx로 상세페이지 만들기
+  
+ // 여행기 상세 페이지로 이동하는 메서드
     @GetMapping("/travelPostDetail/{tp_idx}")
     public String travelPostDetail(@PathVariable("tp_idx") int tp_idx, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
@@ -165,6 +168,7 @@ public class TravelPostController {
 
         return "Community/c_board/travelPostDetail"; // 여행기 상세 페이지로 이동
     }
+
 
 
 

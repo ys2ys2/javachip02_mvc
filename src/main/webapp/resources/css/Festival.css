@@ -1,227 +1,206 @@
 @font-face {
     font-family: 'NanumSquareRoundB';
-    src: url('../fonts/NanumSquareRoundB.ttf') format('truetype'),
+    src: url('../fonts/NanumSquareRoundB.woff2') format('woff2'),
+         url('../fonts/NanumSquareRoundB.woff') format('woff'),
+         url('../fonts/NanumSquareRoundB.ttf') format('truetype'),
          url('../fonts/NanumSquareRoundOTFB.otf') format('opentype');
     font-weight: bold;
     font-style: normal;
 }
+/* 파셜산스체 */
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 전체 페이지 기본 스타일 설정 */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
+    font-family: Arial, sans-serif; /* 기본 글꼴 설정 */
+    background-color: #ffffff; /* 배경색을 흰색으로 설정 */
 }
 
 /* 제목 섹션 스타일 */
 .festival-header {
     display: flex;
-    justify-content: flex-start; /* 왼쪽 정렬 */
+    justify-content: flex-start; /* 제목을 왼쪽으로 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
 }
 
-/* 폰트와 정렬 스타일 지정 */
-.section-title1 {
-    font-family: 'NanumSquareRoundB', sans-serif; /* NanumSquareRoundB 폰트 적용 */
-    font-size: 28px; /* 원하는 크기로 설정 */
+
+/* 제목 스타일 */
+.section22-title {
+    font-family:  'Paperlogy-8ExtraBold', sans-serif;
+    font-size: 1.8em;
     font-weight: bold;
-    color: #fff; /* 텍스트 색상 */
-    text-align: left; /* 텍스트를 왼쪽 정렬 */
-    margin: 10px 0; /* 상하 여백 추가 */
-    padding-left: 100px; /* 왼쪽 여백 */
-    position: relative;
-    top: 70px; /* 아래로 50px 이동 */
-}
-
-/* 달력 섹션 전체 스타일 
-.calendar-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 90%; /* 반응형으로 화면에 맞게 조절 
-    margin: auto;
-}
-
-/* 화살표 스타일 
-.arrow {
-    cursor: pointer;
-    font-size: 24px;
     color: #333;
-    margin: 0 15px;
+    margin-bottom: 30px;
+	 margin-left: 50px; /* 왼쪽 마진 추가 */
+    line-height: 1.2;
 }
 
-/* 달력 스크롤 영역 스타일 
-.calendar-scroll {
-    overflow: hidden;
-    width: 80%; /* 반응형으로 너비 조절 
-}
-
-/* 달력 날짜 라인 스타일 
-.calendar-line {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* 아이템 간격
-    transition: transform 0.3s ease;
-} 
-
-/* 날짜 스타일 
-.calendar-item {
-    padding: 10px;
-    text-align: center;
-    font-size: 16px;
-    width: 45px;
-    height: 45px;
-    line-height: 25px;
-    color: #333;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.calendar-item[data-day="토"] {
-    color: blue;
-}
-
-.calendar-item[data-day="일"] {
-    color: red;
-}
-
-/* 오늘 날짜 스타일 
-.calendar-item.active {
-    background-color: #333;
-    color: #fff;
-    font-weight: bold;
-}
-
-/* 반응형을 위한 호버 효과 및 크기 조절 
-.calendar-item:hover {
-    background-color: lightgreen;
-    cursor: pointer;
-}
-
-/* 달력 아이콘 스타일 
-.fa-calendar {
-    margin-left: 10px;
-    cursor: pointer;
-    color: #333;
-    font-size: 20px;
-}*/
-
-
-/* 초기 상태에서 투명하게 보이도록 설정 */
-/* 축제 이미지 슬라이더 스타일 */
+/* 슬라이더 전체 섹션 스타일 */
 .festival-slider {
     display: flex;
-    gap: 20px;
+    gap: 20px; /* 슬라이드 간 간격 추가 */
     padding: 20px;
-    background-color: #333;
-    justify-content: center;
-    height: 600px;
-    align-items: center;
-    overflow-x: hidden; /* 스크롤바 숨기기 */
-    scroll-behavior: smooth; /* 부드러운 스크롤 */
+      background-color: #ffffff;
+  justify-content: center; /* 카드가 가운데 정렬되도록 설정 */
+    align-items: flex-start; /* 슬라이드 카드 상단에 정렬 */
+    overflow-x: auto; /* 가로 스크롤 허용 */
+    scroll-behavior: smooth; /* 스크롤 시 부드러운 이동 효과 */
 }
 
+/* 슬라이드 개별 카드 스타일 */
 .festival-slide {
     display: flex;
-    background-color: #fff;
-    border-radius: 10px;
+    flex-direction: row; /* 이미지와 텍스트 정보를 수평으로 배치 */
+    background-color: #ffffff; /* 카드 배경을 흰색으로 설정 */
+    border-radius: 10px; /* 카드 모서리를 둥글게 */
     overflow: hidden;
-    width: 650px;
-    flex-shrink: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    align-items: center;
-    transition: filter 0.3s ease, opacity 0.3s ease;
-    filter: brightness(0.5); /* 기본적으로 어둡게 표시 */
-    opacity: 0.7;
+    width: 360px; /* 슬라이드 카드 너비 설정 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+    align-items: flex-start; /* 카드 안의 내용이 왼쪽으로 정렬되도록 설정 */
 }
 
-/* 활성화된 슬라이드 */
-.festival-slide.active {
-    filter: brightness(1);
-    opacity: 1;
-}
-
+/* 슬라이드 내 이미지 스타일 */
 .festival-slide img {
-    width: 280px;
-    height: 380px;
-    object-fit: cover;
-    flex-shrink: 0;
-    margin: 20px;
+    width: 150px; /* 이미지 너비 */
+    height: 200px; /* 이미지 높이 */
+    object-fit: cover; /* 이미지 비율을 유지하며 잘라내기 */
+    flex-shrink: 0; /* 이미지 크기가 줄어들지 않도록 설정 */
+    margin: 20px; /* 이미지 주위에 여백 추가 */
 }
 
+/* 텍스트 정보 섹션 */
 .festival-info {
-    padding: 15px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    text-align: left;
+    flex-direction: column; /* 텍스트 정보를 수직으로 배치 */
+    align-items: flex-start; /* 텍스트가 왼쪽에 정렬되도록 설정 */
+    padding: 10px; /* 텍스트 정보 섹션의 안쪽 여백 설정 */
+    width: 100%; /* 텍스트 섹션이 카드 너비에 맞도록 조정 */
 }
 
-
-/*내용 뷰뷴 버튼과 */
 .festival-info h3 {
-    margin: 0;
-    font-size: 1.3em;
-    color: #333;
-      position: relative;
-    top: -30px; /* 텍스트 위로 20px 이동 */
+    margin: 0; /* 기본 여백 제거 */
+    font-size: 1.2em; /* 제목 크기 설정 */
+    color: #333; /* 제목 색상을 어두운 회색으로 설정 */
+    font-weight: bold;
+    white-space: nowrap; /* 텍스트가 줄 바꿈 없이 한 줄로 유지되도록 설정 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 말줄임(...) 표시 */
+	margin-top: 5px; /* 제목을 아래로 약간 이동 */
+ font-family:  'SUIT-Regular', sans-serif;
 }
 
-
-/* 강남구 텍스트 스타일 */
+/* 텍스트 정보 섹션 - 지역 정보 스타일 */
 .event-district {
-    font-size: 18px; /* 원하는 크기로 설정 */
-    color: #333; /* 원하는 색상으로 설정 */
-    position: relative;
-    top: -30px; /* 텍스트 위로 20px 이동 */
-    margin: 10px 0;
+    font-size: 15px; /* 지역 정보의 텍스트 크기 설정 */
+    color: #333; /* 텍스트 색상을 어두운 회색으로 설정 */
+    margin: 3px 0; /* 위아래 여백 추가 */
+    font-family:  'SUIT-Regular', sans-serif;
 }
 
-/* 기간 텍스트 스타일 */
+/* 텍스트 정보 섹션 - 기간 정보 스타일 */
+.event-info {
+    display: flex; /* Flexbox로 텍스트 정보 배치 */
+    flex-direction: column; /* 텍스트 정보를 수직 방향으로 배치 */
+    align-items: flex-start; /* 텍스트 요소들이 왼쪽에 맞춰지도록 설정 */
+}
+
 .event-period {
-    font-size: 16px;
-    color: #333; 
-    margin: 5px 0;
-    text-align: left; /* 왼쪽 정렬 */
-   position: relative;
-    top: 85px; /* 아래로 20px 이동 */
+    font-size: 14px; /* 기간 정보의 텍스트 크기 설정 */
+    color: #333; /* 기간 정보 텍스트 색상을 어두운 회색으로 설정 */
+    margin: 5px 0; /* 상하 여백 설정 */
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    display: inline-flex; /* 텍스트를 Flexbox로 배치하여 아이콘과 텍스트를 중앙 정렬 */
+    align-items: center; /* 기간 정보 아이콘과 텍스트가 세로로 중앙에 위치하도록 설정 */
+      position: relative; /* 위치를 상대적으로 설정 */
+     top: 20px; /* 요소를 아래로 5px 이동 */
+      font-family:  'SUIT-Regular', sans-serif;
+     
 }
 
-/* 장소(홀) 텍스트 스타일 */
-.event-location{
-    font-size: 16px;
-    color: #333; 
-    margin: 5px 0;
-     margin-left: 160px; /* 왼쪽 여백 20px 추가 */
-    text-align: left; 
-	 position: relative;
-    top: 35px; /* 아래로 20px 이동 */
+/* 기간 정보 및 장소 정보 라벨 스타일 */
+.event-period .label,
+.event-location .label {
+    font-weight: bold; /* 라벨 텍스트를 굵게 설정 */
+    color: #333; /* 라벨 텍스트 색상을 어두운 회색으로 설정 */
+    margin-right: 15px; /* 라벨과 텍스트 사이에 간격 추가 */
 }
 
+/* 텍스트 정보 섹션 - 장소 정보 스타일 */
+.event-location {
+    font-size: 14px; /* 장소 정보의 텍스트 크기 설정 */
+    color: #333; /* 장소 정보 텍스트 색상을 어두운 회색으로 설정 */
+    margin: 5px 0; /* 상하 여백 추가 */
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    display: inline-flex; /* 텍스트를 Flexbox로 배치하여 아이콘과 텍스트를 중앙 정렬 */
+    align-items: center; /* 장소 정보 아이콘과 텍스트가 세로로 중앙에 위치하도록 설정 */
+      position: relative; /* 위치를 상대적으로 설정 */
+    top: 20px; /* 요소를 아래로 5px 이동 */
+     font-family:  'SUIT-Regular', sans-serif;
+}
+
+/* 버튼 스타일 */
 .action-button {
-    margin-top: 10px;
-    padding: 8px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    margin-top: 40px; /* 버튼과 텍스트 간의 간격 추가 */
+    margin-left: 30px; /* 왼쪽 여백 제거하여 버튼을 왼쪽으로 이동 */
+    background-color: #007bff; /* 버튼 배경색 */
+    color: #fff; /* 버튼 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    border-radius: 5px; /* 버튼 모서리를 둥글게 */
+    cursor: pointer; /* 포인터 커서 표시 */
     text-align: center;
-    width: 100px;
-    height: 35px;
-    position: relative;
-    right: -200px; /* 오른쪽으로 10px 이동 */
-    bottom: -50px; /* 아래로 10px 이동 */
+    width: 80px; /* 버튼 너비 설정 */
+    height: 35px; /* 버튼 높이 설정 */
+    transition: background-color 0.3s ease; /* 배경색 전환 애니메이션 */
+    font-family: 'SUIT-Regular';
+    
 }
 
+/* 버튼 호버 효과 */
 .action-button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* 호버 시 배경색 변경 */
 }
-

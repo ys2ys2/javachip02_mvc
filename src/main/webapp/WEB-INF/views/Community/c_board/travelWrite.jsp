@@ -6,8 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>여행기 작성</title>
-    <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
-    <link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/resources/css/travelWrite.css" rel="stylesheet" type="text/css">
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
 </head>
@@ -19,7 +17,7 @@
     <h2>여행기 작성하기</h2>
     
     <!-- 게시글 작성 폼 -->
-    <form name="frmTravelWrite" action="${pageContext.request.contextPath}/Community/travel/writeProcess" method="post" enctype="multipart/form-data">
+    <form class="write"name="frmTravelWrite" action="${pageContext.request.contextPath}/Community/travel/writeProcess" method="post" enctype="multipart/form-data">
         <!-- hidden 필드를 이용해 tp_idx에 기본값 설정 -->
        <input type="hidden" id="tp_idx" name="tp_idx" value="${travelPost != null ? travelPost.tp_idx : 0}">
 
@@ -29,7 +27,11 @@
                 <option value="" disabled selected>토픽을 선택해주세요.</option>
                 <option value="도시여행">도시여행</option>
                 <option value="자연여행">자연여행</option>
-                <option value="해외여행">해외여행</option>
+                <option value="힐링여행">힐링여행</option>
+                <option value="관광여행">관광여행</option>
+                <option value="가족과함께">가족과함께</option>
+                <option value="연인과함께">연인과함께</option>
+                <option value="친구와함께">친구와함께</option>
             </select>
         </div>
 
@@ -60,9 +62,8 @@
         </div>
 
         <div class="button-group">
-            <button type="submit" class="submit-button">게시글 작성 완료</button>
-            <input type="reset" value="다시입력">
-            <input type="button" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/Community/travelPostList'">
+            <button type="submit" class="submit-button">작성 완료</button>
+            <input type="button" class="back-button" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/Community/travelPostList'">
         </div>
     </form>
 </div>
@@ -85,11 +86,12 @@ $(document).ready(function() {
         }
     });
 
-    // 태그 삭제 처리
+ 	// 태그 삭제 처리 (이벤트 위임 방식)
     $("#tagsContainer").on("click", ".tag-remove", function() {
-        const tagValue = $(this).data("tag");
-        tags = tags.filter(tag => tag !== tagValue);
-        renderTags();
+        const tagValue = $(this).data("tag");  // 클릭한 태그의 데이터를 가져옵니다.
+        $(this).parent().remove();  // 부모 요소인 .tag 전체를 삭제합니다.
+        tags = tags.filter(tag => tag !== tagValue);  // 배열에서 해당 태그를 제거합니다.
+        $("#tags").val(tags.join(","));  // 숨겨진 필드에 태그 리스트 업데이트
     });
 
     function renderTags() {
@@ -113,6 +115,14 @@ $(document).ready(function() {
         }
         $("#file-name").css("margin-top", "10px").html(fileNames);
     });
+    
+    // 새로 입력 시 태그 배열 초기화
+    $("#tagsInput").on("focus", function() {
+        if (tags.length === 0) {  // 입력된 태그가 없는 경우에만 초기화
+            renderTags();
+        }
+    });
+    
 });
 
 </script>

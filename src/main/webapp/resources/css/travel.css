@@ -267,10 +267,11 @@ a {
 }
 
 .travel-post-img {
-	width: 100%;
 	height: 100%;
+	max-height: 150px;
 	gap: 10px;
 	font-family: 'SUIT-Regular', sans-serif;
+	object-fit: cover;
 	
 }
 
@@ -298,6 +299,5 @@ a {
 	font-family: 'SUIT-Regular', sans-serif;
 	font-size: 16px;
 }
-
 
 

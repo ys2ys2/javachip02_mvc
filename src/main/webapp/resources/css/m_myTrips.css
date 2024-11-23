@@ -28,8 +28,9 @@
     font-style: normal;
 }
 
+
 body {
-	margin: 0 auto;
+    margin: 0 auto;
 }
 
 .navigation {
@@ -237,6 +238,7 @@ body {
     font-size: 23px;
     position: relative;
      top:-19px;
+     width: 150px;
 }
 
 /* 여행 정보 카드 */
@@ -249,6 +251,7 @@ body {
      box-shadow: 
         0px 4px 8px rgba(255, 223, 0.3, 0.3),   /* 첫 번째 그림자: 가까운 밝은 그림자 */
         0px 8px 16px rgba(0.10, 0.10, 0.10, 0.10);     /* 두 번째 그림자: 멀리 있는 더 어두운 그림자 */
+    font-family: 'Pretendard-Regular', sans-serif;
 }
 
 .trip-card h4 {
@@ -327,5 +330,5 @@ body {
     position: relative; /* 상대적 위치 설정 */
     top: -5px;
 	left: 10px;
-	color: navy;
+	color: darkkhaki;
 }

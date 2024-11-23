@@ -1,0 +1,196 @@
+/* 파셜산스체 */
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 수트체 */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 샌드박스 어그로체 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 구미산업체 */
+@font-face {
+    font-family: 'GumiIndustryTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 페이퍼로지 */
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* 여기어때 잘난체 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* 기본 설정 초기화 */
+
+body {
+	margin: 0 auto;
+	font-family: 'SUIT-Regular', sans-serif;
+	
+}
+
+
+
+.member {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.member .welcome {
+    font-size: 16px;
+}
+
+.member form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.member form button:hover {
+    background-color: #0056b3;
+}
+
+/* 메인 콘텐츠 영역 스타일 */
+.content-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.map-and-places {
+    display: flex;
+    gap: 20px;
+}
+
+.map-container {
+    width: 600px;  /* 원하는 너비로 설정 */
+    height: 1000px; /* 원하는 높이로 설정 */
+    position: relative;
+    background-color: #e0e0e0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+#map {
+    width: 600px;  /* 원하는 너비로 설정 */
+    height: 1000px; /* 원하는 높이로 설정 */
+}
+
+
+/* 장소 리스트 스타일 */
+.places-list {
+    flex: 1;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.places-list h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.places-list h3 a {
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #f3f4f6;
+}
+
+.places-list h3 a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+#places-list {
+    list-style: none;
+    padding: 0;
+}
+
+#places-list li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#places-list li:last-child {
+    border-bottom: none;
+}
+
+#places-list img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+#places-list p {
+    margin: 0;
+}
+
+/* 커스텀 마커 스타일 */
+.custom-marker {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid white;
+    background-color: white;
+}
+
+.custom-marker::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+}
+
+.custom-marker img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}

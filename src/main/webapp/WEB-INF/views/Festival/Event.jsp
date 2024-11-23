@@ -31,7 +31,6 @@
     <!-- 상대 경로를 사용한 CSS 링크 -->   
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css"> <!-- header.css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css"> <!-- footer.css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hotplace.css?v=1.0"> <!-- footer.css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Event.css?v=1.0"> <!-- Event.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -82,7 +81,7 @@
          <%-- <c:forEach var="event" items="${events}" varStatus="vs"> 행사 데이터를 여러개 가겨올 때 사용하는 반복문--%>
 	      <h2>제목 : ${events[0].TITLE}</h2> <!-- EL로 제목 표시 -->
 	      <h3>장소 : ${events[0].GUNAME}</h3> <!--  EL로 장소 표시 -->
-	      <h4>소제목 : 일러스트레이션페어</h4>
+	      <h4>소제목 : 서울일러스트레이션페어 V.18</h4>
 	        </div>
 	
 <div class="h_icons">
@@ -111,7 +110,7 @@
 </div>
 
 <!-- 공유 팝업 -->
-<div id="sharePopup">
+<div id="sharePopup" style="display: none; position: absolute; top: 50px; right: 50px; padding: 10px; background-color: #fff; border: 1px solid #ddd;">
     <p>공유할 플랫폼을 선택하세요:</p>
     <button onclick="shareToPlatform('facebook')">Facebook</button>
     <button onclick="shareToPlatform('twitter')">Twitter</button>
@@ -259,9 +258,9 @@
                     <div class="user-info">
                         <!-- 프로필 이미지 경로를 동적으로 설정 -->
 					   <c:choose>
-					    <c:when test="${not empty comment.member.m_profile}">
-					        <img src="${pageContext.request.contextPath}/${comment.member.m_profile}" 
-					             alt="<c:out value='${comment.member.m_nickname}'/>" 
+					    <c:when test="${not empty member.m_profile}">
+					        <img src="${pageContext.request.contextPath}/${member.m_profile}" 
+					             alt="<c:out value='${member.m_nickname}'/>" 
 					             class="de">
 					    </c:when>
 					    <c:otherwise>
@@ -272,7 +271,7 @@
 					</c:choose>
 
                         <!-- 닉네임을 동적으로 설정 -->
-                        <span class="username"><c:out value="${comment.member.m_nickname}" /></span>
+                        <span class="username"><c:out value="${member.m_nickname}" /></span>
 
                         <span class="date">
                             <c:choose>
@@ -287,7 +286,7 @@
                     </div>
 
 
-                    <p><c:out value="${comment.t_comment_content}" /></p>
+     <p><c:out value="${comment.t_comment_content}" /></p>
 
                     <!-- 댓글 액션 버튼: 답글, 수정, 삭제 -->
                     <div class="comment-actions">
@@ -319,7 +318,6 @@
 </div>
 
 
-
 <!-- JavaScript 변수 설정을 위한 스크립트 블록 -->
 <script>
   var isLoggedIn = "${sessionScope.member != null}"; // 로그인 상태 확인
@@ -331,27 +329,28 @@
  
        
 
+      
        <div class="recommendations">
     <div class="festival-slider">
         <!-- 첫 번째 행사 -->
         <div class="festival-slide">
-            <a href="${pageContext.request.contextPath}/Festival/Event4">
-                <img src="${pageContext.request.contextPath}/resources/images/Festival_Seoul4.png" alt="Festival Image 1">
+            <a href="${pageContext.request.contextPath}/Festival/Event">
+                <img src="${pageContext.request.contextPath}/resources/images/Festival_Seoul2.jpg" alt="Festival Image 1">
             </a>
             <div class="festival-info">
-                <h3>오페라 갈라</h3>
-                <button class="action-button">바로가기</button>
+                <h3>파리나무십자가</h3>
+                <button class="action-button" data-href="${pageContext.request.contextPath}/Festival/Event2">바로가기</button>
             </div>
         </div>
 
         <!-- 두 번째 행사 -->
         <div class="festival-slide">
-            <a href="${pageContext.request.contextPath}/Festival/Event2">
-                <img src="${pageContext.request.contextPath}/resources/images/Festival_Seoul2.jpg" alt="Festival Image 2">
+            <a href="${pageContext.request.contextPath}/Festival/Event4">
+                <img src="${pageContext.request.contextPath}/resources/images/Festival_Seoul4.png" alt="Festival Image 2">
             </a>
             <div class="festival-info">
-                <h3>2024 파리나무십자가 소년</h3>
-                <button class="action-button">바로가기</button>
+                <h3>오페라 갈라</h3>
+                <button class="action-button" data-href="${pageContext.request.contextPath}/Festival/Event4">바로가기</button>
             </div>
         </div>
 
@@ -362,7 +361,7 @@
             </a>
             <div class="festival-info">
                 <h3>행복의 파랑새</h3>
-                <button class="action-button">바로가기</button>
+                <button class="action-button" data-href="${pageContext.request.contextPath}/Festival/Event3">바로가기</button>
             </div>
         </div>
     </div>
@@ -425,6 +424,17 @@
 //jQuery 이용
 
  $(function(){
+	 
+	 //바로가기 버튼 클릭시 해당 JSP페이지로 이동하기
+	 $(".action-button").on("click", function(){
+		 const actionBtnHref = $(this).data("href");
+		 
+		 location.href = actionBtnHref;
+		 
+	 });
+	 
+	 
+	 
 
 	$(".comment-submit").on("click", function(){
 	
